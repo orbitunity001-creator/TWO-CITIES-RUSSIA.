@@ -1,542 +1,1009 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<title>TWO CITIES: RUSSIA</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1,
+                   maximum-scale=1,
+                   user-scalable=no,
+                   viewport-fit=cover">
+
+    <title>TWO CITIES: RUSSIA</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- Иконка -->
+    <link rel="icon"
+          href="./icon.svg"
+          type="image/svg+xml">
+
+    <link rel="apple-touch-icon"
+          href="./icon.svg">
+
+    <meta name="theme-color"
+          content="#03050d">
+
+    <meta name="mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+
+/* =====================================
+   ОСНОВА
+===================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#020308;
-    font-family:Arial,Helvetica,sans-serif;
-    color:white;
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #020308;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: white;
+
+    touch-action: manipulation;
 }
 
-/* =========================
-   ПОВОРОТ ТЕЛЕФОНА
-========================= */
 
-#rotateScreen{
-    position:fixed;
-    inset:0;
-    z-index:99999;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
+/* =====================================
+   ЭКРАН ПОВОРОТА
+===================================== */
+
+#rotateScreen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 999999;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
 
     background:
-        radial-gradient(circle at 50% 35%,
-        rgba(50,120,255,.18),
-        transparent 35%),
-        radial-gradient(circle at 50% 90%,
-        rgba(150,40,255,.12),
-        transparent 45%),
-        #020308;
-}
 
-.rotateContent{
-    width:90%;
-    max-width:520px;
-}
-
-.rotateLogo{
-    font-size:12px;
-    letter-spacing:6px;
-    opacity:.45;
-    margin-bottom:35px;
-}
-
-.rotatePhone{
-    width:75px;
-    height:125px;
-    border:2px solid rgba(255,255,255,.8);
-    border-radius:18px;
-    margin:0 auto 35px;
-    position:relative;
-    animation:phoneRotate 2.5s infinite ease-in-out;
-
-    box-shadow:
-        0 0 25px rgba(70,180,255,.25);
-}
-
-.rotatePhone:before{
-    content:"";
-    position:absolute;
-    top:8px;
-    left:50%;
-    transform:translateX(-50%);
-    width:22px;
-    height:3px;
-    border-radius:5px;
-    background:white;
-    opacity:.5;
-}
-
-.rotatePhone:after{
-    content:"";
-    position:absolute;
-    bottom:8px;
-    left:50%;
-    transform:translateX(-50%);
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:white;
-}
-
-@keyframes phoneRotate{
-
-    0%,20%{
-        transform:rotate(0deg);
-    }
-
-    55%,75%{
-        transform:rotate(90deg);
-    }
-
-    100%{
-        transform:rotate(90deg);
-    }
-}
-
-.rotateTitle{
-    font-size:clamp(25px,5vw,40px);
-    font-weight:800;
-    letter-spacing:3px;
-    margin-bottom:15px;
-}
-
-.rotateText{
-    font-size:14px;
-    color:rgba(255,255,255,.55);
-    line-height:1.6;
-}
-
-.rotateLine{
-    width:180px;
-    height:1px;
-    margin:30px auto;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        #6edfff,
-        transparent
-    );
-    box-shadow:0 0 15px #4fdcff;
-}
-
-
-/* =========================
-   ЗАСТАВКА
-========================= */
-
-#splash{
-    position:fixed;
-    inset:0;
-    z-index:5000;
-    overflow:hidden;
-
-    background:
         radial-gradient(
-            circle at 50% 35%,
-            rgba(38,112,190,.20),
+            circle at 50% 25%,
+            rgba(44,145,255,.20),
             transparent 30%
         ),
-        radial-gradient(
-            circle at 20% 80%,
-            rgba(120,40,255,.15),
-            transparent 35%
-        ),
-        linear-gradient(
-            180deg,
-            #02040b 0%,
-            #050b18 55%,
-            #020308 100%
-        );
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(150,55,255,.15),
+            transparent 40%
+        ),
+
+        linear-gradient(
+            145deg,
+            #010207,
+            #071020,
+            #03040a
+        );
 }
 
 
-/* Звёзды */
+.rotateContent {
 
-.stars{
-    position:absolute;
-    inset:0;
+    width: 90%;
+
+    max-width: 520px;
+
+    animation:
+        rotateAppear
+        1s
+        ease;
+}
+
+
+@keyframes rotateAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(.95);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+.rotateStudio {
+
+    font-size: 10px;
+
+    letter-spacing: 6px;
+
+    color:
+        rgba(255,255,255,.38);
+
+    margin-bottom: 32px;
+}
+
+
+/* Телефон */
+
+.phone {
+
+    width: 74px;
+
+    height: 125px;
+
+    margin:
+        0 auto 32px;
+
+    border:
+        2px solid
+        rgba(255,255,255,.8);
+
+    border-radius: 18px;
+
+    position: relative;
+
+    animation:
+        phoneAnimation
+        2.8s
+        infinite
+        ease-in-out;
+
+    box-shadow:
+
+        0 0 20px
+        rgba(60,210,255,.25),
+
+        inset 0 0 15px
+        rgba(60,210,255,.08);
+}
+
+
+.phone::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 8px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    width: 23px;
+
+    height: 3px;
+
+    border-radius: 5px;
+
+    background: white;
+
+    opacity: .5;
+}
+
+
+.phone::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: 8px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: white;
+}
+
+
+@keyframes phoneAnimation {
+
+    0%,
+    15% {
+
+        transform:
+            rotate(0deg);
+    }
+
+    55%,
+    75% {
+
+        transform:
+            rotate(90deg);
+    }
+
+    100% {
+
+        transform:
+            rotate(90deg);
+    }
+}
+
+
+.rotateTitle {
+
+    font-size:
+        clamp(
+            25px,
+            5vw,
+            42px
+        );
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 14px;
+}
+
+
+.rotateText {
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    color:
+        rgba(255,255,255,.50);
+}
+
+
+.rotateLine {
+
+    width: 190px;
+
+    height: 1px;
+
+    margin:
+        27px auto;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            #55dcff,
+            #a66cff,
+            transparent
+        );
+
+    box-shadow:
+
+        0 0 15px
+        rgba(70,210,255,.8);
+}
+
+
+/* =====================================
+   ЗАСТАВКА
+===================================== */
+
+#splash {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 32%,
+            rgba(35,125,220,.20),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 15% 85%,
+            rgba(140,40,255,.16),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            180deg,
+            #01030a 0%,
+            #050b18 55%,
+            #010207 100%
+        );
+}
+
+
+/* =====================================
+   ЗВЁЗДЫ
+===================================== */
+
+.stars {
+
+    position: absolute;
+
+    inset: 0;
+
     background-image:
-        radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px),
-        radial-gradient(circle,rgba(100,190,255,.5) 1px,transparent 1px);
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) 1px,
+            transparent 1px
+        ),
+
+        radial-gradient(
+            circle,
+            rgba(80,190,255,.6) 1px,
+            transparent 1px
+        );
 
     background-size:
-        90px 90px,
-        140px 140px;
+        95px 95px,
+        145px 145px;
 
     background-position:
         10px 20px,
-        50px 80px;
+        40px 70px;
 
-    opacity:.18;
-    animation:starsMove 20s linear infinite;
-}
+    opacity: .18;
 
-@keyframes starsMove{
-    from{
-        transform:translateY(0);
-    }
-
-    to{
-        transform:translateY(90px);
-    }
+    animation:
+        starsMove
+        18s
+        linear
+        infinite;
 }
 
 
-/* Огромное свечение */
+@keyframes starsMove {
 
-.glow{
-    position:absolute;
-    width:650px;
-    height:650px;
-    border-radius:50%;
+    from {
 
-    background:radial-gradient(
-        circle,
-        rgba(40,150,255,.13),
-        transparent 68%
-    );
-
-    animation:glowPulse 4s infinite ease-in-out;
-}
-
-@keyframes glowPulse{
-    0%,100%{
-        transform:scale(.9);
-        opacity:.6;
+        transform:
+            translateY(0);
     }
 
-    50%{
-        transform:scale(1.1);
-        opacity:1;
+    to {
+
+        transform:
+            translateY(95px);
     }
 }
 
 
-/* Горизонт */
+/* =====================================
+   ЦЕНТРАЛЬНОЕ СВЕЧЕНИЕ
+===================================== */
 
-.horizon{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:27%;
-    height:1px;
+.mainGlow {
 
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(70,200,255,.7),
-        rgba(180,80,255,.7),
-        transparent
-    );
+    position: absolute;
 
-    box-shadow:
-        0 0 15px #3bdcff,
-        0 0 45px rgba(100,80,255,.6);
-}
+    width: 650px;
 
+    height: 650px;
 
-/* Город */
-
-.city{
-    position:absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    height:35%;
-
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-    gap:5px;
-
-    opacity:.8;
-}
-
-.building{
-    position:relative;
-
-    width:clamp(30px,6vw,100px);
-
-    background:linear-gradient(
-        90deg,
-        #03050b,
-        #101827,
-        #03050b
-    );
-
-    border-top:1px solid rgba(100,190,255,.15);
-}
-
-.building:nth-child(1){height:45%}
-.building:nth-child(2){height:65%}
-.building:nth-child(3){height:52%}
-.building:nth-child(4){height:82%}
-.building:nth-child(5){height:60%}
-.building:nth-child(6){height:95%}
-.building:nth-child(7){height:67%}
-.building:nth-child(8){height:50%}
-.building:nth-child(9){height:75%}
-.building:nth-child(10){height:44%}
-
-.building:after{
-    content:"";
-
-    position:absolute;
-    inset:8px;
+    border-radius: 50%;
 
     background:
+
+        radial-gradient(
+            circle,
+            rgba(30,150,255,.13),
+            transparent 68%
+        );
+
+    animation:
+        glowPulse
+        4s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(.9);
+
+        opacity: .6;
+    }
+
+    50% {
+
+        transform:
+            scale(1.1);
+
+        opacity: 1;
+    }
+}
+
+
+/* =====================================
+   ГОРОД
+===================================== */
+
+.city {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    height: 38%;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    opacity: .85;
+}
+
+
+.building {
+
+    position: relative;
+
+    width:
+        clamp(
+            30px,
+            6vw,
+            100px
+        );
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #03050a,
+            #10192a,
+            #03050a
+        );
+
+    border-top:
+        1px solid
+        rgba(90,190,255,.18);
+}
+
+
+.building:nth-child(1) {
+    height: 43%;
+}
+
+.building:nth-child(2) {
+    height: 66%;
+}
+
+.building:nth-child(3) {
+    height: 52%;
+}
+
+.building:nth-child(4) {
+    height: 80%;
+}
+
+.building:nth-child(5) {
+    height: 59%;
+}
+
+.building:nth-child(6) {
+    height: 94%;
+}
+
+.building:nth-child(7) {
+    height: 66%;
+}
+
+.building:nth-child(8) {
+    height: 50%;
+}
+
+.building:nth-child(9) {
+    height: 75%;
+}
+
+.building:nth-child(10) {
+    height: 45%;
+}
+
+
+.building::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 8px;
+
+    background:
+
         repeating-linear-gradient(
             to bottom,
-            rgba(90,190,255,.55) 0,
-            rgba(90,190,255,.55) 3px,
+            rgba(90,205,255,.55) 0,
+            rgba(90,205,255,.55) 3px,
             transparent 3px,
             transparent 17px
         );
 
-    opacity:.25;
+    opacity: .25;
 }
 
 
-/* =========================
-   ЛОГО
-========================= */
+/* =====================================
+   ГОРИЗОНТ
+===================================== */
 
-.logo{
-    position:relative;
-    z-index:10;
-    width:90%;
-    max-width:1000px;
-    text-align:center;
-}
+.horizon {
 
-.studio{
-    font-size:11px;
-    letter-spacing:7px;
-    color:rgba(255,255,255,.45);
-    margin-bottom:25px;
+    position: absolute;
 
-    animation:appear 1.2s ease;
-}
+    left: 0;
 
-.two{
-    font-size:clamp(50px,10vw,125px);
-    line-height:.85;
-    font-weight:900;
-    letter-spacing:clamp(4px,1vw,15px);
+    right: 0;
 
-    background:linear-gradient(
-        100deg,
-        #ffffff 0%,
-        #8be7ff 25%,
-        #ffffff 50%,
-        #b98aff 75%,
-        #ffffff 100%
-    );
+    bottom: 28%;
 
-    background-size:300% 100%;
-
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-
-    animation:
-        titleAppear 1.4s ease,
-        gradientMove 5s linear infinite;
-
-    text-shadow:
-        0 0 20px rgba(70,190,255,.25);
-}
-
-.russia{
-    margin-top:12px;
-
-    font-size:clamp(28px,5vw,70px);
-    font-weight:800;
-    letter-spacing:clamp(8px,2vw,24px);
-
-    color:white;
-
-    text-shadow:
-        0 0 10px rgba(255,255,255,.5),
-        0 0 35px rgba(50,160,255,.45);
-
-    animation:titleAppear 1.8s ease;
-}
-
-@keyframes gradientMove{
-    from{
-        background-position:0% center;
-    }
-
-    to{
-        background-position:300% center;
-    }
-}
-
-@keyframes titleAppear{
-
-    from{
-        opacity:0;
-        transform:translateY(25px) scale(.94);
-        filter:blur(10px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-        filter:blur(0);
-    }
-}
-
-@keyframes appear{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:.45;
-        transform:translateY(0);
-    }
-}
-
-
-/* Города */
-
-.cities{
-    margin-top:30px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:20px;
-
-    font-size:11px;
-    letter-spacing:4px;
-
-    color:rgba(255,255,255,.55);
-}
-
-.dot{
-    width:5px;
-    height:5px;
-    border-radius:50%;
-
-    background:#6de4ff;
-
-    box-shadow:
-        0 0 10px #6de4ff,
-        0 0 25px #6de4ff;
-}
-
-
-/* Линия */
-
-.separator{
-    width:min(480px,70%);
-    height:1px;
-    margin:28px auto;
-
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.5),
-        transparent
-    );
-}
-
-
-/* Загрузка */
-
-.loading{
-    width:min(360px,65%);
-    margin:auto;
-}
-
-.loadingTop{
-    display:flex;
-    justify-content:space-between;
-
-    font-size:9px;
-    letter-spacing:3px;
-
-    color:rgba(255,255,255,.4);
-
-    margin-bottom:9px;
-}
-
-.bar{
-    width:100%;
-    height:3px;
-
-    background:rgba(255,255,255,.08);
-
-    border-radius:10px;
-    overflow:hidden;
-}
-
-.progress{
-    height:100%;
-    width:0;
-
-    background:linear-gradient(
-        90deg,
-        #4edcff,
-        #9b69ff,
-        white
-    );
-
-    box-shadow:
-        0 0 12px #55ddff,
-        0 0 30px #805dff;
-
-    animation:loading 5s linear forwards;
-}
-
-@keyframes loading{
-    from{width:0}
-    to{width:100%}
-}
-
-
-/* =========================
-   ИГРОВОЙ ЭКРАН
-========================= */
-
-#game{
-    position:fixed;
-    inset:0;
+    height: 1px;
 
     background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            #46dfff,
+            #a56cff,
+            transparent
+        );
+
+    box-shadow:
+
+        0 0 15px
+        #46dfff,
+
+        0 0 40px
+        rgba(130,70,255,.7);
+}
+
+
+/* =====================================
+   ЛОГО
+===================================== */
+
+.logo {
+
+    position: relative;
+
+    z-index: 20;
+
+    width: 90%;
+
+    max-width: 1000px;
+
+    text-align: center;
+}
+
+
+.studio {
+
+    font-size: 11px;
+
+    letter-spacing: 7px;
+
+    color:
+        rgba(255,255,255,.42);
+
+    margin-bottom: 25px;
+
+    animation:
+        fadeUp
+        1.2s
+        ease;
+}
+
+
+.twoCities {
+
+    font-size:
+        clamp(
+            48px,
+            10vw,
+            125px
+        );
+
+    line-height: .85;
+
+    font-weight: 900;
+
+    letter-spacing:
+        clamp(
+            4px,
+            1vw,
+            15px
+        );
+
+    background:
+
+        linear-gradient(
+            100deg,
+            #ffffff,
+            #79e4ff,
+            #ffffff,
+            #b478ff,
+            #ffffff
+        );
+
+    background-size: 300% 100%;
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+    animation:
+
+        titleAppear
+        1.4s
+        ease,
+
+        gradientMove
+        5s
+        linear
+        infinite;
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(60,200,255,.25)
+        );
+}
+
+
+.russia {
+
+    margin-top: 13px;
+
+    font-size:
+        clamp(
+            27px,
+            5vw,
+            70px
+        );
+
+    font-weight: 900;
+
+    letter-spacing:
+        clamp(
+            7px,
+            2vw,
+            24px
+        );
+
+    color: white;
+
+    text-shadow:
+
+        0 0 10px
+        rgba(255,255,255,.55),
+
+        0 0 35px
+        rgba(60,180,255,.45);
+
+    animation:
+        titleAppear
+        1.7s
+        ease;
+}
+
+
+@keyframes gradientMove {
+
+    from {
+
+        background-position:
+            0% center;
+    }
+
+    to {
+
+        background-position:
+            300% center;
+    }
+}
+
+
+@keyframes titleAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.94);
+
+        filter:
+            blur(10px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter:
+            blur(0);
+    }
+}
+
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+    }
+
+    to {
+
+        opacity: .42;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =====================================
+   ГОРОДА
+===================================== */
+
+.cities {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    margin-top: 30px;
+
+    color:
+        rgba(255,255,255,.52);
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+}
+
+
+.dot {
+
+    width: 5px;
+
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #62e3ff;
+
+    box-shadow:
+
+        0 0 10px #62e3ff,
+
+        0 0 25px #62e3ff;
+}
+
+
+/* =====================================
+   РАЗДЕЛИТЕЛЬ
+===================================== */
+
+.separator {
+
+    width:
+        min(
+            480px,
+            70%
+        );
+
+    height: 1px;
+
+    margin:
+        28px auto;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.5),
+            transparent
+        );
+}
+
+
+/* =====================================
+   ЗАГРУЗКА
+===================================== */
+
+.loading {
+
+    width:
+        min(
+            360px,
+            65%
+        );
+
+    margin: auto;
+}
+
+
+.loadingTop {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color:
+        rgba(255,255,255,.40);
+}
+
+
+.loadingBar {
+
+    width: 100%;
+
+    height: 3px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.loadingProgress {
+
+    height: 100%;
+
+    width: 0%;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #4bdfff,
+            #956cff,
+            white
+        );
+
+    box-shadow:
+
+        0 0 12px
+        #4bdfff,
+
+        0 0 30px
+        #805dff;
+
+    animation:
+        loading
+        5s
+        linear
+        forwards;
+}
+
+
+@keyframes loading {
+
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+
+/* =====================================
+   ИГРОВОЙ ЭКРАН
+===================================== */
+
+#game {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    background:
+
         radial-gradient(
             circle at 50% 30%,
-            #142747,
+            #122747,
             transparent 50%
         ),
+
         linear-gradient(
             180deg,
             #050914,
@@ -545,56 +1012,89 @@ html,body{
 }
 
 
-/* =========================
-   ТОЛЬКО LANDSCAPE
-========================= */
+/* =====================================
+   LANDSCAPE
+===================================== */
 
-@media (orientation:portrait){
+@media (orientation: portrait) {
 
-    #rotateScreen{
-        display:flex;
+    #rotateScreen {
+
+        display: flex;
     }
 
     #splash,
-    #game{
-        display:none!important;
+    #game {
+
+        display: none !important;
     }
 }
 
-@media (orientation:landscape){
 
-    #rotateScreen{
-        display:none!important;
+@media (orientation: landscape) {
+
+    #rotateScreen {
+
+        display: none !important;
+    }
+}
+
+
+/* =====================================
+   МАЛЕНЬКИЕ ЭКРАНЫ
+===================================== */
+
+@media (max-height: 450px) {
+
+    .studio {
+
+        margin-bottom: 12px;
+    }
+
+    .cities {
+
+        margin-top: 18px;
+    }
+
+    .separator {
+
+        margin: 16px auto;
+    }
+
+    .loading {
+
+        margin-top: 0;
     }
 }
 
 </style>
 </head>
 
+
 <body>
 
 
-<!-- =========================
-     ЭКРАН ПОВОРОТА
-========================= -->
+<!-- =====================================
+     ПОВОРОТ ТЕЛЕФОНА
+===================================== -->
 
 <div id="rotateScreen">
 
     <div class="rotateContent">
 
-        <div class="rotateLogo">
+        <div class="rotateStudio">
             TWO CITIES: RUSSIA
         </div>
 
-        <div class="rotatePhone"></div>
+        <div class="phone"></div>
 
         <div class="rotateTitle">
             ПОВЕРНИТЕ ТЕЛЕФОН
         </div>
 
         <div class="rotateText">
-            Эта игра создана для<br>
-            горизонтального режима
+            Игра работает только<br>
+            в горизонтальном режиме
         </div>
 
         <div class="rotateLine"></div>
@@ -608,17 +1108,20 @@ html,body{
 </div>
 
 
-<!-- =========================
+<!-- =====================================
      ЗАСТАВКА
-========================= -->
+===================================== -->
 
 <div id="splash">
 
     <div class="stars"></div>
 
-    <div class="glow"></div>
+    <div class="mainGlow"></div>
 
     <div class="horizon"></div>
+
+
+    <!-- Город -->
 
     <div class="city">
 
@@ -636,13 +1139,15 @@ html,body{
     </div>
 
 
+    <!-- Логотип -->
+
     <div class="logo">
 
         <div class="studio">
             CATS DEVELOPER STUDIO GAME
         </div>
 
-        <div class="two">
+        <div class="twoCities">
             TWO CITIES
         </div>
 
@@ -662,11 +1167,16 @@ html,body{
 
         <div class="separator"></div>
 
+
+        <!-- Загрузка -->
+
         <div class="loading">
 
             <div class="loadingTop">
 
-                <span>ЗАГРУЗКА</span>
+                <span>
+                    ЗАГРУЗКА ИГРЫ
+                </span>
 
                 <span id="percent">
                     0%
@@ -674,9 +1184,9 @@ html,body{
 
             </div>
 
-            <div class="bar">
+            <div class="loadingBar">
 
-                <div class="progress"></div>
+                <div class="loadingProgress"></div>
 
             </div>
 
@@ -687,97 +1197,126 @@ html,body{
 </div>
 
 
-<!-- =========================
+<!-- =====================================
      ИГРА
-========================= -->
+===================================== -->
 
-<div id="game">
-
-</div>
+<div id="game"></div>
 
 
 <script>
 
-/* =========================
+/* =====================================
    ПРОЦЕНТ ЗАГРУЗКИ
-========================= */
+===================================== */
 
-let number = 0;
+let progress = 0;
 
 const percent =
     document.getElementById("percent");
 
-const timer =
+const loadingTimer =
     setInterval(() => {
 
-        number++;
+        progress++;
 
         percent.textContent =
-            number + "%";
+            progress + "%";
 
-        if(number >= 100){
+        if (progress >= 100) {
 
-            clearInterval(timer);
-
+            clearInterval(
+                loadingTimer
+            );
         }
 
-    },50);
+    }, 50);
 
 
-/* =========================
-   ПОПЫТКА ЗАФИКСИРОВАТЬ
-   LANDSCAPE
-========================= */
+/* =====================================
+   ПОПЫТКА ЗАФИКСИРОВАТЬ LANDSCAPE
+===================================== */
 
-async function landscape(){
+async function lockLandscape() {
 
-    try{
+    try {
 
-        if(
+        if (
             screen.orientation &&
             screen.orientation.lock
-        ){
+        ) {
 
             await screen.orientation.lock(
                 "landscape"
             );
-
         }
 
-    }catch(e){
+    } catch (error) {
 
-        // Некоторые браузеры
-        // запрещают автоматическую
-        // блокировку ориентации.
-
+        console.log(
+            "Автоблокировка ориентации недоступна"
+        );
     }
-
 }
 
-landscape();
+
+/* =====================================
+   PWA SERVICE WORKER
+===================================== */
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("./sw.js")
+                .catch(
+                    error => {
+                        console.log(
+                            "Service Worker:",
+                            error
+                        );
+                    }
+                );
+
+        }
+    );
+}
 
 
-/* =========================
-   5 СЕКУНД
-========================= */
+/* =====================================
+   ЗАПУСК LANDSCAPE
+===================================== */
+
+lockLandscape();
+
+
+/* =====================================
+   ЗАСТАВКА 5 СЕКУНД
+===================================== */
 
 setTimeout(() => {
 
     const splash =
-        document.getElementById("splash");
+        document.getElementById(
+            "splash"
+        );
 
     splash.style.transition =
         "opacity 1s ease";
 
     splash.style.opacity = "0";
 
+
     setTimeout(() => {
 
         splash.remove();
 
-    },1000);
+    }, 1000);
 
-},5000);
+}, 5000);
 
 </script>
 
