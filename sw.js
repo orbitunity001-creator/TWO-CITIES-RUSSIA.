@@ -1,139 +1,116 @@
-const CACHE_NAME = "two-cities-russia-v1";
+const CACHE_NAME = "two-cities-russia-v3";
 
 const FILES = [
     "./",
     "./index.html",
     "./manifest.json",
-    "./icon.svg"
+    "./icon.svg",
+    "./sw.js"
 ];
 
+self.addEventListener("install", event => {
 
-/* ==============================
-   УСТАНОВКА
-============================== */
+    event.waitUntil(
 
-self.addEventListener(
-    "install",
-    event => {
+        caches
+            .open(CACHE_NAME)
+            .then(cache => {
 
-        event.waitUntil(
+                return cache.addAll(
+                    FILES
+                );
 
-            caches.open(CACHE_NAME)
-                .then(cache => {
+            })
+            .then(() => {
 
-                    return cache.addAll(
-                        FILES
-                    );
+                return self.skipWaiting();
 
-                })
+            })
 
-        );
+    );
 
-        self.skipWaiting();
+});
+
+self.addEventListener("activate", event => {
+
+    event.waitUntil(
+
+        caches
+            .keys()
+            .then(keys => {
+
+                return Promise.all(
+
+                    keys
+                        .filter(
+                            key =>
+                                key !== CACHE_NAME
+                        )
+                        .map(
+                            key =>
+                                caches.delete(
+                                    key
+                                )
+                        )
+
+                );
+
+            })
+            .then(() => {
+
+                return self.clients.claim();
+
+            })
+
+    );
+
+});
+
+self.addEventListener("fetch", event => {
+
+    if (
+        event.request.method !== "GET"
+    ) {
+        return;
     }
-);
 
+    event.respondWith(
 
-/* ==============================
-   АКТИВАЦИЯ
-============================== */
+        fetch(event.request)
+            .then(response => {
 
-self.addEventListener(
-    "activate",
-    event => {
-
-        event.waitUntil(
-
-            caches.keys()
-                .then(names => {
-
-                    return Promise.all(
-
-                        names
-                            .filter(
-                                name =>
-                                    name !==
-                                    CACHE_NAME
-                            )
-                            .map(
-                                name =>
-                                    caches.delete(
-                                        name
-                                    )
-                            )
-
-                    );
-
-                })
-
-        );
-
-        self.clients.claim();
-    }
-);
-
-
-/* ==============================
-   ЗАПРОСЫ
-============================== */
-
-self.addEventListener(
-    "fetch",
-    event => {
-
-        event.respondWith(
-
-            caches.match(
-                event.request
-            )
-            .then(cached => {
-
-                if (cached) {
-
-                    return cached;
-                }
-
-                return fetch(
-                    event.request
-                )
-                .then(response => {
-
-                    if (
-                        !response ||
-                        response.status !== 200
-                    ) {
-
-                        return response;
-                    }
+                if (
+                    response &&
+                    response.status === 200
+                ) {
 
                     const copy =
                         response.clone();
 
-                    caches.open(
-                        CACHE_NAME
-                    )
-                    .then(cache => {
+                    caches
+                        .open(CACHE_NAME)
+                        .then(cache => {
 
-                        cache.put(
-                            event.request,
-                            copy
-                        );
+                            cache.put(
+                                event.request,
+                                copy
+                            );
 
-                    });
+                        });
 
-                    return response;
+                }
 
-                })
-                .catch(() => {
+                return response;
 
-                    return caches.match(
-                        "./index.html"
-                    );
+            })
+            .catch(() => {
 
-                });
+                return caches.match(
+                    event.request
+                );
 
             })
 
-        );
-    }
-); 
+    );
+
+});
