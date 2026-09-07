@@ -1,451 +1,652 @@
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="512"
-    height="512"
-    viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 
-    <defs>
+<defs>
 
-        <linearGradient
-            id="background"
-            x1="0"
-            y1="0"
-            x2="1"
-            y2="1">
+  <linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#111522"/>
+    <stop offset="0.55" stop-color="#080a12"/>
+    <stop offset="1" stop-color="#020204"/>
+  </linearGradient>
 
-            <stop
-                offset="0%"
-                stop-color="#02040b"/>
+  <linearGradient id="redCar" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#ff4b4b"/>
+    <stop offset="0.25" stop-color="#d7192d"/>
+    <stop offset="0.65" stop-color="#a70719"/>
+    <stop offset="1" stop-color="#4d030b"/>
+  </linearGradient>
 
-            <stop
-                offset="50%"
-                stop-color="#101b35"/>
+  <linearGradient id="hood" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ff5b5b"/>
+    <stop offset="0.5" stop-color="#d7192d"/>
+    <stop offset="1" stop-color="#850613"/>
+  </linearGradient>
 
-            <stop
-                offset="100%"
-                stop-color="#280b45"/>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9bdfff"/>
+    <stop offset="0.35" stop-color="#244c70"/>
+    <stop offset="0.75" stop-color="#0a1728"/>
+    <stop offset="1" stop-color="#02050b"/>
+  </linearGradient>
 
-        </linearGradient>
+  <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#161820"/>
+    <stop offset="1" stop-color="#020203"/>
+  </linearGradient>
 
+  <radialGradient id="headlight">
+    <stop offset="0" stop-color="#ffffff"/>
+    <stop offset="0.35" stop-color="#d9f5ff"/>
+    <stop offset="1" stop-color="#5ccaff"/>
+  </radialGradient>
 
-        <linearGradient
-            id="neon"
-            x1="0"
-            y1="0"
-            x2="1"
-            y2="1">
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="7" result="blur"/>
+    <feMerge>
+      <feMergeNode in="blur"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
 
-            <stop
-                offset="0%"
-                stop-color="#43e7ff"/>
+  <filter id="softGlow">
+    <feGaussianBlur stdDeviation="14"/>
+  </filter>
 
-            <stop
-                offset="50%"
-                stop-color="#ffffff"/>
+  <clipPath id="rounded">
+    <rect width="512" height="512" rx="92"/>
+  </clipPath>
 
-            <stop
-                offset="100%"
-                stop-color="#a86cff"/>
-
-        </linearGradient>
-
-
-        <filter
-            id="glow">
-
-            <feGaussianBlur
-                stdDeviation="9"
-                result="blur"/>
-
-            <feMerge>
-
-                <feMergeNode
-                    in="blur"/>
-
-                <feMergeNode
-                    in="SourceGraphic"/>
-
-            </feMerge>
-
-        </filter>
+</defs>
 
 
-        <filter
-            id="smallGlow">
+<!-- BACKGROUND -->
 
-            <feGaussianBlur
-                stdDeviation="3"
-                result="blur"/>
+<rect width="512"
+      height="512"
+      rx="92"
+      fill="url(#background)"/>
 
-            <feMerge>
+<g clip-path="url(#rounded)">
 
-                <feMergeNode
-                    in="blur"/>
+  <!-- CITY SKY -->
 
-                <feMergeNode
-                    in="SourceGraphic"/>
+  <circle cx="90"
+          cy="190"
+          r="90"
+          fill="#145dff"
+          opacity=".12"
+          filter="url(#softGlow)"/>
 
-            </feMerge>
-
-        </filter>
-
-    </defs>
-
-
-    <!-- ФОН -->
-
-    <rect
-        width="512"
-        height="512"
-        rx="110"
-        fill="url(#background)"/>
+  <circle cx="430"
+          cy="220"
+          r="100"
+          fill="#ff173b"
+          opacity=".08"
+          filter="url(#softGlow)"/>
 
 
-    <!-- СВЕЧЕНИЕ -->
+  <!-- CITY BUILDINGS -->
 
-    <circle
-        cx="256"
-        cy="210"
-        r="190"
-        fill="#248cff"
-        opacity=".08"/>
+  <g opacity=".72">
 
-    <circle
-        cx="256"
-        cy="210"
-        r="120"
-        fill="#a84dff"
-        opacity=".08"/>
+    <path d="M0 175H55V365H0Z"
+          fill="#0b0e18"/>
+
+    <path d="M45 135H112V365H45Z"
+          fill="#101522"/>
+
+    <path d="M105 205H155V365H105Z"
+          fill="#080c15"/>
+
+    <path d="M150 120H215V365H150Z"
+          fill="#111827"/>
+
+    <path d="M210 185H270V365H210Z"
+          fill="#080c15"/>
+
+    <path d="M265 105H330V365H265Z"
+          fill="#101624"/>
+
+    <path d="M325 170H385V365H325Z"
+          fill="#090d17"/>
+
+    <path d="M380 125H450V365H380Z"
+          fill="#111622"/>
+
+    <path d="M445 190H525V365H445Z"
+          fill="#080b13"/>
+
+  </g>
 
 
-    <!-- ЗВЁЗДЫ -->
+  <!-- CITY WINDOWS -->
 
-    <g
-        fill="white"
-        opacity=".7">
+  <g opacity=".45">
 
-        <circle
-            cx="70"
-            cy="80"
-            r="2"/>
+    <g fill="#ffc95c">
 
-        <circle
-            cx="125"
-            cy="55"
-            r="2"/>
+      <rect x="60" y="160" width="6" height="12"/>
+      <rect x="82" y="160" width="6" height="12"/>
+      <rect x="60" y="190" width="6" height="12"/>
+      <rect x="82" y="190" width="6" height="12"/>
 
-        <circle
-            cx="205"
-            cy="82"
-            r="2"/>
+      <rect x="166" y="145" width="6" height="13"/>
+      <rect x="190" y="145" width="6" height="13"/>
+      <rect x="166" y="178" width="6" height="13"/>
+      <rect x="190" y="178" width="6" height="13"/>
 
-        <circle
-            cx="315"
-            cy="58"
-            r="2"/>
+      <rect x="280" y="130" width="6" height="13"/>
+      <rect x="304" y="130" width="6" height="13"/>
+      <rect x="280" y="164" width="6" height="13"/>
+      <rect x="304" y="164" width="6" height="13"/>
 
-        <circle
-            cx="420"
-            cy="92"
-            r="2"/>
-
-        <circle
-            cx="460"
-            cy="155"
-            r="2"/>
-
-        <circle
-            cx="55"
-            cy="180"
-            r="2"/>
+      <rect x="398" y="150" width="6" height="13"/>
+      <rect x="422" y="150" width="6" height="13"/>
+      <rect x="398" y="183" width="6" height="13"/>
+      <rect x="422" y="183" width="6" height="13"/>
 
     </g>
 
+    <g fill="#5bbcff">
 
-    <!-- ГОРОД -->
+      <rect x="58" y="225" width="6" height="12"/>
+      <rect x="82" y="225" width="6" height="12"/>
 
-    <g
-        fill="#060a15">
+      <rect x="168" y="220" width="6" height="12"/>
+      <rect x="192" y="220" width="6" height="12"/>
 
-        <rect
-            x="30"
-            y="290"
-            width="55"
-            height="222"/>
+      <rect x="280" y="205" width="6" height="12"/>
+      <rect x="304" y="205" width="6" height="12"/>
 
-        <rect
-            x="82"
-            y="250"
-            width="65"
-            height="262"/>
-
-        <rect
-            x="150"
-            y="310"
-            width="55"
-            height="202"/>
-
-        <rect
-            x="210"
-            y="225"
-            width="70"
-            height="287"/>
-
-        <rect
-            x="285"
-            y="275"
-            width="60"
-            height="237"/>
-
-        <rect
-            x="350"
-            y="235"
-            width="65"
-            height="277"/>
-
-        <rect
-            x="420"
-            y="295"
-            width="60"
-            height="217"/>
+      <rect x="400" y="220" width="6" height="12"/>
+      <rect x="424" y="220" width="6" height="12"/>
 
     </g>
 
+  </g>
+
+
+  <!-- HORIZON -->
+
+  <ellipse cx="256"
+           cy="365"
+           rx="280"
+           ry="55"
+           fill="#e51b35"
+           opacity=".12"
+           filter="url(#softGlow)"/>
+
+
+  <!-- ROAD -->
+
+  <path d="
+    M0 350
+    L512 350
+    L512 512
+    L0 512Z"
+    fill="url(#road)"/>
+
+  <path d="
+    M238 350
+    L274 350
+    L340 512
+    L172 512Z"
+    fill="#07090e"/>
+
+  <!-- ROAD REFLECTION -->
+
+  <ellipse cx="256"
+           cy="450"
+           rx="190"
+           ry="45"
+           fill="#ff162f"
+           opacity=".13"
+           filter="url(#softGlow)"/>
+
+
+  <!-- CAR SHADOW -->
+
+  <ellipse cx="256"
+           cy="416"
+           rx="205"
+           ry="38"
+           fill="#000000"
+           opacity=".8"/>
+
+
+  <!-- RED UNDERGLOW -->
+
+  <ellipse cx="256"
+           cy="395"
+           rx="180"
+           ry="25"
+           fill="#ff102c"
+           opacity=".35"
+           filter="url(#glow)"/>
+
+
+  <!-- CAR BODY -->
+
+  <path d="
+    M67 363
+    C75 337 92 315 124 305
+    L166 293
+    L198 244
+    C207 229 222 219 242 217
+    L318 217
+    C338 218 353 228 363 244
+    L394 293
+    L427 304
+    C454 313 472 337 478 363
+    L484 382
+    C487 394 478 402 465 402
+    L48 402
+    C35 402 27 394 31 382
+    Z"
+    fill="url(#redCar)"
+    stroke="#ff5261"
+    stroke-width="3"
+    filter="url(#glow)"/>
+
+
+  <!-- ROOF -->
+
+  <path d="
+    M166 293
+    L198 246
+    C207 231 222 222 242 221
+    L318 221
+    C337 222 350 231 360 247
+    L394 293
+    C325 286 236 286 166 293Z"
+    fill="#7e0714"
+    stroke="#ff5360"
+    stroke-width="2"/>
+
+
+  <!-- FRONT WINDSHIELD -->
+
+  <path d="
+    M205 249
+    C212 237 224 231 241 230
+    L274 230
+    L274 278
+    L180 278
+    Z"
+    fill="url(#glass)"
+    stroke="#9ddfff"
+    stroke-width="2"/>
+
+
+  <!-- SIDE WINDSHIELD -->
+
+  <path d="
+    M284 230
+    L317 230
+    C334 231 346 238 354 250
+    L377 278
+    L284 278
+    Z"
+    fill="url(#glass)"
+    stroke="#9ddfff"
+    stroke-width="2"/>
 
-    <!-- ОКНА -->
-
-    <g
-        fill="#48ddff"
-        opacity=".55"
-        filter="url(#smallGlow)">
-
-        <rect
-            x="45"
-            y="315"
-            width="11"
-            height="4"/>
 
-        <rect
-            x="68"
-            y="350"
-            width="11"
-            height="4"/>
+  <!-- GLASS REFLECTION -->
+
+  <path d="
+    M205 247
+    L238 232
+    L215 270
+    L190 270Z"
+    fill="#ffffff"
+    opacity=".22"/>
 
-        <rect
-            x="100"
-            y="275"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="128"
-            y="310"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="100"
-            y="355"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="225"
-            y="250"
-            width="12"
-            height="4"/>
-
-        <rect
-            x="258"
-            y="290"
-            width="12"
-            height="4"/>
-
-        <rect
-            x="225"
-            y="335"
-            width="12"
-            height="4"/>
-
-        <rect
-            x="258"
-            y="375"
-            width="12"
-            height="4"/>
-
-        <rect
-            x="365"
-            y="270"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="395"
-            y="310"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="365"
-            y="355"
-            width="11"
-            height="4"/>
-
-    </g>
-
-
-    <!-- ДОРОГА -->
-
-    <path
-        d="M205 512
-           L235 355
-           L277 355
-           L315 512
-           Z"
-        fill="#04060b"/>
-
-
-    <!-- РАЗМЕТКА -->
-
-    <path
-        d="M256 365
-           L256 512"
-
-        stroke="#55ddff"
-
-        stroke-width="5"
-
-        stroke-dasharray="22 18"
-
-        opacity=".8"
-
-        filter="url(#smallGlow)"/>
-
-
-    <!-- ЦИФРА 2 -->
-
-    <text
-        x="256"
-        y="205"
-
-        text-anchor="middle"
-
-        font-family="Arial, Helvetica, sans-serif"
-
-        font-size="150"
-
-        font-weight="900"
-
-        fill="url(#neon)"
-
-        filter="url(#glow)">
-
-        2
-
-    </text>
-
-
-    <!-- TWO CITIES -->
-
-    <text
-        x="256"
-        y="285"
-
-        text-anchor="middle"
-
-        font-family="Arial, Helvetica, sans-serif"
-
-        font-size="38"
-
-        font-weight="900"
-
-        letter-spacing="2"
-
-        fill="white">
-
-        TWO CITIES
-
-    </text>
-
-
-    <!-- RUSSIA -->
-
-    <text
-        x="256"
-        y="325"
-
-        text-anchor="middle"
-
-        font-family="Arial, Helvetica, sans-serif"
-
-        font-size="25"
-
-        font-weight="900"
-
-        letter-spacing="8"
-
-        fill="#67ddff"
-
-        filter="url(#smallGlow)">
-
-        RUSSIA
-
-    </text>
-
-
-    <!-- ЛИНИЯ -->
-
-    <line
-        x1="90"
-        y1="350"
-        x2="422"
-        y2="350"
-
-        stroke="url(#neon)"
-
+  <path d="
+    M290 233
+    L315 233
+    L344 264
+    L320 250Z"
+    fill="#ffffff"
+    opacity=".16"/>
+
+
+  <!-- WINDOW PILLAR -->
+
+  <path d="
+    M274 228
+    L285 229
+    L285 281
+    L274 281Z"
+    fill="#070a10"/>
+
+
+  <!-- HOOD -->
+
+  <path d="
+    M103 316
+    C153 299 198 291 256 291
+    C314 291 359 299 409 316
+    L432 344
+    C370 331 323 325 256 325
+    C189 325 142 331 80 344Z"
+    fill="url(#hood)"
+    opacity=".92"/>
+
+
+  <!-- HOOD CENTER LINE -->
+
+  <path d="
+    M256 293
+    L256 326"
+    stroke="#ff6974"
+    stroke-width="2"
+    opacity=".6"/>
+
+
+  <!-- SIDE BODY SHADOW -->
+
+  <path d="
+    M68 354
+    C125 341 183 335 256 335
+    C329 335 387 341 444 354
+    L452 376
+    L60 376Z"
+    fill="#650511"
+    opacity=".65"/>
+
+
+  <!-- FRONT GRILLE -->
+
+  <path d="
+    M185 356
+    C211 350 301 350 327 356
+    L318 381
+    C285 386 227 386 194 381Z"
+    fill="#05060a"
+    stroke="#26040a"
+    stroke-width="3"/>
+
+
+  <!-- GRILLE LINES -->
+
+  <g stroke="#8c1420"
+     stroke-width="2"
+     opacity=".7">
+
+    <path d="M205 357L211 380"/>
+    <path d="M222 354L227 382"/>
+    <path d="M240 353L243 383"/>
+    <path d="M272 353L269 383"/>
+    <path d="M290 354L285 382"/>
+    <path d="M307 357L301 380"/>
+
+  </g>
+
+
+  <!-- HEADLIGHT LEFT -->
+
+  <path d="
+    M83 341
+    C102 334 125 330 151 329
+    L163 348
+    C135 351 108 356 86 361
+    Z"
+    fill="url(#headlight)"
+    stroke="#d9f7ff"
+    stroke-width="2"
+    filter="url(#glow)"/>
+
+
+  <!-- HEADLIGHT RIGHT -->
+
+  <path d="
+    M429 341
+    C410 334 387 330 361 329
+    L349 348
+    C377 351 404 356 426 361
+    Z"
+    fill="url(#headlight)"
+    stroke="#d9f7ff"
+    stroke-width="2"
+    filter="url(#glow)"/>
+
+
+  <!-- HEADLIGHT DETAILS -->
+
+  <path d="M96 346L148 338"
+        stroke="#ffffff"
         stroke-width="3"
+        opacity=".85"/>
 
-        filter="url(#smallGlow)"/>
+  <path d="M416 346L364 338"
+        stroke="#ffffff"
+        stroke-width="3"
+        opacity=".85"/>
 
 
-    <!-- ГОРОДА -->
+  <!-- FRONT BUMPER -->
 
-    <text
-        x="256"
-        y="385"
+  <path d="
+    M72 373
+    C135 367 190 366 256 366
+    C322 366 377 367 440 373"
+    fill="none"
+    stroke="#ff4050"
+    stroke-width="5"
+    opacity=".8"/>
 
+
+  <!-- RED SIDE NEON -->
+
+  <path d="
+    M68 382
+    C150 388 362 388 444 382"
+    fill="none"
+    stroke="#ff3046"
+    stroke-width="5"
+    filter="url(#glow)"/>
+
+
+  <!-- WHEELS -->
+
+  <g>
+
+    <circle cx="128"
+            cy="386"
+            r="43"
+            fill="#020204"
+            stroke="#090b10"
+            stroke-width="8"/>
+
+    <circle cx="128"
+            cy="386"
+            r="28"
+            fill="#16191f"
+            stroke="#5e6672"
+            stroke-width="4"/>
+
+    <circle cx="128"
+            cy="386"
+            r="15"
+            fill="#090b10"
+            stroke="#c3c8cf"
+            stroke-width="3"/>
+
+    <circle cx="128"
+            cy="386"
+            r="5"
+            fill="#e3e5e8"/>
+
+    <path d="M128 363V409"
+          stroke="#7c838d"
+          stroke-width="2"/>
+
+    <path d="M105 386H151"
+          stroke="#7c838d"
+          stroke-width="2"/>
+
+  </g>
+
+
+  <g>
+
+    <circle cx="384"
+            cy="386"
+            r="43"
+            fill="#020204"
+            stroke="#090b10"
+            stroke-width="8"/>
+
+    <circle cx="384"
+            cy="386"
+            r="28"
+            fill="#16191f"
+            stroke="#5e6672"
+            stroke-width="4"/>
+
+    <circle cx="384"
+            cy="386"
+            r="15"
+            fill="#090b10"
+            stroke="#c3c8cf"
+            stroke-width="3"/>
+
+    <circle cx="384"
+            cy="386"
+            r="5"
+            fill="#e3e5e8"/>
+
+    <path d="M384 363V409"
+          stroke="#7c838d"
+          stroke-width="2"/>
+
+    <path d="M361 386H407"
+          stroke="#7c838d"
+          stroke-width="2"/>
+
+  </g>
+
+
+  <!-- MIRRORS -->
+
+  <path d="
+    M172 295
+    C155 288 143 290 137 299
+    C149 303 161 304 174 302Z"
+    fill="#8f0a18"
+    stroke="#ff5260"
+    stroke-width="2"/>
+
+  <path d="
+    M340 295
+    C357 288 369 290 375 299
+    C363 303 351 304 338 302Z"
+    fill="#8f0a18"
+    stroke="#ff5260"
+    stroke-width="2"/>
+
+
+  <!-- LICENSE PLATE -->
+
+  <rect x="220"
+        y="364"
+        width="72"
+        height="21"
+        rx="4"
+        fill="#e9edf0"/>
+
+  <text x="256"
+        y="379"
         text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="13"
+        font-weight="900"
+        fill="#11151b">
+    TCR
+  </text>
 
-        font-family="Arial, Helvetica, sans-serif"
 
-        font-size="14"
+  <!-- TITLE -->
 
-        font-weight="600"
-
-        letter-spacing="3"
-
+  <text x="256"
+        y="70"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="31"
+        font-weight="900"
+        letter-spacing="4"
         fill="#ffffff">
+    TWO CITIES
+  </text>
 
-        MOSCOW • KRASNODAR
+  <text x="256"
+        y="101"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="22"
+        font-weight="900"
+        letter-spacing="8"
+        fill="#ff4254"
+        filter="url(#glow)">
+    RUSSIA
+  </text>
 
-    </text>
+  <text x="256"
+        y="123"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="10"
+        font-weight="700"
+        letter-spacing="4"
+        fill="#a5afc5">
+    MOSCOW • KRASNODAR
+  </text>
 
 
-    <!-- РАМКА -->
+  <!-- ROAD LIGHTS -->
 
-    <rect
-        x="9"
-        y="9"
-        width="494"
-        height="494"
-        rx="102"
+  <g opacity=".7">
 
-        fill="none"
+    <circle cx="50"
+            cy="370"
+            r="3"
+            fill="#ff344b"
+            filter="url(#glow)"/>
 
-        stroke="url(#neon)"
+    <circle cx="462"
+            cy="370"
+            r="3"
+            fill="#ff344b"
+            filter="url(#glow)"/>
 
-        stroke-width="3"
+    <circle cx="25"
+            cy="430"
+            r="3"
+            fill="#4faeff"
+            filter="url(#glow)"/>
 
-        opacity=".5"/>
+    <circle cx="487"
+            cy="430"
+            r="3"
+            fill="#4faeff"
+            filter="url(#glow)"/>
+
+  </g>
+
+</g>
+
+
+<!-- ICON BORDER -->
+
+<rect x="8"
+      y="8"
+      width="496"
+      height="496"
+      rx="84"
+      fill="none"
+      stroke="#ff3047"
+      stroke-width="4"
+      opacity=".8"
+      filter="url(#glow)"/>
 
 </svg>
