@@ -2,23 +2,17 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-
 <meta name="viewport"
-      content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no,
-      viewport-fit=cover">
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <meta name="theme-color" content="#03050d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="TWO CITIES">
-
-<title>TWO CITIES: RUSSIA</title>
 
 <link rel="manifest" href="./manifest.json">
+
+<title>TWO CITIES: RUSSIA</title>
 
 <style>
 * {
@@ -34,17 +28,16 @@ body {
     height: 100%;
     overflow: hidden;
     background: #020308;
-    color: white;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
 }
 
-button,
-input {
-    font: inherit;
+body {
+    user-select: none;
 }
 
 /* =========================
-   PORTRAIT BLOCK
+   LANDSCAPE
 ========================= */
 
 #portraitBlock {
@@ -55,23 +48,25 @@ input {
     align-items: center;
     justify-content: center;
     text-align: center;
+    padding: 30px;
     background:
-        radial-gradient(circle at center, #101735 0%, #020308 65%);
+        radial-gradient(circle at center, rgba(255,40,40,.15), transparent 45%),
+        #020308;
 }
 
-.portraitBox {
+.portrait-box {
     width: min(90%, 420px);
     padding: 35px 25px;
-    border: 1px solid rgba(255,255,255,.15);
+    border: 1px solid rgba(255,50,50,.4);
     border-radius: 25px;
-    background: rgba(8,12,25,.8);
+    background: rgba(10,10,18,.82);
     box-shadow:
-        0 0 50px rgba(0,150,255,.15),
-        inset 0 0 30px rgba(255,255,255,.03);
-    backdrop-filter: blur(20px);
+        0 0 30px rgba(255,0,0,.12),
+        inset 0 0 30px rgba(255,0,0,.03);
+    backdrop-filter: blur(15px);
 }
 
-.rotateIcon {
+.rotate-icon {
     font-size: 65px;
     margin-bottom: 20px;
     animation: rotatePhone 2s infinite ease-in-out;
@@ -81,20 +76,21 @@ input {
     0%,100% {
         transform: rotate(0deg);
     }
+
     50% {
         transform: rotate(90deg);
     }
 }
 
-.portraitBox h1 {
-    font-size: 26px;
-    letter-spacing: 3px;
+.portrait-box h2 {
+    font-size: 25px;
+    letter-spacing: 2px;
     margin-bottom: 12px;
 }
 
-.portraitBox p {
-    color: #aeb7d0;
-    line-height: 1.5;
+.portrait-box p {
+    color: #a9abb8;
+    font-size: 14px;
 }
 
 /* =========================
@@ -105,218 +101,183 @@ input {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at 50% 35%, rgba(35,80,180,.22), transparent 35%),
-        linear-gradient(to bottom, #040713, #020308 75%);
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    background: #020308;
+}
+
+.splash-city {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 55%, rgba(255,25,25,.16), transparent 30%),
+        linear-gradient(to bottom, #02030a 0%, #050713 55%, #0a0b13 100%);
 }
 
 .stars {
     position: absolute;
     inset: 0;
+    opacity: .8;
     background-image:
-        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,255,255,.4) 1px, transparent 1px);
+        radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,60,60,.7) 1px, transparent 1px);
     background-size: 95px 95px, 145px 145px;
-    opacity: .35;
+    background-position: 20px 10px, 60px 40px;
 }
 
 .city {
     position: absolute;
-    bottom: 0;
+    bottom: 17%;
     left: 0;
     width: 100%;
-    height: 55%;
+    height: 38%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 7px;
+    opacity: .9;
 }
 
 .building {
-    position: absolute;
-    bottom: 0;
-    background: linear-gradient(90deg,#080b15,#11182a,#070a12);
-    border-top: 1px solid rgba(90,150,255,.15);
+    position: relative;
+    width: 6%;
+    min-width: 35px;
+    max-width: 90px;
+    background: linear-gradient(to bottom, #10131d, #05060b);
+    border: 1px solid rgba(255,255,255,.04);
+    box-shadow: 0 0 20px rgba(0,0,0,.8);
 }
 
-.building::before {
-    content: "";
+.building:nth-child(1) { height: 55%; }
+.building:nth-child(2) { height: 76%; }
+.building:nth-child(3) { height: 48%; }
+.building:nth-child(4) { height: 90%; }
+.building:nth-child(5) { height: 62%; }
+.building:nth-child(6) { height: 82%; }
+.building:nth-child(7) { height: 50%; }
+.building:nth-child(8) { height: 73%; }
+.building:nth-child(9) { height: 94%; }
+.building:nth-child(10) { height: 60%; }
+.building:nth-child(11) { height: 80%; }
+.building:nth-child(12) { height: 45%; }
+
+.windows {
     position: absolute;
-    inset: 15px;
+    inset: 10px;
     background:
         repeating-linear-gradient(
             to bottom,
-            rgba(70,170,255,.45) 0 4px,
-            transparent 4px 24px
+            rgba(255,40,40,.7) 0 3px,
+            transparent 3px 14px
         ),
         repeating-linear-gradient(
             to right,
-            rgba(255,190,80,.25) 0 4px,
-            transparent 4px 18px
+            rgba(255,180,80,.35) 0 3px,
+            transparent 3px 15px
         );
-    opacity: .45;
-}
-
-.b1 {
-    left: 0;
-    width: 13%;
-    height: 48%;
-}
-
-.b2 {
-    left: 11%;
-    width: 15%;
-    height: 72%;
-}
-
-.b3 {
-    left: 24%;
-    width: 11%;
-    height: 42%;
-}
-
-.b4 {
-    left: 34%;
-    width: 17%;
-    height: 82%;
-}
-
-.b5 {
-    left: 49%;
-    width: 13%;
-    height: 55%;
-}
-
-.b6 {
-    left: 61%;
-    width: 18%;
-    height: 78%;
-}
-
-.b7 {
-    left: 77%;
-    width: 11%;
-    height: 45%;
-}
-
-.b8 {
-    left: 86%;
-    width: 16%;
-    height: 68%;
-}
-
-.horizonGlow {
-    position: absolute;
-    bottom: 18%;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: radial-gradient(
-        ellipse,
-        rgba(20,130,255,.35),
-        transparent 65%
-    );
-    filter: blur(15px);
+    opacity: .5;
 }
 
 .road {
     position: absolute;
     left: 0;
-    right: 0;
     bottom: 0;
-    height: 20%;
-    background: linear-gradient(
-        to bottom,
-        #090b12,
-        #020204
-    );
-    border-top: 1px solid rgba(70,140,255,.15);
+    width: 100%;
+    height: 19%;
+    background:
+        linear-gradient(
+            165deg,
+            transparent 0 35%,
+            #0a0b10 36% 100%
+        );
 }
 
-.roadLine {
+.road-line {
     position: absolute;
     left: 50%;
-    top: 20%;
+    bottom: 2%;
+    width: 65%;
+    height: 3px;
     transform: translateX(-50%);
-    width: 7%;
-    height: 5px;
-    background: #4aa8ff;
+    background: #ff2020;
     box-shadow:
-        0 0 10px #168cff,
-        0 0 30px #168cff;
+        0 0 8px #ff2020,
+        0 0 25px rgba(255,0,0,.8);
 }
 
-.splashContent {
+.splash-content {
     position: relative;
     z-index: 5;
+    width: min(90%, 800px);
     text-align: center;
-    width: min(90%, 700px);
 }
 
 .studio {
-    color: #8f9ab5;
-    font-size: 13px;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: #9a9ca9;
+    margin-bottom: 18px;
 }
 
-.logoTitle {
+.title-two {
+    font-size: clamp(48px, 10vw, 100px);
     font-weight: 900;
-    font-size: clamp(45px, 9vw, 105px);
-    line-height: .85;
     letter-spacing: 7px;
+    line-height: .85;
     text-shadow:
-        0 0 10px rgba(80,170,255,.7),
-        0 0 35px rgba(50,120,255,.35);
+        0 0 10px rgba(255,255,255,.15),
+        0 0 35px rgba(255,0,0,.45);
 }
 
-.logoTitle span {
-    display: block;
-    font-size: .55em;
-    margin-top: 12px;
-    letter-spacing: 13px;
-    color: #dfe8ff;
+.title-russia {
+    margin-top: 8px;
+    font-size: clamp(24px, 5vw, 55px);
+    font-weight: 800;
+    letter-spacing: 12px;
+    color: #ff3434;
+    text-shadow:
+        0 0 10px rgba(255,0,0,.7),
+        0 0 35px rgba(255,0,0,.35);
 }
 
 .cities {
-    margin-top: 25px;
-    font-size: 13px;
+    margin-top: 18px;
+    font-size: 12px;
     letter-spacing: 5px;
-    color: #8795b8;
+    color: #b4b5c0;
 }
 
-.loadingArea {
-    width: min(450px, 80%);
-    margin: 50px auto 0;
+.loading-wrap {
+    width: min(500px, 80%);
+    margin: 45px auto 0;
 }
 
-.loadingText {
+.loading-text {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    color: #9aa5bf;
-    margin-bottom: 10px;
+    margin-bottom: 9px;
+    color: #aaa;
+    font-size: 11px;
+    letter-spacing: 2px;
 }
 
-.loadingBar {
-    height: 5px;
-    border-radius: 10px;
-    overflow: hidden;
+.loading-bar {
+    width: 100%;
+    height: 4px;
     background: rgba(255,255,255,.08);
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-.loadingFill {
-    height: 100%;
+.loading-progress {
     width: 0%;
-    background: linear-gradient(
-        90deg,
-        #2e8cff,
-        #71c7ff,
-        #ffffff
-    );
+    height: 100%;
+    background: #ff2222;
     box-shadow:
-        0 0 15px #348fff,
-        0 0 35px rgba(50,130,255,.6);
+        0 0 10px #ff2222,
+        0 0 25px rgba(255,0,0,.7);
     transition: width .08s linear;
 }
 
@@ -330,260 +291,237 @@ input {
     display: none;
     overflow: hidden;
     background:
-        radial-gradient(circle at 50% 25%, rgba(35,75,150,.22), transparent 35%),
-        linear-gradient(#050817,#020308 70%);
+        radial-gradient(circle at 50% 45%, rgba(255,25,25,.13), transparent 30%),
+        linear-gradient(to bottom, #050713 0%, #080a13 55%, #0d0e13 100%);
 }
 
-/* background city */
+/* city background */
 
-.gameCity {
+.game-sky {
     position: absolute;
     inset: 0;
-    overflow: hidden;
-}
-
-.gameBuilding {
-    position: absolute;
-    bottom: 0;
     background:
-        linear-gradient(
-            90deg,
-            #050711,
-            #10172a,
-            #050711
-        );
-    border-top: 1px solid rgba(90,160,255,.15);
+        radial-gradient(circle at 50% 45%, rgba(255,30,30,.12), transparent 35%),
+        linear-gradient(to bottom, #03040a, #080914 65%, #111218);
 }
 
-.gameBuilding::after {
-    content: "";
+.game-buildings {
     position: absolute;
-    inset: 12px;
+    bottom: 22%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.g-building {
+    position: relative;
+    width: 7%;
+    min-width: 40px;
+    max-width: 100px;
+    background: linear-gradient(to bottom, #121521, #07080e);
+    border: 1px solid rgba(255,255,255,.05);
+}
+
+.g-building:nth-child(1) { height: 50%; }
+.g-building:nth-child(2) { height: 72%; }
+.g-building:nth-child(3) { height: 58%; }
+.g-building:nth-child(4) { height: 86%; }
+.g-building:nth-child(5) { height: 67%; }
+.g-building:nth-child(6) { height: 93%; }
+.g-building:nth-child(7) { height: 58%; }
+.g-building:nth-child(8) { height: 77%; }
+.g-building:nth-child(9) { height: 62%; }
+.g-building:nth-child(10) { height: 83%; }
+
+.g-windows {
+    position: absolute;
+    inset: 9px;
+    opacity: .45;
     background:
         repeating-linear-gradient(
             to bottom,
-            rgba(70,150,255,.35) 0 3px,
-            transparent 3px 20px
+            rgba(255,70,40,.7) 0 3px,
+            transparent 3px 13px
         ),
         repeating-linear-gradient(
             to right,
-            rgba(255,190,70,.2) 0 3px,
-            transparent 3px 15px
+            rgba(255,190,100,.3) 0 3px,
+            transparent 3px 16px
         );
-    opacity: .45;
 }
 
-.gb1 {
-    left: 0;
-    width: 15%;
-    height: 48%;
-}
-
-.gb2 {
-    left: 13%;
-    width: 17%;
-    height: 70%;
-}
-
-.gb3 {
-    left: 29%;
-    width: 12%;
-    height: 44%;
-}
-
-.gb4 {
-    left: 39%;
-    width: 18%;
-    height: 80%;
-}
-
-.gb5 {
-    left: 55%;
-    width: 14%;
-    height: 53%;
-}
-
-.gb6 {
-    left: 66%;
-    width: 18%;
-    height: 73%;
-}
-
-.gb7 {
-    left: 82%;
-    width: 10%;
-    height: 45%;
-}
-
-.gb8 {
-    left: 90%;
-    width: 14%;
-    height: 65%;
-}
-
-/* =========================
-   TOP UI
-========================= */
-
-.topBar {
+.g-road {
     position: absolute;
-    z-index: 10;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    height: 60px;
+    left: -5%;
+    bottom: -10%;
+    width: 110%;
+    height: 35%;
+    transform: perspective(400px) rotateX(55deg);
+    transform-origin: bottom;
+    background:
+        repeating-linear-gradient(
+            to right,
+            transparent 0 16%,
+            rgba(255,255,255,.8) 16% 17%,
+            transparent 17% 34%
+        ),
+        #111219;
+    border-top: 2px solid rgba(255,40,40,.4);
+}
 
+.g-road-glow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 15%;
+    height: 3px;
+    background: #ff2424;
+    box-shadow:
+        0 0 10px #ff2424,
+        0 0 40px rgba(255,0,0,.7);
+}
+
+/* top HUD */
+
+.top-hud {
+    position: absolute;
+    z-index: 20;
+    top: 18px;
+    left: 18px;
+    right: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-mini {
+    padding: 10px 16px;
+    border: 1px solid rgba(255,40,40,.3);
+    border-radius: 14px;
+    background: rgba(5,6,12,.58);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 25px rgba(255,0,0,.08);
+}
+
+.logo-mini b {
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.logo-mini span {
+    display: block;
+    margin-top: 3px;
+    color: #ff3030;
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+.player-mini {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
-    padding: 0 18px;
-
+    gap: 9px;
+    padding: 7px 12px 7px 7px;
     border: 1px solid rgba(255,255,255,.1);
     border-radius: 18px;
-
-    background: rgba(5,8,18,.65);
-    backdrop-filter: blur(18px);
-
-    box-shadow:
-        0 10px 40px rgba(0,0,0,.35);
+    background: rgba(5,6,12,.58);
+    backdrop-filter: blur(15px);
 }
 
-.topLogo {
-    font-weight: 900;
-    letter-spacing: 3px;
-    font-size: 17px;
-}
-
-.topLogo span {
-    color: #5aaeff;
-}
-
-.playerInfo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.avatar {
-    width: 38px;
-    height: 38px;
+.mini-avatar {
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
+    background:
+        linear-gradient(135deg, #ff3030, #650000);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 17px;
+    overflow: hidden;
+    border: 1px solid rgba(255,80,80,.6);
+}
 
-    background:
-        linear-gradient(135deg,#1c75ff,#742cff);
-
-    box-shadow:
-        0 0 18px rgba(60,120,255,.4);
-
+.player-mini-name {
+    font-size: 12px;
     font-weight: bold;
 }
 
-.playerName {
-    font-size: 13px;
-    color: #dce4ff;
-}
+/* center */
 
-/* =========================
-   MENU
-========================= */
-
-.menu {
+.center-menu {
     position: absolute;
-    z-index: 10;
+    z-index: 15;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
-
-    width: min(520px, 80%);
+    transform: translate(-50%, -50%);
+    width: min(90%, 430px);
     text-align: center;
 }
 
-.menuTitle {
-    font-size: clamp(28px,5vw,55px);
+.menu-title {
+    font-size: clamp(27px, 5vw, 50px);
     font-weight: 900;
     letter-spacing: 5px;
-    margin-bottom: 7px;
-
-    text-shadow:
-        0 0 20px rgba(50,140,255,.5);
+    text-shadow: 0 0 30px rgba(255,0,0,.35);
 }
 
-.menuSub {
+.menu-subtitle {
+    margin-top: 8px;
+    color: #999ca9;
     font-size: 11px;
     letter-spacing: 4px;
-    color: #7f8cab;
-    margin-bottom: 32px;
 }
 
-.menuButtons {
+.menu-buttons {
     display: grid;
-    gap: 12px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 28px;
 }
 
-.menuButton {
-    width: 100%;
+.menu-btn {
     min-height: 55px;
-
     border: 1px solid rgba(255,255,255,.12);
-    border-radius: 15px;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(18,30,60,.8),
-            rgba(10,16,32,.8)
-        );
-
+    border-radius: 16px;
     color: white;
-
-    cursor: pointer;
-
-    font-size: 14px;
+    background: rgba(7,8,15,.67);
+    backdrop-filter: blur(18px);
+    font-size: 12px;
     font-weight: 800;
     letter-spacing: 2px;
-
-    transition:
-        transform .2s,
-        border-color .2s,
-        box-shadow .2s,
-        background .2s;
+    cursor: pointer;
+    transition: .2s;
+    box-shadow: inset 0 0 20px rgba(255,255,255,.02);
 }
 
-.menuButton:hover,
-.menuButton:active {
+.menu-btn:hover,
+.menu-btn:active {
+    border-color: rgba(255,40,40,.6);
+    background: rgba(40,8,10,.75);
+    box-shadow:
+        0 0 20px rgba(255,0,0,.15),
+        inset 0 0 20px rgba(255,0,0,.04);
     transform: translateY(-2px);
-
-    border-color: rgba(80,170,255,.6);
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(25,60,120,.9),
-            rgba(12,25,55,.9)
-        );
-
-    box-shadow:
-        0 0 25px rgba(40,130,255,.2);
 }
 
-.playButton {
-    min-height: 68px;
-
+.play-btn {
+    grid-column: span 2;
+    min-height: 65px;
+    border-color: rgba(255,35,35,.45);
     background:
         linear-gradient(
-            90deg,
-            rgba(20,95,190,.85),
-            rgba(45,45,150,.85)
+            135deg,
+            rgba(100,10,10,.5),
+            rgba(20,6,8,.7)
         );
-
-    border-color: rgba(90,180,255,.55);
-
     box-shadow:
-        0 0 25px rgba(40,130,255,.25);
+        0 0 30px rgba(255,0,0,.12),
+        inset 0 0 25px rgba(255,0,0,.05);
+    font-size: 14px;
 }
 
 /* =========================
@@ -594,66 +532,56 @@ input {
     position: fixed;
     inset: 0;
     z-index: 100;
-
     display: none;
     align-items: center;
     justify-content: center;
-
     padding: 20px;
-
     background: rgba(0,0,0,.65);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
 }
 
-.modalBox {
-    width: min(450px, 92%);
-
-    padding: 28px;
-
-    border: 1px solid rgba(255,255,255,.13);
-    border-radius: 22px;
-
+.modal-card {
+    width: min(92%, 520px);
+    max-height: 92vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255,40,40,.28);
+    border-radius: 25px;
+    padding: 25px;
     background:
         linear-gradient(
             145deg,
-            rgba(14,21,42,.95),
-            rgba(4,7,16,.96)
+            rgba(17,10,14,.94),
+            rgba(7,8,14,.96)
         );
-
     box-shadow:
-        0 20px 80px rgba(0,0,0,.55),
-        0 0 35px rgba(30,100,255,.12);
-
-    text-align: center;
+        0 0 50px rgba(255,0,0,.12),
+        inset 0 0 40px rgba(255,255,255,.015);
 }
 
-.modalBox h2 {
-    font-size: 22px;
+.modal-title {
+    font-size: 21px;
+    font-weight: 900;
     letter-spacing: 3px;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
 }
 
-.modalBox p {
-    color: #9da8c1;
-    font-size: 14px;
-    line-height: 1.5;
+.modal-subtitle {
+    color: #858895;
+    font-size: 11px;
+    letter-spacing: 1px;
     margin-bottom: 22px;
 }
 
-.modalButton {
-    width: 100%;
-    height: 50px;
-    border: 0;
-    border-radius: 13px;
-    background: #175ed1;
-    color: white;
-    font-weight: bold;
+.close-btn {
+    float: right;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.1);
+    color: #aaa;
+    background: rgba(255,255,255,.04);
     cursor: pointer;
-    margin-top: 8px;
-}
-
-.modalButton.secondary {
-    background: rgba(255,255,255,.07);
+    font-size: 16px;
 }
 
 /* =========================
@@ -664,194 +592,253 @@ input {
     position: fixed;
     inset: 0;
     z-index: 500;
-
     display: none;
     align-items: center;
     justify-content: center;
-
     padding: 20px;
-
     background:
-        radial-gradient(
-            circle at center,
-            rgba(25,60,130,.18),
-            rgba(0,0,0,.78)
-        );
-
-    backdrop-filter: blur(12px);
+        radial-gradient(circle at 50% 40%, rgba(255,0,0,.12), transparent 35%),
+        rgba(2,3,8,.84);
+    backdrop-filter: blur(9px);
 }
 
-.authBox {
-    width: min(440px, 94%);
-
+.auth-card {
+    width: min(92%, 440px);
     padding: 28px;
-
-    border: 1px solid rgba(255,255,255,.14);
-    border-radius: 24px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(13,20,40,.94),
-            rgba(4,7,16,.96)
-        );
-
+    border-radius: 25px;
+    border: 1px solid rgba(255,40,40,.3);
+    background: rgba(7,8,15,.86);
     box-shadow:
-        0 20px 80px rgba(0,0,0,.55),
-        0 0 45px rgba(35,120,255,.13);
+        0 0 50px rgba(255,0,0,.1),
+        inset 0 0 30px rgba(255,255,255,.015);
 }
 
-.authLogo {
+.auth-logo {
     text-align: center;
-    font-size: 24px;
-    font-weight: 900;
-    letter-spacing: 4px;
     margin-bottom: 22px;
 }
 
-.authLogo span {
-    display: block;
-    font-size: 12px;
-    color: #7992bd;
+.auth-logo .two {
+    font-size: 32px;
+    font-weight: 900;
     letter-spacing: 5px;
-    margin-top: 8px;
 }
 
-.tabs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.auth-logo .russia {
+    color: #ff2929;
+    font-weight: 800;
+    letter-spacing: 8px;
+}
+
+.auth-tabs {
+    display: flex;
     gap: 5px;
-
-    padding: 5px;
-
-    background: rgba(255,255,255,.05);
-    border-radius: 13px;
-
-    margin-bottom: 20px;
+    padding: 4px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.04);
 }
 
-.tab {
-    height: 42px;
-    border: 0;
-    border-radius: 10px;
-
-    color: #8995af;
+.auth-tab {
+    flex: 1;
+    padding: 11px;
+    border: none;
+    border-radius: 9px;
     background: transparent;
+    color: #888;
     cursor: pointer;
+    font-weight: bold;
 }
 
-.tab.active {
-    background: rgba(40,110,220,.3);
+.auth-tab.active {
     color: white;
+    background: rgba(255,30,30,.18);
+    box-shadow: inset 0 0 15px rgba(255,0,0,.04);
 }
 
 .field {
-    margin-bottom: 13px;
+    margin-bottom: 12px;
 }
 
 .field label {
     display: block;
-    margin-bottom: 7px;
-    font-size: 11px;
-    color: #8d99b3;
-    letter-spacing: 1px;
+    margin-bottom: 6px;
+    color: #999;
+    font-size: 10px;
+    letter-spacing: 2px;
 }
 
-.field input {
+.field input,
+.field textarea {
     width: 100%;
-    height: 50px;
-
     border: 1px solid rgba(255,255,255,.1);
-    border-radius: 12px;
-
     outline: none;
-
-    background: rgba(255,255,255,.045);
-    color: white;
-
-    padding: 0 14px;
-}
-
-.field input:focus {
-    border-color: rgba(65,155,255,.65);
-    box-shadow: 0 0 18px rgba(40,130,255,.1);
-}
-
-.authButton {
-    width: 100%;
-    height: 52px;
-
-    margin-top: 8px;
-
-    border: 1px solid rgba(80,160,255,.4);
     border-radius: 13px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #155dcc,
-            #4030a8
-        );
-
+    padding: 13px 14px;
     color: white;
-    font-weight: 900;
-    letter-spacing: 1px;
+    background: rgba(255,255,255,.045);
+    font-size: 14px;
+}
 
+.field textarea {
+    min-height: 100px;
+    resize: none;
+    font-family: inherit;
+}
+
+.field input:focus,
+.field textarea:focus {
+    border-color: rgba(255,40,40,.6);
+    box-shadow: 0 0 18px rgba(255,0,0,.08);
+}
+
+.auth-main-btn {
+    width: 100%;
+    margin-top: 7px;
+    padding: 14px;
+    border: 1px solid rgba(255,40,40,.45);
+    border-radius: 13px;
+    color: white;
+    background: linear-gradient(135deg, #651010, #25080a);
     cursor: pointer;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
 .error {
-    min-height: 20px;
-    margin-top: 12px;
-    color: #ff7380;
-    font-size: 12px;
+    min-height: 18px;
+    margin: 8px 0;
+    color: #ff4c4c;
     text-align: center;
+    font-size: 11px;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-avatar-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0 20px;
+}
+
+.profile-avatar {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,45,45,.7);
+    background:
+        radial-gradient(circle at 35% 25%, #ff5555, #8b0b0b 55%, #250406);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    box-shadow:
+        0 0 25px rgba(255,0,0,.25),
+        inset 0 0 25px rgba(255,255,255,.05);
+    overflow: hidden;
+}
+
+.avatar-preview-text {
+    font-size: 43px;
+}
+
+.avatar-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.small-btn {
+    padding: 9px 13px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    color: #ddd;
+    background: rgba(255,255,255,.04);
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.save-profile {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid rgba(255,40,40,.5);
+    border-radius: 13px;
+    color: white;
+    background: linear-gradient(135deg, #701010, #270607);
+    font-weight: 900;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.logout-profile {
+    width: 100%;
+    margin-top: 9px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 13px;
+    color: #aaa;
+    background: rgba(255,255,255,.03);
+    cursor: pointer;
+}
+
+.save-message {
+    height: 18px;
+    margin-top: 9px;
+    text-align: center;
+    color: #65ff86;
+    font-size: 11px;
+}
+
+/* =========================
+   GAME MODAL
+========================= */
+
+.game-placeholder {
+    padding: 25px;
+    text-align: center;
+    border-radius: 18px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+.game-placeholder-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.game-placeholder h3 {
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.game-placeholder p {
+    color: #888b98;
+    line-height: 1.5;
+    font-size: 12px;
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 13px;
+    border: 1px solid rgba(255,40,40,.25);
+    background: rgba(255,0,0,.07);
+    color: #ff6565;
+    font-weight: 800;
+    cursor: pointer;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
-
-@media (max-width: 700px) and (orientation: landscape) {
-
-    .topBar {
-        top: 10px;
-        left: 10px;
-        right: 10px;
-        height: 48px;
-        padding: 0 12px;
-    }
-
-    .menu {
-        width: min(420px, 75%);
-    }
-
-    .menuTitle {
-        font-size: 30px;
-    }
-
-    .menuSub {
-        margin-bottom: 15px;
-    }
-
-    .menuButtons {
-        gap: 7px;
-    }
-
-    .menuButton {
-        min-height: 42px;
-        font-size: 11px;
-    }
-
-    .playButton {
-        min-height: 50px;
-    }
-
-    .authBox {
-        padding: 20px;
-        max-width: 430px;
-    }
-}
 
 @media (orientation: portrait) {
     #portraitBlock {
@@ -860,8 +847,33 @@ input {
 
     #splash,
     #game,
-    #auth {
+    #auth,
+    .modal {
         display: none !important;
+    }
+}
+
+@media (max-height: 500px) {
+    .top-hud {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+    }
+
+    .center-menu {
+        transform: translate(-50%, -47%);
+    }
+
+    .menu-buttons {
+        margin-top: 14px;
+    }
+
+    .menu-btn {
+        min-height: 44px;
+    }
+
+    .play-btn {
+        min-height: 50px;
     }
 }
 </style>
@@ -870,18 +882,16 @@ input {
 <body>
 
 <!-- =========================
-     PORTRAIT
+     PORTRAIT BLOCK
 ========================= -->
 
 <div id="portraitBlock">
-    <div class="portraitBox">
-        <div class="rotateIcon">📱</div>
-
-        <h1>ПОВЕРНИТЕ ТЕЛЕФОН</h1>
-
+    <div class="portrait-box">
+        <div class="rotate-icon">📱</div>
+        <h2>ПОВЕРНИТЕ ТЕЛЕФОН</h2>
         <p>
-            TWO CITIES: RUSSIA работает
-            только в горизонтальном режиме.
+            TWO CITIES: RUSSIA работает<br>
+            только в горизонтальном режиме
         </p>
     </div>
 </div>
@@ -892,58 +902,60 @@ input {
 
 <div id="splash">
 
+    <div class="splash-city"></div>
     <div class="stars"></div>
 
     <div class="city">
-        <div class="building b1"></div>
-        <div class="building b2"></div>
-        <div class="building b3"></div>
-        <div class="building b4"></div>
-        <div class="building b5"></div>
-        <div class="building b6"></div>
-        <div class="building b7"></div>
-        <div class="building b8"></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
+        <div class="building"><div class="windows"></div></div>
     </div>
 
-    <div class="horizonGlow"></div>
+    <div class="road"></div>
+    <div class="road-line"></div>
 
-    <div class="road">
-        <div class="roadLine"></div>
-    </div>
-
-    <div class="splashContent">
+    <div class="splash-content">
 
         <div class="studio">
             CATS DEVELOPER STUDIO GAME
         </div>
 
-        <div class="logoTitle">
+        <div class="title-two">
             TWO CITIES
-            <span>RUSSIA</span>
+        </div>
+
+        <div class="title-russia">
+            RUSSIA
         </div>
 
         <div class="cities">
             MOSCOW • KRASNODAR
         </div>
 
-        <div class="loadingArea">
-
-            <div class="loadingText">
+        <div class="loading-wrap">
+            <div class="loading-text">
                 <span>ЗАГРУЗКА ИГРЫ</span>
                 <span id="loadingPercent">0%</span>
             </div>
 
-            <div class="loadingBar">
+            <div class="loading-bar">
                 <div
-                    class="loadingFill"
-                    id="loadingFill">
+                    id="loadingProgress"
+                    class="loading-progress">
                 </div>
             </div>
-
         </div>
 
     </div>
-
 </div>
 
 <!-- =========================
@@ -952,81 +964,77 @@ input {
 
 <div id="game">
 
-    <div class="gameCity">
+    <div class="game-sky"></div>
 
-        <div class="gameBuilding gb1"></div>
-        <div class="gameBuilding gb2"></div>
-        <div class="gameBuilding gb3"></div>
-        <div class="gameBuilding gb4"></div>
-        <div class="gameBuilding gb5"></div>
-        <div class="gameBuilding gb6"></div>
-        <div class="gameBuilding gb7"></div>
-        <div class="gameBuilding gb8"></div>
-
+    <div class="game-buildings">
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
+        <div class="g-building"><div class="g-windows"></div></div>
     </div>
 
-    <!-- TOP -->
+    <div class="g-road"></div>
+    <div class="g-road-glow"></div>
 
-    <div class="topBar">
+    <!-- HUD -->
 
-        <div class="topLogo">
-            TWO <span>CITIES</span>
+    <div class="top-hud">
+
+        <div class="logo-mini">
+            <b>TWO CITIES</b>
+            <span>RUSSIA</span>
         </div>
 
-        <div class="playerInfo">
-
-            <div
-                class="avatar"
-                id="avatar">
-                ?
+        <div class="player-mini">
+            <div id="miniAvatar" class="mini-avatar">
+                👤
             </div>
 
             <div
-                class="playerName"
-                id="playerName">
+                id="miniName"
+                class="player-mini-name">
                 Игрок
             </div>
-
         </div>
 
     </div>
 
     <!-- MENU -->
 
-    <div class="menu">
+    <div class="center-menu">
 
-        <div class="menuTitle">
+        <div class="menu-title">
             TWO CITIES
         </div>
 
-        <div class="menuSub">
+        <div class="menu-subtitle">
             MOSCOW • KRASNODAR
         </div>
 
-        <div class="menuButtons">
+        <div class="menu-buttons">
 
             <button
-                class="menuButton playButton"
-                onclick="startGame()">
+                class="menu-btn play-btn"
+                onclick="openGame()">
                 ▶ ИГРАТЬ
             </button>
 
             <button
-                class="menuButton"
+                class="menu-btn"
                 onclick="openProfile()">
                 👤 ПРОФИЛЬ
             </button>
 
             <button
-                class="menuButton"
+                class="menu-btn"
                 onclick="openSettings()">
                 ⚙️ НАСТРОЙКИ
-            </button>
-
-            <button
-                class="menuButton"
-                onclick="logout()">
-                ↪ ВЫЙТИ
             </button>
 
         </div>
@@ -1041,103 +1049,115 @@ input {
 
 <div id="auth">
 
-    <div class="authBox">
+    <div class="auth-card">
 
-        <div class="authLogo">
-            TWO CITIES
-            <span>RUSSIA</span>
+        <div class="auth-logo">
+            <div class="two">
+                TWO CITIES
+            </div>
+
+            <div class="russia">
+                RUSSIA
+            </div>
         </div>
 
-        <div class="tabs">
+        <div class="auth-tabs">
 
             <button
-                class="tab active"
                 id="loginTab"
-                onclick="showLogin()">
+                class="auth-tab active"
+                onclick="switchAuth('login')">
                 ВХОД
             </button>
 
             <button
-                class="tab"
                 id="registerTab"
-                onclick="showRegister()">
+                class="auth-tab"
+                onclick="switchAuth('register')">
                 РЕГИСТРАЦИЯ
             </button>
 
         </div>
 
-        <div class="field">
+        <div id="loginForm">
 
-            <label>
-                НОМЕР ТЕЛЕФОНА
-            </label>
+            <div class="field">
+                <label>НОМЕР ТЕЛЕФОНА</label>
+                <input
+                    id="loginPhone"
+                    type="tel"
+                    placeholder="+7 900 000-00-00">
+            </div>
 
-            <input
-                id="phone"
-                type="tel"
-                placeholder="+7 900 000-00-00"
-                autocomplete="tel">
+            <div class="field">
+                <label>ПАРОЛЬ</label>
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Введите пароль">
+            </div>
+
+            <div
+                id="loginError"
+                class="error">
+            </div>
+
+            <button
+                class="auth-main-btn"
+                onclick="login()">
+                ВОЙТИ
+            </button>
 
         </div>
 
         <div
-            class="field"
-            id="nicknameField"
+            id="registerForm"
             style="display:none;">
 
-            <label>
-                НИКНЕЙМ
-            </label>
+            <div class="field">
+                <label>НИК</label>
+                <input
+                    id="registerNickname"
+                    type="text"
+                    maxlength="20"
+                    placeholder="Ваш ник">
+            </div>
 
-            <input
-                id="nickname"
-                type="text"
-                placeholder="Ваш никнейм"
-                maxlength="20">
+            <div class="field">
+                <label>НОМЕР ТЕЛЕФОНА</label>
+                <input
+                    id="registerPhone"
+                    type="tel"
+                    placeholder="+7 900 000-00-00">
+            </div>
 
-        </div>
+            <div class="field">
+                <label>ПАРОЛЬ</label>
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Придумайте пароль">
+            </div>
 
-        <div class="field">
+            <div class="field">
+                <label>ПОВТОРИТЕ ПАРОЛЬ</label>
+                <input
+                    id="registerPassword2"
+                    type="password"
+                    placeholder="Повторите пароль">
+            </div>
 
-            <label>
-                ПАРОЛЬ
-            </label>
+            <div
+                id="registerError"
+                class="error">
+            </div>
 
-            <input
-                id="password"
-                type="password"
-                placeholder="Введите пароль"
-                autocomplete="current-password">
+            <button
+                class="auth-main-btn"
+                onclick="register()">
+                СОЗДАТЬ АККАУНТ
+            </button>
 
-        </div>
-
-        <div
-            class="field"
-            id="repeatPasswordField"
-            style="display:none;">
-
-            <label>
-                ПОВТОРИТЕ ПАРОЛЬ
-            </label>
-
-            <input
-                id="repeatPassword"
-                type="password"
-                placeholder="Повторите пароль"
-                autocomplete="new-password">
-
-        </div>
-
-        <button
-            class="authButton"
-            id="authButton"
-            onclick="submitAuth()">
-            ВОЙТИ
-        </button>
-
-        <div
-            class="error"
-            id="authError">
         </div>
 
     </div>
@@ -1149,22 +1169,152 @@ input {
 ========================= -->
 
 <div
-    class="modal"
-    id="profileModal">
+    id="profileModal"
+    class="modal">
 
-    <div class="modalBox">
-
-        <h2>👤 ПРОФИЛЬ</h2>
-
-        <p id="profileText">
-            Игрок
-        </p>
+    <div class="modal-card">
 
         <button
-            class="modalButton secondary"
+            class="close-btn"
             onclick="closeModal('profileModal')">
-            ЗАКРЫТЬ
+            ✕
         </button>
+
+        <div class="modal-title">
+            ПРОФИЛЬ
+        </div>
+
+        <div class="modal-subtitle">
+            ВАШ ПРОФИЛЬ В TWO CITIES: RUSSIA
+        </div>
+
+        <div class="profile-avatar-wrap">
+
+            <div
+                id="profileAvatar"
+                class="profile-avatar">
+                <span class="avatar-preview-text">
+                    👤
+                </span>
+            </div>
+
+        </div>
+
+        <div class="avatar-buttons">
+
+            <button
+                class="small-btn"
+                onclick="changeAvatar('👤')">
+                👤
+            </button>
+
+            <button
+                class="small-btn"
+                onclick="changeAvatar('😎')">
+                😎
+            </button>
+
+            <button
+                class="small-btn"
+                onclick="changeAvatar('🧑')">
+                🧑
+            </button>
+
+            <button
+                class="small-btn"
+                onclick="changeAvatar('🐱')">
+                🐱
+            </button>
+
+            <button
+                class="small-btn"
+                onclick="changeAvatar('🔥')">
+                🔥
+            </button>
+
+        </div>
+
+        <div class="field">
+            <label>НИК</label>
+
+            <input
+                id="profileNickname"
+                type="text"
+                maxlength="20"
+                placeholder="Ваш ник">
+        </div>
+
+        <div class="field">
+            <label>ОПИСАНИЕ</label>
+
+            <textarea
+                id="profileDescription"
+                maxlength="150"
+                placeholder="Расскажите немного о себе..."></textarea>
+        </div>
+
+        <div
+            id="saveMessage"
+            class="save-message">
+        </div>
+
+        <button
+            class="save-profile"
+            onclick="saveProfile()">
+            💾 СОХРАНИТЬ
+        </button>
+
+        <button
+            class="logout-profile"
+            onclick="logoutFromProfile()">
+            🚪 ВЫЙТИ ИЗ ПРОФИЛЯ
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     GAME MODAL
+========================= -->
+
+<div
+    id="gameModal"
+    class="modal">
+
+    <div class="modal-card">
+
+        <button
+            class="close-btn"
+            onclick="closeModal('gameModal')">
+            ✕
+        </button>
+
+        <div class="modal-title">
+            ИГРА
+        </div>
+
+        <div class="modal-subtitle">
+            TWO CITIES: RUSSIA
+        </div>
+
+        <div class="game-placeholder">
+
+            <div class="game-placeholder-icon">
+                🚗
+            </div>
+
+            <h3>
+                ИГРОВОЙ МИР
+            </h3>
+
+            <p>
+                Здесь будет настоящий игровой мир:
+                персонаж, машины, улицы Москвы и Краснодара,
+                здания, NPC и другие элементы игры.
+            </p>
+
+        </div>
 
     </div>
 
@@ -1175,57 +1325,29 @@ input {
 ========================= -->
 
 <div
-    class="modal"
-    id="settingsModal">
+    id="settingsModal"
+    class="modal">
 
-    <div class="modalBox">
-
-        <h2>⚙️ НАСТРОЙКИ</h2>
-
-        <p>
-            Пока здесь доступен только
-            выход из аккаунта.
-        </p>
+    <div class="modal-card">
 
         <button
-            class="modalButton"
+            class="close-btn"
+            onclick="closeModal('settingsModal')">
+            ✕
+        </button>
+
+        <div class="modal-title">
+            НАСТРОЙКИ
+        </div>
+
+        <div class="modal-subtitle">
+            НАСТРОЙКИ ИГРЫ
+        </div>
+
+        <button
+            class="settings-btn"
             onclick="logout()">
             ↪ ВЫЙТИ ИЗ АККАУНТА
-        </button>
-
-        <button
-            class="modalButton secondary"
-            onclick="closeModal('settingsModal')">
-            ЗАКРЫТЬ
-        </button>
-
-    </div>
-
-</div>
-
-<!-- =========================
-     PLAY MODAL
-========================= -->
-
-<div
-    class="modal"
-    id="playModal">
-
-    <div class="modalBox">
-
-        <h2>🎮 ИГРАТЬ</h2>
-
-        <p>
-            Игровой мир TWO CITIES: RUSSIA
-            скоро будет здесь.
-            <br><br>
-            Пока это стартовая версия игры.
-        </p>
-
-        <button
-            class="modalButton"
-            onclick="closeModal('playModal')">
-            ПОНЯТНО
         </button>
 
     </div>
@@ -1233,329 +1355,431 @@ input {
 </div>
 
 <script>
-
-/* =====================================
+/* ==========================================
    STORAGE
-===================================== */
+========================================== */
 
-const STORAGE_KEY =
+const ACCOUNTS_KEY =
     "two_cities_russia_accounts_v1";
 
 const CURRENT_KEY =
     "two_cities_russia_current_v1";
 
-/* =====================================
+const PROFILE_KEY =
+    "two_cities_russia_profiles_v1";
+
+/* ==========================================
    HELPERS
-===================================== */
+========================================== */
 
 function getAccounts() {
-
     try {
-
         return JSON.parse(
-            localStorage.getItem(STORAGE_KEY)
+            localStorage.getItem(ACCOUNTS_KEY)
         ) || {};
-
     } catch {
-
         return {};
-
     }
-
 }
 
 function saveAccounts(accounts) {
-
     localStorage.setItem(
-        STORAGE_KEY,
+        ACCOUNTS_KEY,
         JSON.stringify(accounts)
     );
+}
 
+function getProfiles() {
+    try {
+        return JSON.parse(
+            localStorage.getItem(PROFILE_KEY)
+        ) || {};
+    } catch {
+        return {};
+    }
+}
+
+function saveProfiles(profiles) {
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(profiles)
+    );
 }
 
 function normalizePhone(phone) {
-
     return phone
         .replace(/\D/g, "")
         .replace(/^8/, "7");
-
 }
 
-function getCurrentUser() {
-
-    const phone =
-        localStorage.getItem(CURRENT_KEY);
-
-    if (!phone) return null;
-
-    const accounts = getAccounts();
-
-    return accounts[phone] || null;
-
+function getCurrentPhone() {
+    return localStorage.getItem(CURRENT_KEY);
 }
 
-/* =====================================
-   AUTH MODE
-===================================== */
+/* ==========================================
+   AUTH SWITCH
+========================================== */
 
-let authMode = "login";
+function switchAuth(type) {
 
-function showLogin() {
+    const loginForm =
+        document.getElementById("loginForm");
 
-    authMode = "login";
+    const registerForm =
+        document.getElementById("registerForm");
 
-    document
-        .getElementById("loginTab")
-        .classList.add("active");
+    const loginTab =
+        document.getElementById("loginTab");
 
-    document
-        .getElementById("registerTab")
-        .classList.remove("active");
+    const registerTab =
+        document.getElementById("registerTab");
 
-    document
-        .getElementById("nicknameField")
-        .style.display = "none";
+    if (type === "login") {
 
-    document
-        .getElementById("repeatPasswordField")
-        .style.display = "none";
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
 
-    document
-        .getElementById("authButton")
-        .textContent = "ВОЙТИ";
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
 
-    document
-        .getElementById("authError")
-        .textContent = "";
+    } else {
 
+        loginForm.style.display = "none";
+        registerForm.style.display = "block";
+
+        loginTab.classList.remove("active");
+        registerTab.classList.add("active");
+    }
 }
 
-function showRegister() {
+/* ==========================================
+   REGISTER
+========================================== */
 
-    authMode = "register";
+function register() {
 
-    document
-        .getElementById("registerTab")
-        .classList.add("active");
-
-    document
-        .getElementById("loginTab")
-        .classList.remove("active");
-
-    document
-        .getElementById("nicknameField")
-        .style.display = "block";
-
-    document
-        .getElementById("repeatPasswordField")
-        .style.display = "block";
-
-    document
-        .getElementById("authButton")
-        .textContent = "СОЗДАТЬ АККАУНТ";
-
-    document
-        .getElementById("authError")
-        .textContent = "";
-
-}
-
-/* =====================================
-   SUBMIT AUTH
-===================================== */
-
-function submitAuth() {
+    const nickname =
+        document.getElementById(
+            "registerNickname"
+        ).value.trim();
 
     const phone =
         normalizePhone(
-            document.getElementById("phone").value
+            document.getElementById(
+                "registerPhone"
+            ).value
         );
 
     const password =
-        document.getElementById("password").value;
+        document.getElementById(
+            "registerPassword"
+        ).value;
+
+    const password2 =
+        document.getElementById(
+            "registerPassword2"
+        ).value;
 
     const error =
-        document.getElementById("authError");
+        document.getElementById(
+            "registerError"
+        );
 
     error.textContent = "";
 
-    if (!phone || phone.length < 10) {
-
+    if (!nickname) {
         error.textContent =
-            "Введите корректный номер телефона.";
-
+            "Введите ник";
         return;
-
     }
 
-    if (!password || password.length < 4) {
-
+    if (phone.length < 10) {
         error.textContent =
-            "Пароль должен содержать минимум 4 символа.";
-
+            "Введите корректный номер телефона";
         return;
+    }
 
+    if (password.length < 4) {
+        error.textContent =
+            "Пароль должен содержать минимум 4 символа";
+        return;
+    }
+
+    if (password !== password2) {
+        error.textContent =
+            "Пароли не совпадают";
+        return;
     }
 
     const accounts = getAccounts();
 
-    /* LOGIN */
-
-    if (authMode === "login") {
-
-        if (!accounts[phone]) {
-
-            error.textContent =
-                "Номер не зарегистрирован. Сначала создайте аккаунт.";
-
-            return;
-
-        }
-
-        if (accounts[phone].password !== password) {
-
-            error.textContent =
-                "Неверный пароль";
-
-            return;
-
-        }
-
-        localStorage.setItem(
-            CURRENT_KEY,
-            phone
-        );
-
-        openGame();
-
-        return;
-
-    }
-
-    /* REGISTER */
-
-    const nickname =
-        document.getElementById("nickname")
-        .value
-        .trim();
-
-    const repeatPassword =
-        document.getElementById("repeatPassword")
-        .value;
-
-    if (!nickname) {
-
-        error.textContent =
-            "Введите никнейм.";
-
-        return;
-
-    }
-
     if (accounts[phone]) {
-
         error.textContent =
             "Этот номер телефона уже зарегистрирован";
-
         return;
-
-    }
-
-    if (password !== repeatPassword) {
-
-        error.textContent =
-            "Пароли не совпадают.";
-
-        return;
-
     }
 
     accounts[phone] = {
-
         phone: phone,
-
         password: password,
-
         nickname: nickname,
-
-        createdAt:
-            new Date().toISOString()
-
+        createdAt: Date.now()
     };
 
     saveAccounts(accounts);
+
+    const profiles = getProfiles();
+
+    profiles[phone] = {
+        nickname: nickname,
+        description: "",
+        avatar: "👤"
+    };
+
+    saveProfiles(profiles);
 
     localStorage.setItem(
         CURRENT_KEY,
         phone
     );
 
-    openGame();
-
+    enterGame();
 }
 
-/* =====================================
-   OPEN GAME
-===================================== */
+/* ==========================================
+   LOGIN
+========================================== */
 
-function openGame() {
+function login() {
 
-    document
-        .getElementById("auth")
-        .style.display = "none";
+    const phone =
+        normalizePhone(
+            document.getElementById(
+                "loginPhone"
+            ).value
+        );
 
-    document
-        .getElementById("splash")
-        .style.display = "none";
+    const password =
+        document.getElementById(
+            "loginPassword"
+        ).value;
 
-    document
-        .getElementById("game")
-        .style.display = "block";
+    const error =
+        document.getElementById(
+            "loginError"
+        );
 
-    updatePlayer();
+    error.textContent = "";
 
+    const accounts = getAccounts();
+
+    if (!accounts[phone]) {
+        error.textContent =
+            "Номер не зарегистрирован. Сначала создайте аккаунт.";
+        return;
+    }
+
+    if (accounts[phone].password !== password) {
+        error.textContent =
+            "Неверный пароль";
+        return;
+    }
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        phone
+    );
+
+    enterGame();
 }
 
-/* =====================================
-   UPDATE PLAYER
-===================================== */
+/* ==========================================
+   ENTER GAME
+========================================== */
 
-function updatePlayer() {
+function enterGame() {
 
-    const user =
-        getCurrentUser();
+    document.getElementById(
+        "auth"
+    ).style.display = "none";
 
-    if (!user) return;
+    document.getElementById(
+        "splash"
+    ).style.display = "none";
 
-    document
-        .getElementById("playerName")
-        .textContent =
-        user.nickname;
+    document.getElementById(
+        "game"
+    ).style.display = "block";
 
-    document
-        .getElementById("profileText")
-        .innerHTML =
-        "<b>" +
-        user.nickname +
-        "</b><br><br>" +
-        "Телефон: +" +
-        user.phone;
-
-    const firstLetter =
-        user.nickname
-        .charAt(0)
-        .toUpperCase();
-
-    document
-        .getElementById("avatar")
-        .textContent =
-        firstLetter;
-
+    updatePlayerUI();
 }
 
-/* =====================================
+/* ==========================================
+   PLAYER UI
+========================================== */
+
+function updatePlayerUI() {
+
+    const phone =
+        getCurrentPhone();
+
+    if (!phone) return;
+
+    const profiles =
+        getProfiles();
+
+    const profile =
+        profiles[phone];
+
+    const accounts =
+        getAccounts();
+
+    const account =
+        accounts[phone];
+
+    const nickname =
+        profile?.nickname ||
+        account?.nickname ||
+        "Игрок";
+
+    const avatar =
+        profile?.avatar ||
+        "👤";
+
+    document.getElementById(
+        "miniName"
+    ).textContent = nickname;
+
+    document.getElementById(
+        "miniAvatar"
+    ).textContent = avatar;
+
+    document.getElementById(
+        "profileNickname"
+    ).value = nickname;
+
+    document.getElementById(
+        "profileDescription"
+    ).value =
+        profile?.description || "";
+
+    document.getElementById(
+        "profileAvatar"
+    ).innerHTML =
+        '<span class="avatar-preview-text">' +
+        avatar +
+        '</span>';
+}
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+function openProfile() {
+
+    updatePlayerUI();
+
+    document.getElementById(
+        "profileModal"
+    ).style.display = "flex";
+}
+
+function changeAvatar(avatar) {
+
+    document.getElementById(
+        "profileAvatar"
+    ).innerHTML =
+        '<span class="avatar-preview-text">' +
+        avatar +
+        '</span>';
+
+    document.getElementById(
+        "profileAvatar"
+    ).dataset.avatar = avatar;
+}
+
+function saveProfile() {
+
+    const phone =
+        getCurrentPhone();
+
+    if (!phone) return;
+
+    const nickname =
+        document.getElementById(
+            "profileNickname"
+        ).value.trim();
+
+    const description =
+        document.getElementById(
+            "profileDescription"
+        ).value.trim();
+
+    const avatar =
+        document.getElementById(
+            "profileAvatar"
+        ).dataset.avatar ||
+        getProfiles()[phone]?.avatar ||
+        "👤";
+
+    if (!nickname) {
+
+        document.getElementById(
+            "saveMessage"
+        ).textContent =
+            "Введите ник";
+
+        return;
+    }
+
+    const profiles =
+        getProfiles();
+
+    profiles[phone] = {
+        nickname: nickname,
+        description: description,
+        avatar: avatar
+    };
+
+    saveProfiles(profiles);
+
+    /* обновляем ник и профиль аккаунта */
+
+    const accounts =
+        getAccounts();
+
+    if (accounts[phone]) {
+        accounts[phone].nickname =
+            nickname;
+        saveAccounts(accounts);
+    }
+
+    updatePlayerUI();
+
+    document.getElementById(
+        "saveMessage"
+    ).textContent =
+        "✓ Профиль сохранён";
+
+    setTimeout(() => {
+
+        document.getElementById(
+            "saveMessage"
+        ).textContent = "";
+
+    }, 1800);
+}
+
+function logoutFromProfile() {
+
+    closeModal("profileModal");
+
+    logout();
+}
+
+/* ==========================================
    LOGOUT
-===================================== */
+========================================== */
 
 function logout() {
 
@@ -1565,165 +1789,153 @@ function logout() {
 
     closeAllModals();
 
-    document
-        .getElementById("game")
-        .style.display = "none";
+    document.getElementById(
+        "game"
+    ).style.display = "none";
 
-    document
-        .getElementById("auth")
-        .style.display = "flex";
+    document.getElementById(
+        "auth"
+    ).style.display = "flex";
 
-    document
-        .getElementById("phone")
-        .value = "";
+    switchAuth("login");
 
-    document
-        .getElementById("password")
-        .value = "";
-
-    document
-        .getElementById("nickname")
-        .value = "";
-
-    document
-        .getElementById("repeatPassword")
-        .value = "";
-
-    showLogin();
-
+    document.getElementById(
+        "loginPassword"
+    ).value = "";
 }
 
-/* =====================================
-   MENU
-===================================== */
+/* ==========================================
+   MODALS
+========================================== */
 
-function startGame() {
+function openGame() {
 
-    document
-        .getElementById("playModal")
-        .style.display = "flex";
-
-}
-
-function openProfile() {
-
-    updatePlayer();
-
-    document
-        .getElementById("profileModal")
-        .style.display = "flex";
-
+    document.getElementById(
+        "gameModal"
+    ).style.display = "flex";
 }
 
 function openSettings() {
 
-    document
-        .getElementById("settingsModal")
-        .style.display = "flex";
-
+    document.getElementById(
+        "settingsModal"
+    ).style.display = "flex";
 }
-
-/* =====================================
-   MODALS
-===================================== */
 
 function closeModal(id) {
 
-    document
-        .getElementById(id)
-        .style.display = "none";
-
+    document.getElementById(
+        id
+    ).style.display = "none";
 }
 
 function closeAllModals() {
 
-    document
-        .querySelectorAll(".modal")
-        .forEach(modal => {
-
-            modal.style.display = "none";
-
-        });
-
+    document.querySelectorAll(
+        ".modal"
+    ).forEach(modal => {
+        modal.style.display = "none";
+    });
 }
 
-/* =====================================
-   SPLASH
-===================================== */
+/* ==========================================
+   CLICK OUTSIDE MODAL
+========================================== */
+
+document.querySelectorAll(
+    ".modal"
+).forEach(modal => {
+
+    modal.addEventListener(
+        "click",
+        function(e) {
+
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+
+        }
+    );
+
+});
+
+/* ==========================================
+   SPLASH LOADING
+========================================== */
 
 let progress = 0;
 
-const loadingFill =
-    document.getElementById("loadingFill");
+const loadingProgress =
+    document.getElementById(
+        "loadingProgress"
+    );
 
 const loadingPercent =
-    document.getElementById("loadingPercent");
+    document.getElementById(
+        "loadingPercent"
+    );
 
-const splash =
-    document.getElementById("splash");
+const loadingTimer =
+    setInterval(() => {
 
-const game =
-    document.getElementById("game");
+        progress++;
 
-const auth =
-    document.getElementById("auth");
+        loadingProgress.style.width =
+            progress + "%";
 
-const currentUser =
-    getCurrentUser();
+        loadingPercent.textContent =
+            progress + "%";
 
-function loading() {
+        if (progress >= 100) {
 
-    progress++;
+            clearInterval(loadingTimer);
 
-    if (progress > 100) {
-        progress = 100;
-    }
+            setTimeout(() => {
 
-    loadingFill.style.width =
-        progress + "%";
+                document.getElementById(
+                    "splash"
+                ).style.display = "none";
 
-    loadingPercent.textContent =
-        progress + "%";
+                checkSession();
 
-    if (progress < 100) {
+            }, 250);
 
-        setTimeout(
-            loading,
-            50
-        );
+        }
 
-    } else {
+    }, 50);
 
-        setTimeout(
-            finishSplash,
-            300
-        );
+/* ==========================================
+   SESSION
+========================================== */
 
-    }
+function checkSession() {
 
-}
+    const current =
+        getCurrentPhone();
 
-function finishSplash() {
+    const accounts =
+        getAccounts();
 
-    splash.style.display = "none";
+    if (
+        current &&
+        accounts[current]
+    ) {
 
-    if (currentUser) {
-
-        game.style.display = "block";
-
-        updatePlayer();
+        enterGame();
 
     } else {
 
-        auth.style.display = "flex";
+        document.getElementById(
+            "auth"
+        ).style.display = "flex";
 
+        switchAuth("login");
     }
-
 }
 
-/* =====================================
+/* ==========================================
    ORIENTATION
-===================================== */
+========================================== */
 
 async function lockLandscape() {
 
@@ -1741,61 +1953,19 @@ async function lockLandscape() {
         }
 
     } catch (e) {
-
-        // Некоторые браузеры Honor
-        // запрещают автоматическую блокировку.
-
+        /* браузер может запретить блокировку */
     }
-
 }
 
-/* =====================================
-   START
-===================================== */
+lockLandscape();
 
-window.addEventListener(
-    "load",
-    () => {
-
-        lockLandscape();
-
-        setTimeout(
-            loading,
-            50
-        );
-
-    }
-);
-
-/* =====================================
-   CLOSE MODAL BY BACKDROP
-===================================== */
-
-document
-    .querySelectorAll(".modal")
-    .forEach(modal => {
-
-        modal.addEventListener(
-            "click",
-            event => {
-
-                if (event.target === modal) {
-
-                    modal.style.display =
-                        "none";
-
-                }
-
-            }
-        );
-
-    });
-
-/* =====================================
+/* ==========================================
    SERVICE WORKER
-===================================== */
+========================================== */
 
-if ("serviceWorker" in navigator) {
+if (
+    "serviceWorker" in navigator
+) {
 
     window.addEventListener(
         "load",
@@ -1803,15 +1973,11 @@ if ("serviceWorker" in navigator) {
 
             navigator.serviceWorker
                 .register("./sw.js")
-                .catch(
-                    () => {}
-                );
+                .catch(() => {});
 
         }
     );
-
 }
-
 </script>
 
 </body>
