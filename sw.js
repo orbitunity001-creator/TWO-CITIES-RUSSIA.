@@ -1,4 +1,4 @@
-const CACHE_NAME = "two-cities-russia-v5";
+const CACHE_NAME = "two-cities-russia-v6";
 
 const FILES = [
     "./",
@@ -11,9 +11,11 @@ const FILES = [
 self.addEventListener("install", event => {
 
     event.waitUntil(
+
         caches.open(CACHE_NAME)
             .then(cache => cache.addAll(FILES))
             .then(() => self.skipWaiting())
+
     );
 
 });
@@ -32,7 +34,11 @@ self.addEventListener("activate", event => {
 
             );
 
-        }).then(() => self.clients.claim())
+        }).then(() => {
+
+            return self.clients.claim();
+
+        })
 
     );
 
@@ -59,10 +65,12 @@ self.addEventListener("fetch", event => {
 
                     caches.open(CACHE_NAME)
                         .then(cache => {
+
                             cache.put(
                                 event.request,
                                 copy
                             );
+
                         });
 
                 }
