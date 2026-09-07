@@ -1,1193 +1,943 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<meta charset="UTF-8">
 
-    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no,
+      viewport-fit=cover">
 
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1,
-                   maximum-scale=1,
-                   user-scalable=no,
-                   viewport-fit=cover">
+<meta name="theme-color" content="#03050d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TWO CITIES">
 
-    <title>TWO CITIES: RUSSIA</title>
+<title>TWO CITIES: RUSSIA</title>
 
-    <!-- PWA -->
-    <link rel="manifest" href="./manifest.json">
-
-    <!-- Иконка -->
-    <link rel="icon"
-          href="./icon.svg"
-          type="image/svg+xml">
-
-    <link rel="apple-touch-icon"
-          href="./icon.svg">
-
-    <meta name="theme-color"
-          content="#03050d">
-
-    <meta name="mobile-web-app-capable"
-          content="yes">
-
-    <meta name="apple-mobile-web-app-capable"
-          content="yes">
-
-    <meta name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent">
+<link rel="manifest" href="./manifest.json">
 
 <style>
-
-/* =====================================
-   ОСНОВА
-===================================== */
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-
     -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-
     background: #020308;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
     color: white;
-
-    touch-action: manipulation;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+button,
+input {
+    font: inherit;
+}
 
-/* =====================================
-   ЭКРАН ПОВОРОТА
-===================================== */
+/* =========================
+   PORTRAIT BLOCK
+========================= */
 
-#rotateScreen {
-
+#portraitBlock {
     position: fixed;
-
     inset: 0;
-
-    z-index: 999999;
-
+    z-index: 99999;
     display: none;
-
     align-items: center;
     justify-content: center;
-
     text-align: center;
-
     background:
-
-        radial-gradient(
-            circle at 50% 25%,
-            rgba(44,145,255,.20),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at 50% 90%,
-            rgba(150,55,255,.15),
-            transparent 40%
-        ),
-
-        linear-gradient(
-            145deg,
-            #010207,
-            #071020,
-            #03040a
-        );
+        radial-gradient(circle at center, #101735 0%, #020308 65%);
 }
 
-
-.rotateContent {
-
-    width: 90%;
-
-    max-width: 520px;
-
-    animation:
-        rotateAppear
-        1s
-        ease;
-}
-
-
-@keyframes rotateAppear {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(20px)
-            scale(.95);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-.rotateStudio {
-
-    font-size: 10px;
-
-    letter-spacing: 6px;
-
-    color:
-        rgba(255,255,255,.38);
-
-    margin-bottom: 32px;
-}
-
-
-/* Телефон */
-
-.phone {
-
-    width: 74px;
-
-    height: 125px;
-
-    margin:
-        0 auto 32px;
-
-    border:
-        2px solid
-        rgba(255,255,255,.8);
-
-    border-radius: 18px;
-
-    position: relative;
-
-    animation:
-        phoneAnimation
-        2.8s
-        infinite
-        ease-in-out;
-
+.portraitBox {
+    width: min(90%, 420px);
+    padding: 35px 25px;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 25px;
+    background: rgba(8,12,25,.8);
     box-shadow:
-
-        0 0 20px
-        rgba(60,210,255,.25),
-
-        inset 0 0 15px
-        rgba(60,210,255,.08);
+        0 0 50px rgba(0,150,255,.15),
+        inset 0 0 30px rgba(255,255,255,.03);
+    backdrop-filter: blur(20px);
 }
 
-
-.phone::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 8px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    width: 23px;
-
-    height: 3px;
-
-    border-radius: 5px;
-
-    background: white;
-
-    opacity: .5;
+.rotateIcon {
+    font-size: 65px;
+    margin-bottom: 20px;
+    animation: rotatePhone 2s infinite ease-in-out;
 }
 
-
-.phone::after {
-
-    content: "";
-
-    position: absolute;
-
-    bottom: 8px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    width: 7px;
-
-    height: 7px;
-
-    border-radius: 50%;
-
-    background: white;
-}
-
-
-@keyframes phoneAnimation {
-
-    0%,
-    15% {
-
-        transform:
-            rotate(0deg);
+@keyframes rotatePhone {
+    0%,100% {
+        transform: rotate(0deg);
     }
-
-    55%,
-    75% {
-
-        transform:
-            rotate(90deg);
-    }
-
-    100% {
-
-        transform:
-            rotate(90deg);
+    50% {
+        transform: rotate(90deg);
     }
 }
 
-
-.rotateTitle {
-
-    font-size:
-        clamp(
-            25px,
-            5vw,
-            42px
-        );
-
-    font-weight: 900;
-
+.portraitBox h1 {
+    font-size: 26px;
     letter-spacing: 3px;
-
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
-
-.rotateText {
-
-    font-size: 14px;
-
-    line-height: 1.7;
-
-    color:
-        rgba(255,255,255,.50);
+.portraitBox p {
+    color: #aeb7d0;
+    line-height: 1.5;
 }
 
-
-.rotateLine {
-
-    width: 190px;
-
-    height: 1px;
-
-    margin:
-        27px auto;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            #55dcff,
-            #a66cff,
-            transparent
-        );
-
-    box-shadow:
-
-        0 0 15px
-        rgba(70,210,255,.8);
-}
-
-
-/* =====================================
-   ЗАСТАВКА
-===================================== */
+/* =========================
+   SPLASH
+========================= */
 
 #splash {
-
     position: fixed;
-
     inset: 0;
-
-    z-index: 5000;
-
+    z-index: 9999;
     overflow: hidden;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
     background:
-
-        radial-gradient(
-            circle at 50% 32%,
-            rgba(35,125,220,.20),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at 15% 85%,
-            rgba(140,40,255,.16),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            180deg,
-            #01030a 0%,
-            #050b18 55%,
-            #010207 100%
-        );
+        radial-gradient(circle at 50% 35%, rgba(35,80,180,.22), transparent 35%),
+        linear-gradient(to bottom, #040713, #020308 75%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-
-/* =====================================
-   ЗВЁЗДЫ
-===================================== */
 
 .stars {
-
     position: absolute;
-
     inset: 0;
-
     background-image:
-
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.8) 1px,
-            transparent 1px
-        ),
-
-        radial-gradient(
-            circle,
-            rgba(80,190,255,.6) 1px,
-            transparent 1px
-        );
-
-    background-size:
-        95px 95px,
-        145px 145px;
-
-    background-position:
-        10px 20px,
-        40px 70px;
-
-    opacity: .18;
-
-    animation:
-        starsMove
-        18s
-        linear
-        infinite;
+        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,.4) 1px, transparent 1px);
+    background-size: 95px 95px, 145px 145px;
+    opacity: .35;
 }
-
-
-@keyframes starsMove {
-
-    from {
-
-        transform:
-            translateY(0);
-    }
-
-    to {
-
-        transform:
-            translateY(95px);
-    }
-}
-
-
-/* =====================================
-   ЦЕНТРАЛЬНОЕ СВЕЧЕНИЕ
-===================================== */
-
-.mainGlow {
-
-    position: absolute;
-
-    width: 650px;
-
-    height: 650px;
-
-    border-radius: 50%;
-
-    background:
-
-        radial-gradient(
-            circle,
-            rgba(30,150,255,.13),
-            transparent 68%
-        );
-
-    animation:
-        glowPulse
-        4s
-        ease-in-out
-        infinite;
-}
-
-
-@keyframes glowPulse {
-
-    0%,
-    100% {
-
-        transform:
-            scale(.9);
-
-        opacity: .6;
-    }
-
-    50% {
-
-        transform:
-            scale(1.1);
-
-        opacity: 1;
-    }
-}
-
-
-/* =====================================
-   ГОРОД
-===================================== */
 
 .city {
-
     position: absolute;
-
-    left: 0;
-
-    right: 0;
-
     bottom: 0;
-
-    height: 38%;
-
-    display: flex;
-
-    align-items: flex-end;
-
-    justify-content: center;
-
-    gap: 5px;
-
-    opacity: .85;
+    left: 0;
+    width: 100%;
+    height: 55%;
 }
-
 
 .building {
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(90deg,#080b15,#11182a,#070a12);
+    border-top: 1px solid rgba(90,150,255,.15);
+}
 
-    position: relative;
-
-    width:
-        clamp(
-            30px,
-            6vw,
-            100px
-        );
-
+.building::before {
+    content: "";
+    position: absolute;
+    inset: 15px;
     background:
-
-        linear-gradient(
-            90deg,
-            #03050a,
-            #10192a,
-            #03050a
+        repeating-linear-gradient(
+            to bottom,
+            rgba(70,170,255,.45) 0 4px,
+            transparent 4px 24px
+        ),
+        repeating-linear-gradient(
+            to right,
+            rgba(255,190,80,.25) 0 4px,
+            transparent 4px 18px
         );
-
-    border-top:
-        1px solid
-        rgba(90,190,255,.18);
+    opacity: .45;
 }
 
-
-.building:nth-child(1) {
-    height: 43%;
+.b1 {
+    left: 0;
+    width: 13%;
+    height: 48%;
 }
 
-.building:nth-child(2) {
-    height: 66%;
+.b2 {
+    left: 11%;
+    width: 15%;
+    height: 72%;
 }
 
-.building:nth-child(3) {
-    height: 52%;
+.b3 {
+    left: 24%;
+    width: 11%;
+    height: 42%;
 }
 
-.building:nth-child(4) {
-    height: 80%;
+.b4 {
+    left: 34%;
+    width: 17%;
+    height: 82%;
 }
 
-.building:nth-child(5) {
-    height: 59%;
+.b5 {
+    left: 49%;
+    width: 13%;
+    height: 55%;
 }
 
-.building:nth-child(6) {
-    height: 94%;
+.b6 {
+    left: 61%;
+    width: 18%;
+    height: 78%;
 }
 
-.building:nth-child(7) {
-    height: 66%;
-}
-
-.building:nth-child(8) {
-    height: 50%;
-}
-
-.building:nth-child(9) {
-    height: 75%;
-}
-
-.building:nth-child(10) {
+.b7 {
+    left: 77%;
+    width: 11%;
     height: 45%;
 }
 
-
-.building::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 8px;
-
-    background:
-
-        repeating-linear-gradient(
-            to bottom,
-            rgba(90,205,255,.55) 0,
-            rgba(90,205,255,.55) 3px,
-            transparent 3px,
-            transparent 17px
-        );
-
-    opacity: .25;
+.b8 {
+    left: 86%;
+    width: 16%;
+    height: 68%;
 }
 
-
-/* =====================================
-   ГОРИЗОНТ
-===================================== */
-
-.horizon {
-
+.horizonGlow {
     position: absolute;
-
+    bottom: 18%;
     left: 0;
+    width: 100%;
+    height: 100px;
+    background: radial-gradient(
+        ellipse,
+        rgba(20,130,255,.35),
+        transparent 65%
+    );
+    filter: blur(15px);
+}
 
+.road {
+    position: absolute;
+    left: 0;
     right: 0;
+    bottom: 0;
+    height: 20%;
+    background: linear-gradient(
+        to bottom,
+        #090b12,
+        #020204
+    );
+    border-top: 1px solid rgba(70,140,255,.15);
+}
 
-    bottom: 28%;
+.roadLine {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    width: 7%;
+    height: 5px;
+    background: #4aa8ff;
+    box-shadow:
+        0 0 10px #168cff,
+        0 0 30px #168cff;
+}
 
-    height: 1px;
+.splashContent {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    width: min(90%, 700px);
+}
 
+.studio {
+    color: #8f9ab5;
+    font-size: 13px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.logoTitle {
+    font-weight: 900;
+    font-size: clamp(45px, 9vw, 105px);
+    line-height: .85;
+    letter-spacing: 7px;
+    text-shadow:
+        0 0 10px rgba(80,170,255,.7),
+        0 0 35px rgba(50,120,255,.35);
+}
+
+.logoTitle span {
+    display: block;
+    font-size: .55em;
+    margin-top: 12px;
+    letter-spacing: 13px;
+    color: #dfe8ff;
+}
+
+.cities {
+    margin-top: 25px;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: #8795b8;
+}
+
+.loadingArea {
+    width: min(450px, 80%);
+    margin: 50px auto 0;
+}
+
+.loadingText {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #9aa5bf;
+    margin-bottom: 10px;
+}
+
+.loadingBar {
+    height: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255,255,255,.08);
+}
+
+.loadingFill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(
+        90deg,
+        #2e8cff,
+        #71c7ff,
+        #ffffff
+    );
+    box-shadow:
+        0 0 15px #348fff,
+        0 0 35px rgba(50,130,255,.6);
+    transition: width .08s linear;
+}
+
+/* =========================
+   GAME
+========================= */
+
+#game {
+    position: fixed;
+    inset: 0;
+    display: none;
+    overflow: hidden;
     background:
+        radial-gradient(circle at 50% 25%, rgba(35,75,150,.22), transparent 35%),
+        linear-gradient(#050817,#020308 70%);
+}
 
+/* background city */
+
+.gameCity {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.gameBuilding {
+    position: absolute;
+    bottom: 0;
+    background:
         linear-gradient(
             90deg,
-            transparent,
-            #46dfff,
-            #a56cff,
-            transparent
+            #050711,
+            #10172a,
+            #050711
         );
-
-    box-shadow:
-
-        0 0 15px
-        #46dfff,
-
-        0 0 40px
-        rgba(130,70,255,.7);
+    border-top: 1px solid rgba(90,160,255,.15);
 }
 
+.gameBuilding::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(70,150,255,.35) 0 3px,
+            transparent 3px 20px
+        ),
+        repeating-linear-gradient(
+            to right,
+            rgba(255,190,70,.2) 0 3px,
+            transparent 3px 15px
+        );
+    opacity: .45;
+}
 
-/* =====================================
-   ЛОГО
-===================================== */
+.gb1 {
+    left: 0;
+    width: 15%;
+    height: 48%;
+}
 
-.logo {
+.gb2 {
+    left: 13%;
+    width: 17%;
+    height: 70%;
+}
 
-    position: relative;
+.gb3 {
+    left: 29%;
+    width: 12%;
+    height: 44%;
+}
 
-    z-index: 20;
+.gb4 {
+    left: 39%;
+    width: 18%;
+    height: 80%;
+}
 
-    width: 90%;
+.gb5 {
+    left: 55%;
+    width: 14%;
+    height: 53%;
+}
 
-    max-width: 1000px;
+.gb6 {
+    left: 66%;
+    width: 18%;
+    height: 73%;
+}
 
+.gb7 {
+    left: 82%;
+    width: 10%;
+    height: 45%;
+}
+
+.gb8 {
+    left: 90%;
+    width: 14%;
+    height: 65%;
+}
+
+/* =========================
+   TOP UI
+========================= */
+
+.topBar {
+    position: absolute;
+    z-index: 10;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 18px;
+
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 18px;
+
+    background: rgba(5,8,18,.65);
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.35);
+}
+
+.topLogo {
+    font-weight: 900;
+    letter-spacing: 3px;
+    font-size: 17px;
+}
+
+.topLogo span {
+    color: #5aaeff;
+}
+
+.playerInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(135deg,#1c75ff,#742cff);
+
+    box-shadow:
+        0 0 18px rgba(60,120,255,.4);
+
+    font-weight: bold;
+}
+
+.playerName {
+    font-size: 13px;
+    color: #dce4ff;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    width: min(520px, 80%);
     text-align: center;
 }
 
+.menuTitle {
+    font-size: clamp(28px,5vw,55px);
+    font-weight: 900;
+    letter-spacing: 5px;
+    margin-bottom: 7px;
 
-.studio {
-
-    font-size: 11px;
-
-    letter-spacing: 7px;
-
-    color:
-        rgba(255,255,255,.42);
-
-    margin-bottom: 25px;
-
-    animation:
-        fadeUp
-        1.2s
-        ease;
+    text-shadow:
+        0 0 20px rgba(50,140,255,.5);
 }
 
+.menuSub {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #7f8cab;
+    margin-bottom: 32px;
+}
 
-.twoCities {
+.menuButtons {
+    display: grid;
+    gap: 12px;
+}
 
-    font-size:
-        clamp(
-            48px,
-            10vw,
-            125px
-        );
+.menuButton {
+    width: 100%;
+    min-height: 55px;
 
-    line-height: .85;
-
-    font-weight: 900;
-
-    letter-spacing:
-        clamp(
-            4px,
-            1vw,
-            15px
-        );
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 15px;
 
     background:
-
         linear-gradient(
-            100deg,
-            #ffffff,
-            #79e4ff,
-            #ffffff,
-            #b478ff,
-            #ffffff
-        );
-
-    background-size: 300% 100%;
-
-    -webkit-background-clip: text;
-
-    background-clip: text;
-
-    color: transparent;
-
-    animation:
-
-        titleAppear
-        1.4s
-        ease,
-
-        gradientMove
-        5s
-        linear
-        infinite;
-
-    filter:
-        drop-shadow(
-            0 0 20px
-            rgba(60,200,255,.25)
-        );
-}
-
-
-.russia {
-
-    margin-top: 13px;
-
-    font-size:
-        clamp(
-            27px,
-            5vw,
-            70px
-        );
-
-    font-weight: 900;
-
-    letter-spacing:
-        clamp(
-            7px,
-            2vw,
-            24px
+            90deg,
+            rgba(18,30,60,.8),
+            rgba(10,16,32,.8)
         );
 
     color: white;
 
-    text-shadow:
+    cursor: pointer;
 
-        0 0 10px
-        rgba(255,255,255,.55),
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 2px;
 
-        0 0 35px
-        rgba(60,180,255,.45);
-
-    animation:
-        titleAppear
-        1.7s
-        ease;
+    transition:
+        transform .2s,
+        border-color .2s,
+        box-shadow .2s,
+        background .2s;
 }
 
+.menuButton:hover,
+.menuButton:active {
+    transform: translateY(-2px);
 
-@keyframes gradientMove {
+    border-color: rgba(80,170,255,.6);
 
-    from {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(25,60,120,.9),
+            rgba(12,25,55,.9)
+        );
 
-        background-position:
-            0% center;
-    }
-
-    to {
-
-        background-position:
-            300% center;
-    }
+    box-shadow:
+        0 0 25px rgba(40,130,255,.2);
 }
 
+.playButton {
+    min-height: 68px;
 
-@keyframes titleAppear {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20,95,190,.85),
+            rgba(45,45,150,.85)
+        );
 
-    from {
+    border-color: rgba(90,180,255,.55);
 
-        opacity: 0;
-
-        transform:
-            translateY(25px)
-            scale(.94);
-
-        filter:
-            blur(10px);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-        filter:
-            blur(0);
-    }
+    box-shadow:
+        0 0 25px rgba(40,130,255,.25);
 }
 
+/* =========================
+   MODAL
+========================= */
 
-@keyframes fadeUp {
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
 
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(15px);
-    }
-
-    to {
-
-        opacity: .42;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-/* =====================================
-   ГОРОДА
-===================================== */
-
-.cities {
-
-    display: flex;
-
+    display: none;
     align-items: center;
-
     justify-content: center;
 
-    gap: 20px;
+    padding: 20px;
 
-    margin-top: 30px;
-
-    color:
-        rgba(255,255,255,.52);
-
-    font-size: 11px;
-
-    letter-spacing: 4px;
+    background: rgba(0,0,0,.65);
+    backdrop-filter: blur(12px);
 }
 
+.modalBox {
+    width: min(450px, 92%);
 
-.dot {
+    padding: 28px;
 
-    width: 5px;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 22px;
 
-    height: 5px;
-
-    border-radius: 50%;
-
-    background: #62e3ff;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(14,21,42,.95),
+            rgba(4,7,16,.96)
+        );
 
     box-shadow:
+        0 20px 80px rgba(0,0,0,.55),
+        0 0 35px rgba(30,100,255,.12);
 
-        0 0 10px #62e3ff,
-
-        0 0 25px #62e3ff;
+    text-align: center;
 }
 
-
-/* =====================================
-   РАЗДЕЛИТЕЛЬ
-===================================== */
-
-.separator {
-
-    width:
-        min(
-            480px,
-            70%
-        );
-
-    height: 1px;
-
-    margin:
-        28px auto;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.5),
-            transparent
-        );
-}
-
-
-/* =====================================
-   ЗАГРУЗКА
-===================================== */
-
-.loading {
-
-    width:
-        min(
-            360px,
-            65%
-        );
-
-    margin: auto;
-}
-
-
-.loadingTop {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 9px;
-
-    font-size: 9px;
-
+.modalBox h2 {
+    font-size: 22px;
     letter-spacing: 3px;
-
-    color:
-        rgba(255,255,255,.40);
+    margin-bottom: 12px;
 }
 
+.modalBox p {
+    color: #9da8c1;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
 
-.loadingBar {
-
+.modalButton {
     width: 100%;
+    height: 50px;
+    border: 0;
+    border-radius: 13px;
+    background: #175ed1;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+}
 
-    height: 3px;
+.modalButton.secondary {
+    background: rgba(255,255,255,.07);
+}
+
+/* =========================
+   AUTH
+========================= */
+
+#auth {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
 
     background:
-        rgba(255,255,255,.08);
+        radial-gradient(
+            circle at center,
+            rgba(25,60,130,.18),
+            rgba(0,0,0,.78)
+        );
 
+    backdrop-filter: blur(12px);
+}
+
+.authBox {
+    width: min(440px, 94%);
+
+    padding: 28px;
+
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13,20,40,.94),
+            rgba(4,7,16,.96)
+        );
+
+    box-shadow:
+        0 20px 80px rgba(0,0,0,.55),
+        0 0 45px rgba(35,120,255,.13);
+}
+
+.authLogo {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 22px;
+}
+
+.authLogo span {
+    display: block;
+    font-size: 12px;
+    color: #7992bd;
+    letter-spacing: 5px;
+    margin-top: 8px;
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+
+    padding: 5px;
+
+    background: rgba(255,255,255,.05);
+    border-radius: 13px;
+
+    margin-bottom: 20px;
+}
+
+.tab {
+    height: 42px;
+    border: 0;
     border-radius: 10px;
 
-    overflow: hidden;
+    color: #8995af;
+    background: transparent;
+    cursor: pointer;
 }
 
+.tab.active {
+    background: rgba(40,110,220,.3);
+    color: white;
+}
 
-.loadingProgress {
+.field {
+    margin-bottom: 13px;
+}
 
-    height: 100%;
+.field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 11px;
+    color: #8d99b3;
+    letter-spacing: 1px;
+}
 
-    width: 0%;
+.field input {
+    width: 100%;
+    height: 50px;
+
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+
+    outline: none;
+
+    background: rgba(255,255,255,.045);
+    color: white;
+
+    padding: 0 14px;
+}
+
+.field input:focus {
+    border-color: rgba(65,155,255,.65);
+    box-shadow: 0 0 18px rgba(40,130,255,.1);
+}
+
+.authButton {
+    width: 100%;
+    height: 52px;
+
+    margin-top: 8px;
+
+    border: 1px solid rgba(80,160,255,.4);
+    border-radius: 13px;
 
     background:
-
         linear-gradient(
             90deg,
-            #4bdfff,
-            #956cff,
-            white
+            #155dcc,
+            #4030a8
         );
 
-    box-shadow:
+    color: white;
+    font-weight: 900;
+    letter-spacing: 1px;
 
-        0 0 12px
-        #4bdfff,
-
-        0 0 30px
-        #805dff;
-
-    animation:
-        loading
-        5s
-        linear
-        forwards;
+    cursor: pointer;
 }
 
+.error {
+    min-height: 20px;
+    margin-top: 12px;
+    color: #ff7380;
+    font-size: 12px;
+    text-align: center;
+}
 
-@keyframes loading {
+/* =========================
+   RESPONSIVE
+========================= */
 
-    from {
-        width: 0%;
+@media (max-width: 700px) and (orientation: landscape) {
+
+    .topBar {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        height: 48px;
+        padding: 0 12px;
     }
 
-    to {
-        width: 100%;
+    .menu {
+        width: min(420px, 75%);
+    }
+
+    .menuTitle {
+        font-size: 30px;
+    }
+
+    .menuSub {
+        margin-bottom: 15px;
+    }
+
+    .menuButtons {
+        gap: 7px;
+    }
+
+    .menuButton {
+        min-height: 42px;
+        font-size: 11px;
+    }
+
+    .playButton {
+        min-height: 50px;
+    }
+
+    .authBox {
+        padding: 20px;
+        max-width: 430px;
     }
 }
-
-
-/* =====================================
-   ИГРОВОЙ ЭКРАН
-===================================== */
-
-#game {
-
-    position: fixed;
-
-    inset: 0;
-
-    overflow: hidden;
-
-    background:
-
-        radial-gradient(
-            circle at 50% 30%,
-            #122747,
-            transparent 50%
-        ),
-
-        linear-gradient(
-            180deg,
-            #050914,
-            #020308
-        );
-}
-
-
-/* =====================================
-   LANDSCAPE
-===================================== */
 
 @media (orientation: portrait) {
-
-    #rotateScreen {
-
+    #portraitBlock {
         display: flex;
     }
 
     #splash,
-    #game {
-
+    #game,
+    #auth {
         display: none !important;
     }
 }
-
-
-@media (orientation: landscape) {
-
-    #rotateScreen {
-
-        display: none !important;
-    }
-}
-
-
-/* =====================================
-   МАЛЕНЬКИЕ ЭКРАНЫ
-===================================== */
-
-@media (max-height: 450px) {
-
-    .studio {
-
-        margin-bottom: 12px;
-    }
-
-    .cities {
-
-        margin-top: 18px;
-    }
-
-    .separator {
-
-        margin: 16px auto;
-    }
-
-    .loading {
-
-        margin-top: 0;
-    }
-}
-
 </style>
 </head>
 
-
 <body>
 
+<!-- =========================
+     PORTRAIT
+========================= -->
 
-<!-- =====================================
-     ПОВОРОТ ТЕЛЕФОНА
-===================================== -->
+<div id="portraitBlock">
+    <div class="portraitBox">
+        <div class="rotateIcon">📱</div>
 
-<div id="rotateScreen">
+        <h1>ПОВЕРНИТЕ ТЕЛЕФОН</h1>
 
-    <div class="rotateContent">
-
-        <div class="rotateStudio">
-            TWO CITIES: RUSSIA
-        </div>
-
-        <div class="phone"></div>
-
-        <div class="rotateTitle">
-            ПОВЕРНИТЕ ТЕЛЕФОН
-        </div>
-
-        <div class="rotateText">
-            Игра работает только<br>
-            в горизонтальном режиме
-        </div>
-
-        <div class="rotateLine"></div>
-
-        <div class="rotateText">
-            MOSCOW • KRASNODAR
-        </div>
-
+        <p>
+            TWO CITIES: RUSSIA работает
+            только в горизонтальном режиме.
+        </p>
     </div>
-
 </div>
 
-
-<!-- =====================================
-     ЗАСТАВКА
-===================================== -->
+<!-- =========================
+     SPLASH
+========================= -->
 
 <div id="splash">
 
     <div class="stars"></div>
 
-    <div class="mainGlow"></div>
-
-    <div class="horizon"></div>
-
-
-    <!-- Город -->
-
     <div class="city">
-
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-        <div class="building"></div>
-
+        <div class="building b1"></div>
+        <div class="building b2"></div>
+        <div class="building b3"></div>
+        <div class="building b4"></div>
+        <div class="building b5"></div>
+        <div class="building b6"></div>
+        <div class="building b7"></div>
+        <div class="building b8"></div>
     </div>
 
+    <div class="horizonGlow"></div>
 
-    <!-- Логотип -->
+    <div class="road">
+        <div class="roadLine"></div>
+    </div>
 
-    <div class="logo">
+    <div class="splashContent">
 
         <div class="studio">
             CATS DEVELOPER STUDIO GAME
         </div>
 
-        <div class="twoCities">
+        <div class="logoTitle">
             TWO CITIES
-        </div>
-
-        <div class="russia">
-            RUSSIA
+            <span>RUSSIA</span>
         </div>
 
         <div class="cities">
-
-            <span>MOSCOW</span>
-
-            <span class="dot"></span>
-
-            <span>KRASNODAR</span>
-
+            MOSCOW • KRASNODAR
         </div>
 
-        <div class="separator"></div>
+        <div class="loadingArea">
 
-
-        <!-- Загрузка -->
-
-        <div class="loading">
-
-            <div class="loadingTop">
-
-                <span>
-                    ЗАГРУЗКА ИГРЫ
-                </span>
-
-                <span id="percent">
-                    0%
-                </span>
-
+            <div class="loadingText">
+                <span>ЗАГРУЗКА ИГРЫ</span>
+                <span id="loadingPercent">0%</span>
             </div>
 
             <div class="loadingBar">
-
-                <div class="loadingProgress"></div>
-
+                <div
+                    class="loadingFill"
+                    id="loadingFill">
+                </div>
             </div>
 
         </div>
@@ -1196,45 +946,783 @@ body {
 
 </div>
 
+<!-- =========================
+     GAME
+========================= -->
 
-<!-- =====================================
-     ИГРА
-===================================== -->
+<div id="game">
 
-<div id="game"></div>
+    <div class="gameCity">
 
+        <div class="gameBuilding gb1"></div>
+        <div class="gameBuilding gb2"></div>
+        <div class="gameBuilding gb3"></div>
+        <div class="gameBuilding gb4"></div>
+        <div class="gameBuilding gb5"></div>
+        <div class="gameBuilding gb6"></div>
+        <div class="gameBuilding gb7"></div>
+        <div class="gameBuilding gb8"></div>
+
+    </div>
+
+    <!-- TOP -->
+
+    <div class="topBar">
+
+        <div class="topLogo">
+            TWO <span>CITIES</span>
+        </div>
+
+        <div class="playerInfo">
+
+            <div
+                class="avatar"
+                id="avatar">
+                ?
+            </div>
+
+            <div
+                class="playerName"
+                id="playerName">
+                Игрок
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MENU -->
+
+    <div class="menu">
+
+        <div class="menuTitle">
+            TWO CITIES
+        </div>
+
+        <div class="menuSub">
+            MOSCOW • KRASNODAR
+        </div>
+
+        <div class="menuButtons">
+
+            <button
+                class="menuButton playButton"
+                onclick="startGame()">
+                ▶ ИГРАТЬ
+            </button>
+
+            <button
+                class="menuButton"
+                onclick="openProfile()">
+                👤 ПРОФИЛЬ
+            </button>
+
+            <button
+                class="menuButton"
+                onclick="openSettings()">
+                ⚙️ НАСТРОЙКИ
+            </button>
+
+            <button
+                class="menuButton"
+                onclick="logout()">
+                ↪ ВЫЙТИ
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     AUTH
+========================= -->
+
+<div id="auth">
+
+    <div class="authBox">
+
+        <div class="authLogo">
+            TWO CITIES
+            <span>RUSSIA</span>
+        </div>
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                id="loginTab"
+                onclick="showLogin()">
+                ВХОД
+            </button>
+
+            <button
+                class="tab"
+                id="registerTab"
+                onclick="showRegister()">
+                РЕГИСТРАЦИЯ
+            </button>
+
+        </div>
+
+        <div class="field">
+
+            <label>
+                НОМЕР ТЕЛЕФОНА
+            </label>
+
+            <input
+                id="phone"
+                type="tel"
+                placeholder="+7 900 000-00-00"
+                autocomplete="tel">
+
+        </div>
+
+        <div
+            class="field"
+            id="nicknameField"
+            style="display:none;">
+
+            <label>
+                НИКНЕЙМ
+            </label>
+
+            <input
+                id="nickname"
+                type="text"
+                placeholder="Ваш никнейм"
+                maxlength="20">
+
+        </div>
+
+        <div class="field">
+
+            <label>
+                ПАРОЛЬ
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Введите пароль"
+                autocomplete="current-password">
+
+        </div>
+
+        <div
+            class="field"
+            id="repeatPasswordField"
+            style="display:none;">
+
+            <label>
+                ПОВТОРИТЕ ПАРОЛЬ
+            </label>
+
+            <input
+                id="repeatPassword"
+                type="password"
+                placeholder="Повторите пароль"
+                autocomplete="new-password">
+
+        </div>
+
+        <button
+            class="authButton"
+            id="authButton"
+            onclick="submitAuth()">
+            ВОЙТИ
+        </button>
+
+        <div
+            class="error"
+            id="authError">
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     PROFILE MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="profileModal">
+
+    <div class="modalBox">
+
+        <h2>👤 ПРОФИЛЬ</h2>
+
+        <p id="profileText">
+            Игрок
+        </p>
+
+        <button
+            class="modalButton secondary"
+            onclick="closeModal('profileModal')">
+            ЗАКРЫТЬ
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     SETTINGS MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="settingsModal">
+
+    <div class="modalBox">
+
+        <h2>⚙️ НАСТРОЙКИ</h2>
+
+        <p>
+            Пока здесь доступен только
+            выход из аккаунта.
+        </p>
+
+        <button
+            class="modalButton"
+            onclick="logout()">
+            ↪ ВЫЙТИ ИЗ АККАУНТА
+        </button>
+
+        <button
+            class="modalButton secondary"
+            onclick="closeModal('settingsModal')">
+            ЗАКРЫТЬ
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     PLAY MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="playModal">
+
+    <div class="modalBox">
+
+        <h2>🎮 ИГРАТЬ</h2>
+
+        <p>
+            Игровой мир TWO CITIES: RUSSIA
+            скоро будет здесь.
+            <br><br>
+            Пока это стартовая версия игры.
+        </p>
+
+        <button
+            class="modalButton"
+            onclick="closeModal('playModal')">
+            ПОНЯТНО
+        </button>
+
+    </div>
+
+</div>
 
 <script>
 
 /* =====================================
-   ПРОЦЕНТ ЗАГРУЗКИ
+   STORAGE
+===================================== */
+
+const STORAGE_KEY =
+    "two_cities_russia_accounts_v1";
+
+const CURRENT_KEY =
+    "two_cities_russia_current_v1";
+
+/* =====================================
+   HELPERS
+===================================== */
+
+function getAccounts() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(STORAGE_KEY)
+        ) || {};
+
+    } catch {
+
+        return {};
+
+    }
+
+}
+
+function saveAccounts(accounts) {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(accounts)
+    );
+
+}
+
+function normalizePhone(phone) {
+
+    return phone
+        .replace(/\D/g, "")
+        .replace(/^8/, "7");
+
+}
+
+function getCurrentUser() {
+
+    const phone =
+        localStorage.getItem(CURRENT_KEY);
+
+    if (!phone) return null;
+
+    const accounts = getAccounts();
+
+    return accounts[phone] || null;
+
+}
+
+/* =====================================
+   AUTH MODE
+===================================== */
+
+let authMode = "login";
+
+function showLogin() {
+
+    authMode = "login";
+
+    document
+        .getElementById("loginTab")
+        .classList.add("active");
+
+    document
+        .getElementById("registerTab")
+        .classList.remove("active");
+
+    document
+        .getElementById("nicknameField")
+        .style.display = "none";
+
+    document
+        .getElementById("repeatPasswordField")
+        .style.display = "none";
+
+    document
+        .getElementById("authButton")
+        .textContent = "ВОЙТИ";
+
+    document
+        .getElementById("authError")
+        .textContent = "";
+
+}
+
+function showRegister() {
+
+    authMode = "register";
+
+    document
+        .getElementById("registerTab")
+        .classList.add("active");
+
+    document
+        .getElementById("loginTab")
+        .classList.remove("active");
+
+    document
+        .getElementById("nicknameField")
+        .style.display = "block";
+
+    document
+        .getElementById("repeatPasswordField")
+        .style.display = "block";
+
+    document
+        .getElementById("authButton")
+        .textContent = "СОЗДАТЬ АККАУНТ";
+
+    document
+        .getElementById("authError")
+        .textContent = "";
+
+}
+
+/* =====================================
+   SUBMIT AUTH
+===================================== */
+
+function submitAuth() {
+
+    const phone =
+        normalizePhone(
+            document.getElementById("phone").value
+        );
+
+    const password =
+        document.getElementById("password").value;
+
+    const error =
+        document.getElementById("authError");
+
+    error.textContent = "";
+
+    if (!phone || phone.length < 10) {
+
+        error.textContent =
+            "Введите корректный номер телефона.";
+
+        return;
+
+    }
+
+    if (!password || password.length < 4) {
+
+        error.textContent =
+            "Пароль должен содержать минимум 4 символа.";
+
+        return;
+
+    }
+
+    const accounts = getAccounts();
+
+    /* LOGIN */
+
+    if (authMode === "login") {
+
+        if (!accounts[phone]) {
+
+            error.textContent =
+                "Номер не зарегистрирован. Сначала создайте аккаунт.";
+
+            return;
+
+        }
+
+        if (accounts[phone].password !== password) {
+
+            error.textContent =
+                "Неверный пароль";
+
+            return;
+
+        }
+
+        localStorage.setItem(
+            CURRENT_KEY,
+            phone
+        );
+
+        openGame();
+
+        return;
+
+    }
+
+    /* REGISTER */
+
+    const nickname =
+        document.getElementById("nickname")
+        .value
+        .trim();
+
+    const repeatPassword =
+        document.getElementById("repeatPassword")
+        .value;
+
+    if (!nickname) {
+
+        error.textContent =
+            "Введите никнейм.";
+
+        return;
+
+    }
+
+    if (accounts[phone]) {
+
+        error.textContent =
+            "Этот номер телефона уже зарегистрирован";
+
+        return;
+
+    }
+
+    if (password !== repeatPassword) {
+
+        error.textContent =
+            "Пароли не совпадают.";
+
+        return;
+
+    }
+
+    accounts[phone] = {
+
+        phone: phone,
+
+        password: password,
+
+        nickname: nickname,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+    saveAccounts(accounts);
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        phone
+    );
+
+    openGame();
+
+}
+
+/* =====================================
+   OPEN GAME
+===================================== */
+
+function openGame() {
+
+    document
+        .getElementById("auth")
+        .style.display = "none";
+
+    document
+        .getElementById("splash")
+        .style.display = "none";
+
+    document
+        .getElementById("game")
+        .style.display = "block";
+
+    updatePlayer();
+
+}
+
+/* =====================================
+   UPDATE PLAYER
+===================================== */
+
+function updatePlayer() {
+
+    const user =
+        getCurrentUser();
+
+    if (!user) return;
+
+    document
+        .getElementById("playerName")
+        .textContent =
+        user.nickname;
+
+    document
+        .getElementById("profileText")
+        .innerHTML =
+        "<b>" +
+        user.nickname +
+        "</b><br><br>" +
+        "Телефон: +" +
+        user.phone;
+
+    const firstLetter =
+        user.nickname
+        .charAt(0)
+        .toUpperCase();
+
+    document
+        .getElementById("avatar")
+        .textContent =
+        firstLetter;
+
+}
+
+/* =====================================
+   LOGOUT
+===================================== */
+
+function logout() {
+
+    localStorage.removeItem(
+        CURRENT_KEY
+    );
+
+    closeAllModals();
+
+    document
+        .getElementById("game")
+        .style.display = "none";
+
+    document
+        .getElementById("auth")
+        .style.display = "flex";
+
+    document
+        .getElementById("phone")
+        .value = "";
+
+    document
+        .getElementById("password")
+        .value = "";
+
+    document
+        .getElementById("nickname")
+        .value = "";
+
+    document
+        .getElementById("repeatPassword")
+        .value = "";
+
+    showLogin();
+
+}
+
+/* =====================================
+   MENU
+===================================== */
+
+function startGame() {
+
+    document
+        .getElementById("playModal")
+        .style.display = "flex";
+
+}
+
+function openProfile() {
+
+    updatePlayer();
+
+    document
+        .getElementById("profileModal")
+        .style.display = "flex";
+
+}
+
+function openSettings() {
+
+    document
+        .getElementById("settingsModal")
+        .style.display = "flex";
+
+}
+
+/* =====================================
+   MODALS
+===================================== */
+
+function closeModal(id) {
+
+    document
+        .getElementById(id)
+        .style.display = "none";
+
+}
+
+function closeAllModals() {
+
+    document
+        .querySelectorAll(".modal")
+        .forEach(modal => {
+
+            modal.style.display = "none";
+
+        });
+
+}
+
+/* =====================================
+   SPLASH
 ===================================== */
 
 let progress = 0;
 
-const percent =
-    document.getElementById("percent");
+const loadingFill =
+    document.getElementById("loadingFill");
 
-const loadingTimer =
-    setInterval(() => {
+const loadingPercent =
+    document.getElementById("loadingPercent");
 
-        progress++;
+const splash =
+    document.getElementById("splash");
 
-        percent.textContent =
-            progress + "%";
+const game =
+    document.getElementById("game");
 
-        if (progress >= 100) {
+const auth =
+    document.getElementById("auth");
 
-            clearInterval(
-                loadingTimer
-            );
-        }
+const currentUser =
+    getCurrentUser();
 
-    }, 50);
+function loading() {
 
+    progress++;
+
+    if (progress > 100) {
+        progress = 100;
+    }
+
+    loadingFill.style.width =
+        progress + "%";
+
+    loadingPercent.textContent =
+        progress + "%";
+
+    if (progress < 100) {
+
+        setTimeout(
+            loading,
+            50
+        );
+
+    } else {
+
+        setTimeout(
+            finishSplash,
+            300
+        );
+
+    }
+
+}
+
+function finishSplash() {
+
+    splash.style.display = "none";
+
+    if (currentUser) {
+
+        game.style.display = "block";
+
+        updatePlayer();
+
+    } else {
+
+        auth.style.display = "flex";
+
+    }
+
+}
 
 /* =====================================
-   ПОПЫТКА ЗАФИКСИРОВАТЬ LANDSCAPE
+   ORIENTATION
 ===================================== */
 
 async function lockLandscape() {
@@ -1249,19 +1737,62 @@ async function lockLandscape() {
             await screen.orientation.lock(
                 "landscape"
             );
+
         }
 
-    } catch (error) {
+    } catch (e) {
 
-        console.log(
-            "Автоблокировка ориентации недоступна"
-        );
+        // Некоторые браузеры Honor
+        // запрещают автоматическую блокировку.
+
     }
+
 }
 
+/* =====================================
+   START
+===================================== */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        lockLandscape();
+
+        setTimeout(
+            loading,
+            50
+        );
+
+    }
+);
 
 /* =====================================
-   PWA SERVICE WORKER
+   CLOSE MODAL BY BACKDROP
+===================================== */
+
+document
+    .querySelectorAll(".modal")
+    .forEach(modal => {
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (event.target === modal) {
+
+                    modal.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+    });
+
+/* =====================================
+   SERVICE WORKER
 ===================================== */
 
 if ("serviceWorker" in navigator) {
@@ -1273,50 +1804,13 @@ if ("serviceWorker" in navigator) {
             navigator.serviceWorker
                 .register("./sw.js")
                 .catch(
-                    error => {
-                        console.log(
-                            "Service Worker:",
-                            error
-                        );
-                    }
+                    () => {}
                 );
 
         }
     );
+
 }
-
-
-/* =====================================
-   ЗАПУСК LANDSCAPE
-===================================== */
-
-lockLandscape();
-
-
-/* =====================================
-   ЗАСТАВКА 5 СЕКУНД
-===================================== */
-
-setTimeout(() => {
-
-    const splash =
-        document.getElementById(
-            "splash"
-        );
-
-    splash.style.transition =
-        "opacity 1s ease";
-
-    splash.style.opacity = "0";
-
-
-    setTimeout(() => {
-
-        splash.remove();
-
-    }, 1000);
-
-}, 5000);
 
 </script>
 
