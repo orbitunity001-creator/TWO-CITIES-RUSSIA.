@@ -1,451 +1,351 @@
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="512"
-    height="512"
-    viewBox="0 0 512 512">
-
-    <defs>
-
-        <linearGradient
-            id="background"
-            x1="0"
-            y1="0"
-            x2="1"
-            y2="1">
-
-            <stop
-                offset="0%"
-                stop-color="#02040b"/>
-
-            <stop
-                offset="50%"
-                stop-color="#101b35"/>
-
-            <stop
-                offset="100%"
-                stop-color="#280b45"/>
-
-        </linearGradient>
-
-
-        <linearGradient
-            id="neon"
-            x1="0"
-            y1="0"
-            x2="1"
-            y2="1">
-
-            <stop
-                offset="0%"
-                stop-color="#43e7ff"/>
-
-            <stop
-                offset="50%"
-                stop-color="#ffffff"/>
-
-            <stop
-                offset="100%"
-                stop-color="#a86cff"/>
-
-        </linearGradient>
-
-
-        <filter
-            id="glow">
-
-            <feGaussianBlur
-                stdDeviation="9"
-                result="blur"/>
-
-            <feMerge>
-
-                <feMergeNode
-                    in="blur"/>
-
-                <feMergeNode
-                    in="SourceGraphic"/>
-
-            </feMerge>
-
-        </filter>
-
-
-        <filter
-            id="smallGlow">
-
-            <feGaussianBlur
-                stdDeviation="3"
-                result="blur"/>
-
-            <feMerge>
-
-                <feMergeNode
-                    in="blur"/>
-
-                <feMergeNode
-                    in="SourceGraphic"/>
-
-            </feMerge>
-
-        </filter>
-
-    </defs>
-
-
-    <!-- ФОН -->
-
-    <rect
-        width="512"
-        height="512"
-        rx="110"
-        fill="url(#background)"/>
-
-
-    <!-- СВЕЧЕНИЕ -->
-
-    <circle
-        cx="256"
-        cy="210"
-        r="190"
-        fill="#248cff"
-        opacity=".08"/>
-
-    <circle
-        cx="256"
-        cy="210"
-        r="120"
-        fill="#a84dff"
-        opacity=".08"/>
-
-
-    <!-- ЗВЁЗДЫ -->
-
-    <g
-        fill="white"
-        opacity=".7">
-
-        <circle
-            cx="70"
-            cy="80"
-            r="2"/>
-
-        <circle
-            cx="125"
-            cy="55"
-            r="2"/>
-
-        <circle
-            cx="205"
-            cy="82"
-            r="2"/>
-
-        <circle
-            cx="315"
-            cy="58"
-            r="2"/>
-
-        <circle
-            cx="420"
-            cy="92"
-            r="2"/>
-
-        <circle
-            cx="460"
-            cy="155"
-            r="2"/>
-
-        <circle
-            cx="55"
-            cy="180"
-            r="2"/>
-
-    </g>
-
-
-    <!-- ГОРОД -->
-
-    <g
-        fill="#060a15">
-
-        <rect
-            x="30"
-            y="290"
-            width="55"
-            height="222"/>
-
-        <rect
-            x="82"
-            y="250"
-            width="65"
-            height="262"/>
-
-        <rect
-            x="150"
-            y="310"
-            width="55"
-            height="202"/>
-
-        <rect
-            x="210"
-            y="225"
-            width="70"
-            height="287"/>
-
-        <rect
-            x="285"
-            y="275"
-            width="60"
-            height="237"/>
-
-        <rect
-            x="350"
-            y="235"
-            width="65"
-            height="277"/>
-
-        <rect
-            x="420"
-            y="295"
-            width="60"
-            height="217"/>
-
-    </g>
-
-
-    <!-- ОКНА -->
-
-    <g
-        fill="#48ddff"
-        opacity=".55"
-        filter="url(#smallGlow)">
-
-        <rect
-            x="45"
-            y="315"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="68"
-            y="350"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="100"
-            y="275"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="128"
-            y="310"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="100"
-            y="355"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="225"
-            y="250"
-            width="12"
-            height="4"/>
-
-        <rect
-            x="258"
-            y="290"
-            width="12"
-            height="4"/>
-
-        <rect
-            x="225"
-            y="335"
-            width="12"
-            height="4"/>
-
-        <rect
-            x="258"
-            y="375"
-            width="12"
-            height="4"/>
-
-        <rect
-            x="365"
-            y="270"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="395"
-            y="310"
-            width="11"
-            height="4"/>
-
-        <rect
-            x="365"
-            y="355"
-            width="11"
-            height="4"/>
-
-    </g>
-
-
-    <!-- ДОРОГА -->
-
-    <path
-        d="M205 512
-           L235 355
-           L277 355
-           L315 512
-           Z"
-        fill="#04060b"/>
-
-
-    <!-- РАЗМЕТКА -->
-
-    <path
-        d="M256 365
-           L256 512"
-
-        stroke="#55ddff"
-
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 512 512">
+
+<defs>
+
+    <linearGradient id="sky"
+        x1="0" y1="0"
+        x2="0" y2="1">
+        <stop offset="0" stop-color="#45c8ff"/>
+        <stop offset="1" stop-color="#dff8ff"/>
+    </linearGradient>
+
+    <linearGradient id="road"
+        x1="0" y1="0"
+        x2="0" y2="1">
+        <stop offset="0" stop-color="#89969d"/>
+        <stop offset="1" stop-color="#3f4b53"/>
+    </linearGradient>
+
+    <linearGradient id="car"
+        x1="0" y1="0"
+        x2="0" y2="1">
+        <stop offset="0" stop-color="#ff5a66"/>
+        <stop offset=".55" stop-color="#e32338"/>
+        <stop offset="1" stop-color="#a60019"/>
+    </linearGradient>
+
+    <linearGradient id="glass"
+        x1="0" y1="0"
+        x2="1" y2="1">
+        <stop offset="0" stop-color="#e9fbff"/>
+        <stop offset=".5" stop-color="#79c6e5"/>
+        <stop offset="1" stop-color="#277fa9"/>
+    </linearGradient>
+
+    <filter id="shadow">
+        <feDropShadow
+            dx="0"
+            dy="12"
+            stdDeviation="12"
+            flood-opacity=".28"/>
+    </filter>
+
+</defs>
+
+<!-- SKY -->
+
+<rect width="512"
+      height="512"
+      rx="100"
+      fill="url(#sky)"/>
+
+<!-- SUN -->
+
+<circle cx="410"
+        cy="95"
+        r="55"
+        fill="#fffbd0"/>
+
+<circle cx="410"
+        cy="95"
+        r="72"
+        fill="#fffbd0"
+        opacity=".22"/>
+
+<!-- CLOUD -->
+
+<g fill="white" opacity=".9">
+
+    <ellipse cx="85"
+             cy="110"
+             rx="55"
+             ry="25"/>
+
+    <circle cx="65"
+           cy="90"
+           r="32"/>
+
+    <circle cx="105"
+           cy="83"
+           r="38"/>
+
+    <circle cx="135"
+           cy="105"
+           r="27"/>
+
+</g>
+
+<!-- CITY -->
+
+<g>
+
+    <rect x="0"
+          y="205"
+          width="72"
+          height="125"
+          fill="#d7eaf2"/>
+
+    <rect x="65"
+          y="175"
+          width="65"
+          height="155"
+          fill="#ffffff"/>
+
+    <rect x="125"
+          y="215"
+          width="75"
+          height="115"
+          fill="#c8e1eb"/>
+
+    <rect x="195"
+          y="155"
+          width="75"
+          height="175"
+          fill="#edf8fb"/>
+
+    <rect x="265"
+          y="200"
+          width="75"
+          height="130"
+          fill="#c4dfe9"/>
+
+    <rect x="335"
+          y="170"
+          width="72"
+          height="160"
+          fill="#ffffff"/>
+
+    <rect x="402"
+          y="215"
+          width="110"
+          height="115"
+          fill="#cfe6ef"/>
+
+</g>
+
+<!-- WINDOWS -->
+
+<g fill="#43a9d2"
+   opacity=".75">
+
+    <path d="
+        M20 225h30v18H20z
+        M20 260h30v18H20z
+        M85 195h28v18H85z
+        M85 230h28v18H85z
+        M145 235h28v18H145z
+        M145 270h28v18H145z
+        M215 180h28v18H215z
+        M215 215h28v18H215z
+        M285 220h28v18H285z
+        M285 255h28v18H285z
+        M355 195h28v18H355z
+        M355 230h28v18H355z
+        M430 235h30v18H430z
+        M430 270h30v18H430z
+    "/>
+
+</g>
+
+<!-- ROAD -->
+
+<path d="
+    M0 512
+    L110 325
+    L402 325
+    L512 512
+    Z"
+    fill="url(#road)"/>
+
+<!-- ROAD MARK -->
+
+<path d="
+    M247 335
+    L265 335
+    L290 512
+    L220 512
+    Z"
+    fill="#ffffff"
+    opacity=".9"/>
+
+<!-- CAR SHADOW -->
+
+<ellipse cx="256"
+         cy="406"
+         rx="155"
+         ry="34"
+         fill="#182b36"
+         opacity=".3"/>
+
+<!-- CAR -->
+
+<g filter="url(#shadow)">
+
+    <!-- BODY -->
+
+    <path d="
+        M112 380
+        Q118 330 170 320
+        L205 272
+        Q220 251 250 248
+        L310 248
+        Q335 250 351 270
+        L390 319
+        Q425 327 430 380
+        L422 405
+        L390 405
+        Q383 365 346 365
+        Q307 365 300 405
+        L210 405
+        Q203 365 166 365
+        Q129 365 122 405
+        L94 405
+        Q88 390 94 375
+        Z"
+        fill="url(#car)"
+        stroke="#8e1021"
+        stroke-width="6"/>
+
+    <!-- ROOF -->
+
+    <path d="
+        M183 317
+        L216 274
+        Q226 259 249 258
+        L304 258
+        Q325 260 337 276
+        L368 318
+        Z"
+        fill="url(#glass)"
+        stroke="#a81225"
+        stroke-width="6"/>
+
+    <!-- GLASS SPLIT -->
+
+    <path d="
+        M270 260
+        L270 316"
+        stroke="#caeaf4"
         stroke-width="5"
+        opacity=".8"/>
 
-        stroke-dasharray="22 18"
+    <!-- LIGHT -->
 
-        opacity=".8"
+    <path d="
+        M109 347
+        Q128 334 149 338
+        L155 357
+        L113 362
+        Z"
+        fill="#fffbd0"/>
 
-        filter="url(#smallGlow)"/>
+    <path d="
+        M404 347
+        Q389 334 370 338
+        L365 357
+        L405 362
+        Z"
+        fill="#fffbd0"/>
 
+    <!-- GRILLE -->
 
-    <!-- ЦИФРА 2 -->
+    <rect x="218"
+          y="359"
+          width="76"
+          height="29"
+          rx="9"
+          fill="#63101b"/>
 
-    <text
-        x="256"
-        y="205"
+    <path d="
+        M226 366h60
+        M226 374h60
+        M226 382h60"
+        stroke="#e3a0a8"
+        stroke-width="3"/>
 
-        text-anchor="middle"
+    <!-- LICENSE -->
 
-        font-family="Arial, Helvetica, sans-serif"
+    <rect x="234"
+          y="389"
+          width="44"
+          height="13"
+          rx="3"
+          fill="white"/>
 
-        font-size="150"
-
-        font-weight="900"
-
-        fill="url(#neon)"
-
-        filter="url(#glow)">
-
-        2
-
+    <text x="256"
+          y="399"
+          text-anchor="middle"
+          font-family="Arial"
+          font-size="9"
+          font-weight="900"
+          fill="#263c4d">
+        TCR
     </text>
 
+    <!-- WHEELS -->
 
-    <!-- TWO CITIES -->
+    <circle cx="164"
+            cy="400"
+            r="37"
+            fill="#152029"
+            stroke="white"
+            stroke-width="7"/>
 
-    <text
-        x="256"
-        y="285"
+    <circle cx="164"
+            cy="400"
+            r="16"
+            fill="#b8c4ca"/>
 
-        text-anchor="middle"
+    <circle cx="348"
+            cy="400"
+            r="37"
+            fill="#152029"
+            stroke="white"
+            stroke-width="7"/>
 
-        font-family="Arial, Helvetica, sans-serif"
+    <circle cx="348"
+            cy="400"
+            r="16"
+            fill="#b8c4ca"/>
 
-        font-size="38"
+</g>
 
-        font-weight="900"
+<!-- TITLE -->
 
-        letter-spacing="2"
+<text x="256"
+      y="455"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="39"
+      font-weight="1000"
+      letter-spacing="2"
+      fill="white"
+      stroke="#173b59"
+      stroke-width="5"
+      paint-order="stroke">
+    TWO CITIES
+</text>
 
-        fill="white">
-
-        TWO CITIES
-
-    </text>
-
-
-    <!-- RUSSIA -->
-
-    <text
-        x="256"
-        y="325"
-
-        text-anchor="middle"
-
-        font-family="Arial, Helvetica, sans-serif"
-
-        font-size="25"
-
-        font-weight="900"
-
-        letter-spacing="8"
-
-        fill="#67ddff"
-
-        filter="url(#smallGlow)">
-
-        RUSSIA
-
-    </text>
-
-
-    <!-- ЛИНИЯ -->
-
-    <line
-        x1="90"
-        y1="350"
-        x2="422"
-        y2="350"
-
-        stroke="url(#neon)"
-
-        stroke-width="3"
-
-        filter="url(#smallGlow)"/>
-
-
-    <!-- ГОРОДА -->
-
-    <text
-        x="256"
-        y="385"
-
-        text-anchor="middle"
-
-        font-family="Arial, Helvetica, sans-serif"
-
-        font-size="14"
-
-        font-weight="600"
-
-        letter-spacing="3"
-
-        fill="#ffffff">
-
-        MOSCOW • KRASNODAR
-
-    </text>
-
-
-    <!-- РАМКА -->
-
-    <rect
-        x="9"
-        y="9"
-        width="494"
-        height="494"
-        rx="102"
-
-        fill="none"
-
-        stroke="url(#neon)"
-
-        stroke-width="3"
-
-        opacity=".5"/>
+<text x="256"
+      y="487"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="27"
+      font-weight="1000"
+      letter-spacing="7"
+      fill="#ff3045">
+    RUSSIA
+</text>
 
 </svg>
