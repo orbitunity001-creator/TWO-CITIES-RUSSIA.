@@ -1,4 +1,4 @@
-const CACHE_NAME = "two-cities-russia-v4";
+const CACHE_NAME = "two-cities-russia-v5";
 
 const FILES = [
     "./",
@@ -11,17 +11,9 @@ const FILES = [
 self.addEventListener("install", event => {
 
     event.waitUntil(
-
         caches.open(CACHE_NAME)
-
-            .then(cache => {
-                return cache.addAll(FILES);
-            })
-
-            .then(() => {
-                return self.skipWaiting();
-            })
-
+            .then(cache => cache.addAll(FILES))
+            .then(() => self.skipWaiting())
     );
 
 });
@@ -30,25 +22,17 @@ self.addEventListener("activate", event => {
 
     event.waitUntil(
 
-        caches.keys()
+        caches.keys().then(keys => {
 
-            .then(keys => {
+            return Promise.all(
 
-                return Promise.all(
+                keys
+                    .filter(key => key !== CACHE_NAME)
+                    .map(key => caches.delete(key))
 
-                    keys
-                        .filter(key => key !== CACHE_NAME)
-                        .map(key => caches.delete(key))
+            );
 
-                );
-
-            })
-
-            .then(() => {
-
-                return self.clients.claim();
-
-            })
+        }).then(() => self.clients.claim())
 
     );
 
@@ -56,20 +40,19 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
 
-    if (event.request.method !== "GET") {
+    if(event.request.method !== "GET"){
         return;
     }
 
     event.respondWith(
 
         fetch(event.request)
-
             .then(response => {
 
-                if (
+                if(
                     response &&
                     response.status === 200
-                ) {
+                ){
 
                     const copy =
                         response.clone();
@@ -87,7 +70,6 @@ self.addEventListener("fetch", event => {
                 return response;
 
             })
-
             .catch(() => {
 
                 return caches.match(
