@@ -2,8 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>TWO CITIES: RUSSIA</title>
+
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#050608">
 
@@ -12,145 +14,115 @@
     box-sizing:border-box;
     margin:0;
     padding:0;
-    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#050608;
+    background:#030405;
     color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 button,input,textarea{
-    font:inherit;
+    font-family:inherit;
 }
 
 button{
     cursor:pointer;
 }
 
-#rotate{
-    display:none;
-    position:fixed;
-    inset:0;
-    z-index:99999;
-    background:#050608;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-}
-
-.rotate-box{
-    padding:30px;
-}
-
-.rotate-icon{
-    font-size:65px;
-    margin-bottom:20px;
-}
-
-.rotate-box h2{
-    font-size:24px;
-    letter-spacing:2px;
-}
-
-.rotate-box p{
-    margin-top:10px;
-    color:#888;
-}
-
-@media(max-width:800px) and (orientation:portrait){
-    #rotate{
-        display:flex;
-    }
-}
+/* =========================
+   ОСНОВА
+========================= */
 
 #app{
     position:fixed;
     inset:0;
     overflow:hidden;
-    background:#050608;
+    background:#030405;
 }
 
-/* BACKGROUND */
-
-.background{
+.bg{
     position:absolute;
     inset:0;
     background:
         radial-gradient(
             circle at 72% 20%,
-            rgba(0,170,255,.20),
+            rgba(0,145,255,.18),
             transparent 30%
         ),
         radial-gradient(
-            circle at 15% 75%,
-            rgba(255,20,50,.12),
-            transparent 28%
+            circle at 12% 85%,
+            rgba(255,20,50,.13),
+            transparent 32%
         ),
         linear-gradient(
             135deg,
-            #030406 0%,
-            #080b10 48%,
-            #030405 100%
+            #020304,
+            #0b0f14 50%,
+            #020304
         );
 }
 
 .grid{
     position:absolute;
     inset:0;
-    opacity:.14;
+    opacity:.12;
     background-image:
         linear-gradient(
-            rgba(0,180,255,.25) 1px,
+            rgba(0,150,255,.3) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(0,180,255,.25) 1px,
+            rgba(0,150,255,.3) 1px,
             transparent 1px
         );
-    background-size:70px 70px;
-    transform:perspective(600px) rotateX(55deg) scale(1.8);
+    background-size:65px 65px;
+    transform:
+        perspective(500px)
+        rotateX(58deg)
+        scale(1.8);
     transform-origin:bottom;
 }
 
-.glow-red{
+.redGlow{
     position:absolute;
-    width:400px;
-    height:400px;
-    left:-180px;
-    bottom:-220px;
+    width:500px;
+    height:500px;
+    left:-250px;
+    bottom:-250px;
     border-radius:50%;
-    background:#ff153d;
-    filter:blur(130px);
+    background:#ff1744;
+    filter:blur(140px);
     opacity:.12;
 }
 
-.glow-blue{
+.blueGlow{
     position:absolute;
-    width:430px;
-    height:430px;
-    right:-200px;
-    top:-180px;
+    width:500px;
+    height:500px;
+    right:-250px;
+    top:-250px;
     border-radius:50%;
-    background:#009dff;
-    filter:blur(130px);
-    opacity:.15;
+    background:#008cff;
+    filter:blur(140px);
+    opacity:.14;
 }
 
-/* CITY */
+/* =========================
+   ГОРОД
+========================= */
 
 .city{
     position:absolute;
+    bottom:0;
     left:0;
     right:0;
-    bottom:0;
-    height:55%;
-    opacity:.72;
+    height:58%;
+    opacity:.7;
 }
 
 .building{
@@ -159,45 +131,45 @@ button{
     background:
         linear-gradient(
             90deg,
-            #080a0e,
-            #171b21,
-            #090b0e
+            #07090c,
+            #171c22,
+            #080a0d
         );
     border:1px solid rgba(255,255,255,.04);
-    box-shadow:
-        inset 0 0 30px rgba(0,0,0,.7);
 }
 
 .building:after{
     content:"";
     position:absolute;
     inset:12px;
-    opacity:.4;
     background:
         repeating-linear-gradient(
             90deg,
-            #268dc1 0 5px,
+            rgba(0,150,220,.5) 0 5px,
             transparent 5px 23px
         ),
         repeating-linear-gradient(
             0deg,
-            rgba(255,255,255,.4) 0 4px,
-            transparent 4px 22px
+            rgba(255,255,255,.2) 0 4px,
+            transparent 4px 23px
         );
+    opacity:.4;
 }
 
-.b1{left:0;width:9%;height:48%}
-.b2{left:8%;width:11%;height:72%}
-.b3{left:18%;width:8%;height:56%}
-.b4{left:25%;width:12%;height:88%}
-.b5{left:36%;width:10%;height:61%}
-.b6{left:45%;width:14%;height:78%}
-.b7{left:58%;width:9%;height:52%}
-.b8{left:66%;width:12%;height:83%}
-.b9{left:77%;width:9%;height:58%}
-.b10{left:85%;width:15%;height:73%}
+.b1{left:0;width:9%;height:45%}
+.b2{left:8%;width:12%;height:75%}
+.b3{left:19%;width:8%;height:55%}
+.b4{left:26%;width:13%;height:90%}
+.b5{left:38%;width:9%;height:62%}
+.b6{left:46%;width:14%;height:80%}
+.b7{left:59%;width:8%;height:53%}
+.b8{left:66%;width:13%;height:84%}
+.b9{left:78%;width:8%;height:58%}
+.b10{left:85%;width:15%;height:72%}
 
-/* ROAD */
+/* =========================
+   ДОРОГА
+========================= */
 
 .road{
     position:absolute;
@@ -208,17 +180,17 @@ button{
     background:
         linear-gradient(
             90deg,
-            #090a0d,
+            #08090b,
             #171a1e,
             #08090b
         );
-    clip-path:polygon(
-        39% 0,
-        61% 0,
-        100% 100%,
-        0 100%
-    );
-    border-top:1px solid #20252b;
+    clip-path:
+        polygon(
+            39% 0,
+            61% 0,
+            100% 100%,
+            0 100%
+        );
 }
 
 .road:after{
@@ -231,41 +203,40 @@ button{
     background:
         repeating-linear-gradient(
             0deg,
-            #e7edf2 0 30px,
+            #dfe5ea 0 30px,
             transparent 30px 75px
         );
-    transform:perspective(300px) rotateX(18deg);
-    opacity:.7;
 }
 
-/* TOP */
+/* =========================
+   ШАПКА
+========================= */
 
-.topbar{
+.top{
     position:absolute;
-    z-index:20;
-    top:20px;
+    top:22px;
     left:25px;
     right:25px;
+    z-index:50;
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
 .logo{
-    padding:10px 18px;
+    padding:11px 18px;
+    background:rgba(0,0,0,.65);
     border-left:3px solid #ff2045;
-    background:rgba(0,0,0,.55);
     backdrop-filter:blur(15px);
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
 .logo b{
-    font-size:18px;
+    font-size:17px;
     letter-spacing:2px;
 }
 
 .logo span{
-    color:#ff2347;
+    color:#ff2045;
 }
 
 .hud{
@@ -274,22 +245,23 @@ button{
     gap:10px;
 }
 
-.hud-avatar{
-    width:44px;
-    height:44px;
+.hud img{
+    width:43px;
+    height:43px;
     border-radius:50%;
     object-fit:cover;
-    border:2px solid #ff2347;
-    background:#0d1116;
+    border:2px solid #ff2045;
 }
 
 .hud-name{
-    padding:10px 15px;
-    background:rgba(0,0,0,.7);
-    border:1px solid #262c33;
+    padding:10px 14px;
+    background:rgba(0,0,0,.75);
+    border:1px solid #292f36;
 }
 
-/* SPLASH */
+/* =========================
+   ЭКРАНЫ
+========================= */
 
 .screen{
     position:absolute;
@@ -297,189 +269,121 @@ button{
     z-index:10;
 }
 
-#splash{
+/* =========================
+   ОФИЦИАЛЬНАЯ ЗАГРУЗКА
+========================= */
+
+#loadingScreen{
     display:flex;
     align-items:center;
     justify-content:center;
+}
+
+.loadingCenter{
+    width:min(760px,90vw);
     text-align:center;
 }
 
-.splash{
-    width:min(800px,92vw);
-}
-
-.car{
-    width:310px;
-    height:145px;
-    position:relative;
-    margin:auto;
-    filter:drop-shadow(0 25px 25px rgba(255,0,40,.2));
-}
-
-.car-body{
-    position:absolute;
-    left:25px;
-    bottom:28px;
-    width:260px;
-    height:67px;
-    border-radius:18px 55px 12px 12px;
-    background:
-        linear-gradient(
-            180deg,
-            #ff3153,
-            #bd092b 55%,
-            #650717
-        );
-    border:2px solid #ff526b;
-    box-shadow:
-        inset 0 5px 12px rgba(255,255,255,.3),
-        0 15px 30px rgba(255,0,40,.25);
-}
-
-.car-roof{
-    position:absolute;
-    left:82px;
-    top:18px;
-    width:145px;
-    height:60px;
-    border-radius:65px 65px 8px 8px;
-    background:
-        linear-gradient(
-            135deg,
-            #172e3d,
-            #071017
-        );
-    border:2px solid #e32b48;
-}
-
-.car-window{
-    position:absolute;
-    left:98px;
-    top:28px;
-    width:115px;
-    height:40px;
-    background:
-        linear-gradient(
-            135deg,
-            #244d63,
-            #071015
-        );
-    clip-path:polygon(
-        10% 100%,
-        30% 0,
-        100% 0,
-        100% 100%
-    );
-}
-
-.wheel{
-    position:absolute;
-    width:47px;
-    height:47px;
-    bottom:7px;
-    border-radius:50%;
-    background:#030405;
-    border:5px solid #30363d;
-    box-shadow:0 0 0 2px #080a0d;
-}
-
-.wheel:after{
-    content:"";
-    position:absolute;
-    inset:11px;
-    border-radius:50%;
-    background:#7e8790;
-    box-shadow:inset 0 0 0 4px #20252b;
-}
-
-.wheel.left{left:52px}
-.wheel.right{right:52px}
-
-.splash-title{
-    margin-top:5px;
-    font-size:clamp(45px,8vw,86px);
-    line-height:.9;
+.brand{
+    font-size:clamp(46px,8vw,90px);
     font-weight:1000;
     letter-spacing:-4px;
-    text-transform:uppercase;
 }
 
-.splash-title span{
-    color:#ff2145;
+.brand span{
+    color:#ff2045;
 }
 
-.splash-sub{
-    margin-top:17px;
-    color:#8b98a5;
-    letter-spacing:5px;
-    font-weight:bold;
+.brandSub{
+    margin-top:12px;
+    font-size:14px;
+    color:#727d87;
+    letter-spacing:6px;
 }
 
-.studio{
-    margin-top:13px;
-    color:#4e5964;
-    font-size:13px;
-    letter-spacing:2px;
+.studioName{
+    margin-top:30px;
+    color:#414b54;
+    font-size:11px;
+    letter-spacing:3px;
 }
 
-.loader{
-    width:min(500px,75vw);
-    height:5px;
-    margin:30px auto 0;
-    background:#161b20;
+/* Линия */
+
+.loadingLine{
+    width:min(580px,78vw);
+    height:4px;
+    margin:34px auto 0;
+    background:#161a1f;
     overflow:hidden;
 }
 
-.loader-bar{
+.loadingProgress{
+    width:0%;
     height:100%;
-    width:0;
-    background:linear-gradient(
-        90deg,
-        #008cff,
-        #ff2045
-    );
-    box-shadow:
-        0 0 15px #ff2045;
+    background:
+        linear-gradient(
+            90deg,
+            #008cff,
+            #ff2045
+        );
+    box-shadow:0 0 18px #ff2045;
 }
 
-.loading{
-    margin-top:12px;
-    color:#687580;
+.loadingPercent{
+    margin-top:13px;
     font-size:12px;
+    color:#69747d;
     letter-spacing:2px;
 }
 
-/* AUTH */
+.loadingStatus{
+    margin-top:10px;
+    height:20px;
+    color:#9aa4ad;
+    font-size:12px;
+}
 
-#auth{
+.loadingVersion{
+    margin-top:35px;
+    color:#353c43;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+/* =========================
+   АВТОРИЗАЦИЯ
+========================= */
+
+#authScreen{
     display:none;
     align-items:center;
     justify-content:center;
 }
 
-.auth-card{
+.authBox{
     width:min(450px,92vw);
-    padding:32px;
     background:
         linear-gradient(
             145deg,
-            rgba(20,23,28,.97),
-            rgba(7,9,12,.97)
+            rgba(17,20,25,.98),
+            rgba(5,7,9,.98)
         );
-    border:1px solid #262c33;
+    border:1px solid #292f36;
     border-top:2px solid #ff2045;
+    padding:32px;
     box-shadow:
-        0 35px 100px rgba(0,0,0,.65);
+        0 35px 100px rgba(0,0,0,.75);
 }
 
-.auth-title{
-    font-size:28px;
+.authTitle{
+    font-size:27px;
     font-weight:1000;
     letter-spacing:2px;
 }
 
-.auth-title span{
-    color:#ff2145;
+.authTitle span{
+    color:#ff2045;
 }
 
 .tabs{
@@ -490,11 +394,11 @@ button{
 
 .tab{
     flex:1;
-    padding:13px;
     border:0;
+    padding:13px;
+    color:#5e6871;
     background:none;
-    color:#59636d;
-    font-weight:bold;
+    font-weight:900;
 }
 
 .tab.active{
@@ -509,10 +413,9 @@ button{
 .field label{
     display:block;
     margin-bottom:8px;
-    color:#697580;
+    color:#68737d;
     font-size:11px;
-    letter-spacing:1.5px;
-    font-weight:bold;
+    letter-spacing:2px;
 }
 
 .field input,
@@ -520,129 +423,126 @@ button{
     width:100%;
     border:1px solid #292f36;
     outline:none;
-    border-radius:3px;
     padding:14px;
-    background:#0b0e12;
-    color:white;
+    color:#fff;
+    background:#090c10;
+    border-radius:3px;
 }
 
 .field input:focus,
 .field textarea:focus{
     border-color:#008cff;
-    box-shadow:0 0 0 1px #008cff;
-}
-
-.field textarea{
-    min-height:90px;
-    resize:none;
 }
 
 .primary{
     width:100%;
-    border:0;
     padding:15px;
-    background:linear-gradient(
-        90deg,
-        #d90e32,
-        #ff2145
-    );
+    border:0;
     color:#fff;
     font-weight:1000;
     letter-spacing:1px;
-    box-shadow:0 10px 25px rgba(255,20,60,.18);
+    background:
+        linear-gradient(
+            90deg,
+            #d80d32,
+            #ff2045
+        );
 }
 
 .message{
     min-height:20px;
-    margin-top:13px;
-    color:#ff425e;
-    font-size:13px;
+    margin-top:12px;
     text-align:center;
+    color:#ff405b;
+    font-size:13px;
 }
 
-/* MENU */
+/* =========================
+   МЕНЮ
+========================= */
 
-#menu{
+#menuScreen{
     display:none;
 }
 
-.menu-panel{
+.menu{
     position:absolute;
-    z-index:15;
     left:7%;
     top:50%;
     transform:translateY(-50%);
-    width:min(460px,43vw);
+    width:min(470px,45vw);
 }
 
-.menu-line{
-    width:70px;
+.redLine{
+    width:75px;
     height:3px;
-    background:#ff2045;
     margin-bottom:20px;
+    background:#ff2045;
     box-shadow:0 0 15px #ff2045;
 }
 
-.menu-title{
-    font-size:clamp(43px,6vw,78px);
-    line-height:.86;
+.menuTitle{
+    font-size:clamp(44px,6vw,80px);
+    line-height:.85;
     font-weight:1000;
     letter-spacing:-4px;
 }
 
-.menu-title span{
+.menuTitle span{
     color:#ff2045;
 }
 
-.menu-city{
+.cityName{
     margin:20px 0 28px;
-    color:#687682;
-    font-size:13px;
+    color:#697681;
     letter-spacing:4px;
+    font-size:12px;
 }
 
-.menu-buttons{
+.menuButtons{
     display:grid;
     gap:9px;
 }
 
-.menu-btn{
-    border:1px solid #252b31;
+.menuButton{
+    width:100%;
     padding:17px 20px;
     text-align:left;
-    background:rgba(8,10,13,.85);
-    color:#d8dde2;
+    border:1px solid #292f36;
+    background:rgba(7,9,12,.9);
+    color:#dce2e7;
     font-weight:900;
     transition:.2s;
 }
 
-.menu-btn:hover{
-    border-color:#008cff;
+.menuButton:hover{
     transform:translateX(5px);
+    border-color:#008cff;
 }
 
-.menu-btn.play{
-    background:#e8193c;
-    border-color:#ff3655;
-    color:white;
-    box-shadow:0 10px 35px rgba(255,20,55,.2);
+.menuButton.play{
+    background:#e6193d;
+    border-color:#ff3b58;
+    box-shadow:
+        0 10px 35px rgba(255,20,60,.18);
 }
 
-/* MODALS */
+/* =========================
+   МОДАЛКИ
+========================= */
 
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    z-index:100;
+    z-index:200;
     align-items:center;
     justify-content:center;
-    padding:20px;
-    background:rgba(0,0,0,.7);
+    background:rgba(0,0,0,.78);
     backdrop-filter:blur(12px);
 }
 
-.modal-card{
+.modalBox{
     width:min(520px,94vw);
     max-height:90vh;
     overflow:auto;
@@ -650,18 +550,14 @@ button{
     background:#090b0f;
     border:1px solid #292f36;
     border-top:2px solid #ff2045;
-    box-shadow:0 30px 100px rgba(0,0,0,.8);
+    box-shadow:0 30px 100px #000;
 }
 
-.modal-head{
+.modalHead{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:25px;
-}
-
-.modal-head h2{
-    font-size:24px;
 }
 
 .close{
@@ -673,7 +569,7 @@ button{
     font-size:20px;
 }
 
-.avatar-box{
+.avatarBox{
     text-align:center;
     margin-bottom:22px;
 }
@@ -681,24 +577,22 @@ button{
 .avatar{
     width:125px;
     height:125px;
-    border-radius:50%;
     object-fit:cover;
+    border-radius:50%;
     border:3px solid #ff2045;
-    background:#0b0e12;
-    box-shadow:0 0 30px rgba(255,20,55,.2);
+    background:#090c10;
 }
 
-.avatar-upload{
+.avatarUpload{
     display:inline-block;
     margin-top:13px;
-    padding:10px 16px;
+    padding:10px 15px;
     background:#11151a;
     border:1px solid #292f36;
-    color:#aab3bb;
-    cursor:pointer;
+    color:#aab2b9;
 }
 
-.avatar-upload input{
+.avatarUpload input{
     display:none;
 }
 
@@ -708,35 +602,36 @@ button{
     margin-top:10px;
     border:1px solid #292f36;
     background:#11151a;
-    color:#ccd3d9;
+    color:#ddd;
 }
 
 .danger{
     width:100%;
     padding:14px;
     margin-top:10px;
-    border:1px solid #681527;
-    background:#210a10;
-    color:#ff4861;
+    border:1px solid #671525;
+    background:#210910;
+    color:#ff405c;
 }
 
-/* GAME */
+/* =========================
+   GAME
+========================= */
 
-#game{
+#gameScreen{
     display:none;
 }
 
-.game-hud{
+.gameInfo{
     position:absolute;
-    left:25px;
     bottom:25px;
-    z-index:30;
+    left:25px;
     padding:15px 20px;
-    background:rgba(5,7,9,.9);
+    background:rgba(0,0,0,.85);
     border-left:3px solid #ff2045;
 }
 
-.game-hud b{
+.gameInfo b{
     color:#ff2045;
 }
 
@@ -744,49 +639,49 @@ button{
     position:absolute;
     right:25px;
     bottom:25px;
-    z-index:30;
+    padding:13px 20px;
     border:1px solid #292f36;
     background:#0b0e12;
     color:#fff;
-    padding:13px 20px;
 }
 
-/* EXTRA EFFECTS */
+/* =========================
+   ПОВОРОТ
+========================= */
 
-.scanline{
-    position:absolute;
+#rotate{
+    display:none;
+    position:fixed;
     inset:0;
-    pointer-events:none;
-    z-index:5;
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(255,255,255,.012) 0 1px,
-            transparent 1px 4px
-        );
+    z-index:99999;
+    background:#030405;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
 }
 
-.vignette{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    z-index:6;
-    box-shadow:
-        inset 0 0 180px rgba(0,0,0,.75);
+.rotateContent{
+    padding:30px;
 }
 
-@media(max-width:800px){
-    .menu-panel{
-        left:6%;
-        width:48vw;
-    }
+.rotateContent div{
+    font-size:65px;
+    margin-bottom:20px;
+}
 
-    .menu-title{
-        font-size:43px;
-    }
+.rotateContent h2{
+    font-size:22px;
+    letter-spacing:2px;
+}
 
-    .city{
-        opacity:.55;
+.rotateContent p{
+    margin-top:10px;
+    color:#666;
+}
+
+@media(max-width:800px) and (orientation:portrait){
+    #rotate{
+        display:flex;
     }
 }
 </style>
@@ -795,239 +690,247 @@ button{
 <body>
 
 <div id="rotate">
-    <div class="rotate-box">
-        <div class="rotate-icon">↔</div>
+    <div class="rotateContent">
+        <div>↔</div>
         <h2>ПОВЕРНИТЕ ТЕЛЕФОН</h2>
-        <p>TWO CITIES: RUSSIA работает горизонтально</p>
+        <p>Игра работает в горизонтальном режиме</p>
     </div>
 </div>
 
 <div id="app">
 
-    <div class="background"></div>
-    <div class="grid"></div>
-    <div class="glow-red"></div>
-    <div class="glow-blue"></div>
+<div class="bg"></div>
+<div class="grid"></div>
+<div class="redGlow"></div>
+<div class="blueGlow"></div>
 
-    <div class="city">
-        <div class="building b1"></div>
-        <div class="building b2"></div>
-        <div class="building b3"></div>
-        <div class="building b4"></div>
-        <div class="building b5"></div>
-        <div class="building b6"></div>
-        <div class="building b7"></div>
-        <div class="building b8"></div>
-        <div class="building b9"></div>
-        <div class="building b10"></div>
+<div class="city">
+    <div class="building b1"></div>
+    <div class="building b2"></div>
+    <div class="building b3"></div>
+    <div class="building b4"></div>
+    <div class="building b5"></div>
+    <div class="building b6"></div>
+    <div class="building b7"></div>
+    <div class="building b8"></div>
+    <div class="building b9"></div>
+    <div class="building b10"></div>
+</div>
+
+<div class="road"></div>
+
+<div class="top">
+
+    <div class="logo">
+        <b>TWO CITIES <span>RUSSIA</span></b>
     </div>
 
-    <div class="road"></div>
-
-    <div class="scanline"></div>
-    <div class="vignette"></div>
-
-    <div class="topbar">
-
-        <div class="logo">
-            <b>TWO CITIES <span>RUSSIA</span></b>
+    <div id="hud" class="hud">
+        <img id="hudAvatar" src="./icon.svg">
+        <div id="hudName" class="hud-name">
+            Игрок
         </div>
-
-        <div class="hud" id="hud">
-            <img id="hudAvatar"
-                 class="hud-avatar"
-                 src="./icon.svg">
-            <div id="hudName"
-                 class="hud-name">
-                Игрок
-            </div>
-        </div>
-
     </div>
-
-    <!-- SPLASH -->
-
-    <section id="splash" class="screen">
-
-        <div class="splash">
-
-            <div class="car">
-
-                <div class="car-roof"></div>
-                <div class="car-window"></div>
-                <div class="car-body"></div>
-
-                <div class="wheel left"></div>
-                <div class="wheel right"></div>
-
-            </div>
-
-            <div class="splash-title">
-                TWO CITIES
-                <span>RUSSIA</span>
-            </div>
-
-            <div class="splash-sub">
-                MOSCOW • KRASNODAR
-            </div>
-
-            <div class="studio">
-                CATS DEVELOPER STUDIO
-            </div>
-
-            <div class="loader">
-                <div id="loaderBar"
-                     class="loader-bar"></div>
-            </div>
-
-            <div id="loading"
-                 class="loading">
-                INITIALIZING WORLD 0%
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- AUTH -->
-
-    <section id="auth" class="screen">
-
-        <div class="auth-card">
-
-            <div class="auth-title">
-                TWO CITIES
-                <span>RUSSIA</span>
-            </div>
-
-            <div class="tabs">
-
-                <button id="loginTab"
-                        class="tab active">
-                    ВХОД
-                </button>
-
-                <button id="registerTab"
-                        class="tab">
-                    РЕГИСТРАЦИЯ
-                </button>
-
-            </div>
-
-            <div class="field">
-
-                <label>НОМЕР ТЕЛЕФОНА</label>
-
-                <input id="phone"
-                       type="tel"
-                       placeholder="+7 900 000-00-00">
-
-            </div>
-
-            <div id="nicknameField"
-                 class="field"
-                 style="display:none">
-
-                <label>НИКНЕЙМ</label>
-
-                <input id="nickname"
-                       type="text"
-                       maxlength="24"
-                       placeholder="Ваш никнейм">
-
-            </div>
-
-            <div class="field">
-
-                <label>ПАРОЛЬ</label>
-
-                <input id="password"
-                       type="password"
-                       placeholder="Ваш пароль">
-
-            </div>
-
-            <button id="authButton"
-                    class="primary">
-                ВОЙТИ В ИГРУ
-            </button>
-
-            <div id="authMessage"
-                 class="message"></div>
-
-        </div>
-
-    </section>
-
-    <!-- MENU -->
-
-    <section id="menu"
-             class="screen">
-
-        <div class="menu-panel">
-
-            <div class="menu-line"></div>
-
-            <div class="menu-title">
-                TWO<br>
-                CITIES<br>
-                <span>RUSSIA</span>
-            </div>
-
-            <div class="menu-city">
-                MOSCOW / KRASNODAR
-            </div>
-
-            <div class="menu-buttons">
-
-                <button id="playButton"
-                        class="menu-btn play">
-                    ▶ &nbsp; ИГРАТЬ
-                </button>
-
-                <button id="profileButton"
-                        class="menu-btn">
-                    ◉ &nbsp; ПРОФИЛЬ
-                </button>
-
-                <button id="settingsButton"
-                        class="menu-btn">
-                    ⚙ &nbsp; НАСТРОЙКИ
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- GAME -->
-
-    <section id="game"
-             class="screen">
-
-        <div class="game-hud">
-            <b>TWO CITIES: RUSSIA</b><br>
-            МОСКВА • ОТКРЫТЫЙ МИР
-        </div>
-
-        <button id="backGame"
-                class="back">
-            ← МЕНЮ
-        </button>
-
-    </section>
 
 </div>
 
-<!-- PROFILE -->
+<!-- =====================
+     ЗАГРУЗКА
+===================== -->
+
+<section id="loadingScreen"
+         class="screen">
+
+    <div class="loadingCenter">
+
+        <div class="brand">
+            TWO CITIES
+            <span>RUSSIA</span>
+        </div>
+
+        <div class="brandSub">
+            MOSCOW • KRASNODAR
+        </div>
+
+        <div class="studioName">
+            CATS DEVELOPER STUDIO
+        </div>
+
+        <div class="loadingLine">
+
+            <div id="loadingProgress"
+                 class="loadingProgress">
+            </div>
+
+        </div>
+
+        <div id="loadingPercent"
+             class="loadingPercent">
+            0%
+        </div>
+
+        <div id="loadingStatus"
+             class="loadingStatus">
+            Запуск TWO CITIES: RUSSIA...
+        </div>
+
+        <div class="loadingVersion">
+            VERSION 1.0.0 • OFFICIAL BUILD
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================
+     АВТОРИЗАЦИЯ
+===================== -->
+
+<section id="authScreen"
+         class="screen">
+
+    <div class="authBox">
+
+        <div class="authTitle">
+            TWO CITIES
+            <span>RUSSIA</span>
+        </div>
+
+        <div class="tabs">
+
+            <button id="loginTab"
+                    class="tab active">
+                ВХОД
+            </button>
+
+            <button id="registerTab"
+                    class="tab">
+                РЕГИСТРАЦИЯ
+            </button>
+
+        </div>
+
+        <div class="field">
+
+            <label>НОМЕР ТЕЛЕФОНА</label>
+
+            <input id="phone"
+                   type="tel"
+                   placeholder="+7 900 000-00-00">
+
+        </div>
+
+        <div id="nicknameField"
+             class="field"
+             style="display:none">
+
+            <label>НИКНЕЙМ</label>
+
+            <input id="nickname"
+                   type="text"
+                   maxlength="24"
+                   placeholder="Введите никнейм">
+
+        </div>
+
+        <div class="field">
+
+            <label>ПАРОЛЬ</label>
+
+            <input id="password"
+                   type="password"
+                   placeholder="Введите пароль">
+
+        </div>
+
+        <button id="authButton"
+                class="primary">
+            ВОЙТИ В ИГРУ
+        </button>
+
+        <div id="authMessage"
+             class="message">
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================
+     ГЛАВНОЕ МЕНЮ
+===================== -->
+
+<section id="menuScreen"
+         class="screen">
+
+    <div class="menu">
+
+        <div class="redLine"></div>
+
+        <div class="menuTitle">
+            TWO<br>
+            CITIES<br>
+            <span>RUSSIA</span>
+        </div>
+
+        <div class="cityName">
+            MOSCOW / KRASNODAR
+        </div>
+
+        <div class="menuButtons">
+
+            <button id="playButton"
+                    class="menuButton play">
+                ▶ &nbsp; ИГРАТЬ
+            </button>
+
+            <button id="profileButton"
+                    class="menuButton">
+                ◉ &nbsp; ПРОФИЛЬ
+            </button>
+
+            <button id="settingsButton"
+                    class="menuButton">
+                ⚙ &nbsp; НАСТРОЙКИ
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================
+     ИГРА
+===================== -->
+
+<section id="gameScreen"
+         class="screen">
+
+    <div class="gameInfo">
+        <b>TWO CITIES: RUSSIA</b><br>
+        МОСКВА • ОТКРЫТЫЙ МИР
+    </div>
+
+    <button id="backButton"
+            class="back">
+        ← МЕНЮ
+    </button>
+
+</section>
+
+</div>
+
+<!-- =====================
+     ПРОФИЛЬ
+===================== -->
 
 <div id="profileModal"
      class="modal">
 
-    <div class="modal-card">
+    <div class="modalBox">
 
-        <div class="modal-head">
+        <div class="modalHead">
 
             <h2>ПРОФИЛЬ</h2>
 
@@ -1038,13 +941,13 @@ button{
 
         </div>
 
-        <div class="avatar-box">
+        <div class="avatarBox">
 
             <img id="profileAvatar"
                  class="avatar"
                  src="./icon.svg">
 
-            <label class="avatar-upload">
+            <label class="avatarUpload">
 
                 📷 ИЗМЕНИТЬ АВАТАР
 
@@ -1088,14 +991,16 @@ button{
 
 </div>
 
-<!-- SETTINGS -->
+<!-- =====================
+     НАСТРОЙКИ
+===================== -->
 
 <div id="settingsModal"
      class="modal">
 
-    <div class="modal-card">
+    <div class="modalBox">
 
-        <div class="modal-head">
+        <div class="modalHead">
 
             <h2>НАСТРОЙКИ</h2>
 
@@ -1121,104 +1026,181 @@ button{
 </div>
 
 <script>
-const ACCOUNTS_KEY = "two_cities_accounts_v2";
-const PROFILES_KEY = "two_cities_profiles_v2";
-const CURRENT_KEY = "two_cities_current_v2";
+/* =========================
+   STORAGE
+========================= */
+
+const ACCOUNTS_KEY =
+    "two_cities_accounts_v2";
+
+const PROFILES_KEY =
+    "two_cities_profiles_v2";
+
+const CURRENT_KEY =
+    "two_cities_current_v2";
 
 let mode = "login";
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+    document.getElementById(id);
+
+/* =========================
+   STORAGE FUNCTIONS
+========================= */
 
 function getAccounts(){
+
     try{
+
         return JSON.parse(
-            localStorage.getItem(ACCOUNTS_KEY)
+            localStorage.getItem(
+                ACCOUNTS_KEY
+            )
         ) || {};
+
     }catch{
+
         return {};
+
     }
 }
 
-function saveAccounts(data){
+function saveAccounts(accounts){
+
     localStorage.setItem(
         ACCOUNTS_KEY,
-        JSON.stringify(data)
+        JSON.stringify(accounts)
     );
+
 }
 
 function getProfiles(){
+
     try{
+
         return JSON.parse(
-            localStorage.getItem(PROFILES_KEY)
+            localStorage.getItem(
+                PROFILES_KEY
+            )
         ) || {};
+
     }catch{
+
         return {};
+
     }
 }
 
-function saveProfiles(data){
+function saveProfiles(profiles){
+
     localStorage.setItem(
         PROFILES_KEY,
-        JSON.stringify(data)
+        JSON.stringify(profiles)
     );
+
 }
+
+/* =========================
+   PHONE
+========================= */
 
 function normalizePhone(phone){
 
-    phone = phone
-        .replace(/[^\d+]/g,"");
+    phone =
+        phone.replace(
+            /[^\d+]/g,
+            ""
+        );
 
     if(phone.startsWith("8")){
-        phone = "+7" + phone.substring(1);
+
+        phone =
+            "+7" +
+            phone.substring(1);
+
     }
 
     if(phone.startsWith("7")){
-        phone = "+" + phone;
+
+        phone =
+            "+" +
+            phone;
+
     }
 
     return phone;
 }
 
+/* =========================
+   SCREEN
+========================= */
+
 function showScreen(screen){
 
-    ["splash","auth","menu","game"]
-        .forEach(id=>{
-            $(id).style.display="none";
-        });
+    [
+        "loadingScreen",
+        "authScreen",
+        "menuScreen",
+        "gameScreen"
+    ].forEach(id=>{
 
-    if(screen==="splash"){
-        $("splash").style.display="flex";
+        $(id).style.display="none";
+
+    });
+
+    if(screen==="loading"){
+
+        $("loadingScreen")
+            .style.display="flex";
+
     }
 
     if(screen==="auth"){
-        $("auth").style.display="flex";
+
+        $("authScreen")
+            .style.display="flex";
+
     }
 
     if(screen==="menu"){
-        $("menu").style.display="block";
+
+        $("menuScreen")
+            .style.display="block";
+
     }
 
     if(screen==="game"){
-        $("game").style.display="block";
+
+        $("gameScreen")
+            .style.display="block";
+
     }
+
 }
 
-function message(text){
-    $("authMessage").textContent=text;
-}
+/* =========================
+   HUD
+========================= */
 
 function updateHUD(){
 
     const current =
-        localStorage.getItem(CURRENT_KEY);
+        localStorage.getItem(
+            CURRENT_KEY
+        );
 
     if(!current){
+
         $("hud").style.display="none";
         return;
+
     }
 
-    const profiles=getProfiles();
-    const profile=profiles[current] || {};
+    const profiles =
+        getProfiles();
+
+    const profile =
+        profiles[current] || {};
 
     $("hudName").textContent =
         profile.nickname || "Игрок";
@@ -1227,30 +1209,35 @@ function updateHUD(){
         profile.avatar || "./icon.svg";
 
     $("hud").style.display="flex";
+
 }
+
+/* =========================
+   MENU
+========================= */
 
 function enterMenu(){
+
     updateHUD();
+
     showScreen("menu");
+
 }
 
-function logout(){
+/* =========================
+   MESSAGE
+========================= */
 
-    localStorage.removeItem(
-        CURRENT_KEY
-    );
+function setMessage(text){
 
-    $("phone").value="";
-    $("password").value="";
-    $("nickname").value="";
+    $("authMessage")
+        .textContent=text;
 
-    message("");
-
-    updateHUD();
-    showScreen("auth");
 }
 
-/* AUTH */
+/* =========================
+   LOGIN / REGISTER
+========================= */
 
 $("loginTab").onclick=()=>{
 
@@ -1266,9 +1253,11 @@ $("loginTab").onclick=()=>{
         .style.display="none";
 
     $("authButton")
-        .textContent="ВОЙТИ В ИГРУ";
+        .textContent=
+        "ВОЙТИ В ИГРУ";
 
-    message("");
+    setMessage("");
+
 };
 
 $("registerTab").onclick=()=>{
@@ -1285,55 +1274,89 @@ $("registerTab").onclick=()=>{
         .style.display="block";
 
     $("authButton")
-        .textContent="СОЗДАТЬ АККАУНТ";
+        .textContent=
+        "СОЗДАТЬ АККАУНТ";
 
-    message("");
+    setMessage("");
+
 };
 
 function auth(){
 
-    const phone=normalizePhone(
-        $("phone").value.trim()
-    );
+    const phone =
+        normalizePhone(
+            $("phone")
+                .value
+                .trim()
+        );
 
-    const password=
-        $("password").value;
+    const password =
+        $("password")
+            .value;
 
-    const nickname=
-        $("nickname").value.trim();
+    const nickname =
+        $("nickname")
+            .value
+            .trim();
 
     if(!phone){
-        message("Введите номер телефона");
+
+        setMessage(
+            "Введите номер телефона"
+        );
+
         return;
+
     }
 
     if(!password){
-        message("Введите пароль");
+
+        setMessage(
+            "Введите пароль"
+        );
+
         return;
+
     }
 
-    const accounts=getAccounts();
-    const profiles=getProfiles();
+    const accounts =
+        getAccounts();
+
+    const profiles =
+        getProfiles();
+
+    /* REGISTER */
 
     if(mode==="register"){
 
         if(accounts[phone]){
-            message(
+
+            setMessage(
                 "Этот номер телефона уже зарегистрирован"
             );
+
             return;
+
         }
 
         if(!nickname){
-            message("Введите никнейм");
+
+            setMessage(
+                "Введите никнейм"
+            );
+
             return;
+
         }
 
         if(password.length<4){
-            message(
+
+            setMessage(
                 "Пароль должен содержать минимум 4 символа"
             );
+
             return;
+
         }
 
         accounts[phone]={
@@ -1341,12 +1364,17 @@ function auth(){
         };
 
         profiles[phone]={
+
             nickname:nickname,
+
             description:"",
+
             avatar:"./icon.svg"
+
         };
 
         saveAccounts(accounts);
+
         saveProfiles(profiles);
 
         localStorage.setItem(
@@ -1357,21 +1385,32 @@ function auth(){
         enterMenu();
 
         return;
+
     }
 
+    /* LOGIN */
+
     if(!accounts[phone]){
-        message(
+
+        setMessage(
             "Номер не зарегистрирован. Сначала создайте аккаунт."
         );
+
         return;
+
     }
 
     if(
         accounts[phone].password !==
         password
     ){
-        message("Неверный пароль");
+
+        setMessage(
+            "Неверный пароль"
+        );
+
         return;
+
     }
 
     localStorage.setItem(
@@ -1380,113 +1419,155 @@ function auth(){
     );
 
     enterMenu();
+
 }
 
 $("authButton").onclick=auth;
 
-$("password").addEventListener(
-    "keydown",
-    e=>{
-        if(e.key==="Enter"){
-            auth();
-        }
-    }
-);
+$("password")
+    .addEventListener(
+        "keydown",
+        e=>{
 
-/* PROFILE */
+            if(e.key==="Enter"){
+                auth();
+            }
+
+        }
+    );
+
+/* =========================
+   PROFILE
+========================= */
 
 $("profileButton").onclick=()=>{
 
-    const current=
-        localStorage.getItem(CURRENT_KEY);
+    const current =
+        localStorage.getItem(
+            CURRENT_KEY
+        );
 
     if(!current)return;
 
-    const profiles=getProfiles();
-    const profile=profiles[current] || {};
+    const profiles =
+        getProfiles();
 
-    $("profileNickname").value=
+    const profile =
+        profiles[current] || {};
+
+    $("profileNickname")
+        .value =
         profile.nickname || "";
 
-    $("profileDescription").value=
+    $("profileDescription")
+        .value =
         profile.description || "";
 
-    $("profileAvatar").src=
+    $("profileAvatar")
+        .src =
         profile.avatar || "./icon.svg";
 
-    $("profileModal").style.display="flex";
+    $("profileModal")
+        .style.display="flex";
+
 };
+
+/* =========================
+   AVATAR
+========================= */
 
 $("avatarInput").onchange=e=>{
 
-    const file=e.target.files[0];
+    const file =
+        e.target.files[0];
 
     if(!file)return;
 
-    const reader=new FileReader();
+    const reader =
+        new FileReader();
 
     reader.onload=()=>{
 
-        const img=new Image();
+        const img =
+            new Image();
 
         img.onload=()=>{
 
-            const canvas=
-                document.createElement("canvas");
+            const canvas =
+                document.createElement(
+                    "canvas"
+                );
 
             const size=500;
 
             canvas.width=size;
             canvas.height=size;
 
-            const ctx=
+            const ctx =
                 canvas.getContext("2d");
 
-            const scale=Math.max(
-                size/img.width,
-                size/img.height
-            );
+            const scale =
+                Math.max(
+                    size/img.width,
+                    size/img.height
+                );
 
-            const width=
+            const w =
                 img.width*scale;
 
-            const height=
+            const h =
                 img.height*scale;
 
-            const x=(size-width)/2;
-            const y=(size-height)/2;
+            const x =
+                (size-w)/2;
+
+            const y =
+                (size-h)/2;
 
             ctx.drawImage(
                 img,
                 x,
                 y,
-                width,
-                height
+                w,
+                h
             );
 
-            $("profileAvatar").src=
+            $("profileAvatar")
+                .src =
                 canvas.toDataURL(
                     "image/jpeg",
                     .82
                 );
+
         };
 
-        img.src=reader.result;
+        img.src =
+            reader.result;
+
     };
 
     reader.readAsDataURL(file);
+
 };
+
+/* =========================
+   SAVE PROFILE
+========================= */
 
 $("saveProfile").onclick=()=>{
 
-    const current=
-        localStorage.getItem(CURRENT_KEY);
+    const current =
+        localStorage.getItem(
+            CURRENT_KEY
+        );
 
     if(!current)return;
 
-    const profiles=getProfiles();
+    const profiles =
+        getProfiles();
 
     profiles[current]={
+
         nickname:
             $("profileNickname")
                 .value
@@ -1498,7 +1579,9 @@ $("saveProfile").onclick=()=>{
                 .trim(),
 
         avatar:
-            $("profileAvatar").src
+            $("profileAvatar")
+                .src
+
     };
 
     saveProfiles(profiles);
@@ -1507,49 +1590,47 @@ $("saveProfile").onclick=()=>{
 
     $("profileModal")
         .style.display="none";
+
 };
 
-/* MODALS */
+/* =========================
+   LOGOUT
+========================= */
 
-document
-    .querySelectorAll("[data-close]")
-    .forEach(button=>{
+function logout(){
 
-        button.onclick=()=>{
+    localStorage.removeItem(
+        CURRENT_KEY
+    );
 
-            $(button.dataset.close)
-                .style.display="none";
+    $("phone").value="";
+    $("password").value="";
+    $("nickname").value="";
 
-        };
+    setMessage("");
 
-    });
+    updateHUD();
 
-document
-    .querySelectorAll(".modal")
-    .forEach(modal=>{
+    showScreen("auth");
 
-        modal.addEventListener(
-            "click",
-            e=>{
+}
 
-                if(e.target===modal){
-                    modal.style.display="none";
-                }
+$("profileLogout")
+    .onclick=logout;
 
-            }
-        );
+$("settingsLogout")
+    .onclick=logout;
 
-    });
-
-/* SETTINGS */
+/* =========================
+   SETTINGS
+========================= */
 
 $("settingsButton").onclick=()=>{
+
     $("settingsModal")
         .style.display="flex";
-};
 
-$("profileLogout").onclick=logout;
-$("settingsLogout").onclick=logout;
+};
 
 $("fullscreenButton").onclick=async()=>{
 
@@ -1571,56 +1652,157 @@ $("fullscreenButton").onclick=async()=>{
 
 };
 
-/* GAME */
+/* =========================
+   CLOSE MODALS
+========================= */
+
+document
+.querySelectorAll("[data-close]")
+.forEach(button=>{
+
+    button.onclick=()=>{
+
+        $(button.dataset.close)
+            .style.display="none";
+
+    };
+
+});
+
+document
+.querySelectorAll(".modal")
+.forEach(modal=>{
+
+    modal.addEventListener(
+        "click",
+        e=>{
+
+            if(e.target===modal){
+
+                modal.style.display="none";
+
+            }
+
+        }
+    );
+
+});
+
+/* =========================
+   GAME
+========================= */
 
 $("playButton").onclick=()=>{
+
     showScreen("game");
+
 };
 
-$("backGame").onclick=()=>{
+$("backButton").onclick=()=>{
+
     enterMenu();
+
 };
 
-/* LOADING */
+/* =========================
+   ОФИЦИАЛЬНАЯ ЗАГРУЗКА
+========================= */
+
+const loadingStatuses=[
+
+    "Запуск TWO CITIES: RUSSIA...",
+
+    "Проверка игровых файлов...",
+
+    "Загрузка игрового движка...",
+
+    "Подготовка Москвы...",
+
+    "Подготовка Краснодара...",
+
+    "Загрузка транспорта...",
+
+    "Загрузка персонажей...",
+
+    "Загрузка игрового мира...",
+
+    "Проверка сохранений...",
+
+    "Инициализация профиля...",
+
+    "Финальная подготовка...",
+
+    "ИГРА ГОТОВА"
+
+];
 
 let progress=0;
 
-const loader=setInterval(()=>{
+const loadingTimer =
+    setInterval(()=>{
 
-    progress++;
+        progress++;
 
-    $("loaderBar")
-        .style.width=
-        progress+"%";
+        if(progress>100){
 
-    $("loading").textContent=
-        "INITIALIZING WORLD "+
-        progress+"%";
+            progress=100;
 
-    if(progress>=100){
+        }
 
-        clearInterval(loader);
+        $("loadingProgress")
+            .style.width =
+            progress+"%";
 
-        setTimeout(()=>{
+        $("loadingPercent")
+            .textContent =
+            progress+"%";
 
-            const current=
-                localStorage.getItem(
-                    CURRENT_KEY
-                );
+        const index =
+            Math.min(
+                Math.floor(
+                    progress /
+                    (100 /
+                    loadingStatuses.length)
+                ),
+                loadingStatuses.length-1
+            );
 
-            if(current){
-                enterMenu();
-            }else{
-                showScreen("auth");
-            }
+        $("loadingStatus")
+            .textContent =
+            loadingStatuses[index];
 
-        },500);
+        if(progress>=100){
 
-    }
+            clearInterval(
+                loadingTimer
+            );
 
-},50);
+            setTimeout(()=>{
 
-/* LANDSCAPE */
+                const current =
+                    localStorage.getItem(
+                        CURRENT_KEY
+                    );
+
+                if(current){
+
+                    enterMenu();
+
+                }else{
+
+                    showScreen("auth");
+
+                }
+
+            },900);
+
+        }
+
+    },50);
+
+/* =========================
+   LANDSCAPE
+========================= */
 
 try{
 
@@ -1628,23 +1810,29 @@ try{
         screen.orientation &&
         screen.orientation.lock
     ){
+
         screen.orientation.lock(
             "landscape"
         );
+
     }
 
 }catch{}
 
-/* SERVICE WORKER */
+/* =========================
+   SERVICE WORKER
+========================= */
 
 if("serviceWorker" in navigator){
 
     window.addEventListener(
         "load",
         ()=>{
+
             navigator.serviceWorker
                 .register("./sw.js")
                 .catch(()=>{});
+
         }
     );
 
