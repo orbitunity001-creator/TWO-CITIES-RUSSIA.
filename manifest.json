@@ -1,14 +1,14 @@
 {
     "name": "TWO CITIES: RUSSIA",
     "short_name": "TWO CITIES",
-    "description": "TWO CITIES: RUSSIA — игра от Cats Developer Studio",
+    "description": "TWO CITIES: RUSSIA — Cats Developer Studio",
     "id": "./",
     "start_url": "./",
     "scope": "./",
     "display": "standalone",
     "orientation": "landscape",
-    "background_color": "#8bdcff",
-    "theme_color": "#ef3346",
+    "background_color": "#050608",
+    "theme_color": "#ff2045",
     "lang": "ru",
     "categories": [
         "games",
