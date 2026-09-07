@@ -2,836 +2,791 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>TWO CITIES: RUSSIA</title>
-
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#79d7ff">
+<meta name="theme-color" content="#050608">
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #8bdcff;
-    color: #10233f;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050608;
+    color:#fff;
 }
 
-button,
-input,
-textarea {
-    font: inherit;
+button,input,textarea{
+    font:inherit;
 }
 
-button {
-    cursor: pointer;
+button{
+    cursor:pointer;
 }
 
-#rotate {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: linear-gradient(#65cfff, #f5fdff);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+#rotate{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:#050608;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
 }
 
-.rotate-box {
-    padding: 30px;
+.rotate-box{
+    padding:30px;
 }
 
-.rotate-icon {
-    font-size: 70px;
-    margin-bottom: 20px;
+.rotate-icon{
+    font-size:65px;
+    margin-bottom:20px;
 }
 
-.rotate-box h2 {
-    font-size: 25px;
-    margin-bottom: 10px;
+.rotate-box h2{
+    font-size:24px;
+    letter-spacing:2px;
 }
 
-.rotate-box p {
-    color: #50647d;
+.rotate-box p{
+    margin-top:10px;
+    color:#888;
 }
 
-@media (orientation: portrait) {
-    #rotate {
-        display: flex;
+@media(max-width:800px) and (orientation:portrait){
+    #rotate{
+        display:flex;
     }
 }
 
-/* DAY WORLD */
-
-#app {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
+#app{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    background:#050608;
 }
 
-.sky {
-    position: absolute;
-    inset: 0;
+/* BACKGROUND */
+
+.background{
+    position:absolute;
+    inset:0;
     background:
+        radial-gradient(
+            circle at 72% 20%,
+            rgba(0,170,255,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 15% 75%,
+            rgba(255,20,50,.12),
+            transparent 28%
+        ),
         linear-gradient(
-            to bottom,
-            #63cfff 0%,
-            #a8e8ff 48%,
-            #eafaff 72%,
-            #fff 100%
+            135deg,
+            #030406 0%,
+            #080b10 48%,
+            #030405 100%
         );
 }
 
-.sun {
-    position: absolute;
-    width: 190px;
-    height: 190px;
-    right: 9%;
-    top: 7%;
-    border-radius: 50%;
-    background: #fffbd2;
-    box-shadow:
-        0 0 40px #fff6a0,
-        0 0 100px rgba(255, 239, 107, .65);
+.grid{
+    position:absolute;
+    inset:0;
+    opacity:.14;
+    background-image:
+        linear-gradient(
+            rgba(0,180,255,.25) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,180,255,.25) 1px,
+            transparent 1px
+        );
+    background-size:70px 70px;
+    transform:perspective(600px) rotateX(55deg) scale(1.8);
+    transform-origin:bottom;
 }
 
-.cloud {
-    position: absolute;
-    background: rgba(255,255,255,.92);
-    border-radius: 100px;
-    filter: blur(.2px);
-    box-shadow: 0 8px 20px rgba(52,124,157,.08);
+.glow-red{
+    position:absolute;
+    width:400px;
+    height:400px;
+    left:-180px;
+    bottom:-220px;
+    border-radius:50%;
+    background:#ff153d;
+    filter:blur(130px);
+    opacity:.12;
 }
 
-.cloud:before,
-.cloud:after {
-    content: "";
-    position: absolute;
-    background: inherit;
-    border-radius: 50%;
-}
-
-.cloud.one {
-    width: 190px;
-    height: 50px;
-    left: 9%;
-    top: 15%;
-}
-
-.cloud.one:before {
-    width: 70px;
-    height: 70px;
-    left: 28px;
-    top: -32px;
-}
-
-.cloud.one:after {
-    width: 90px;
-    height: 90px;
-    right: 25px;
-    top: -45px;
-}
-
-.cloud.two {
-    width: 160px;
-    height: 42px;
-    left: 48%;
-    top: 22%;
-    opacity: .8;
-}
-
-.cloud.two:before {
-    width: 60px;
-    height: 60px;
-    left: 30px;
-    top: -25px;
-}
-
-.cloud.two:after {
-    width: 70px;
-    height: 70px;
-    right: 20px;
-    top: -35px;
-}
-
-.cloud.three {
-    width: 210px;
-    height: 48px;
-    right: 22%;
-    top: 35%;
-    opacity: .55;
-}
-
-.cloud.three:before {
-    width: 70px;
-    height: 70px;
-    left: 35px;
-    top: -32px;
-}
-
-.cloud.three:after {
-    width: 80px;
-    height: 80px;
-    right: 35px;
-    top: -38px;
+.glow-blue{
+    position:absolute;
+    width:430px;
+    height:430px;
+    right:-200px;
+    top:-180px;
+    border-radius:50%;
+    background:#009dff;
+    filter:blur(130px);
+    opacity:.15;
 }
 
 /* CITY */
 
-.city {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 20%;
-    height: 42%;
+.city{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:55%;
+    opacity:.72;
 }
 
-.building {
-    position: absolute;
-    bottom: 0;
-    border-radius: 4px 4px 0 0;
-    background: linear-gradient(
-        100deg,
-        #dcecf5,
-        #fff,
-        #b9d8e8
-    );
-    box-shadow: 4px 0 14px rgba(45,101,132,.13);
-}
-
-.building:after {
-    content: "";
-    position: absolute;
-    inset: 10px;
-    background:
-        repeating-linear-gradient(
-            to right,
-            rgba(52,137,180,.42) 0 10px,
-            transparent 10px 22px
-        ),
-        repeating-linear-gradient(
-            to bottom,
-            rgba(52,137,180,.35) 0 10px,
-            transparent 10px 23px
-        );
-}
-
-.b1 { left: 0; width: 10%; height: 48%; }
-.b2 { left: 8%; width: 12%; height: 76%; }
-.b3 { left: 18%; width: 9%; height: 55%; }
-.b4 { left: 26%; width: 13%; height: 87%; }
-.b5 { left: 38%; width: 10%; height: 62%; }
-.b6 { left: 47%; width: 14%; height: 82%; }
-.b7 { left: 60%; width: 8%; height: 57%; }
-.b8 { left: 67%; width: 12%; height: 76%; }
-.b9 { left: 78%; width: 9%; height: 48%; }
-.b10 { left: 86%; width: 14%; height: 68%; }
-
-.road {
-    position: absolute;
-    left: -10%;
-    right: -10%;
-    bottom: -20%;
-    height: 46%;
+.building{
+    position:absolute;
+    bottom:0;
     background:
         linear-gradient(
-            84deg,
-            #7c8992,
-            #b7c0c5 45%,
-            #707c84
+            90deg,
+            #080a0e,
+            #171b21,
+            #090b0e
         );
-    clip-path: polygon(39% 0,61% 0,100% 100%,0 100%);
-    box-shadow: 0 -12px 35px rgba(50,80,90,.2);
+    border:1px solid rgba(255,255,255,.04);
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,.7);
 }
 
-.road-line {
-    position: absolute;
-    left: 48%;
-    bottom: 0;
-    width: 4%;
-    height: 100%;
-    transform: perspective(250px) rotateX(20deg);
+.building:after{
+    content:"";
+    position:absolute;
+    inset:12px;
+    opacity:.4;
     background:
         repeating-linear-gradient(
-            to bottom,
-            #fff 0 35px,
-            transparent 35px 75px
+            90deg,
+            #268dc1 0 5px,
+            transparent 5px 23px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.4) 0 4px,
+            transparent 4px 22px
         );
-    opacity: .9;
 }
 
-/* TREES */
+.b1{left:0;width:9%;height:48%}
+.b2{left:8%;width:11%;height:72%}
+.b3{left:18%;width:8%;height:56%}
+.b4{left:25%;width:12%;height:88%}
+.b5{left:36%;width:10%;height:61%}
+.b6{left:45%;width:14%;height:78%}
+.b7{left:58%;width:9%;height:52%}
+.b8{left:66%;width:12%;height:83%}
+.b9{left:77%;width:9%;height:58%}
+.b10{left:85%;width:15%;height:73%}
 
-.tree {
-    position: absolute;
-    bottom: 17%;
-    width: 45px;
-    height: 100px;
+/* ROAD */
+
+.road{
+    position:absolute;
+    left:-10%;
+    right:-10%;
+    bottom:-25%;
+    height:48%;
+    background:
+        linear-gradient(
+            90deg,
+            #090a0d,
+            #171a1e,
+            #08090b
+        );
+    clip-path:polygon(
+        39% 0,
+        61% 0,
+        100% 100%,
+        0 100%
+    );
+    border-top:1px solid #20252b;
 }
 
-.tree .trunk {
-    position: absolute;
-    width: 12px;
-    height: 50px;
-    left: 17px;
-    bottom: 0;
-    background: #825631;
-    border-radius: 5px;
+.road:after{
+    content:"";
+    position:absolute;
+    left:49%;
+    top:0;
+    width:2%;
+    height:100%;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            #e7edf2 0 30px,
+            transparent 30px 75px
+        );
+    transform:perspective(300px) rotateX(18deg);
+    opacity:.7;
 }
-
-.tree .leaf {
-    position: absolute;
-    width: 65px;
-    height: 65px;
-    left: -10px;
-    top: 8px;
-    border-radius: 50%;
-    background: linear-gradient(135deg,#7ee66d,#25ae58);
-    box-shadow: inset -8px -10px 18px rgba(0,90,30,.15);
-}
-
-.tree .leaf:before,
-.tree .leaf:after {
-    content: "";
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #45c964;
-}
-
-.tree .leaf:before {
-    left: -20px;
-    top: 20px;
-}
-
-.tree .leaf:after {
-    right: -18px;
-    top: 15px;
-}
-
-.tree.t1 { left: 6%; }
-.tree.t2 { left: 18%; transform: scale(.8); }
-.tree.t3 { right: 12%; }
-.tree.t4 { right: 25%; transform: scale(.72); }
 
 /* TOP */
 
-.topbar {
-    position: absolute;
-    z-index: 20;
-    top: 18px;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.topbar{
+    position:absolute;
+    z-index:20;
+    top:20px;
+    left:25px;
+    right:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.logo-small {
-    padding: 10px 18px;
-    border-radius: 16px;
-    background: rgba(255,255,255,.78);
-    border: 1px solid rgba(255,255,255,.95);
-    box-shadow: 0 8px 25px rgba(40,100,140,.13);
-    backdrop-filter: blur(15px);
+.logo{
+    padding:10px 18px;
+    border-left:3px solid #ff2045;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(15px);
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
-.logo-small b {
-    font-size: 18px;
-    color: #15385d;
+.logo b{
+    font-size:18px;
+    letter-spacing:2px;
 }
 
-.logo-small span {
-    color: #e6313d;
+.logo span{
+    color:#ff2347;
 }
 
-.hud {
-    display: none;
-    align-items: center;
-    gap: 10px;
+.hud{
+    display:none;
+    align-items:center;
+    gap:10px;
 }
 
-.hud-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid white;
-    background: #e9f8ff;
-    box-shadow: 0 5px 20px rgba(0,0,0,.15);
+.hud-avatar{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #ff2347;
+    background:#0d1116;
 }
 
-.hud-name {
-    padding: 10px 15px;
-    border-radius: 14px;
-    background: rgba(255,255,255,.8);
-    font-weight: 700;
+.hud-name{
+    padding:10px 15px;
+    background:rgba(0,0,0,.7);
+    border:1px solid #262c33;
 }
 
 /* SPLASH */
 
-.screen {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
+.screen{
+    position:absolute;
+    inset:0;
+    z-index:10;
 }
 
-#splash {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+#splash{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
 }
 
-.splash-content {
-    width: min(650px, 90vw);
-    padding: 35px;
+.splash{
+    width:min(800px,92vw);
 }
 
-.car-logo {
-    position: relative;
-    width: 270px;
-    height: 125px;
-    margin: 0 auto 20px;
+.car{
+    width:310px;
+    height:145px;
+    position:relative;
+    margin:auto;
+    filter:drop-shadow(0 25px 25px rgba(255,0,40,.2));
 }
 
-.car-body {
-    position: absolute;
-    width: 230px;
-    height: 65px;
-    left: 20px;
-    bottom: 25px;
-    border-radius: 35px 55px 18px 18px;
-    background: linear-gradient(
-        180deg,
-        #ff5360,
-        #dc1f32 65%,
-        #a90018
+.car-body{
+    position:absolute;
+    left:25px;
+    bottom:28px;
+    width:260px;
+    height:67px;
+    border-radius:18px 55px 12px 12px;
+    background:
+        linear-gradient(
+            180deg,
+            #ff3153,
+            #bd092b 55%,
+            #650717
+        );
+    border:2px solid #ff526b;
+    box-shadow:
+        inset 0 5px 12px rgba(255,255,255,.3),
+        0 15px 30px rgba(255,0,40,.25);
+}
+
+.car-roof{
+    position:absolute;
+    left:82px;
+    top:18px;
+    width:145px;
+    height:60px;
+    border-radius:65px 65px 8px 8px;
+    background:
+        linear-gradient(
+            135deg,
+            #172e3d,
+            #071017
+        );
+    border:2px solid #e32b48;
+}
+
+.car-window{
+    position:absolute;
+    left:98px;
+    top:28px;
+    width:115px;
+    height:40px;
+    background:
+        linear-gradient(
+            135deg,
+            #244d63,
+            #071015
+        );
+    clip-path:polygon(
+        10% 100%,
+        30% 0,
+        100% 0,
+        100% 100%
+    );
+}
+
+.wheel{
+    position:absolute;
+    width:47px;
+    height:47px;
+    bottom:7px;
+    border-radius:50%;
+    background:#030405;
+    border:5px solid #30363d;
+    box-shadow:0 0 0 2px #080a0d;
+}
+
+.wheel:after{
+    content:"";
+    position:absolute;
+    inset:11px;
+    border-radius:50%;
+    background:#7e8790;
+    box-shadow:inset 0 0 0 4px #20252b;
+}
+
+.wheel.left{left:52px}
+.wheel.right{right:52px}
+
+.splash-title{
+    margin-top:5px;
+    font-size:clamp(45px,8vw,86px);
+    line-height:.9;
+    font-weight:1000;
+    letter-spacing:-4px;
+    text-transform:uppercase;
+}
+
+.splash-title span{
+    color:#ff2145;
+}
+
+.splash-sub{
+    margin-top:17px;
+    color:#8b98a5;
+    letter-spacing:5px;
+    font-weight:bold;
+}
+
+.studio{
+    margin-top:13px;
+    color:#4e5964;
+    font-size:13px;
+    letter-spacing:2px;
+}
+
+.loader{
+    width:min(500px,75vw);
+    height:5px;
+    margin:30px auto 0;
+    background:#161b20;
+    overflow:hidden;
+}
+
+.loader-bar{
+    height:100%;
+    width:0;
+    background:linear-gradient(
+        90deg,
+        #008cff,
+        #ff2045
     );
     box-shadow:
-        0 15px 25px rgba(175,0,20,.3),
-        inset 0 4px 8px rgba(255,255,255,.5);
+        0 0 15px #ff2045;
 }
 
-.car-roof {
-    position: absolute;
-    width: 120px;
-    height: 55px;
-    left: 72px;
-    top: 5px;
-    border-radius: 70px 70px 5px 5px;
-    background: linear-gradient(135deg,#d9f7ff,#5eafd4);
-    border: 5px solid #b7182a;
-}
-
-.wheel {
-    position: absolute;
-    width: 43px;
-    height: 43px;
-    bottom: 5px;
-    border-radius: 50%;
-    background: #18212b;
-    border: 7px solid #fff;
-    box-shadow: 0 3px 7px rgba(0,0,0,.4);
-}
-
-.wheel.left { left: 42px; }
-.wheel.right { right: 42px; }
-
-.wheel:after {
-    content: "";
-    position: absolute;
-    inset: 9px;
-    border-radius: 50%;
-    background: #b9c5cd;
-}
-
-.splash-title {
-    font-size: clamp(48px, 8vw, 88px);
-    font-weight: 1000;
-    letter-spacing: -4px;
-    color: #123457;
-    text-shadow: 0 5px 0 white;
-}
-
-.splash-title span {
-    color: #e62b3b;
-}
-
-.subtitle {
-    margin-top: 5px;
-    font-size: clamp(17px, 3vw, 25px);
-    font-weight: 800;
-    color: #38546d;
-    letter-spacing: 4px;
-}
-
-.studio {
-    margin-top: 14px;
-    color: #5d7181;
-    font-weight: 700;
-}
-
-.loader {
-    width: min(440px, 80vw);
-    height: 13px;
-    margin: 28px auto 0;
-    border-radius: 20px;
-    background: rgba(255,255,255,.7);
-    overflow: hidden;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,.08);
-}
-
-.loader-bar {
-    width: 0%;
-    height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(90deg,#198cff,#e72f42);
-    transition: width .1s linear;
-}
-
-.loading-text {
-    margin-top: 10px;
-    color: #527087;
-    font-weight: 700;
+.loading{
+    margin-top:12px;
+    color:#687580;
+    font-size:12px;
+    letter-spacing:2px;
 }
 
 /* AUTH */
 
-#auth {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
+#auth{
+    display:none;
+    align-items:center;
+    justify-content:center;
 }
 
-.auth-card {
-    width: min(460px, 92vw);
-    padding: 30px;
-    border-radius: 28px;
-    background: rgba(255,255,255,.88);
-    border: 1px solid white;
-    box-shadow: 0 25px 70px rgba(32,86,120,.2);
-    backdrop-filter: blur(25px);
+.auth-card{
+    width:min(450px,92vw);
+    padding:32px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,23,28,.97),
+            rgba(7,9,12,.97)
+        );
+    border:1px solid #262c33;
+    border-top:2px solid #ff2045;
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.65);
 }
 
-.auth-title {
-    text-align: center;
-    font-size: 29px;
-    font-weight: 1000;
-    color: #153b62;
+.auth-title{
+    font-size:28px;
+    font-weight:1000;
+    letter-spacing:2px;
 }
 
-.auth-title span {
-    color: #e72f40;
+.auth-title span{
+    color:#ff2145;
 }
 
-.tabs {
-    display: flex;
-    gap: 8px;
-    margin: 25px 0;
-    padding: 5px;
-    background: #e9f5fa;
-    border-radius: 15px;
+.tabs{
+    display:flex;
+    margin:25px 0;
+    border-bottom:1px solid #252b31;
 }
 
-.tab {
-    flex: 1;
-    border: 0;
-    padding: 12px;
-    border-radius: 11px;
-    background: transparent;
-    color: #60788c;
-    font-weight: 800;
+.tab{
+    flex:1;
+    padding:13px;
+    border:0;
+    background:none;
+    color:#59636d;
+    font-weight:bold;
 }
 
-.tab.active {
-    background: white;
-    color: #e72f40;
-    box-shadow: 0 5px 15px rgba(50,100,130,.12);
+.tab.active{
+    color:#fff;
+    border-bottom:2px solid #ff2045;
 }
 
-.field {
-    margin-bottom: 14px;
+.field{
+    margin-bottom:15px;
 }
 
-.field label {
-    display: block;
-    margin-bottom: 7px;
-    font-size: 13px;
-    color: #60798d;
-    font-weight: 800;
+.field label{
+    display:block;
+    margin-bottom:8px;
+    color:#697580;
+    font-size:11px;
+    letter-spacing:1.5px;
+    font-weight:bold;
 }
 
 .field input,
-.field textarea {
-    width: 100%;
-    border: 2px solid #e2eef3;
-    outline: none;
-    border-radius: 14px;
-    padding: 14px;
-    background: #fafdff;
-    color: #16334f;
-    transition: .2s;
-}
-
-.field textarea {
-    min-height: 90px;
-    resize: none;
+.field textarea{
+    width:100%;
+    border:1px solid #292f36;
+    outline:none;
+    border-radius:3px;
+    padding:14px;
+    background:#0b0e12;
+    color:white;
 }
 
 .field input:focus,
-.field textarea:focus {
-    border-color: #51bdf0;
-    box-shadow: 0 0 0 4px rgba(81,189,240,.13);
+.field textarea:focus{
+    border-color:#008cff;
+    box-shadow:0 0 0 1px #008cff;
 }
 
-.primary {
-    width: 100%;
-    border: 0;
-    padding: 15px;
-    border-radius: 15px;
-    background: linear-gradient(135deg,#ef3346,#cf1d32);
-    color: white;
-    font-weight: 900;
-    box-shadow: 0 10px 22px rgba(220,35,55,.25);
-    transition: .2s;
+.field textarea{
+    min-height:90px;
+    resize:none;
 }
 
-.primary:active {
-    transform: scale(.98);
+.primary{
+    width:100%;
+    border:0;
+    padding:15px;
+    background:linear-gradient(
+        90deg,
+        #d90e32,
+        #ff2145
+    );
+    color:#fff;
+    font-weight:1000;
+    letter-spacing:1px;
+    box-shadow:0 10px 25px rgba(255,20,60,.18);
 }
 
-.message {
-    min-height: 22px;
-    margin-top: 12px;
-    text-align: center;
-    color: #d9283b;
-    font-weight: 700;
+.message{
+    min-height:20px;
+    margin-top:13px;
+    color:#ff425e;
+    font-size:13px;
+    text-align:center;
 }
 
 /* MENU */
 
-#menu {
-    display: none;
+#menu{
+    display:none;
 }
 
-.menu-panel {
-    position: absolute;
-    z-index: 15;
-    left: 6%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: min(430px, 45vw);
+.menu-panel{
+    position:absolute;
+    z-index:15;
+    left:7%;
+    top:50%;
+    transform:translateY(-50%);
+    width:min(460px,43vw);
 }
 
-.menu-title {
-    font-size: clamp(42px, 6vw, 75px);
-    line-height: .9;
-    font-weight: 1000;
-    color: #143858;
-    text-shadow: 0 5px white;
+.menu-line{
+    width:70px;
+    height:3px;
+    background:#ff2045;
+    margin-bottom:20px;
+    box-shadow:0 0 15px #ff2045;
 }
 
-.menu-title span {
-    color: #e52d40;
+.menu-title{
+    font-size:clamp(43px,6vw,78px);
+    line-height:.86;
+    font-weight:1000;
+    letter-spacing:-4px;
 }
 
-.menu-city {
-    margin: 15px 0 25px;
-    color: #4f6c82;
-    font-weight: 800;
-    letter-spacing: 2px;
+.menu-title span{
+    color:#ff2045;
 }
 
-.menu-buttons {
-    display: grid;
-    gap: 12px;
+.menu-city{
+    margin:20px 0 28px;
+    color:#687682;
+    font-size:13px;
+    letter-spacing:4px;
 }
 
-.menu-btn {
-    width: 100%;
-    border: 0;
-    border-radius: 17px;
-    padding: 17px 20px;
-    text-align: left;
-    font-weight: 900;
-    color: #173b59;
-    background: rgba(255,255,255,.85);
-    box-shadow: 0 10px 28px rgba(30,90,125,.13);
-    transition: .2s;
+.menu-buttons{
+    display:grid;
+    gap:9px;
 }
 
-.menu-btn:hover {
-    transform: translateX(5px);
+.menu-btn{
+    border:1px solid #252b31;
+    padding:17px 20px;
+    text-align:left;
+    background:rgba(8,10,13,.85);
+    color:#d8dde2;
+    font-weight:900;
+    transition:.2s;
 }
 
-.menu-btn.play {
-    color: white;
-    background: linear-gradient(135deg,#ed3448,#c91d32);
+.menu-btn:hover{
+    border-color:#008cff;
+    transform:translateX(5px);
 }
 
-/* MODAL */
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: rgba(23,58,80,.25);
-    backdrop-filter: blur(10px);
+.menu-btn.play{
+    background:#e8193c;
+    border-color:#ff3655;
+    color:white;
+    box-shadow:0 10px 35px rgba(255,20,55,.2);
 }
 
-.modal-card {
-    width: min(520px, 94vw);
-    max-height: 90vh;
-    overflow: auto;
-    padding: 28px;
-    border-radius: 27px;
-    background: rgba(255,255,255,.96);
-    box-shadow: 0 30px 90px rgba(25,70,100,.25);
+/* MODALS */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.7);
+    backdrop-filter:blur(12px);
 }
 
-.modal-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 22px;
+.modal-card{
+    width:min(520px,94vw);
+    max-height:90vh;
+    overflow:auto;
+    padding:30px;
+    background:#090b0f;
+    border:1px solid #292f36;
+    border-top:2px solid #ff2045;
+    box-shadow:0 30px 100px rgba(0,0,0,.8);
 }
 
-.modal-head h2 {
-    color: #183c5c;
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
 }
 
-.close {
-    width: 38px;
-    height: 38px;
-    border: 0;
-    border-radius: 50%;
-    background: #edf5f8;
-    color: #456176;
-    font-size: 20px;
+.modal-head h2{
+    font-size:24px;
 }
 
-.avatar-box {
-    text-align: center;
-    margin-bottom: 20px;
+.close{
+    width:35px;
+    height:35px;
+    border:1px solid #292f36;
+    background:#11151a;
+    color:#aaa;
+    font-size:20px;
 }
 
-.avatar {
-    width: 120px;
-    height: 120px;
-    margin: auto;
-    display: block;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid white;
-    background: linear-gradient(135deg,#70d6ff,#eafaff);
-    box-shadow: 0 10px 30px rgba(40,100,130,.2);
+.avatar-box{
+    text-align:center;
+    margin-bottom:22px;
 }
 
-.avatar-upload {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 10px 15px;
-    border-radius: 12px;
-    background: #eaf7fc;
-    color: #25739a;
-    font-weight: 800;
-    cursor: pointer;
+.avatar{
+    width:125px;
+    height:125px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #ff2045;
+    background:#0b0e12;
+    box-shadow:0 0 30px rgba(255,20,55,.2);
 }
 
-.avatar-upload input {
-    display: none;
+.avatar-upload{
+    display:inline-block;
+    margin-top:13px;
+    padding:10px 16px;
+    background:#11151a;
+    border:1px solid #292f36;
+    color:#aab3bb;
+    cursor:pointer;
 }
 
-.secondary {
-    width: 100%;
-    border: 0;
-    padding: 14px;
-    border-radius: 14px;
-    background: #edf5f8;
-    color: #36566d;
-    font-weight: 900;
-    margin-top: 10px;
+.avatar-upload input{
+    display:none;
 }
 
-.danger {
-    width: 100%;
-    border: 0;
-    padding: 14px;
-    border-radius: 14px;
-    background: #ffe8eb;
-    color: #d82b3c;
-    font-weight: 900;
-    margin-top: 10px;
+.secondary{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:1px solid #292f36;
+    background:#11151a;
+    color:#ccd3d9;
 }
 
-/* GAME PLACEHOLDER */
-
-#game {
-    display: none;
+.danger{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:1px solid #681527;
+    background:#210a10;
+    color:#ff4861;
 }
 
-.game-info {
-    position: absolute;
-    left: 25px;
-    bottom: 25px;
-    z-index: 30;
-    padding: 18px 22px;
-    border-radius: 18px;
-    background: rgba(255,255,255,.86);
-    box-shadow: 0 10px 30px rgba(30,80,110,.15);
+/* GAME */
+
+#game{
+    display:none;
 }
 
-.game-info b {
-    color: #df293c;
+.game-hud{
+    position:absolute;
+    left:25px;
+    bottom:25px;
+    z-index:30;
+    padding:15px 20px;
+    background:rgba(5,7,9,.9);
+    border-left:3px solid #ff2045;
 }
 
-.back-game {
-    position: absolute;
-    right: 25px;
-    bottom: 25px;
-    z-index: 30;
-    border: 0;
-    border-radius: 15px;
-    padding: 13px 20px;
-    background: white;
-    color: #183b59;
-    font-weight: 900;
+.game-hud b{
+    color:#ff2045;
 }
 
-/* MOBILE */
+.back{
+    position:absolute;
+    right:25px;
+    bottom:25px;
+    z-index:30;
+    border:1px solid #292f36;
+    background:#0b0e12;
+    color:#fff;
+    padding:13px 20px;
+}
 
-@media (max-width: 800px) {
-    .menu-panel {
-        left: 5%;
-        width: 50vw;
+/* EXTRA EFFECTS */
+
+.scanline{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:5;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.012) 0 1px,
+            transparent 1px 4px
+        );
+}
+
+.vignette{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:6;
+    box-shadow:
+        inset 0 0 180px rgba(0,0,0,.75);
+}
+
+@media(max-width:800px){
+    .menu-panel{
+        left:6%;
+        width:48vw;
     }
 
-    .menu-title {
-        font-size: 42px;
+    .menu-title{
+        font-size:43px;
     }
 
-    .sun {
-        width: 130px;
-        height: 130px;
+    .city{
+        opacity:.55;
     }
 }
 </style>
@@ -841,20 +796,18 @@ button {
 
 <div id="rotate">
     <div class="rotate-box">
-        <div class="rotate-icon">📱↔️</div>
+        <div class="rotate-icon">↔</div>
         <h2>ПОВЕРНИТЕ ТЕЛЕФОН</h2>
-        <p>Игра работает в горизонтальном режиме</p>
+        <p>TWO CITIES: RUSSIA работает горизонтально</p>
     </div>
 </div>
 
 <div id="app">
 
-    <div class="sky"></div>
-    <div class="sun"></div>
-
-    <div class="cloud one"></div>
-    <div class="cloud two"></div>
-    <div class="cloud three"></div>
+    <div class="background"></div>
+    <div class="grid"></div>
+    <div class="glow-red"></div>
+    <div class="glow-blue"></div>
 
     <div class="city">
         <div class="building b1"></div>
@@ -869,51 +822,39 @@ button {
         <div class="building b10"></div>
     </div>
 
-    <div class="tree t1">
-        <div class="leaf"></div>
-        <div class="trunk"></div>
-    </div>
+    <div class="road"></div>
 
-    <div class="tree t2">
-        <div class="leaf"></div>
-        <div class="trunk"></div>
-    </div>
-
-    <div class="tree t3">
-        <div class="leaf"></div>
-        <div class="trunk"></div>
-    </div>
-
-    <div class="tree t4">
-        <div class="leaf"></div>
-        <div class="trunk"></div>
-    </div>
-
-    <div class="road">
-        <div class="road-line"></div>
-    </div>
+    <div class="scanline"></div>
+    <div class="vignette"></div>
 
     <div class="topbar">
-        <div class="logo-small">
+
+        <div class="logo">
             <b>TWO CITIES <span>RUSSIA</span></b>
         </div>
 
         <div class="hud" id="hud">
-            <img id="hudAvatar" class="hud-avatar" src="./icon.svg">
-            <div class="hud-name" id="hudName">Игрок</div>
+            <img id="hudAvatar"
+                 class="hud-avatar"
+                 src="./icon.svg">
+            <div id="hudName"
+                 class="hud-name">
+                Игрок
+            </div>
         </div>
+
     </div>
 
     <!-- SPLASH -->
 
     <section id="splash" class="screen">
 
-        <div class="splash-content">
+        <div class="splash">
 
-            <div class="car-logo">
+            <div class="car">
 
                 <div class="car-roof"></div>
-
+                <div class="car-window"></div>
                 <div class="car-body"></div>
 
                 <div class="wheel left"></div>
@@ -922,23 +863,26 @@ button {
             </div>
 
             <div class="splash-title">
-                TWO CITIES <span>RUSSIA</span>
+                TWO CITIES
+                <span>RUSSIA</span>
             </div>
 
-            <div class="subtitle">
+            <div class="splash-sub">
                 MOSCOW • KRASNODAR
             </div>
 
             <div class="studio">
-                Cats Developer Studio Game
+                CATS DEVELOPER STUDIO
             </div>
 
             <div class="loader">
-                <div class="loader-bar" id="loaderBar"></div>
+                <div id="loaderBar"
+                     class="loader-bar"></div>
             </div>
 
-            <div class="loading-text" id="loadingText">
-                Загрузка города... 0%
+            <div id="loading"
+                 class="loading">
+                INITIALIZING WORLD 0%
             </div>
 
         </div>
@@ -952,55 +896,64 @@ button {
         <div class="auth-card">
 
             <div class="auth-title">
-                TWO CITIES <span>RUSSIA</span>
+                TWO CITIES
+                <span>RUSSIA</span>
             </div>
 
             <div class="tabs">
-                <button class="tab active" id="loginTab">
+
+                <button id="loginTab"
+                        class="tab active">
                     ВХОД
                 </button>
 
-                <button class="tab" id="registerTab">
+                <button id="registerTab"
+                        class="tab">
                     РЕГИСТРАЦИЯ
                 </button>
-            </div>
-
-            <div id="authForm">
-
-                <div class="field">
-                    <label>НОМЕР ТЕЛЕФОНА</label>
-                    <input
-                        id="phone"
-                        type="tel"
-                        placeholder="+7 900 000-00-00"
-                        autocomplete="tel">
-                </div>
-
-                <div class="field" id="nicknameField" style="display:none;">
-                    <label>НИКНЕЙМ</label>
-                    <input
-                        id="nickname"
-                        type="text"
-                        placeholder="Введите никнейм"
-                        maxlength="24">
-                </div>
-
-                <div class="field">
-                    <label>ПАРОЛЬ</label>
-                    <input
-                        id="password"
-                        type="password"
-                        placeholder="Введите пароль"
-                        autocomplete="current-password">
-                </div>
-
-                <button class="primary" id="authButton">
-                    ВОЙТИ В ИГРУ
-                </button>
-
-                <div class="message" id="authMessage"></div>
 
             </div>
+
+            <div class="field">
+
+                <label>НОМЕР ТЕЛЕФОНА</label>
+
+                <input id="phone"
+                       type="tel"
+                       placeholder="+7 900 000-00-00">
+
+            </div>
+
+            <div id="nicknameField"
+                 class="field"
+                 style="display:none">
+
+                <label>НИКНЕЙМ</label>
+
+                <input id="nickname"
+                       type="text"
+                       maxlength="24"
+                       placeholder="Ваш никнейм">
+
+            </div>
+
+            <div class="field">
+
+                <label>ПАРОЛЬ</label>
+
+                <input id="password"
+                       type="password"
+                       placeholder="Ваш пароль">
+
+            </div>
+
+            <button id="authButton"
+                    class="primary">
+                ВОЙТИ В ИГРУ
+            </button>
+
+            <div id="authMessage"
+                 class="message"></div>
 
         </div>
 
@@ -1008,9 +961,12 @@ button {
 
     <!-- MENU -->
 
-    <section id="menu" class="screen">
+    <section id="menu"
+             class="screen">
 
         <div class="menu-panel">
+
+            <div class="menu-line"></div>
 
             <div class="menu-title">
                 TWO<br>
@@ -1019,21 +975,24 @@ button {
             </div>
 
             <div class="menu-city">
-                МОСКВА • КРАСНОДАР
+                MOSCOW / KRASNODAR
             </div>
 
             <div class="menu-buttons">
 
-                <button class="menu-btn play" id="playButton">
-                    ▶ ИГРАТЬ
+                <button id="playButton"
+                        class="menu-btn play">
+                    ▶ &nbsp; ИГРАТЬ
                 </button>
 
-                <button class="menu-btn" id="profileButton">
-                    👤 ПРОФИЛЬ
+                <button id="profileButton"
+                        class="menu-btn">
+                    ◉ &nbsp; ПРОФИЛЬ
                 </button>
 
-                <button class="menu-btn" id="settingsButton">
-                    ⚙️ НАСТРОЙКИ
+                <button id="settingsButton"
+                        class="menu-btn">
+                    ⚙ &nbsp; НАСТРОЙКИ
                 </button>
 
             </div>
@@ -1044,14 +1003,16 @@ button {
 
     <!-- GAME -->
 
-    <section id="game" class="screen">
+    <section id="game"
+             class="screen">
 
-        <div class="game-info">
+        <div class="game-hud">
             <b>TWO CITIES: RUSSIA</b><br>
-            Москва • район города
+            МОСКВА • ОТКРЫТЫЙ МИР
         </div>
 
-        <button class="back-game" id="backGame">
+        <button id="backGame"
+                class="back">
             ← МЕНЮ
         </button>
 
@@ -1061,53 +1022,65 @@ button {
 
 <!-- PROFILE -->
 
-<div class="modal" id="profileModal">
+<div id="profileModal"
+     class="modal">
 
     <div class="modal-card">
 
         <div class="modal-head">
-            <h2>Профиль</h2>
-            <button class="close" data-close="profileModal">×</button>
+
+            <h2>ПРОФИЛЬ</h2>
+
+            <button class="close"
+                    data-close="profileModal">
+                ×
+            </button>
+
         </div>
 
         <div class="avatar-box">
 
-            <img
-                id="profileAvatar"
-                class="avatar"
-                src="./icon.svg">
+            <img id="profileAvatar"
+                 class="avatar"
+                 src="./icon.svg">
 
             <label class="avatar-upload">
-                📷 Выбрать аватар
-                <input
-                    id="avatarInput"
-                    type="file"
-                    accept="image/*">
+
+                📷 ИЗМЕНИТЬ АВАТАР
+
+                <input id="avatarInput"
+                       type="file"
+                       accept="image/*">
+
             </label>
 
         </div>
 
         <div class="field">
+
             <label>НИКНЕЙМ</label>
-            <input
-                id="profileNickname"
-                maxlength="24"
-                placeholder="Ваш никнейм">
+
+            <input id="profileNickname"
+                   maxlength="24">
+
         </div>
 
         <div class="field">
+
             <label>О СЕБЕ</label>
-            <textarea
-                id="profileDescription"
-                maxlength="180"
-                placeholder="Расскажите о себе..."></textarea>
+
+            <textarea id="profileDescription"
+                      maxlength="180"></textarea>
+
         </div>
 
-        <button class="primary" id="saveProfile">
+        <button id="saveProfile"
+                class="primary">
             СОХРАНИТЬ
         </button>
 
-        <button class="danger" id="profileLogout">
+        <button id="profileLogout"
+                class="danger">
             ВЫЙТИ ИЗ АККАУНТА
         </button>
 
@@ -1117,20 +1090,29 @@ button {
 
 <!-- SETTINGS -->
 
-<div class="modal" id="settingsModal">
+<div id="settingsModal"
+     class="modal">
 
     <div class="modal-card">
 
         <div class="modal-head">
-            <h2>Настройки</h2>
-            <button class="close" data-close="settingsModal">×</button>
+
+            <h2>НАСТРОЙКИ</h2>
+
+            <button class="close"
+                    data-close="settingsModal">
+                ×
+            </button>
+
         </div>
 
-        <button class="secondary" id="fullscreenButton">
-            ⛶ Полный экран
+        <button id="fullscreenButton"
+                class="secondary">
+            ⛶ ПОЛНЫЙ ЭКРАН
         </button>
 
-        <button class="danger" id="settingsLogout">
+        <button id="settingsLogout"
+                class="danger">
             ВЫЙТИ ИЗ АККАУНТА
         </button>
 
@@ -1147,80 +1129,96 @@ let mode = "login";
 
 const $ = id => document.getElementById(id);
 
-function getAccounts() {
-    try {
-        return JSON.parse(localStorage.getItem(ACCOUNTS_KEY)) || {};
-    } catch {
+function getAccounts(){
+    try{
+        return JSON.parse(
+            localStorage.getItem(ACCOUNTS_KEY)
+        ) || {};
+    }catch{
         return {};
     }
 }
 
-function saveAccounts(accounts) {
+function saveAccounts(data){
     localStorage.setItem(
         ACCOUNTS_KEY,
-        JSON.stringify(accounts)
+        JSON.stringify(data)
     );
 }
 
-function getProfiles() {
-    try {
-        return JSON.parse(localStorage.getItem(PROFILES_KEY)) || {};
-    } catch {
+function getProfiles(){
+    try{
+        return JSON.parse(
+            localStorage.getItem(PROFILES_KEY)
+        ) || {};
+    }catch{
         return {};
     }
 }
 
-function saveProfiles(profiles) {
+function saveProfiles(data){
     localStorage.setItem(
         PROFILES_KEY,
-        JSON.stringify(profiles)
+        JSON.stringify(data)
     );
 }
 
-function normalizePhone(phone) {
-    return phone
-        .replace(/[^\d+]/g, "")
-        .replace(/^8/, "+7")
-        .replace(/^7/, "+7");
+function normalizePhone(phone){
+
+    phone = phone
+        .replace(/[^\d+]/g,"");
+
+    if(phone.startsWith("8")){
+        phone = "+7" + phone.substring(1);
+    }
+
+    if(phone.startsWith("7")){
+        phone = "+" + phone;
+    }
+
+    return phone;
 }
 
-function showScreen(name) {
-    ["splash", "auth", "menu", "game"].forEach(id => {
-        $(id).style.display = "none";
-    });
+function showScreen(screen){
 
-    if (name === "splash") {
-        $("splash").style.display = "flex";
+    ["splash","auth","menu","game"]
+        .forEach(id=>{
+            $(id).style.display="none";
+        });
+
+    if(screen==="splash"){
+        $("splash").style.display="flex";
     }
 
-    if (name === "auth") {
-        $("auth").style.display = "flex";
+    if(screen==="auth"){
+        $("auth").style.display="flex";
     }
 
-    if (name === "menu") {
-        $("menu").style.display = "block";
+    if(screen==="menu"){
+        $("menu").style.display="block";
     }
 
-    if (name === "game") {
-        $("game").style.display = "block";
+    if(screen==="game"){
+        $("game").style.display="block";
     }
 }
 
-function setMessage(text) {
-    $("authMessage").textContent = text;
+function message(text){
+    $("authMessage").textContent=text;
 }
 
-function updateHUD() {
+function updateHUD(){
 
-    const current = localStorage.getItem(CURRENT_KEY);
+    const current =
+        localStorage.getItem(CURRENT_KEY);
 
-    if (!current) {
-        $("hud").style.display = "none";
+    if(!current){
+        $("hud").style.display="none";
         return;
     }
 
-    const profiles = getProfiles();
-    const profile = profiles[current] || {};
+    const profiles=getProfiles();
+    const profile=profiles[current] || {};
 
     $("hudName").textContent =
         profile.nickname || "Игрок";
@@ -1228,78 +1226,124 @@ function updateHUD() {
     $("hudAvatar").src =
         profile.avatar || "./icon.svg";
 
-    $("hud").style.display = "flex";
+    $("hud").style.display="flex";
 }
 
-function enterMenu() {
+function enterMenu(){
     updateHUD();
     showScreen("menu");
 }
 
-function logout() {
-    localStorage.removeItem(CURRENT_KEY);
-    $("phone").value = "";
-    $("password").value = "";
-    $("nickname").value = "";
-    setMessage("");
+function logout(){
+
+    localStorage.removeItem(
+        CURRENT_KEY
+    );
+
+    $("phone").value="";
+    $("password").value="";
+    $("nickname").value="";
+
+    message("");
+
     updateHUD();
     showScreen("auth");
 }
 
-function submitAuth() {
+/* AUTH */
 
-    const phone = normalizePhone(
+$("loginTab").onclick=()=>{
+
+    mode="login";
+
+    $("loginTab")
+        .classList.add("active");
+
+    $("registerTab")
+        .classList.remove("active");
+
+    $("nicknameField")
+        .style.display="none";
+
+    $("authButton")
+        .textContent="ВОЙТИ В ИГРУ";
+
+    message("");
+};
+
+$("registerTab").onclick=()=>{
+
+    mode="register";
+
+    $("registerTab")
+        .classList.add("active");
+
+    $("loginTab")
+        .classList.remove("active");
+
+    $("nicknameField")
+        .style.display="block";
+
+    $("authButton")
+        .textContent="СОЗДАТЬ АККАУНТ";
+
+    message("");
+};
+
+function auth(){
+
+    const phone=normalizePhone(
         $("phone").value.trim()
     );
 
-    const password =
+    const password=
         $("password").value;
 
-    const nickname =
+    const nickname=
         $("nickname").value.trim();
 
-    if (!phone) {
-        setMessage("Введите номер телефона");
+    if(!phone){
+        message("Введите номер телефона");
         return;
     }
 
-    if (!password) {
-        setMessage("Введите пароль");
+    if(!password){
+        message("Введите пароль");
         return;
     }
 
-    const accounts = getAccounts();
-    const profiles = getProfiles();
+    const accounts=getAccounts();
+    const profiles=getProfiles();
 
-    if (mode === "register") {
+    if(mode==="register"){
 
-        if (accounts[phone]) {
-            setMessage(
+        if(accounts[phone]){
+            message(
                 "Этот номер телефона уже зарегистрирован"
             );
             return;
         }
 
-        if (!nickname) {
-            setMessage("Введите никнейм");
+        if(!nickname){
+            message("Введите никнейм");
             return;
         }
 
-        if (password.length < 4) {
-            setMessage(
+        if(password.length<4){
+            message(
                 "Пароль должен содержать минимум 4 символа"
             );
             return;
         }
 
-        accounts[phone] = {
-            password: password
+        accounts[phone]={
+            password:password
         };
 
-        profiles[phone] = {
-            nickname: nickname,
-            description: "",
-            avatar: "./icon.svg"
+        profiles[phone]={
+            nickname:nickname,
+            description:"",
+            avatar:"./icon.svg"
         };
 
         saveAccounts(accounts);
@@ -1311,18 +1355,22 @@ function submitAuth() {
         );
 
         enterMenu();
+
         return;
     }
 
-    if (!accounts[phone]) {
-        setMessage(
+    if(!accounts[phone]){
+        message(
             "Номер не зарегистрирован. Сначала создайте аккаунт."
         );
         return;
     }
 
-    if (accounts[phone].password !== password) {
-        setMessage("Неверный пароль");
+    if(
+        accounts[phone].password !==
+        password
+    ){
+        message("Неверный пароль");
         return;
     }
 
@@ -1334,307 +1382,271 @@ function submitAuth() {
     enterMenu();
 }
 
-/* TABS */
+$("authButton").onclick=auth;
 
-$("loginTab").onclick = () => {
-
-    mode = "login";
-
-    $("loginTab").classList.add("active");
-    $("registerTab").classList.remove("active");
-
-    $("nicknameField").style.display = "none";
-
-    $("authButton").textContent =
-        "ВОЙТИ В ИГРУ";
-
-    setMessage("");
-};
-
-$("registerTab").onclick = () => {
-
-    mode = "register";
-
-    $("registerTab").classList.add("active");
-    $("loginTab").classList.remove("active");
-
-    $("nicknameField").style.display = "block";
-
-    $("authButton").textContent =
-        "СОЗДАТЬ АККАУНТ";
-
-    setMessage("");
-};
-
-$("authButton").onclick = submitAuth;
-
-$("password").addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-        submitAuth();
+$("password").addEventListener(
+    "keydown",
+    e=>{
+        if(e.key==="Enter"){
+            auth();
+        }
     }
-});
+);
 
 /* PROFILE */
 
-$("profileButton").onclick = () => {
+$("profileButton").onclick=()=>{
 
-    const current =
+    const current=
         localStorage.getItem(CURRENT_KEY);
 
-    if (!current) return;
+    if(!current)return;
 
-    const profiles = getProfiles();
-    const profile = profiles[current] || {};
+    const profiles=getProfiles();
+    const profile=profiles[current] || {};
 
-    $("profileNickname").value =
+    $("profileNickname").value=
         profile.nickname || "";
 
-    $("profileDescription").value =
+    $("profileDescription").value=
         profile.description || "";
 
-    $("profileAvatar").src =
+    $("profileAvatar").src=
         profile.avatar || "./icon.svg";
 
-    $("profileModal").style.display = "flex";
+    $("profileModal").style.display="flex";
 };
 
-$("avatarInput").onchange = event => {
+$("avatarInput").onchange=e=>{
 
-    const file =
-        event.target.files[0];
+    const file=e.target.files[0];
 
-    if (!file) return;
+    if(!file)return;
 
-    const reader =
-        new FileReader();
+    const reader=new FileReader();
 
-    reader.onload = () => {
+    reader.onload=()=>{
 
-        const img =
-            new Image();
+        const img=new Image();
 
-        img.onload = () => {
+        img.onload=()=>{
 
-            const canvas =
+            const canvas=
                 document.createElement("canvas");
 
-            const size = 500;
+            const size=500;
 
-            canvas.width = size;
-            canvas.height = size;
+            canvas.width=size;
+            canvas.height=size;
 
-            const ctx =
+            const ctx=
                 canvas.getContext("2d");
 
-            const scale =
-                Math.max(
-                    size / img.width,
-                    size / img.height
-                );
+            const scale=Math.max(
+                size/img.width,
+                size/img.height
+            );
 
-            const w =
-                img.width * scale;
+            const width=
+                img.width*scale;
 
-            const h =
-                img.height * scale;
+            const height=
+                img.height*scale;
 
-            const x =
-                (size - w) / 2;
-
-            const y =
-                (size - h) / 2;
+            const x=(size-width)/2;
+            const y=(size-height)/2;
 
             ctx.drawImage(
                 img,
                 x,
                 y,
-                w,
-                h
+                width,
+                height
             );
 
-            const compressed =
+            $("profileAvatar").src=
                 canvas.toDataURL(
                     "image/jpeg",
                     .82
                 );
-
-            $("profileAvatar").src =
-                compressed;
         };
 
-        img.src = reader.result;
+        img.src=reader.result;
     };
 
     reader.readAsDataURL(file);
 };
 
-$("saveProfile").onclick = () => {
+$("saveProfile").onclick=()=>{
 
-    const current =
+    const current=
         localStorage.getItem(CURRENT_KEY);
 
-    if (!current) return;
+    if(!current)return;
 
-    const profiles =
-        getProfiles();
+    const profiles=getProfiles();
 
-    const old =
-        profiles[current] || {};
-
-    profiles[current] = {
+    profiles[current]={
         nickname:
-            $("profileNickname").value.trim()
-            || "Игрок",
+            $("profileNickname")
+                .value
+                .trim() || "Игрок",
 
         description:
-            $("profileDescription").value.trim(),
+            $("profileDescription")
+                .value
+                .trim(),
 
         avatar:
             $("profileAvatar").src
-            || old.avatar
-            || "./icon.svg"
     };
 
     saveProfiles(profiles);
 
     updateHUD();
 
-    $("profileModal").style.display = "none";
+    $("profileModal")
+        .style.display="none";
 };
 
 /* MODALS */
 
-document.querySelectorAll("[data-close]").forEach(btn => {
+document
+    .querySelectorAll("[data-close]")
+    .forEach(button=>{
 
-    btn.onclick = () => {
+        button.onclick=()=>{
 
-        const id =
-            btn.dataset.close;
+            $(button.dataset.close)
+                .style.display="none";
 
-        $(id).style.display = "none";
-    };
-
-});
-
-document.querySelectorAll(".modal").forEach(modal => {
-
-    modal.addEventListener("click", e => {
-
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
+        };
 
     });
 
-});
+document
+    .querySelectorAll(".modal")
+    .forEach(modal=>{
+
+        modal.addEventListener(
+            "click",
+            e=>{
+
+                if(e.target===modal){
+                    modal.style.display="none";
+                }
+
+            }
+        );
+
+    });
 
 /* SETTINGS */
 
-$("settingsButton").onclick = () => {
-    $("settingsModal").style.display = "flex";
+$("settingsButton").onclick=()=>{
+    $("settingsModal")
+        .style.display="flex";
 };
 
-$("profileLogout").onclick = logout;
-$("settingsLogout").onclick = logout;
+$("profileLogout").onclick=logout;
+$("settingsLogout").onclick=logout;
 
-$("fullscreenButton").onclick = async () => {
+$("fullscreenButton").onclick=async()=>{
 
-    try {
+    try{
 
-        if (!document.fullscreenElement) {
-            await document.documentElement.requestFullscreen();
-        } else {
+        if(!document.fullscreenElement){
+
+            await document
+                .documentElement
+                .requestFullscreen();
+
+        }else{
+
             await document.exitFullscreen();
+
         }
 
-    } catch {}
+    }catch{}
+
 };
 
 /* GAME */
 
-$("playButton").onclick = () => {
-
+$("playButton").onclick=()=>{
     showScreen("game");
-
 };
 
-$("backGame").onclick = () => {
-
+$("backGame").onclick=()=>{
     enterMenu();
-
 };
 
-/* SPLASH */
+/* LOADING */
 
-let progress = 0;
+let progress=0;
 
-const loadingTimer =
-    setInterval(() => {
+const loader=setInterval(()=>{
 
-        progress++;
+    progress++;
 
-        $("loaderBar").style.width =
-            progress + "%";
+    $("loaderBar")
+        .style.width=
+        progress+"%";
 
-        $("loadingText").textContent =
-            "Загрузка города... " +
-            progress + "%";
+    $("loading").textContent=
+        "INITIALIZING WORLD "+
+        progress+"%";
 
-        if (progress >= 100) {
+    if(progress>=100){
 
-            clearInterval(loadingTimer);
+        clearInterval(loader);
 
-            setTimeout(() => {
+        setTimeout(()=>{
 
-                const current =
-                    localStorage.getItem(
-                        CURRENT_KEY
-                    );
+            const current=
+                localStorage.getItem(
+                    CURRENT_KEY
+                );
 
-                if (current) {
-                    enterMenu();
-                } else {
-                    showScreen("auth");
-                }
+            if(current){
+                enterMenu();
+            }else{
+                showScreen("auth");
+            }
 
-            }, 400);
+        },500);
 
-        }
+    }
 
-    }, 50);
+},50);
 
-/* ORIENTATION */
+/* LANDSCAPE */
 
-async function lockLandscape() {
+try{
 
-    try {
+    if(
+        screen.orientation &&
+        screen.orientation.lock
+    ){
+        screen.orientation.lock(
+            "landscape"
+        );
+    }
 
-        if (
-            screen.orientation &&
-            screen.orientation.lock
-        ) {
-            await screen.orientation.lock(
-                "landscape"
-            );
-        }
-
-    } catch {}
-
-}
-
-lockLandscape();
+}catch{}
 
 /* SERVICE WORKER */
 
-if ("serviceWorker" in navigator) {
+if("serviceWorker" in navigator){
 
-    window.addEventListener("load", () => {
-
-        navigator.serviceWorker.register(
-            "./sw.js"
-        ).catch(() => {});
-
-    });
+    window.addEventListener(
+        "load",
+        ()=>{
+            navigator.serviceWorker
+                .register("./sw.js")
+                .catch(()=>{});
+        }
+    );
 
 }
 </script>
