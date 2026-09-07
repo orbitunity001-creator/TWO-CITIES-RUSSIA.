@@ -1,24 +1,24 @@
 {
-  "name": "TWO CITIES: RUSSIA",
-  "short_name": "TWO CITIES",
-  "description": "TWO CITIES: RUSSIA — игра от Cats Developer Studio",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "landscape",
-  "background_color": "#020308",
-  "theme_color": "#03050d",
-  "lang": "ru",
-  "categories": [
-    "games",
-    "entertainment"
-  ],
-  "icons": [
-    {
-      "src": "./icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ]
+    "name": "TWO CITIES: RUSSIA",
+    "short_name": "TWO CITIES",
+    "description": "TWO CITIES: RUSSIA — игра от Cats Developer Studio",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "landscape",
+    "background_color": "#020305",
+    "theme_color": "#030407",
+    "lang": "ru",
+    "categories": [
+        "games",
+        "entertainment"
+    ],
+    "icons": [
+        {
+            "src": "./icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
 }
