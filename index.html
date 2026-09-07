@@ -33,10 +33,6 @@ button{
     cursor:pointer;
 }
 
-/* =========================
-   ОСНОВА
-========================= */
-
 #app{
     position:fixed;
     inset:0;
@@ -48,22 +44,9 @@ button{
     position:absolute;
     inset:0;
     background:
-        radial-gradient(
-            circle at 72% 20%,
-            rgba(0,145,255,.18),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 12% 85%,
-            rgba(255,20,50,.13),
-            transparent 32%
-        ),
-        linear-gradient(
-            135deg,
-            #020304,
-            #0b0f14 50%,
-            #020304
-        );
+        radial-gradient(circle at 72% 20%,rgba(0,145,255,.18),transparent 30%),
+        radial-gradient(circle at 12% 85%,rgba(255,20,50,.13),transparent 32%),
+        linear-gradient(135deg,#020304,#0b0f14 50%,#020304);
 }
 
 .grid{
@@ -71,20 +54,10 @@ button{
     inset:0;
     opacity:.12;
     background-image:
-        linear-gradient(
-            rgba(0,150,255,.3) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(0,150,255,.3) 1px,
-            transparent 1px
-        );
+        linear-gradient(rgba(0,150,255,.3) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,150,255,.3) 1px,transparent 1px);
     background-size:65px 65px;
-    transform:
-        perspective(500px)
-        rotateX(58deg)
-        scale(1.8);
+    transform:perspective(500px) rotateX(58deg) scale(1.8);
     transform-origin:bottom;
 }
 
@@ -112,10 +85,6 @@ button{
     opacity:.14;
 }
 
-/* =========================
-   ГОРОД
-========================= */
-
 .city{
     position:absolute;
     bottom:0;
@@ -128,13 +97,7 @@ button{
 .building{
     position:absolute;
     bottom:0;
-    background:
-        linear-gradient(
-            90deg,
-            #07090c,
-            #171c22,
-            #080a0d
-        );
+    background:linear-gradient(90deg,#07090c,#171c22,#080a0d);
     border:1px solid rgba(255,255,255,.04);
 }
 
@@ -143,16 +106,8 @@ button{
     position:absolute;
     inset:12px;
     background:
-        repeating-linear-gradient(
-            90deg,
-            rgba(0,150,220,.5) 0 5px,
-            transparent 5px 23px
-        ),
-        repeating-linear-gradient(
-            0deg,
-            rgba(255,255,255,.2) 0 4px,
-            transparent 4px 23px
-        );
+        repeating-linear-gradient(90deg,rgba(0,150,220,.5) 0 5px,transparent 5px 23px),
+        repeating-linear-gradient(0deg,rgba(255,255,255,.2) 0 4px,transparent 4px 23px);
     opacity:.4;
 }
 
@@ -167,30 +122,14 @@ button{
 .b9{left:78%;width:8%;height:58%}
 .b10{left:85%;width:15%;height:72%}
 
-/* =========================
-   ДОРОГА
-========================= */
-
 .road{
     position:absolute;
     left:-10%;
     right:-10%;
     bottom:-25%;
     height:48%;
-    background:
-        linear-gradient(
-            90deg,
-            #08090b,
-            #171a1e,
-            #08090b
-        );
-    clip-path:
-        polygon(
-            39% 0,
-            61% 0,
-            100% 100%,
-            0 100%
-        );
+    background:linear-gradient(90deg,#08090b,#171a1e,#08090b);
+    clip-path:polygon(39% 0,61% 0,100% 100%,0 100%);
 }
 
 .road:after{
@@ -200,17 +139,8 @@ button{
     top:0;
     width:2%;
     height:100%;
-    background:
-        repeating-linear-gradient(
-            0deg,
-            #dfe5ea 0 30px,
-            transparent 30px 75px
-        );
+    background:repeating-linear-gradient(0deg,#dfe5ea 0 30px,transparent 30px 75px);
 }
-
-/* =========================
-   ШАПКА
-========================= */
 
 .top{
     position:absolute;
@@ -259,19 +189,13 @@ button{
     border:1px solid #292f36;
 }
 
-/* =========================
-   ЭКРАНЫ
-========================= */
-
 .screen{
     position:absolute;
     inset:0;
     z-index:10;
 }
 
-/* =========================
-   ОФИЦИАЛЬНАЯ ЗАГРУЗКА
-========================= */
+/* LOADING */
 
 #loadingScreen{
     display:flex;
@@ -308,8 +232,6 @@ button{
     letter-spacing:3px;
 }
 
-/* Линия */
-
 .loadingLine{
     width:min(580px,78vw);
     height:4px;
@@ -321,12 +243,7 @@ button{
 .loadingProgress{
     width:0%;
     height:100%;
-    background:
-        linear-gradient(
-            90deg,
-            #008cff,
-            #ff2045
-        );
+    background:linear-gradient(90deg,#008cff,#ff2045);
     box-shadow:0 0 18px #ff2045;
 }
 
@@ -351,9 +268,7 @@ button{
     letter-spacing:2px;
 }
 
-/* =========================
-   АВТОРИЗАЦИЯ
-========================= */
+/* AUTH */
 
 #authScreen{
     display:none;
@@ -363,17 +278,11 @@ button{
 
 .authBox{
     width:min(450px,92vw);
-    background:
-        linear-gradient(
-            145deg,
-            rgba(17,20,25,.98),
-            rgba(5,7,9,.98)
-        );
+    background:linear-gradient(145deg,rgba(17,20,25,.98),rgba(5,7,9,.98));
     border:1px solid #292f36;
     border-top:2px solid #ff2045;
     padding:32px;
-    box-shadow:
-        0 35px 100px rgba(0,0,0,.75);
+    box-shadow:0 35px 100px rgba(0,0,0,.75);
 }
 
 .authTitle{
@@ -441,12 +350,7 @@ button{
     color:#fff;
     font-weight:1000;
     letter-spacing:1px;
-    background:
-        linear-gradient(
-            90deg,
-            #d80d32,
-            #ff2045
-        );
+    background:linear-gradient(90deg,#d80d32,#ff2045);
 }
 
 .message{
@@ -457,9 +361,7 @@ button{
     font-size:13px;
 }
 
-/* =========================
-   МЕНЮ
-========================= */
+/* MENU */
 
 #menuScreen{
     display:none;
@@ -523,13 +425,10 @@ button{
 .menuButton.play{
     background:#e6193d;
     border-color:#ff3b58;
-    box-shadow:
-        0 10px 35px rgba(255,20,60,.18);
+    box-shadow:0 10px 35px rgba(255,20,60,.18);
 }
 
-/* =========================
-   МОДАЛКИ
-========================= */
+/* MODALS */
 
 .modal{
     display:none;
@@ -538,12 +437,12 @@ button{
     z-index:200;
     align-items:center;
     justify-content:center;
-    background:rgba(0,0,0,.78);
+    background:rgba(0,0,0,.82);
     backdrop-filter:blur(12px);
 }
 
 .modalBox{
-    width:min(520px,94vw);
+    width:min(650px,94vw);
     max-height:90vh;
     overflow:auto;
     padding:30px;
@@ -560,6 +459,10 @@ button{
     margin-bottom:25px;
 }
 
+.modalHead h2{
+    letter-spacing:2px;
+}
+
 .close{
     width:35px;
     height:35px;
@@ -567,6 +470,30 @@ button{
     background:#11151a;
     color:#aaa;
     font-size:20px;
+}
+
+.secondary{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:1px solid #292f36;
+    background:#11151a;
+    color:#ddd;
+    text-align:left;
+    transition:.2s;
+}
+
+.secondary:hover{
+    border-color:#008cff;
+}
+
+.danger{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:1px solid #671525;
+    background:#210910;
+    color:#ff405c;
 }
 
 .avatarBox{
@@ -596,27 +523,97 @@ button{
     display:none;
 }
 
-.secondary{
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border:1px solid #292f36;
-    background:#11151a;
-    color:#ddd;
+/* ABOUT */
+
+.aboutLogo{
+    text-align:center;
+    padding:10px 0 25px;
 }
 
-.danger{
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border:1px solid #671525;
-    background:#210910;
-    color:#ff405c;
+.aboutLogoTitle{
+    font-size:34px;
+    font-weight:1000;
+    letter-spacing:-1px;
 }
 
-/* =========================
-   GAME
-========================= */
+.aboutLogoTitle span{
+    color:#ff2045;
+}
+
+.aboutVersion{
+    margin-top:8px;
+    color:#5f6a74;
+    font-size:11px;
+    letter-spacing:3px;
+}
+
+.aboutDescription{
+    color:#aeb7be;
+    line-height:1.75;
+    font-size:14px;
+}
+
+.aboutDescription strong{
+    color:#fff;
+}
+
+.infoGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    margin-top:24px;
+    background:#252b31;
+    border:1px solid #252b31;
+}
+
+.infoItem{
+    padding:16px;
+    background:#0b0e12;
+}
+
+.infoLabel{
+    color:#58636d;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:7px;
+}
+
+.infoValue{
+    color:#fff;
+    font-weight:900;
+    font-size:13px;
+}
+
+.aboutBlock{
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid #252b31;
+}
+
+.aboutBlock h3{
+    margin-bottom:10px;
+    color:#ff2045;
+    font-size:13px;
+    letter-spacing:2px;
+}
+
+.aboutBlock p{
+    color:#919ba4;
+    line-height:1.7;
+    font-size:13px;
+}
+
+.copyright{
+    margin-top:25px;
+    padding-top:18px;
+    border-top:1px solid #252b31;
+    color:#454e56;
+    text-align:center;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+/* GAME */
 
 #gameScreen{
     display:none;
@@ -645,9 +642,7 @@ button{
     color:#fff;
 }
 
-/* =========================
-   ПОВОРОТ
-========================= */
+/* ROTATE */
 
 #rotate{
     display:none;
@@ -682,6 +677,16 @@ button{
 @media(max-width:800px) and (orientation:portrait){
     #rotate{
         display:flex;
+    }
+}
+
+@media(max-width:600px){
+    .infoGrid{
+        grid-template-columns:1fr;
+    }
+
+    .modalBox{
+        padding:22px;
     }
 }
 </style>
@@ -734,9 +739,7 @@ button{
 
 </div>
 
-<!-- =====================
-     ЗАГРУЗКА
-===================== -->
+<!-- LOADING -->
 
 <section id="loadingScreen"
          class="screen">
@@ -757,11 +760,8 @@ button{
         </div>
 
         <div class="loadingLine">
-
             <div id="loadingProgress"
-                 class="loadingProgress">
-            </div>
-
+                 class="loadingProgress"></div>
         </div>
 
         <div id="loadingPercent"
@@ -782,9 +782,7 @@ button{
 
 </section>
 
-<!-- =====================
-     АВТОРИЗАЦИЯ
-===================== -->
+<!-- AUTH -->
 
 <section id="authScreen"
          class="screen">
@@ -856,9 +854,7 @@ button{
 
 </section>
 
-<!-- =====================
-     ГЛАВНОЕ МЕНЮ
-===================== -->
+<!-- MENU -->
 
 <section id="menuScreen"
          class="screen">
@@ -900,9 +896,7 @@ button{
 
 </section>
 
-<!-- =====================
-     ИГРА
-===================== -->
+<!-- GAME -->
 
 <section id="gameScreen"
          class="screen">
@@ -921,9 +915,7 @@ button{
 
 </div>
 
-<!-- =====================
-     ПРОФИЛЬ
-===================== -->
+<!-- PROFILE -->
 
 <div id="profileModal"
      class="modal">
@@ -991,9 +983,7 @@ button{
 
 </div>
 
-<!-- =====================
-     НАСТРОЙКИ
-===================== -->
+<!-- SETTINGS -->
 
 <div id="settingsModal"
      class="modal">
@@ -1011,9 +1001,14 @@ button{
 
         </div>
 
+        <button id="aboutButton"
+                class="secondary">
+            ℹ &nbsp; ОБ ИГРЕ
+        </button>
+
         <button id="fullscreenButton"
                 class="secondary">
-            ⛶ ПОЛНЫЙ ЭКРАН
+            ⛶ &nbsp; ПОЛНЫЙ ЭКРАН
         </button>
 
         <button id="settingsLogout"
@@ -1025,10 +1020,258 @@ button{
 
 </div>
 
+<!-- ABOUT GAME -->
+
+<div id="aboutModal"
+     class="modal">
+
+    <div class="modalBox">
+
+        <div class="modalHead">
+
+            <h2>ОБ ИГРЕ</h2>
+
+            <button class="close"
+                    data-close="aboutModal">
+                ×
+            </button>
+
+        </div>
+
+        <div class="aboutLogo">
+
+            <div class="aboutLogoTitle">
+                TWO CITIES
+                <span>RUSSIA</span>
+            </div>
+
+            <div class="aboutVersion">
+                VERSION 1.0.0 • OFFICIAL BUILD
+            </div>
+
+        </div>
+
+        <div class="aboutDescription">
+
+            <p>
+                <strong>TWO CITIES: RUSSIA</strong> —
+                одиночная городская sandbox-игра от
+                <strong>Cats Developer Studio</strong>.
+            </p>
+
+            <br>
+
+            <p>
+                Проект создан как самостоятельная игровая
+                вселенная с большим городским пространством,
+                свободным перемещением, транспортом,
+                персонажами, зданиями и различными игровыми
+                ситуациями.
+            </p>
+
+            <br>
+
+            <p>
+                По атмосфере и формату проект вдохновлён
+                городскими sandbox-играми и пользовательскими
+                мирами в духе Roblox, но
+                <strong>TWO CITIES: RUSSIA</strong> —
+                отдельная игра со своей концепцией,
+                дизайном и игровой вселенной.
+            </p>
+
+        </div>
+
+        <div class="infoGrid">
+
+            <div class="infoItem">
+
+                <div class="infoLabel">
+                    РАЗРАБОТЧИК
+                </div>
+
+                <div class="infoValue">
+                    Cats Developer Studio
+                </div>
+
+            </div>
+
+            <div class="infoItem">
+
+                <div class="infoLabel">
+                    НАЗВАНИЕ
+                </div>
+
+                <div class="infoValue">
+                    TWO CITIES: RUSSIA
+                </div>
+
+            </div>
+
+            <div class="infoItem">
+
+                <div class="infoLabel">
+                    ВЕРСИЯ
+                </div>
+
+                <div class="infoValue">
+                    1.0.0
+                </div>
+
+            </div>
+
+            <div class="infoItem">
+
+                <div class="infoLabel">
+                    ТИП СБОРКИ
+                </div>
+
+                <div class="infoValue">
+                    Official Build
+                </div>
+
+            </div>
+
+            <div class="infoItem">
+
+                <div class="infoLabel">
+                    РЕЖИМ
+                </div>
+
+                <div class="infoValue">
+                    Single Player
+                </div>
+
+            </div>
+
+            <div class="infoItem">
+
+                <div class="infoLabel">
+                    ЖАНР
+                </div>
+
+                <div class="infoValue">
+                    City Sandbox
+                </div>
+
+            </div>
+
+            <div class="infoItem">
+
+                <div class="infoLabel">
+                    ГОРОДА
+                </div>
+
+                <div class="infoValue">
+                    Москва / Краснодар
+                </div>
+
+            </div>
+
+            <div class="infoItem">
+
+                <div class="infoLabel">
+                    ПЛАТФОРМА
+                </div>
+
+                <div class="infoValue">
+                    Web / PWA
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="aboutBlock">
+
+            <h3>О КОМПАНИИ</h3>
+
+            <p>
+                <strong>Cats Developer Studio</strong> —
+                разработчик проекта TWO CITIES: RUSSIA.
+                Студия развивает собственную игровую
+                вселенную и создаёт проекты,
+                ориентированные на исследование мира,
+                свободу действий и атмосферу большого города.
+            </p>
+
+        </div>
+
+        <div class="aboutBlock">
+
+            <h3>ОБ ИГРОВОМ МИРЕ</h3>
+
+            <p>
+                Игрок получает возможность оказаться
+                внутри виртуальной городской среды,
+                исследовать районы, перемещаться по улицам,
+                взаимодействовать с объектами мира и
+                постепенно открывать новые возможности.
+            </p>
+
+            <br>
+
+            <p>
+                Основная концепция TWO CITIES: RUSSIA —
+                объединить два разных города в одной
+                игровой вселенной: Москву и Краснодар.
+                Каждый город должен иметь собственную
+                атмосферу, архитектуру, районы и игровые
+                особенности.
+            </p>
+
+        </div>
+
+        <div class="aboutBlock">
+
+            <h3>ТЕХНОЛОГИИ</h3>
+
+            <p>
+                Игра распространяется как веб-приложение
+                и может запускаться непосредственно
+                из браузера или как установленное
+                PWA-приложение.
+            </p>
+
+            <br>
+
+            <p>
+                Локальные игровые данные и профиль
+                сохраняются непосредственно на устройстве
+                пользователя.
+            </p>
+
+        </div>
+
+        <div class="aboutBlock">
+
+            <h3>СТАТУС ПРОЕКТА</h3>
+
+            <p>
+                Version 1.0.0 является официальной
+                текущей сборкой проекта. Игра продолжает
+                развиваться, поэтому в будущих версиях
+                могут появляться новые районы, здания,
+                транспорт, персонажи, задания,
+                игровые механики и дополнительные
+                возможности.
+            </p>
+
+        </div>
+
+        <div class="copyright">
+
+            © 2026 Cats Developer Studio<br>
+            TWO CITIES: RUSSIA<br>
+            ALL RIGHTS RESERVED
+
+        </div>
+
+    </div>
+
+</div>
+
 <script>
-/* =========================
-   STORAGE
-========================= */
 
 const ACCOUNTS_KEY =
     "two_cities_accounts_v2";
@@ -1039,30 +1282,23 @@ const PROFILES_KEY =
 const CURRENT_KEY =
     "two_cities_current_v2";
 
-let mode = "login";
+let mode="login";
 
-const $ = id =>
+const $=id=>
     document.getElementById(id);
-
-/* =========================
-   STORAGE FUNCTIONS
-========================= */
 
 function getAccounts(){
 
     try{
-
         return JSON.parse(
             localStorage.getItem(
                 ACCOUNTS_KEY
             )
         ) || {};
-
     }catch{
-
         return {};
-
     }
+
 }
 
 function saveAccounts(accounts){
@@ -1077,18 +1313,15 @@ function saveAccounts(accounts){
 function getProfiles(){
 
     try{
-
         return JSON.parse(
             localStorage.getItem(
                 PROFILES_KEY
             )
         ) || {};
-
     }catch{
-
         return {};
-
     }
+
 }
 
 function saveProfiles(profiles){
@@ -1100,40 +1333,23 @@ function saveProfiles(profiles){
 
 }
 
-/* =========================
-   PHONE
-========================= */
-
 function normalizePhone(phone){
 
-    phone =
-        phone.replace(
-            /[^\d+]/g,
-            ""
-        );
+    phone=phone.replace(
+        /[^\d+]/g,
+        ""
+    );
 
     if(phone.startsWith("8")){
-
-        phone =
-            "+7" +
-            phone.substring(1);
-
+        phone="+7"+phone.substring(1);
     }
 
     if(phone.startsWith("7")){
-
-        phone =
-            "+" +
-            phone;
-
+        phone="+"+phone;
     }
 
     return phone;
 }
-
-/* =========================
-   SCREEN
-========================= */
 
 function showScreen(screen){
 
@@ -1143,117 +1359,73 @@ function showScreen(screen){
         "menuScreen",
         "gameScreen"
     ].forEach(id=>{
-
         $(id).style.display="none";
-
     });
 
-    if(screen==="loading"){
+    if(screen==="loading")
+        $("loadingScreen").style.display="flex";
 
-        $("loadingScreen")
-            .style.display="flex";
+    if(screen==="auth")
+        $("authScreen").style.display="flex";
 
-    }
+    if(screen==="menu")
+        $("menuScreen").style.display="block";
 
-    if(screen==="auth"){
-
-        $("authScreen")
-            .style.display="flex";
-
-    }
-
-    if(screen==="menu"){
-
-        $("menuScreen")
-            .style.display="block";
-
-    }
-
-    if(screen==="game"){
-
-        $("gameScreen")
-            .style.display="block";
-
-    }
+    if(screen==="game")
+        $("gameScreen").style.display="block";
 
 }
 
-/* =========================
-   HUD
-========================= */
-
 function updateHUD(){
 
-    const current =
+    const current=
         localStorage.getItem(
             CURRENT_KEY
         );
 
     if(!current){
-
         $("hud").style.display="none";
         return;
-
     }
 
-    const profiles =
-        getProfiles();
+    const profiles=getProfiles();
+    const profile=profiles[current] || {};
 
-    const profile =
-        profiles[current] || {};
-
-    $("hudName").textContent =
+    $("hudName").textContent=
         profile.nickname || "Игрок";
 
-    $("hudAvatar").src =
+    $("hudAvatar").src=
         profile.avatar || "./icon.svg";
 
     $("hud").style.display="flex";
 
 }
 
-/* =========================
-   MENU
-========================= */
-
 function enterMenu(){
 
     updateHUD();
-
     showScreen("menu");
 
 }
 
-/* =========================
-   MESSAGE
-========================= */
-
 function setMessage(text){
 
-    $("authMessage")
-        .textContent=text;
+    $("authMessage").textContent=text;
 
 }
 
-/* =========================
-   LOGIN / REGISTER
-========================= */
+/* AUTH */
 
 $("loginTab").onclick=()=>{
 
     mode="login";
 
-    $("loginTab")
-        .classList.add("active");
+    $("loginTab").classList.add("active");
+    $("registerTab").classList.remove("active");
 
-    $("registerTab")
-        .classList.remove("active");
+    $("nicknameField").style.display="none";
 
-    $("nicknameField")
-        .style.display="none";
-
-    $("authButton")
-        .textContent=
+    $("authButton").textContent=
         "ВОЙТИ В ИГРУ";
 
     setMessage("");
@@ -1264,17 +1436,12 @@ $("registerTab").onclick=()=>{
 
     mode="register";
 
-    $("registerTab")
-        .classList.add("active");
+    $("registerTab").classList.add("active");
+    $("loginTab").classList.remove("active");
 
-    $("loginTab")
-        .classList.remove("active");
+    $("nicknameField").style.display="block";
 
-    $("nicknameField")
-        .style.display="block";
-
-    $("authButton")
-        .textContent=
+    $("authButton").textContent=
         "СОЗДАТЬ АККАУНТ";
 
     setMessage("");
@@ -1283,80 +1450,49 @@ $("registerTab").onclick=()=>{
 
 function auth(){
 
-    const phone =
+    const phone=
         normalizePhone(
-            $("phone")
-                .value
-                .trim()
+            $("phone").value.trim()
         );
 
-    const password =
-        $("password")
-            .value;
+    const password=
+        $("password").value;
 
-    const nickname =
-        $("nickname")
-            .value
-            .trim();
+    const nickname=
+        $("nickname").value.trim();
 
     if(!phone){
-
-        setMessage(
-            "Введите номер телефона"
-        );
-
+        setMessage("Введите номер телефона");
         return;
-
     }
 
     if(!password){
-
-        setMessage(
-            "Введите пароль"
-        );
-
+        setMessage("Введите пароль");
         return;
-
     }
 
-    const accounts =
-        getAccounts();
-
-    const profiles =
-        getProfiles();
-
-    /* REGISTER */
+    const accounts=getAccounts();
+    const profiles=getProfiles();
 
     if(mode==="register"){
 
         if(accounts[phone]){
-
             setMessage(
                 "Этот номер телефона уже зарегистрирован"
             );
-
             return;
-
         }
 
         if(!nickname){
-
-            setMessage(
-                "Введите никнейм"
-            );
-
+            setMessage("Введите никнейм");
             return;
-
         }
 
         if(password.length<4){
-
             setMessage(
                 "Пароль должен содержать минимум 4 символа"
             );
-
             return;
-
         }
 
         accounts[phone]={
@@ -1364,17 +1500,12 @@ function auth(){
         };
 
         profiles[phone]={
-
             nickname:nickname,
-
             description:"",
-
             avatar:"./icon.svg"
-
         };
 
         saveAccounts(accounts);
-
         saveProfiles(profiles);
 
         localStorage.setItem(
@@ -1383,12 +1514,9 @@ function auth(){
         );
 
         enterMenu();
-
         return;
 
     }
-
-    /* LOGIN */
 
     if(!accounts[phone]){
 
@@ -1424,76 +1552,57 @@ function auth(){
 
 $("authButton").onclick=auth;
 
-$("password")
-    .addEventListener(
-        "keydown",
-        e=>{
-
-            if(e.key==="Enter"){
-                auth();
-            }
-
+$("password").addEventListener(
+    "keydown",
+    e=>{
+        if(e.key==="Enter"){
+            auth();
         }
-    );
+    }
+);
 
-/* =========================
-   PROFILE
-========================= */
+/* PROFILE */
 
 $("profileButton").onclick=()=>{
 
-    const current =
+    const current=
         localStorage.getItem(
             CURRENT_KEY
         );
 
     if(!current)return;
 
-    const profiles =
-        getProfiles();
+    const profiles=getProfiles();
+    const profile=profiles[current] || {};
 
-    const profile =
-        profiles[current] || {};
-
-    $("profileNickname")
-        .value =
+    $("profileNickname").value=
         profile.nickname || "";
 
-    $("profileDescription")
-        .value =
+    $("profileDescription").value=
         profile.description || "";
 
-    $("profileAvatar")
-        .src =
+    $("profileAvatar").src=
         profile.avatar || "./icon.svg";
 
-    $("profileModal")
-        .style.display="flex";
+    $("profileModal").style.display="flex";
 
 };
 
-/* =========================
-   AVATAR
-========================= */
-
 $("avatarInput").onchange=e=>{
 
-    const file =
-        e.target.files[0];
+    const file=e.target.files[0];
 
     if(!file)return;
 
-    const reader =
-        new FileReader();
+    const reader=new FileReader();
 
     reader.onload=()=>{
 
-        const img =
-            new Image();
+        const img=new Image();
 
         img.onload=()=>{
 
-            const canvas =
+            const canvas=
                 document.createElement(
                     "canvas"
                 );
@@ -1503,26 +1612,19 @@ $("avatarInput").onchange=e=>{
             canvas.width=size;
             canvas.height=size;
 
-            const ctx =
+            const ctx=
                 canvas.getContext("2d");
 
-            const scale =
-                Math.max(
-                    size/img.width,
-                    size/img.height
-                );
+            const scale=Math.max(
+                size/img.width,
+                size/img.height
+            );
 
-            const w =
-                img.width*scale;
+            const w=img.width*scale;
+            const h=img.height*scale;
 
-            const h =
-                img.height*scale;
-
-            const x =
-                (size-w)/2;
-
-            const y =
-                (size-h)/2;
+            const x=(size-w)/2;
+            const y=(size-h)/2;
 
             ctx.drawImage(
                 img,
@@ -1532,8 +1634,7 @@ $("avatarInput").onchange=e=>{
                 h
             );
 
-            $("profileAvatar")
-                .src =
+            $("profileAvatar").src=
                 canvas.toDataURL(
                     "image/jpeg",
                     .82
@@ -1541,8 +1642,7 @@ $("avatarInput").onchange=e=>{
 
         };
 
-        img.src =
-            reader.result;
+        img.src=reader.result;
 
     };
 
@@ -1550,52 +1650,42 @@ $("avatarInput").onchange=e=>{
 
 };
 
-/* =========================
-   SAVE PROFILE
-========================= */
-
 $("saveProfile").onclick=()=>{
 
-    const current =
+    const current=
         localStorage.getItem(
             CURRENT_KEY
         );
 
     if(!current)return;
 
-    const profiles =
-        getProfiles();
+    const profiles=getProfiles();
 
     profiles[current]={
 
         nickname:
             $("profileNickname")
-                .value
-                .trim() || "Игрок",
+            .value
+            .trim() || "Игрок",
 
         description:
             $("profileDescription")
-                .value
-                .trim(),
+            .value
+            .trim(),
 
         avatar:
-            $("profileAvatar")
-                .src
+            $("profileAvatar").src
 
     };
 
     saveProfiles(profiles);
-
     updateHUD();
 
-    $("profileModal")
-        .style.display="none";
+    $("profileModal").style.display="none";
 
 };
 
-/* =========================
-   LOGOUT
-========================= */
+/* LOGOUT */
 
 function logout(){
 
@@ -1610,27 +1700,32 @@ function logout(){
     setMessage("");
 
     updateHUD();
-
     showScreen("auth");
 
 }
 
-$("profileLogout")
-    .onclick=logout;
+$("profileLogout").onclick=logout;
+$("settingsLogout").onclick=logout;
 
-$("settingsLogout")
-    .onclick=logout;
-
-/* =========================
-   SETTINGS
-========================= */
+/* SETTINGS */
 
 $("settingsButton").onclick=()=>{
 
-    $("settingsModal")
-        .style.display="flex";
+    $("settingsModal").style.display="flex";
 
 };
+
+/* ABOUT */
+
+$("aboutButton").onclick=()=>{
+
+    $("settingsModal").style.display="none";
+
+    $("aboutModal").style.display="flex";
+
+};
+
+/* FULLSCREEN */
 
 $("fullscreenButton").onclick=async()=>{
 
@@ -1652,9 +1747,7 @@ $("fullscreenButton").onclick=async()=>{
 
 };
 
-/* =========================
-   CLOSE MODALS
-========================= */
+/* CLOSE */
 
 document
 .querySelectorAll("[data-close]")
@@ -1678,9 +1771,7 @@ document
         e=>{
 
             if(e.target===modal){
-
                 modal.style.display="none";
-
             }
 
         }
@@ -1688,9 +1779,7 @@ document
 
 });
 
-/* =========================
-   GAME
-========================= */
+/* GAME */
 
 $("playButton").onclick=()=>{
 
@@ -1704,9 +1793,7 @@ $("backButton").onclick=()=>{
 
 };
 
-/* =========================
-   ОФИЦИАЛЬНАЯ ЗАГРУЗКА
-========================= */
+/* LOADING */
 
 const loadingStatuses=[
 
@@ -1738,71 +1825,57 @@ const loadingStatuses=[
 
 let progress=0;
 
-const loadingTimer =
-    setInterval(()=>{
+const loadingTimer=setInterval(()=>{
 
-        progress++;
+    progress++;
 
-        if(progress>100){
+    if(progress>100)
+        progress=100;
 
-            progress=100;
+    $("loadingProgress")
+        .style.width=
+        progress+"%";
 
-        }
+    $("loadingPercent")
+        .textContent=
+        progress+"%";
 
-        $("loadingProgress")
-            .style.width =
-            progress+"%";
+    const index=Math.min(
+        Math.floor(
+            progress /
+            (100/loadingStatuses.length)
+        ),
+        loadingStatuses.length-1
+    );
 
-        $("loadingPercent")
-            .textContent =
-            progress+"%";
+    $("loadingStatus")
+        .textContent=
+        loadingStatuses[index];
 
-        const index =
-            Math.min(
-                Math.floor(
-                    progress /
-                    (100 /
-                    loadingStatuses.length)
-                ),
-                loadingStatuses.length-1
-            );
+    if(progress>=100){
 
-        $("loadingStatus")
-            .textContent =
-            loadingStatuses[index];
+        clearInterval(loadingTimer);
 
-        if(progress>=100){
+        setTimeout(()=>{
 
-            clearInterval(
-                loadingTimer
-            );
+            const current=
+                localStorage.getItem(
+                    CURRENT_KEY
+                );
 
-            setTimeout(()=>{
+            if(current){
+                enterMenu();
+            }else{
+                showScreen("auth");
+            }
 
-                const current =
-                    localStorage.getItem(
-                        CURRENT_KEY
-                    );
+        },900);
 
-                if(current){
+    }
 
-                    enterMenu();
+},50);
 
-                }else{
-
-                    showScreen("auth");
-
-                }
-
-            },900);
-
-        }
-
-    },50);
-
-/* =========================
-   LANDSCAPE
-========================= */
+/* ORIENTATION */
 
 try{
 
@@ -1819,9 +1892,7 @@ try{
 
 }catch{}
 
-/* =========================
-   SERVICE WORKER
-========================= */
+/* SERVICE WORKER */
 
 if("serviceWorker" in navigator){
 
@@ -1837,6 +1908,7 @@ if("serviceWorker" in navigator){
     );
 
 }
+
 </script>
 
 </body>
