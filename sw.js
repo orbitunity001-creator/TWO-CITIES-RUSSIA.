@@ -1,72 +1,67 @@
-const CACHE_NAME = "avion-messenger-v20";
+const CACHE_NAME = "avion-v34";
 
-const FILES = [
+const APP_FILES = [
     "./",
     "./index.html",
-    "./style.css",
-    "./script.js",
     "./manifest.json",
-    "./icon.svg?v=20"
+    "./icon.svg"
 ];
 
 self.addEventListener("install", event => {
-
     self.skipWaiting();
 
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(FILES))
+            .then(cache => cache.addAll(APP_FILES))
     );
-
 });
-
 
 self.addEventListener("activate", event => {
-
     event.waitUntil(
-
-        caches.keys().then(keys => {
-
-            return Promise.all(
-
-                keys
-                    .filter(key => key !== CACHE_NAME)
-                    .map(key => caches.delete(key))
-
-            );
-
-        })
-
+        caches.keys()
+            .then(keys => {
+                return Promise.all(
+                    keys.map(key => {
+                        if (key !== CACHE_NAME) {
+                            return caches.delete(key);
+                        }
+                    })
+                );
+            })
+            .then(() => self.clients.claim())
     );
-
-    self.clients.claim();
-
 });
 
-
 self.addEventListener("fetch", event => {
+    if (event.request.method !== "GET") return;
 
     event.respondWith(
-
         fetch(event.request)
             .then(response => {
 
-                const copy = response.clone();
+                if (
+                    response &&
+                    response.status === 200 &&
+                    response.type === "basic"
+                ) {
+                    const copy = response.clone();
 
-                caches.open(CACHE_NAME)
-                    .then(cache => {
-                        cache.put(event.request, copy);
-                    });
+                    caches.open(CACHE_NAME)
+                        .then(cache => {
+                            cache.put(
+                                event.request,
+                                copy
+                            );
+                        });
+                }
 
                 return response;
 
             })
             .catch(() => {
-
-                return caches.match(event.request);
-
+                return caches.match(
+                    event.request
+                );
             })
-
     );
-
 });
