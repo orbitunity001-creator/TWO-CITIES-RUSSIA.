@@ -2,11 +2,11 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
 <title>AVIA</title>
 
-<meta name="theme-color" content="#06101f">
+<meta name="theme-color" content="#040812">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -14,254 +14,733 @@
 <link rel="icon" type="image/svg+xml" href="./icon.svg">
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+    background:#040812;
+    color:white;
+    font-family:Arial,sans-serif;
+    overflow:hidden;
+}
 
 body{
-    margin:0;
     min-height:100vh;
-    background:#040812;
-    color:#fff;
-    font-family:Arial,sans-serif;
 }
 
-#installBanner{
+/* =========================
+   ЗАПУСК AVIA
+========================= */
+
+#splash{
     position:fixed;
-    top:12px;
-    left:12px;
-    right:12px;
-    z-index:999999;
+    inset:0;
+    z-index:10000;
+    overflow:hidden;
 
     display:flex;
+    flex-direction:column;
+    justify-content:center;
     align-items:center;
-    gap:12px;
 
-    padding:12px;
-    border-radius:18px;
-
-    background:#101d31;
-    border:1px solid #263852;
-    box-shadow:0 15px 45px #0008;
+    background:
+        radial-gradient(circle at 50% 42%,#102b50 0%,#071326 32%,#040812 70%);
 }
 
-#installIcon{
-    width:52px;
-    height:52px;
-    border-radius:14px;
-    flex-shrink:0;
+/* Звёзды */
+
+.stars{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
 }
 
-.info{
-    flex:1;
-    min-width:0;
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.65;
+    animation:twinkle 2.5s infinite ease-in-out;
 }
 
-.title{
-    font-size:16px;
-    font-weight:bold;
+@keyframes twinkle{
+    0%,100%{
+        opacity:.2;
+        transform:scale(.7);
+    }
+    50%{
+        opacity:1;
+        transform:scale(1.4);
+    }
 }
 
-.text{
-    margin-top:4px;
-    color:#8293ab;
-    font-size:12px;
-}
+/* Свет за птицей */
 
-#installButton{
-    padding:11px 14px;
-    border:0;
-    border-radius:12px;
+.glow{
+    position:absolute;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+
     background:#1675ed;
-    color:#fff;
-    font-weight:bold;
-    white-space:nowrap;
+    filter:blur(90px);
+    opacity:.18;
+
+    animation:glowMove 3s ease-in-out infinite;
 }
 
-#closeButton{
-    border:0;
-    background:none;
-    color:#8293ab;
-    font-size:22px;
+@keyframes glowMove{
+    0%,100%{
+        transform:scale(.9);
+        opacity:.12;
+    }
+    50%{
+        transform:scale(1.15);
+        opacity:.24;
+    }
 }
 
-main{
-    min-height:100vh;
+/* Птица */
+
+.bird-wrap{
+    position:relative;
+    width:230px;
+    height:230px;
+
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:25px;
+
+    animation:birdFly 3s ease-in-out infinite;
 }
 
-.app{
-    width:100%;
-    max-width:430px;
+.bird{
+    width:210px;
+    height:210px;
+    filter:drop-shadow(0 20px 35px #0009);
+}
+
+/*
+   Машем крыльями через SVG-группы.
+*/
+
+.left-wing{
+    transform-origin:220px 230px;
+    animation:leftWing 0.75s ease-in-out infinite;
+}
+
+.right-wing{
+    transform-origin:285px 245px;
+    animation:rightWing 0.75s ease-in-out infinite;
+}
+
+@keyframes leftWing{
+    0%,100%{
+        transform:rotate(5deg);
+    }
+    50%{
+        transform:rotate(-14deg);
+    }
+}
+
+@keyframes rightWing{
+    0%,100%{
+        transform:rotate(-5deg);
+    }
+    50%{
+        transform:rotate(14deg);
+    }
+}
+
+@keyframes birdFly{
+    0%,100%{
+        transform:translateY(5px);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+/* Название */
+
+.splash-title{
+    position:absolute;
+    bottom:88px;
+
     text-align:center;
+
+    font-size:42px;
+    font-weight:800;
+    letter-spacing:8px;
+
+    text-shadow:0 5px 30px #1675ed66;
+
+    animation:titleIn 1.5s ease forwards;
 }
 
-.logo{
-    width:110px;
-    height:110px;
-    margin:auto;
-    border-radius:26px;
+.splash-studio{
+    position:absolute;
+    bottom:55px;
+
+    color:#71839c;
+    font-size:13px;
+    letter-spacing:.5px;
+
+    animation:titleIn 1.8s ease forwards;
+}
+
+@keyframes titleIn{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   ОСНОВНОЕ ПРИЛОЖЕНИЕ
+========================= */
+
+#app{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:25px;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:opacity .5s ease;
+
+    background:
+        radial-gradient(circle at 50% 20%,#0b1d35 0%,#040812 55%);
+}
+
+#app.visible{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* =========================
+   ВХОД
+========================= */
+
+.auth-card{
+    position:relative;
+
+    width:100%;
+    max-width:400px;
+
+    padding:30px 24px 26px;
+
+    border-radius:28px;
+
+    background:#0c1729eF;
+    border:1px solid #263852;
+
+    box-shadow:
+        0 30px 90px #0009,
+        inset 0 1px 0 #ffffff0a;
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    animation:cardIn .7s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.96);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.auth-logo{
+    width:76px;
+    height:76px;
+
+    margin:0 auto 18px;
+
+    border-radius:21px;
     overflow:hidden;
-    box-shadow:0 20px 60px #1675ed40;
+
+    box-shadow:0 15px 40px #1675ed40;
 }
 
-.logo img{
+.auth-logo img{
     width:100%;
     height:100%;
     display:block;
 }
 
-h1{
-    margin:24px 0 0;
-    font-size:48px;
-    letter-spacing:4px;
+.auth-title{
+    text-align:center;
+
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:3px;
 }
 
-.sub{
-    margin-top:10px;
-    color:#9aa9bd;
-    font-size:17px;
-}
-
-.studio{
+.auth-subtitle{
     margin-top:8px;
-    color:#526986;
-    font-size:13px;
+
+    text-align:center;
+
+    color:#8495ad;
+    font-size:14px;
+    line-height:1.5;
 }
 
-#bigInstall{
-    width:100%;
-    margin-top:30px;
-    padding:17px;
+/* Крестик */
+
+.skip{
+    position:absolute;
+    top:15px;
+    right:15px;
+
+    width:38px;
+    height:38px;
+
     border:0;
-    border-radius:16px;
-    background:#1675ed;
-    color:#fff;
-    font-size:17px;
-    font-weight:bold;
+    border-radius:50%;
+
+    background:#17243a;
+    color:#9aabc0;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.2s;
 }
 
-#status{
-    min-height:20px;
-    margin-top:14px;
-    color:#687a93;
-    font-size:13px;
+.skip:active{
+    transform:scale(.9);
+}
+
+/* Кнопки */
+
+.auth-buttons{
+    margin-top:28px;
+
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.auth-button{
+    width:100%;
+
+    padding:16px;
+
+    border:0;
+    border-radius:15px;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:
+        transform .15s,
+        opacity .15s;
+}
+
+.auth-button:active{
+    transform:scale(.98);
+}
+
+.login{
+    background:#1675ed;
+    color:white;
+
+    box-shadow:0 10px 30px #1675ed35;
+}
+
+.register{
+    background:#18263b;
+    color:#eaf3ff;
+    border:1px solid #2a3d58;
+}
+
+.auth-note{
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#566b86;
+    font-size:12px;
+}
+
+/* =========================
+   СООБЩЕНИЕ
+========================= */
+
+#message{
+    position:fixed;
+    left:20px;
+    right:20px;
+    bottom:25px;
+
+    z-index:20000;
+
+    display:none;
+
+    padding:16px 18px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    background:#101d31;
+    border:1px solid #293d59;
+
+    color:#aab9cc;
+
+    box-shadow:0 15px 45px #0008;
+
+    animation:messageIn .35s ease;
+}
+
+@keyframes messageIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="installBanner">
+<!-- =========================
+     SPLASH
+========================= -->
 
-    <img id="installIcon" src="./icon.svg" alt="AVIA">
+<div id="splash">
 
-    <div class="info">
-        <div class="title">Установить AVIA</div>
-        <div class="text">Установить приложение на устройство</div>
+    <div class="stars">
+
+        <span class="star" style="left:8%;top:15%;animation-delay:.2s"></span>
+        <span class="star" style="left:18%;top:34%;animation-delay:1s"></span>
+        <span class="star" style="left:29%;top:12%;animation-delay:.5s"></span>
+        <span class="star" style="left:42%;top:23%;animation-delay:1.3s"></span>
+        <span class="star" style="left:55%;top:10%;animation-delay:.7s"></span>
+        <span class="star" style="left:68%;top:29%;animation-delay:1.5s"></span>
+        <span class="star" style="left:81%;top:16%;animation-delay:.4s"></span>
+        <span class="star" style="left:92%;top:39%;animation-delay:1.1s"></span>
+
+        <span class="star" style="left:12%;top:63%;animation-delay:1.7s"></span>
+        <span class="star" style="left:24%;top:77%;animation-delay:.8s"></span>
+        <span class="star" style="left:38%;top:61%;animation-delay:1.2s"></span>
+        <span class="star" style="left:51%;top:72%;animation-delay:.3s"></span>
+        <span class="star" style="left:65%;top:59%;animation-delay:1.8s"></span>
+        <span class="star" style="left:78%;top:75%;animation-delay:.9s"></span>
+        <span class="star" style="left:90%;top:64%;animation-delay:1.4s"></span>
+
+        <span class="star" style="left:5%;top:48%;animation-delay:.6s"></span>
+        <span class="star" style="left:96%;top:52%;animation-delay:1.6s"></span>
+
     </div>
 
-    <button id="installButton">Установить</button>
+    <div class="glow"></div>
 
-    <button id="closeButton">×</button>
+    <div class="bird-wrap">
+
+        <svg class="bird"
+             viewBox="0 0 512 512"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+
+                <linearGradient id="body"
+                    x1="0" y1="0"
+                    x2="1" y2="1">
+                    <stop offset="0" stop-color="#ffffff"/>
+                    <stop offset=".65" stop-color="#e8f5ff"/>
+                    <stop offset="1" stop-color="#a8d8ff"/>
+                </linearGradient>
+
+                <linearGradient id="wing"
+                    x1="0" y1="0"
+                    x2="1" y2="1">
+                    <stop offset="0" stop-color="#ffffff"/>
+                    <stop offset=".55" stop-color="#d8edff"/>
+                    <stop offset="1" stop-color="#75baff"/>
+                </linearGradient>
+
+                <linearGradient id="blue"
+                    x1="0" y1="0"
+                    x2="1" y2="1">
+                    <stop offset="0" stop-color="#8bd5ff"/>
+                    <stop offset=".55" stop-color="#4ca9ff"/>
+                    <stop offset="1" stop-color="#1675ed"/>
+                </linearGradient>
+
+            </defs>
+
+            <!-- Нижнее крыло -->
+            <path
+                class="left-wing"
+                d="M250 300
+                C215 325 174 350 145 381
+                C121 406 108 430 103 453
+                C137 431 170 414 205 405
+                C242 396 274 382 302 363Z"
+                fill="url(#blue)"
+            />
+
+            <!-- Верхнее крыло -->
+            <path
+                class="right-wing"
+                d="M279 267
+                C299 238 306 207 291 180
+                C271 143 232 124 190 111
+                C150 99 119 82 86 58
+                C87 103 98 143 122 175
+                C151 214 193 235 236 249
+                C255 255 270 261 279 267Z"
+                fill="url(#wing)"
+            />
+
+            <path
+                d="M89 183
+                C126 201 165 213 208 225
+                C248 236 276 251 286 272
+                C272 293 246 307 216 311
+                C175 306 136 288 109 262
+                C92 245 80 216 89 183Z"
+                fill="url(#blue)"
+            />
+
+            <!-- Тело -->
+            <path
+                d="M283 248
+                C295 203 318 166 350 153
+                C379 141 403 151 424 168
+                C440 181 455 187 474 190
+                C452 204 430 211 416 229
+                C402 247 398 277 388 307
+                C375 346 350 371 314 385
+                C282 398 247 398 211 407
+                C232 386 253 365 272 344
+                C293 320 305 286 283 248Z"
+                fill="url(#body)"
+            />
+
+            <path
+                d="M347 153
+                C369 141 393 149 414 166
+                C432 180 452 187 474 190
+                C452 202 431 207 414 220
+                C402 199 383 186 360 182Z"
+                fill="#f7fbff"
+            />
+
+            <!-- Глаз -->
+            <circle
+                cx="397"
+                cy="183"
+                r="12"
+                fill="#07152d"
+            />
+
+            <circle
+                cx="401"
+                cy="179"
+                r="3"
+                fill="white"
+            />
+
+        </svg>
+
+    </div>
+
+    <div class="splash-title">AVIA</div>
+    <div class="splash-studio">Cats Developer Studio</div>
 
 </div>
 
-<main>
-<div class="app">
 
-    <div class="logo">
-        <img src="./icon.svg" alt="AVIA">
+<!-- =========================
+     ОСНОВНОЙ ЭКРАН
+========================= -->
+
+<div id="app">
+
+    <div class="auth-card">
+
+        <button class="skip" id="skipButton">×</button>
+
+        <div class="auth-logo">
+            <img src="./icon.svg" alt="AVIA">
+        </div>
+
+        <div class="auth-title">
+            AVIA
+        </div>
+
+        <div class="auth-subtitle">
+            Войдите или зарегистрируйтесь,<br>
+            чтобы продолжить
+        </div>
+
+        <div class="auth-buttons">
+
+            <button class="auth-button login" id="loginButton">
+                Войти
+            </button>
+
+            <button class="auth-button register" id="registerButton">
+                Зарегистрироваться
+            </button>
+
+        </div>
+
+        <div class="auth-note">
+            Ваш аккаунт позволит сохранять<br>
+            историю общения с AVIA
+        </div>
+
     </div>
 
-    <h1>AVIA</h1>
-
-    <div class="sub">Умная нейросеть</div>
-
-    <div class="studio">Cats Developer Studio</div>
-
-    <button id="bigInstall">Установить AVIA</button>
-
-    <div id="status"></div>
-
 </div>
-</main>
+
+
+<!-- Сообщение -->
+
+<div id="message">
+    Этот раздел ещё не готов
+</div>
+
 
 <script>
-let deferredPrompt = null;
 
-const banner = document.getElementById("installBanner");
-const installButton = document.getElementById("installButton");
-const bigInstall = document.getElementById("bigInstall");
-const closeButton = document.getElementById("closeButton");
-const status = document.getElementById("status");
+/* =========================
+   SPLASH 5 СЕКУНД
+========================= */
 
-/* Верхняя кнопка показывается сразу */
-banner.style.display = "flex";
+const splash = document.getElementById("splash");
+const app = document.getElementById("app");
 
-/* Chrome подготовил настоящую установку */
-window.addEventListener("beforeinstallprompt", event => {
+setTimeout(() => {
 
-    event.preventDefault();
+    splash.style.opacity = "0";
 
-    deferredPrompt = event;
+    setTimeout(() => {
 
-    banner.style.display = "flex";
+        splash.style.display = "none";
+
+        app.classList.add("visible");
+
+    }, 500);
+
+}, 5000);
+
+
+/* =========================
+   КНОПКА ПРОПУСТИТЬ
+========================= */
+
+const skipButton = document.getElementById("skipButton");
+const message = document.getElementById("message");
+
+skipButton.addEventListener("click", () => {
+
+    app.style.opacity = "0";
+
+    setTimeout(() => {
+
+        app.style.display = "none";
+
+        message.style.display = "block";
+
+        setTimeout(() => {
+            message.style.display = "none";
+        }, 3000);
+
+    }, 300);
+
 });
 
-/* Установка */
-async function installAVIA(){
 
-    if(deferredPrompt){
+/* =========================
+   ВХОД И РЕГИСТРАЦИЯ
+========================= */
 
-        deferredPrompt.prompt();
+document.getElementById("loginButton")
+    .addEventListener("click", () => {
 
-        const result = await deferredPrompt.userChoice;
+        message.textContent =
+            "Раздел входа ещё не готов";
 
-        if(result.outcome === "accepted"){
-            status.textContent = "AVIA устанавливается...";
-            banner.style.display = "none";
-        }
+        message.style.display = "block";
 
-        deferredPrompt = null;
+        setTimeout(() => {
+            message.style.display = "none";
+        }, 3000);
 
-        return;
-    }
+    });
 
-    status.textContent =
-        "Chrome пока не подготовил установку. Открой меню ⋮ и выбери «Установить приложение».";
-}
 
-installButton.addEventListener("click", installAVIA);
-bigInstall.addEventListener("click", installAVIA);
+document.getElementById("registerButton")
+    .addEventListener("click", () => {
 
-/* Закрыть верхнюю панель */
-closeButton.addEventListener("click", () => {
-    banner.style.display = "none";
-});
+        message.textContent =
+            "Регистрация ещё не готова";
 
-/* После установки */
-window.addEventListener("appinstalled", () => {
+        message.style.display = "block";
 
-    banner.style.display = "none";
-    bigInstall.style.display = "none";
+        setTimeout(() => {
+            message.style.display = "none";
+        }, 3000);
 
-    status.textContent = "AVIA установлена.";
-});
+    });
 
-/* Service Worker */
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
 if("serviceWorker" in navigator){
 
     window.addEventListener("load", () => {
 
         navigator.serviceWorker
             .register("./sw.js")
-            .catch(error => console.error(error));
+            .catch(error => {
+                console.error(
+                    "Service Worker:",
+                    error
+                );
+            });
 
     });
 
 }
+
 </script>
 
 </body>
