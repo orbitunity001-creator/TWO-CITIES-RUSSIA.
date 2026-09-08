@@ -1,102 +1,143 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 512 512">
 
 <defs>
 
-<linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#ffffff"/>
-<stop offset=".65" stop-color="#e8f5ff"/>
-<stop offset="1" stop-color="#a8d8ff"/>
+<linearGradient
+    id="body"
+    x1="0"
+    y1="0"
+    x2="1"
+    y2="1">
+
+    <stop offset="0" stop-color="#ffffff"/>
+    <stop offset=".65" stop-color="#e8f5ff"/>
+    <stop offset="1" stop-color="#a8d8ff"/>
+
 </linearGradient>
 
-<linearGradient id="wing" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#ffffff"/>
-<stop offset=".55" stop-color="#d8edff"/>
-<stop offset="1" stop-color="#75baff"/>
+
+<linearGradient
+    id="wing"
+    x1="0"
+    y1="0"
+    x2="1"
+    y2="1">
+
+    <stop offset="0" stop-color="#ffffff"/>
+    <stop offset=".55" stop-color="#d8edff"/>
+    <stop offset="1" stop-color="#75baff"/>
+
 </linearGradient>
 
-<linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#8bd5ff"/>
-<stop offset=".55" stop-color="#4ca9ff"/>
-<stop offset="1" stop-color="#1675ed"/>
+
+<linearGradient
+    id="blue"
+    x1="0"
+    y1="0"
+    x2="1"
+    y2="1">
+
+    <stop offset="0" stop-color="#8bd5ff"/>
+    <stop offset=".55" stop-color="#4ca9ff"/>
+    <stop offset="1" stop-color="#1675ed"/>
+
 </linearGradient>
 
 </defs>
+
+
+<!-- ФОН -->
 
 <rect
     width="512"
     height="512"
     rx="105"
-    fill="#07152d"
-/>
+    fill="#07152d"/>
+
+
+<!-- ПТИЦА -->
 
 <g transform="translate(51 51) scale(.8)">
 
-<path
-d="M250 300
-C215 325 174 350 145 381
-C121 406 108 430 103 453
-C137 431 170 414 205 405
-C242 396 274 382 302 363Z"
-fill="url(#blue)"
-/>
 
 <path
-d="M279 267
-C299 238 306 207 291 180
-C271 143 232 124 190 111
-C150 99 119 82 86 58
-C87 103 98 143 122 175
-C151 214 193 235 236 249
-C255 255 270 261 279 267Z"
-fill="url(#wing)"
+    d="
+    M250 300
+    C215 325 174 350 145 381
+    C121 406 108 430 103 453
+    C137 431 170 414 205 405
+    C242 396 274 382 302 363Z"
+    fill="url(#blue)"
 />
 
-<path
-d="M89 183
-C126 201 165 213 208 225
-C248 236 276 251 286 272
-C272 293 246 307 216 311
-C175 306 136 288 109 262
-C92 245 80 216 89 183Z"
-fill="url(#blue)"
-/>
 
 <path
-d="M283 248
-C295 203 318 166 350 153
-C379 141 403 151 424 168
-C440 181 455 187 474 190
-C452 204 430 211 416 229
-C402 247 398 277 388 307
-C375 346 350 371 314 385
-C282 398 247 398 211 407
-C232 386 253 365 272 344
-C293 320 305 286 283 248Z"
-fill="url(#body)"
+    d="
+    M279 267
+    C299 238 306 207 291 180
+    C271 143 232 124 190 111
+    C150 99 119 82 86 58
+    C87 103 98 143 122 175
+    C151 214 193 235 236 249
+    C255 255 270 261 279 267Z"
+    fill="url(#wing)"
 />
 
+
 <path
-d="M347 153
-C369 141 393 149 414 166
-C432 180 452 187 474 190
-C452 202 431 207 414 220
-C402 199 383 186 360 182Z"
-fill="#f7fbff"
+    d="
+    M89 183
+    C126 201 165 213 208 225
+    C248 236 276 251 286 272
+    C272 293 246 307 216 311
+    C175 306 136 288 109 262
+    C92 245 80 216 89 183Z"
+    fill="url(#blue)"
 />
+
+
+<path
+    d="
+    M283 248
+    C295 203 318 166 350 153
+    C379 141 403 151 424 168
+    C440 181 455 187 474 190
+    C452 204 430 211 416 229
+    C402 247 398 277 388 307
+    C375 346 350 371 314 385
+    C282 398 247 398 211 407
+    C232 386 253 365 272 344
+    C293 320 305 286 283 248Z"
+    fill="url(#body)"
+/>
+
+
+<path
+    d="
+    M347 153
+    C369 141 393 149 414 166
+    C432 180 452 187 474 190
+    C452 202 431 207 414 220
+    C402 199 383 186 360 182Z"
+    fill="#f7fbff"
+/>
+
 
 <circle
-cx="397"
-cy="183"
-r="12"
-fill="#07152d"
+    cx="397"
+    cy="183"
+    r="12"
+    fill="#07152d"
 />
 
+
 <circle
-cx="401"
-cy="179"
-r="3"
-fill="white"
-/>
+    cx="401"
+    cy="179"
+    r="3"
+    fill="#ffffff"/>
 
 </g>
 
