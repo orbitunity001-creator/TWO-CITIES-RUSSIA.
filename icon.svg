@@ -1,1059 +1,148 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-
-<title>AVIA</title>
-
-<meta name="theme-color" content="#040812">
-
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./icon.svg">
-
-<style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    -webkit-tap-highlight-color:transparent;
-}
-
-html,
-body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#040812;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    color:#fff;
-}
-
-
-/* =========================
-   ПРИЛОЖЕНИЕ
-========================= */
-
-.app{
-
-    position:fixed;
-    inset:0;
-
-    width:100%;
-    height:100dvh;
-
-    overflow:hidden;
-
-    display:flex;
-    flex-direction:column;
-
-    background:
-        radial-gradient(
-            circle at 50% -10%,
-            #12345c 0%,
-            #071326 38%,
-            #040812 75%
-        );
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-
-    flex-shrink:0;
-
-    height:
-        calc(
-            72px +
-            env(safe-area-inset-top)
-        );
-
-    padding:
-        calc(
-            10px +
-            env(safe-area-inset-top)
-        )
-        16px
-        10px
-        16px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    border-bottom:1px solid #1d3048;
-
-    background:#071323dd;
-
-    backdrop-filter:blur(20px);
-}
-
-
-.logo{
-
-    width:48px;
-    height:48px;
-
-    flex-shrink:0;
-
-    border-radius:14px;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 8px 25px #1675ed40;
-}
-
-.logo img{
-
-    width:100%;
-    height:100%;
-
-    display:block;
-}
-
-
-.header-info{
-
-    flex:1;
-
-    min-width:0;
-}
-
-.header-title{
-
-    font-size:20px;
-
-    font-weight:900;
-
-    letter-spacing:3px;
-}
-
-.header-status{
-
-    margin-top:3px;
-
-    color:#667d99;
-
-    font-size:12px;
-}
-
-
-.status-dot{
-
-    display:inline-block;
-
-    width:7px;
-    height:7px;
-
-    margin-right:5px;
-
-    border-radius:50%;
-
-    background:#35b8ff;
-
-    box-shadow:
-        0 0 10px #35b8ff;
-}
-
-
-/* =========================
-   НОВЫЙ ЧАТ
-========================= */
-
-.new-chat{
-
-    width:44px;
-    height:44px;
-
-    flex-shrink:0;
-
-    border:1px solid #29405d;
-
-    border-radius:14px;
-
-    background:#101f34;
-
-    color:#a8bdd5;
-
-    font-size:24px;
-}
-
-.new-chat:active{
-    transform:scale(.92);
-}
-
-
-/* =========================
-   CHAT
-========================= */
-
-.chat{
-
-    flex:1;
-
-    min-height:0;
-
-    width:100%;
-
-    overflow-y:auto;
-
-    overflow-x:hidden;
-
-    padding:
-        20px
-        14px
-        18px;
-
-    scroll-behavior:smooth;
-
-    -webkit-overflow-scrolling:touch;
-}
-
-
-/* =========================
-   ПРИВЕТСТВИЕ
-========================= */
-
-.welcome{
-
-    min-height:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    padding:20px;
-}
-
-.welcome-logo{
-
-    width:105px;
-    height:105px;
-
-    border-radius:28px;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 20px 60px #1675ed35;
-}
-
-.welcome-logo img{
-
-    width:100%;
-    height:100%;
-}
-
-.welcome h1{
-
-    margin-top:22px;
-
-    font-size:42px;
-
-    letter-spacing:6px;
-
-    font-weight:900;
-}
-
-.welcome p{
-
-    margin-top:12px;
-
-    color:#778ca5;
-
-    font-size:15px;
-
-    line-height:1.5;
-
-    max-width:310px;
-}
-
-
-/* =========================
-   СООБЩЕНИЯ
-========================= */
-
-.message{
-
-    display:flex;
-
-    margin-bottom:18px;
-
-    animation:
-        messageIn
-        .25s
-        ease;
-}
-
-@keyframes messageIn{
-
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-
-.message.user{
-
-    justify-content:flex-end;
-}
-
-
-.message.ai{
-
-    justify-content:flex-start;
-}
-
-
-.bubble{
-
-    max-width:88%;
-
-    padding:
-        13px
-        15px;
-
-    border-radius:20px;
-
-    font-size:16px;
-
-    line-height:1.5;
-
-    white-space:pre-wrap;
-
-    overflow-wrap:anywhere;
-}
-
-
-.user .bubble{
-
-    background:#1675ed;
-
-    color:#fff;
-
-    border-bottom-right-radius:6px;
-
-    box-shadow:
-        0 10px 30px #1675ed30;
-}
-
-
-.ai .bubble{
-
-    background:#101e32;
-
-    border:1px solid #253b56;
-
-    color:#e8f1fa;
-
-    border-bottom-left-radius:6px;
-}
-
-
-/* =========================
-   TYPING
-========================= */
-
-.typing{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    padding:15px 17px;
-}
-
-.typing span{
-
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:#58bfff;
-
-    animation:
-        typing
-        1s
-        infinite;
-}
-
-.typing span:nth-child(2){
-    animation-delay:.15s;
-}
-
-.typing span:nth-child(3){
-    animation-delay:.3s;
-}
-
-@keyframes typing{
-
-    0%,60%,100%{
-        opacity:.25;
-        transform:translateY(0);
-    }
-
-    30%{
-        opacity:1;
-        transform:translateY(-4px);
-    }
-}
-
-
-/* =========================
-   INPUT AREA
-========================= */
-
-.input-area{
-
-    flex-shrink:0;
-
-    padding:
-        10px
-        12px
-        calc(
-            10px +
-            env(safe-area-inset-bottom)
-        );
-
-    border-top:1px solid #1b2e46;
-
-    background:#071323ee;
-
-    backdrop-filter:blur(20px);
-}
-
-
-.input-box{
-
-    width:100%;
-
-    min-height:58px;
-
-    display:flex;
-
-    align-items:flex-end;
-
-    gap:8px;
-
-    padding:7px 7px 7px 15px;
-
-    border-radius:20px;
-
-    background:#101e32;
-
-    border:1px solid #29415d;
-
-    box-shadow:
-        0 10px 35px #0005;
-}
-
-
-textarea{
-
-    flex:1;
-
-    width:100%;
-
-    min-width:0;
-
-    max-height:130px;
-
-    min-height:42px;
-
-    resize:none;
-
-    overflow-y:auto;
-
-    border:0;
-
-    outline:0;
-
-    background:transparent;
-
-    color:white;
-
-    font-family:inherit;
-
-    font-size:16px;
-
-    line-height:1.4;
-
-    padding:
-        10px
-        0;
-}
-
-textarea::placeholder{
-    color:#60748e;
-}
-
-
-.send{
-
-    width:46px;
-    height:46px;
-
-    flex-shrink:0;
-
-    border:0;
-
-    border-radius:15px;
-
-    background:#1675ed;
-
-    color:#fff;
-
-    font-size:21px;
-
-    font-weight:bold;
-
-    box-shadow:
-        0 8px 25px #1675ed40;
-}
-
-.send:active{
-    transform:scale(.92);
-}
-
-.send:disabled{
-
-    opacity:.35;
-
-    box-shadow:none;
-}
-
-
-/* =========================
-   ОШИБКА
-========================= */
-
-.error{
-
-    color:#ff9a9a !important;
-
-    border-color:#693d45 !important;
-
-    background:#29171d !important;
-}
-
-
-/* =========================
-   МОБИЛЬНЫЙ ЭКРАН
-========================= */
-
-@media(max-width:380px){
-
-    .header{
-        padding-left:11px;
-        padding-right:11px;
-    }
-
-    .chat{
-        padding-left:10px;
-        padding-right:10px;
-    }
-
-    .bubble{
-        max-width:92%;
-        font-size:15px;
-    }
-
-    .welcome h1{
-        font-size:36px;
-    }
-
-    .welcome-logo{
-        width:90px;
-        height:90px;
-    }
-}
-
-</style>
-</head>
-
-
-<body>
-
-<div class="app">
-
-
-    <!-- HEADER -->
-
-    <header class="header">
-
-        <div class="logo">
-
-            <img
-                src="./icon.svg"
-                alt="AVIA">
-
-        </div>
-
-
-        <div class="header-info">
-
-            <div class="header-title">
-                AVIA
-            </div>
-
-            <div class="header-status">
-
-                <span class="status-dot"></span>
-
-                Cats Developer Studio
-
-            </div>
-
-        </div>
-
-
-        <button
-            class="new-chat"
-            id="newChat"
-            aria-label="Новый чат">
-
-            +
-
-        </button>
-
-    </header>
-
-
-    <!-- CHAT -->
-
-    <main
-        class="chat"
-        id="chat">
-
-        <div
-            class="welcome"
-            id="welcome">
-
-            <div class="welcome-logo">
-
-                <img
-                    src="./icon.svg"
-                    alt="AVIA">
-
-            </div>
-
-            <h1>
-                AVIA
-            </h1>
-
-            <p>
-                Привет! Я AVIA.<br>
-                Задай мне любой вопрос.
-            </p>
-
-        </div>
-
-    </main>
-
-
-    <!-- INPUT -->
-
-    <footer class="input-area">
-
-        <div class="input-box">
-
-            <textarea
-                id="input"
-                rows="1"
-                maxlength="8000"
-                placeholder="Напишите сообщение..."
-                autocomplete="off"></textarea>
-
-
-            <button
-                class="send"
-                id="send"
-                disabled>
-
-                ➤
-
-            </button>
-
-        </div>
-
-    </footer>
-
-</div>
-
-
-<script>
-
-/* =================================
-   ЭЛЕМЕНТЫ
-================================= */
-
-const chat =
-    document.getElementById("chat");
-
-const welcome =
-    document.getElementById("welcome");
-
-const input =
-    document.getElementById("input");
-
-const send =
-    document.getElementById("send");
-
-const newChat =
-    document.getElementById("newChat");
-
-
-/* =================================
-   ИСТОРИЯ ДИАЛОГА
-================================= */
-
-let messages = [];
-
-let waiting = false;
-
-
-/* =================================
-   INPUT
-================================= */
-
-input.addEventListener(
-    "input",
-    function(){
-
-        send.disabled =
-            waiting ||
-            !input.value.trim();
-
-        input.style.height = "auto";
-
-        input.style.height =
-            Math.min(
-                input.scrollHeight,
-                130
-            ) + "px";
-    }
-);
-
-
-/* =================================
-   ENTER
-================================= */
-
-input.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            event.key === "Enter" &&
-            !event.shiftKey
-        ){
-
-            event.preventDefault();
-
-            if(!send.disabled){
-                sendMessage();
-            }
-
-        }
-
-    }
-);
-
-
-/* =================================
-   НОВЫЙ ЧАТ
-================================= */
-
-newChat.addEventListener(
-    "click",
-    function(){
-
-        messages = [];
-
-        chat.innerHTML = "";
-
-        chat.appendChild(welcome);
-
-        welcome.style.display = "flex";
-
-        input.value = "";
-
-        input.style.height = "auto";
-
-        send.disabled = true;
-
-        input.focus();
-
-    }
-);
-
-
-/* =================================
-   ДОБАВИТЬ СООБЩЕНИЕ
-================================= */
-
-function addMessage(
-    text,
-    type
-){
-
-    if(welcome.parentNode){
-        welcome.style.display = "none";
-    }
-
-
-    const wrapper =
-        document.createElement("div");
-
-    wrapper.className =
-        "message " + type;
-
-
-    const bubble =
-        document.createElement("div");
-
-    bubble.className =
-        "bubble";
-
-    bubble.textContent = text;
-
-
-    wrapper.appendChild(bubble);
-
-    chat.appendChild(wrapper);
-
-
-    chat.scrollTop =
-        chat.scrollHeight;
-
-
-    return bubble;
-}
-
-
-/* =================================
-   ПЕЧАТАЮЩИЙ ИНДИКАТОР
-================================= */
-
-function addTyping(){
-
-    const wrapper =
-        document.createElement("div");
-
-    wrapper.className =
-        "message ai";
-
-    wrapper.id =
-        "typingMessage";
-
-
-    const bubble =
-        document.createElement("div");
-
-    bubble.className =
-        "bubble typing";
-
-
-    bubble.innerHTML =
-        "<span></span><span></span><span></span>";
-
-
-    wrapper.appendChild(bubble);
-
-    chat.appendChild(wrapper);
-
-
-    chat.scrollTop =
-        chat.scrollHeight;
-}
-
-
-/* =================================
-   УДАЛИТЬ TYPING
-================================= */
-
-function removeTyping(){
-
-    const element =
-        document.getElementById(
-            "typingMessage"
-        );
-
-    if(element){
-        element.remove();
-    }
-}
-
-
-/* =================================
-   ОТПРАВКА
-================================= */
-
-async function sendMessage(){
-
-    const text =
-        input.value.trim();
-
-
-    if(!text || waiting){
-        return;
-    }
-
-
-    waiting = true;
-
-    send.disabled = true;
-
-
-    /* пользователь */
-
-    addMessage(
-        text,
-        "user"
-    );
-
-
-    messages.push({
-        role:"user",
-        content:text
-    });
-
-
-    input.value = "";
-
-    input.style.height = "auto";
-
-
-    /* typing */
-
-    addTyping();
-
-
-    try{
-
-        const response =
-            await fetch(
-                "/api/chat",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-                        messages:messages
-                    })
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        removeTyping();
-
-
-        if(!response.ok){
-
-            throw new Error(
-                data.error ||
-                "Ошибка сервера"
-            );
-
-        }
-
-
-        const answer =
-            data.answer ||
-            "Я не смог сформировать ответ.";
-
-
-        addMessage(
-            answer,
-            "ai"
-        );
-
-
-        messages.push({
-            role:"assistant",
-            content:answer
-        });
-
-
-    }catch(error){
-
-        removeTyping();
-
-
-        const bubble =
-            addMessage(
-                "Не удалось подключиться к AVIA. Проверь, запущен ли сервер.",
-                "ai"
-            );
-
-
-        bubble.classList.add(
-            "error"
-        );
-
-
-        console.error(error);
-
-    }
-
-
-    waiting = false;
-
-    send.disabled =
-        !input.value.trim();
-
-    input.focus();
-
-}
-
-
-/* =================================
-   КНОПКА
-================================= */
-
-send.addEventListener(
-    "click",
-    sendMessage
-);
-
-</script>
-
-</body>
-</html>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 512 512">
+
+<defs>
+
+<linearGradient
+id="body"
+x1="0"
+y1="0"
+x2="1"
+y2="1">
+
+<stop
+offset="0"
+stop-color="#ffffff"/>
+
+<stop
+offset=".65"
+stop-color="#e8f5ff"/>
+
+<stop
+offset="1"
+stop-color="#a8d8ff"/>
+
+</linearGradient>
+
+<linearGradient
+id="wing"
+x1="0"
+y1="0"
+x2="1"
+y2="1">
+
+<stop
+offset="0"
+stop-color="#ffffff"/>
+
+<stop
+offset=".55"
+stop-color="#d8edff"/>
+
+<stop
+offset="1"
+stop-color="#75baff"/>
+
+</linearGradient>
+
+<linearGradient
+id="blue"
+x1="0"
+y1="0"
+x2="1"
+y2="1">
+
+<stop
+offset="0"
+stop-color="#8bd5ff"/>
+
+<stop
+offset=".55"
+stop-color="#4ca9ff"/>
+
+<stop
+offset="1"
+stop-color="#1675ed"/>
+
+</linearGradient>
+
+</defs>
+
+<rect
+width="512"
+height="512"
+rx="105"
+fill="#07152d"/>
+
+<g
+transform="translate(51 51) scale(.8)">
+
+<path
+d="
+M250 300
+C215 325 174 350 145 381
+C121 406 108 430 103 453
+C137 431 170 414 205 405
+C242 396 274 382 302 363Z"
+fill="url(#blue)"/>
+
+<path
+d="
+M279 267
+C299 238 306 207 291 180
+C271 143 232 124 190 111
+C150 99 119 82 86 58
+C87 103 98 143 122 175
+C151 214 193 235 236 249
+C255 255 270 261 279 267Z"
+fill="url(#wing)"/>
+
+<path
+d="
+M89 183
+C126 201 165 213 208 225
+C248 236 276 251 286 272
+C272 293 246 307 216 311
+C175 306 136 288 109 262
+C92 245 80 216 89 183Z"
+fill="url(#blue)"/>
+
+<path
+d="
+M283 248
+C295 203 318 166 350 153
+C379 141 403 151 424 168
+C440 181 455 187 474 190
+C452 204 430 211 416 229
+C402 247 398 277 388 307
+C375 346 350 371 314 385
+C282 398 247 398 211 407
+C232 386 253 365 272 344
+C293 320 305 286 283 248Z"
+fill="url(#body)"/>
+
+<path
+d="
+M347 153
+C369 141 393 149 414 166
+C432 180 452 187 474 190
+C452 202 431 207 414 220
+C402 199 383 186 360 182Z"
+fill="#f7fbff"/>
+
+<circle
+cx="397"
+cy="183"
+r="12"
+fill="#07152d"/>
+
+<circle
+cx="401"
+cy="179"
+r="3"
+fill="white"/>
+
+</g>
+
+</svg>
