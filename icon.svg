@@ -1,98 +1,280 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 
-<rect width="512" height="512" rx="115" fill="#229ED9"/>
+<defs>
 
-<!-- white circle -->
-<circle cx="256" cy="256" r="175" fill="#ffffff"/>
+  <!-- ЧЁРНЫЙ ФОН -->
+  <radialGradient id="bg" cx="50%" cy="40%" r="75%">
+    <stop offset="0%" stop-color="#151515"/>
+    <stop offset="55%" stop-color="#070707"/>
+    <stop offset="100%" stop-color="#000000"/>
+  </radialGradient>
 
-<!-- tail -->
-<path
-  d="M185 350
-     C145 375 125 400 105 430
-     C145 420 185 402 215 375Z"
-  fill="#3b4650"/>
+  <!-- БЕЛЫЙ ГРАДИЕНТ БУКВЫ -->
+  <linearGradient id="whiteA"
+    x1="0"
+    y1="0"
+    x2="0"
+    y2="1">
 
-<!-- body -->
-<ellipse
-  cx="265"
-  cy="285"
-  rx="105"
-  ry="120"
-  fill="#39434d"/>
+    <stop offset="0%" stop-color="#FFFFFF"/>
+    <stop offset="45%" stop-color="#FFFFFF"/>
+    <stop offset="75%" stop-color="#E8E8E8"/>
+    <stop offset="100%" stop-color="#BDBDBD"/>
 
-<!-- red breast -->
-<path
-  d="M205 245
-     C185 275 185 330 215 365
-     C245 398 295 390 320 355
-     C340 325 330 275 310 250
-     C285 270 235 270 205 245Z"
-  fill="#e34b4b"/>
+  </linearGradient>
 
-<!-- head -->
+  <!-- БЕЛЫЙ БЛИК -->
+  <linearGradient id="shine"
+    x1="0"
+    y1="0"
+    x2="1"
+    y2="1">
+
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity=".9"/>
+    <stop offset="45%" stop-color="#FFFFFF" stop-opacity=".25"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+
+  </linearGradient>
+
+  <!-- СВЕЧЕНИЕ -->
+  <filter id="glow"
+    x="-100%"
+    y="-100%"
+    width="300%"
+    height="300%">
+
+    <feGaussianBlur
+      stdDeviation="12"
+      result="blur"/>
+
+    <feMerge>
+      <feMergeNode in="blur"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+
+  </filter>
+
+  <!-- МЯГКАЯ ТЕНЬ -->
+  <filter id="shadow"
+    x="-50%"
+    y="-50%"
+    width="200%"
+    height="200%">
+
+    <feDropShadow
+      dx="0"
+      dy="12"
+      stdDeviation="14"
+      flood-color="#FFFFFF"
+      flood-opacity=".18"/>
+
+  </filter>
+
+</defs>
+
+
+<!-- ЧЁРНЫЙ ФОН -->
+
+<rect
+  width="512"
+  height="512"
+  rx="115"
+  fill="url(#bg)"
+/>
+
+
+<!-- БОЛЬШОЙ БЕЛЫЙ БЛИК В ЛЕВОМ ВЕРХНЕМ УГЛУ -->
+
 <circle
-  cx="275"
-  cy="190"
-  r="82"
-  fill="#303941"/>
+  cx="70"
+  cy="65"
+  r="125"
+  fill="#FFFFFF"
+  opacity=".08"
+  filter="url(#glow)"
+/>
 
-<!-- face -->
-<path
-  d="M220 175
-     C235 135 275 115 315 130
-     C350 145 365 180 350 215
-     C330 245 285 250 250 230
-     C225 215 215 195 220 175Z"
-  fill="#36414a"/>
 
-<!-- beak -->
-<path
-  d="M345 190
-     L405 210
-     L345 225
-     L325 210Z"
-  fill="#e8a43a"/>
-
-<!-- eye -->
-<circle
-  cx="315"
-  cy="177"
-  r="13"
-  fill="#111820"/>
+<!-- БЕЛЫЙ БЛИК СПРАВА -->
 
 <circle
-  cx="319"
-  cy="173"
+  cx="455"
+  cy="420"
+  r="110"
+  fill="#FFFFFF"
+  opacity=".06"
+  filter="url(#glow)"
+/>
+
+
+<!-- ДИАГОНАЛЬНЫЙ БЛИК -->
+
+<path
+  d="
+    M0 115
+    L115 0
+    L250 0
+    L0 250
+    Z
+  "
+  fill="url(#shine)"
+  opacity=".16"
+/>
+
+
+<!-- ТОНКАЯ ЛИНИЯ БЛИКА -->
+
+<path
+  d="
+    M40 145
+    L145 40
+  "
+  stroke="#FFFFFF"
+  stroke-width="3"
+  stroke-linecap="round"
+  opacity=".65"
+  filter="url(#glow)"
+/>
+
+
+<!-- СВЕЧЕНИЕ ЗА БУКВОЙ -->
+
+<path
+  d="
+    M256 65
+    L98 438
+    L181 438
+    L215 345
+    L297 345
+    L331 438
+    L414 438
+    Z
+  "
+  fill="#FFFFFF"
+  opacity=".12"
+  filter="url(#glow)"
+/>
+
+
+<!-- БОЛЬШАЯ БУКВА A -->
+
+<path
+  d="
+    M256 68
+
+    L98 438
+
+    L181 438
+
+    L215 344
+
+    L297 344
+
+    L331 438
+
+    L414 438
+
+    Z
+
+    M256 170
+
+    L280 286
+
+    L232 286
+
+    Z
+  "
+  fill="url(#whiteA)"
+  filter="url(#shadow)"
+/>
+
+
+<!-- БЛИК НА БУКВЕ -->
+
+<path
+  d="
+    M256 82
+    L122 420
+    L157 420
+    L276 115
+    Z
+  "
+  fill="#FFFFFF"
+  opacity=".16"
+/>
+
+
+<!-- ВЕРХНИЙ БЛИК БУКВЫ -->
+
+<path
+  d="
+    M256 68
+    L238 112
+    L270 112
+    Z
+  "
+  fill="#FFFFFF"
+  opacity=".95"
+/>
+
+
+<!-- МАЛЕНЬКИЕ БЕЛЫЕ БЛИКИ -->
+
+<circle
+  cx="105"
+  cy="105"
   r="4"
-  fill="#ffffff"/>
+  fill="#FFFFFF"
+  opacity=".8"
+  filter="url(#glow)"
+/>
 
-<!-- wing -->
+<circle
+  cx="420"
+  cy="115"
+  r="3"
+  fill="#FFFFFF"
+  opacity=".7"
+  filter="url(#glow)"
+/>
+
+<circle
+  cx="410"
+  cy="375"
+  r="4"
+  fill="#FFFFFF"
+  opacity=".65"
+  filter="url(#glow)"
+/>
+
+<circle
+  cx="92"
+  cy="385"
+  r="3"
+  fill="#FFFFFF"
+  opacity=".55"
+  filter="url(#glow)"
+/>
+
+
+<!-- МАЛЕНЬКАЯ ЗВЁЗДОЧКА -->
+
 <path
-  d="M205 260
-     C155 280 145 325 175 350
-     C205 375 250 350 275 315
-     C245 320 220 300 205 260Z"
-  fill="#29333c"/>
+  d="
+    M420 170
+    L424 181
+    L435 185
+    L424 189
+    L420 201
+    L416 189
+    L405 185
+    L416 181
+    Z
+  "
+  fill="#FFFFFF"
+  opacity=".8"
+  filter="url(#glow)"
+/>
 
-<!-- wing detail -->
-<path
-  d="M175 310 Q210 325 235 330"
-  fill="none"
-  stroke="#56636d"
-  stroke-width="7"
-  stroke-linecap="round"/>
-
-<path
-  d="M175 330 Q205 345 225 347"
-  fill="none"
-  stroke="#56636d"
-  stroke-width="6"
-  stroke-linecap="round"/>
-
-<!-- little snow -->
-<circle cx="130" cy="145" r="6" fill="#ffffff"/>
-<circle cx="390" cy="145" r="5" fill="#ffffff"/>
-<circle cx="385" cy="350" r="6" fill="#ffffff"/>
-<circle cx="125" cy="355" r="4" fill="#ffffff"/>
 
 </svg>
