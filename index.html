@@ -2,21 +2,25 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>TWO CITIES: RUSSIA</title>
 
+<meta name="theme-color" content="#ff2045">
+<meta name="description" content="TWO CITIES: RUSSIA — городская sandbox-игра от Cats Developer Studio">
+
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#050608">
+<link rel="icon" href="./icon.svg">
 
 <style>
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
+    margin:0;
     width:100%;
     height:100%;
     overflow:hidden;
@@ -25,668 +29,1205 @@ html,body{
     font-family:Arial,Helvetica,sans-serif;
 }
 
-button,input,textarea{
-    font-family:inherit;
+button,
+input{
+    font:inherit;
 }
 
 button{
     cursor:pointer;
 }
 
-#app{
+.screen{
     position:fixed;
     inset:0;
-    overflow:hidden;
+    width:100%;
+    height:100%;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+   ORIENTATION
+========================= */
+
+.rotate-screen{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    display:none;
+    align-items:center;
+    justify-content:center;
     background:#030405;
+    text-align:center;
+    padding:30px;
 }
 
-.bg{
+.rotate-box{
+    max-width:420px;
+}
+
+.rotate-icon{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+.rotate-title{
+    font-size:26px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.rotate-text{
+    color:#9299a8;
+    line-height:1.5;
+}
+
+/* =========================
+   COVER
+========================= */
+
+.cover{
     position:absolute;
     inset:0;
+    overflow:hidden;
     background:
-        radial-gradient(circle at 72% 20%,rgba(0,145,255,.18),transparent 30%),
-        radial-gradient(circle at 12% 85%,rgba(255,20,50,.13),transparent 32%),
-        linear-gradient(135deg,#020304,#0b0f14 50%,#020304);
+        linear-gradient(
+            180deg,
+            #20bdf0 0%,
+            #5995ef 32%,
+            #9b86bd 58%,
+            #bd664e 100%
+        );
 }
 
-.grid{
-    position:absolute;
-    inset:0;
-    opacity:.12;
-    background-image:
-        linear-gradient(rgba(0,150,255,.3) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,150,255,.3) 1px,transparent 1px);
-    background-size:65px 65px;
-    transform:perspective(500px) rotateX(58deg) scale(1.8);
-    transform-origin:bottom;
-}
+/* небо */
 
-.redGlow{
+.sky-light{
     position:absolute;
-    width:500px;
-    height:500px;
-    left:-250px;
-    bottom:-250px;
+    width:650px;
+    height:650px;
+    left:-190px;
+    top:-280px;
     border-radius:50%;
-    background:#ff1744;
-    filter:blur(140px);
-    opacity:.12;
+    background:#fff;
+    opacity:.22;
+    filter:blur(90px);
 }
 
-.blueGlow{
-    position:absolute;
-    width:500px;
-    height:500px;
-    right:-250px;
-    top:-250px;
-    border-radius:50%;
-    background:#008cff;
-    filter:blur(140px);
-    opacity:.14;
-}
+/* город */
 
 .city{
     position:absolute;
-    bottom:0;
     left:0;
     right:0;
-    height:58%;
-    opacity:.7;
+    bottom:34%;
+    height:43%;
+    display:flex;
+    align-items:flex-end;
+    gap:1.2%;
+    filter:blur(3px);
 }
 
 .building{
-    position:absolute;
-    bottom:0;
-    background:linear-gradient(90deg,#07090c,#171c22,#080a0d);
-    border:1px solid rgba(255,255,255,.04);
-}
-
-.building:after{
-    content:"";
-    position:absolute;
-    inset:12px;
+    position:relative;
     background:
-        repeating-linear-gradient(90deg,rgba(0,150,220,.5) 0 5px,transparent 5px 23px),
-        repeating-linear-gradient(0deg,rgba(255,255,255,.2) 0 4px,transparent 4px 23px);
-    opacity:.4;
+        linear-gradient(
+            180deg,
+            #667487,
+            #26303e
+        );
+    box-shadow:inset 0 0 45px #171e29;
 }
 
-.b1{left:0;width:9%;height:45%}
-.b2{left:8%;width:12%;height:75%}
-.b3{left:19%;width:8%;height:55%}
-.b4{left:26%;width:13%;height:90%}
-.b5{left:38%;width:9%;height:62%}
-.b6{left:46%;width:14%;height:80%}
-.b7{left:59%;width:8%;height:53%}
-.b8{left:66%;width:13%;height:84%}
-.b9{left:78%;width:8%;height:58%}
-.b10{left:85%;width:15%;height:72%}
+.building:nth-child(1){
+    width:13%;
+    height:68%;
+}
+
+.building:nth-child(2){
+    width:17%;
+    height:91%;
+}
+
+.building:nth-child(3){
+    width:10%;
+    height:60%;
+}
+
+.building:nth-child(4){
+    width:19%;
+    height:100%;
+}
+
+.building:nth-child(5){
+    width:13%;
+    height:73%;
+}
+
+.building:nth-child(6){
+    width:20%;
+    height:87%;
+}
+
+.building:nth-child(7){
+    width:12%;
+    height:64%;
+}
+
+.windows{
+    position:absolute;
+    inset:10%;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 17px,
+            rgba(198,236,255,.55) 18px 25px,
+            transparent 26px 43px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 22px,
+            rgba(198,236,255,.4) 23px 29px,
+            transparent 30px 51px
+        );
+}
+
+/* дорога */
 
 .road{
     position:absolute;
     left:-10%;
     right:-10%;
-    bottom:-25%;
-    height:48%;
-    background:linear-gradient(90deg,#08090b,#171a1e,#08090b);
-    clip-path:polygon(39% 0,61% 0,100% 100%,0 100%);
+    bottom:-10%;
+    height:49%;
+    background:
+        linear-gradient(
+            175deg,
+            #5e6672,
+            #292d34 55%,
+            #0b0d11
+        );
+    transform:skewY(-3deg);
 }
 
-.road:after{
+.road-line{
+    position:absolute;
+    width:120%;
+    height:12px;
+    left:-10%;
+    top:49%;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #fff 0 100px,
+            transparent 100px 170px
+        );
+    opacity:.55;
+}
+
+/* свет */
+
+.light{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(45px);
+    pointer-events:none;
+}
+
+.blue-light{
+    width:450px;
+    height:250px;
+    left:0;
+    bottom:29%;
+    background:#007cff;
+    opacity:.62;
+}
+
+.red-light{
+    width:420px;
+    height:240px;
+    left:24%;
+    bottom:30%;
+    background:#ff174b;
+    opacity:.58;
+}
+
+/* =========================
+   POLICE CAR
+========================= */
+
+.police-car{
+    position:absolute;
+    width:49vw;
+    max-width:650px;
+    min-width:390px;
+    height:310px;
+    left:1%;
+    bottom:24%;
+    transform:rotate(-2deg);
+    z-index:5;
+}
+
+.car-shadow{
+    position:absolute;
+    width:90%;
+    height:65px;
+    left:5%;
+    bottom:0;
+    border-radius:50%;
+    background:#000;
+    opacity:.38;
+    filter:blur(18px);
+}
+
+.car-body{
+    position:absolute;
+    width:100%;
+    height:145px;
+    bottom:20px;
+    left:0;
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #dce3ea 55%,
+            #aab4bf
+        );
+    border:7px solid #202731;
+    border-radius:45px 65px 30px 35px;
+    box-shadow:0 30px 35px rgba(0,0,0,.35);
+}
+
+.car-roof{
+    position:absolute;
+    width:48%;
+    height:100px;
+    left:25%;
+    top:35px;
+    background:#dce4ec;
+    border:7px solid #202731;
+    border-bottom:0;
+    border-radius:70px 70px 0 0;
+}
+
+.window1,
+.window2{
+    position:absolute;
+    top:47px;
+    height:65px;
+    background:
+        linear-gradient(
+            135deg,
+            #344a61,
+            #111b27
+        );
+    border:4px solid #202731;
+}
+
+.window1{
+    left:28%;
+    width:21%;
+    transform:skewX(-13deg);
+}
+
+.window2{
+    left:50%;
+    width:20%;
+    transform:skewX(13deg);
+}
+
+.blue-stripe{
+    position:absolute;
+    width:100%;
+    height:28px;
+    bottom:75px;
+    left:0;
+    background:#087dff;
+}
+
+.red-stripe{
+    position:absolute;
+    width:100%;
+    height:23px;
+    bottom:52px;
+    left:0;
+    background:#e5163c;
+}
+
+.siren{
+    position:absolute;
+    width:130px;
+    height:34px;
+    left:39%;
+    top:12px;
+    border:5px solid #1a2028;
+    border-radius:10px;
+    background:
+        linear-gradient(
+            90deg,
+            #087dff 0 48%,
+            #ff174b 52% 100%
+        );
+    box-shadow:
+        0 0 35px #168cff,
+        0 0 45px #ff174b;
+    animation:siren 1s infinite alternate;
+}
+
+@keyframes siren{
+    from{
+        filter:brightness(.85);
+    }
+    to{
+        filter:brightness(1.7);
+    }
+}
+
+.headlight{
+    position:absolute;
+    width:55px;
+    height:30px;
+    border-radius:20px;
+    background:#fff;
+    box-shadow:0 0 35px #fff;
+}
+
+.headlight.left{
+    left:13px;
+    bottom:95px;
+}
+
+.headlight.right{
+    right:17px;
+    bottom:92px;
+}
+
+.wheel{
+    position:absolute;
+    width:90px;
+    height:90px;
+    bottom:-5px;
+    border-radius:50%;
+    background:#090b0f;
+    border:10px solid #151922;
+    box-shadow:inset 0 0 0 12px #515a66;
+}
+
+.wheel.left{
+    left:16%;
+}
+
+.wheel.right{
+    right:16%;
+}
+
+/* =========================
+   CHARACTER
+========================= */
+
+.character{
+    position:absolute;
+    right:1%;
+    bottom:3%;
+    width:43vw;
+    max-width:560px;
+    min-width:370px;
+    height:760px;
+    z-index:10;
+    transform:rotate(2deg);
+}
+
+.head{
+    position:absolute;
+    width:205px;
+    height:205px;
+    right:26%;
+    top:25px;
+    border-radius:35% 35% 43% 43%;
+    background:
+        linear-gradient(
+            145deg,
+            #e4a073,
+            #b96d4d
+        );
+    border:8px solid #101319;
+    box-shadow:25px 20px 35px rgba(0,0,0,.3);
+}
+
+.hair{
+    position:absolute;
+    width:220px;
+    height:90px;
+    right:-8px;
+    top:-30px;
+    background:#101218;
+    border-radius:70% 70% 35% 30%;
+    transform:rotate(-5deg);
+}
+
+.hair:before,
+.hair:after{
     content:"";
     position:absolute;
-    left:49%;
-    top:0;
-    width:2%;
-    height:100%;
-    background:repeating-linear-gradient(0deg,#dfe5ea 0 30px,transparent 30px 75px);
+    background:#171a21;
+    width:80px;
+    height:100px;
+    top:10px;
+    border-radius:80% 20% 0 0;
 }
 
-.top{
-    position:absolute;
-    top:22px;
-    left:25px;
+.hair:before{
+    left:20px;
+    transform:rotate(-25deg);
+}
+
+.hair:after{
     right:25px;
-    z-index:50;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    transform:rotate(25deg);
 }
 
-.logo{
-    padding:11px 18px;
-    background:rgba(0,0,0,.65);
-    border-left:3px solid #ff2045;
-    backdrop-filter:blur(15px);
+.eye{
+    position:absolute;
+    top:88px;
+    width:34px;
+    height:13px;
+    border-radius:10px;
+    background:#111;
 }
 
-.logo b{
-    font-size:17px;
-    letter-spacing:2px;
+.eye.left{
+    left:42px;
+    transform:rotate(-13deg);
 }
 
-.logo span{
-    color:#ff2045;
+.eye.right{
+    right:42px;
+    transform:rotate(13deg);
 }
 
-.hud{
-    display:none;
-    align-items:center;
-    gap:10px;
+.mask{
+    position:absolute;
+    left:-10px;
+    right:-10px;
+    bottom:15px;
+    height:92px;
+    background:
+        linear-gradient(
+            135deg,
+            #6531e5,
+            #a400a7
+        );
+    border-radius:35px 35px 55px 55px;
+    border:6px solid #11131a;
 }
 
-.hud img{
-    width:43px;
-    height:43px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid #ff2045;
+.neck{
+    position:absolute;
+    width:70px;
+    height:75px;
+    right:38%;
+    top:200px;
+    background:#bd704d;
+    border:7px solid #111319;
 }
 
-.hud-name{
-    padding:10px 14px;
-    background:rgba(0,0,0,.75);
-    border:1px solid #292f36;
+.body{
+    position:absolute;
+    width:290px;
+    height:330px;
+    right:17%;
+    top:245px;
+    background:
+        linear-gradient(
+            145deg,
+            #272c36,
+            #090b10
+        );
+    border:10px solid #0b0d11;
+    border-radius:65px 65px 35px 35px;
+    box-shadow:25px 35px 45px rgba(0,0,0,.4);
 }
 
-.screen{
+.body:after{
+    content:"";
+    position:absolute;
+    width:85px;
+    height:270px;
+    right:40px;
+    top:25px;
+    background:#b70d2d;
+    border-radius:20px;
+    opacity:.85;
+}
+
+.arm-left{
+    position:absolute;
+    width:110px;
+    height:280px;
+    right:58%;
+    top:275px;
+    background:#1d222c;
+    border:10px solid #0b0d11;
+    border-radius:60px;
+    transform:rotate(25deg);
+}
+
+.arm-right{
+    position:absolute;
+    width:110px;
+    height:290px;
+    right:5%;
+    top:270px;
+    background:#1d222c;
+    border:10px solid #0b0d11;
+    border-radius:60px;
+    transform:rotate(-25deg);
+}
+
+.leg{
+    position:absolute;
+    width:120px;
+    height:320px;
+    background:#11151c;
+    border:10px solid #080a0e;
+    border-radius:40px;
+    top:535px;
+}
+
+.leg.left{
+    right:49%;
+    transform:rotate(8deg);
+}
+
+.leg.right{
+    right:16%;
+    transform:rotate(-10deg);
+}
+
+.shoe{
+    position:absolute;
+    width:150px;
+    height:70px;
+    background:#080a0d;
+    border-radius:30px;
+    bottom:10px;
+}
+
+.shoe.left{
+    right:48%;
+}
+
+.shoe.right{
+    right:5%;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.game-title{
+    position:absolute;
+    z-index:30;
+    top:30px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    color:#fff;
+    text-shadow:0 5px 18px rgba(0,0,0,.75);
+    white-space:nowrap;
+}
+
+.game-title h1{
+    margin:0;
+    font-size:clamp(36px,6vw,78px);
+    font-weight:1000;
+    letter-spacing:8px;
+}
+
+.game-title h2{
+    margin:3px 0 0;
+    color:#ff244b;
+    font-size:clamp(24px,3.5vw,48px);
+    letter-spacing:14px;
+    font-weight:1000;
+}
+
+.game-title p{
+    margin:8px 0 0;
+    font-size:13px;
+    letter-spacing:6px;
+    font-weight:bold;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading-screen{
     position:absolute;
     inset:0;
-    z-index:10;
-}
-
-/* LOADING */
-
-#loadingScreen{
+    z-index:1000;
+    background:#030405;
     display:flex;
     align-items:center;
     justify-content:center;
+    transition:opacity .5s ease;
 }
 
-.loadingCenter{
-    width:min(760px,90vw);
+.loading-content{
+    width:min(650px,90%);
     text-align:center;
 }
 
-.brand{
-    font-size:clamp(46px,8vw,90px);
+.loading-logo{
+    font-size:clamp(36px,7vw,70px);
     font-weight:1000;
-    letter-spacing:-4px;
+    letter-spacing:8px;
 }
 
-.brand span{
+.loading-logo span{
     color:#ff2045;
 }
 
-.brandSub{
-    margin-top:12px;
-    font-size:14px;
-    color:#727d87;
-    letter-spacing:6px;
-}
-
-.studioName{
-    margin-top:30px;
-    color:#414b54;
-    font-size:11px;
-    letter-spacing:3px;
-}
-
-.loadingLine{
-    width:min(580px,78vw);
-    height:4px;
-    margin:34px auto 0;
-    background:#161a1f;
-    overflow:hidden;
-}
-
-.loadingProgress{
-    width:0%;
-    height:100%;
-    background:linear-gradient(90deg,#008cff,#ff2045);
-    box-shadow:0 0 18px #ff2045;
-}
-
-.loadingPercent{
-    margin-top:13px;
-    font-size:12px;
-    color:#69747d;
-    letter-spacing:2px;
-}
-
-.loadingStatus{
+.loading-company{
     margin-top:10px;
-    height:20px;
-    color:#9aa4ad;
-    font-size:12px;
-}
-
-.loadingVersion{
-    margin-top:35px;
-    color:#353c43;
-    font-size:10px;
-    letter-spacing:2px;
-}
-
-/* AUTH */
-
-#authScreen{
-    display:none;
-    align-items:center;
-    justify-content:center;
-}
-
-.authBox{
-    width:min(450px,92vw);
-    background:linear-gradient(145deg,rgba(17,20,25,.98),rgba(5,7,9,.98));
-    border:1px solid #292f36;
-    border-top:2px solid #ff2045;
-    padding:32px;
-    box-shadow:0 35px 100px rgba(0,0,0,.75);
-}
-
-.authTitle{
-    font-size:27px;
-    font-weight:1000;
-    letter-spacing:2px;
-}
-
-.authTitle span{
-    color:#ff2045;
-}
-
-.tabs{
-    display:flex;
-    margin:25px 0;
-    border-bottom:1px solid #252b31;
-}
-
-.tab{
-    flex:1;
-    border:0;
-    padding:13px;
-    color:#5e6871;
-    background:none;
-    font-weight:900;
-}
-
-.tab.active{
-    color:#fff;
-    border-bottom:2px solid #ff2045;
-}
-
-.field{
-    margin-bottom:15px;
-}
-
-.field label{
-    display:block;
-    margin-bottom:8px;
-    color:#68737d;
-    font-size:11px;
-    letter-spacing:2px;
-}
-
-.field input,
-.field textarea{
-    width:100%;
-    border:1px solid #292f36;
-    outline:none;
-    padding:14px;
-    color:#fff;
-    background:#090c10;
-    border-radius:3px;
-}
-
-.field input:focus,
-.field textarea:focus{
-    border-color:#008cff;
-}
-
-.primary{
-    width:100%;
-    padding:15px;
-    border:0;
-    color:#fff;
-    font-weight:1000;
-    letter-spacing:1px;
-    background:linear-gradient(90deg,#d80d32,#ff2045);
-}
-
-.message{
-    min-height:20px;
-    margin-top:12px;
-    text-align:center;
-    color:#ff405b;
-    font-size:13px;
-}
-
-/* MENU */
-
-#menuScreen{
-    display:none;
-}
-
-.menu{
-    position:absolute;
-    left:7%;
-    top:50%;
-    transform:translateY(-50%);
-    width:min(470px,45vw);
-}
-
-.redLine{
-    width:75px;
-    height:3px;
-    margin-bottom:20px;
-    background:#ff2045;
-    box-shadow:0 0 15px #ff2045;
-}
-
-.menuTitle{
-    font-size:clamp(44px,6vw,80px);
-    line-height:.85;
-    font-weight:1000;
-    letter-spacing:-4px;
-}
-
-.menuTitle span{
-    color:#ff2045;
-}
-
-.cityName{
-    margin:20px 0 28px;
-    color:#697681;
+    color:#737a88;
     letter-spacing:4px;
     font-size:12px;
 }
 
-.menuButtons{
-    display:grid;
-    gap:9px;
-}
-
-.menuButton{
+.loading-bar{
     width:100%;
-    padding:17px 20px;
-    text-align:left;
-    border:1px solid #292f36;
-    background:rgba(7,9,12,.9);
-    color:#dce2e7;
-    font-weight:900;
-    transition:.2s;
+    height:7px;
+    margin-top:45px;
+    background:#181b21;
+    border-radius:20px;
+    overflow:hidden;
 }
 
-.menuButton:hover{
-    transform:translateX(5px);
-    border-color:#008cff;
+.loading-progress{
+    width:0%;
+    height:100%;
+    background:
+        linear-gradient(
+            90deg,
+            #ff2045,
+            #ff5270,
+            #2a8cff
+        );
+    box-shadow:
+        0 0 25px #ff2045;
+    transition:width .08s linear;
 }
 
-.menuButton.play{
-    background:#e6193d;
-    border-color:#ff3b58;
-    box-shadow:0 10px 35px rgba(255,20,60,.18);
-}
-
-/* MODALS */
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    z-index:200;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,.82);
-    backdrop-filter:blur(12px);
-}
-
-.modalBox{
-    width:min(650px,94vw);
-    max-height:90vh;
-    overflow:auto;
-    padding:30px;
-    background:#090b0f;
-    border:1px solid #292f36;
-    border-top:2px solid #ff2045;
-    box-shadow:0 30px 100px #000;
-}
-
-.modalHead{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
-}
-
-.modalHead h2{
-    letter-spacing:2px;
-}
-
-.close{
-    width:35px;
-    height:35px;
-    border:1px solid #292f36;
-    background:#11151a;
-    color:#aaa;
-    font-size:20px;
-}
-
-.secondary{
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border:1px solid #292f36;
-    background:#11151a;
-    color:#ddd;
-    text-align:left;
-    transition:.2s;
-}
-
-.secondary:hover{
-    border-color:#008cff;
-}
-
-.danger{
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border:1px solid #671525;
-    background:#210910;
-    color:#ff405c;
-}
-
-.avatarBox{
-    text-align:center;
-    margin-bottom:22px;
-}
-
-.avatar{
-    width:125px;
-    height:125px;
-    object-fit:cover;
-    border-radius:50%;
-    border:3px solid #ff2045;
-    background:#090c10;
-}
-
-.avatarUpload{
-    display:inline-block;
+.loading-percent{
     margin-top:13px;
-    padding:10px 15px;
-    background:#11151a;
-    border:1px solid #292f36;
-    color:#aab2b9;
-}
-
-.avatarUpload input{
-    display:none;
-}
-
-/* ABOUT */
-
-.aboutLogo{
-    text-align:center;
-    padding:10px 0 25px;
-}
-
-.aboutLogoTitle{
-    font-size:34px;
-    font-weight:1000;
-    letter-spacing:-1px;
-}
-
-.aboutLogoTitle span{
-    color:#ff2045;
-}
-
-.aboutVersion{
-    margin-top:8px;
-    color:#5f6a74;
-    font-size:11px;
+    font-size:13px;
+    color:#858c99;
     letter-spacing:3px;
 }
 
-.aboutDescription{
-    color:#aeb7be;
-    line-height:1.75;
-    font-size:14px;
-}
-
-.aboutDescription strong{
-    color:#fff;
-}
-
-.infoGrid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:1px;
-    margin-top:24px;
-    background:#252b31;
-    border:1px solid #252b31;
-}
-
-.infoItem{
-    padding:16px;
-    background:#0b0e12;
-}
-
-.infoLabel{
-    color:#58636d;
-    font-size:10px;
-    letter-spacing:2px;
-    margin-bottom:7px;
-}
-
-.infoValue{
-    color:#fff;
-    font-weight:900;
+.loading-status{
+    margin-top:12px;
+    min-height:20px;
+    color:#c7ccd5;
     font-size:13px;
 }
 
-.aboutBlock{
-    margin-top:25px;
-    padding-top:20px;
-    border-top:1px solid #252b31;
-}
+/* =========================
+   AUTH
+========================= */
 
-.aboutBlock h3{
-    margin-bottom:10px;
-    color:#ff2045;
-    font-size:13px;
-    letter-spacing:2px;
-}
-
-.aboutBlock p{
-    color:#919ba4;
-    line-height:1.7;
-    font-size:13px;
-}
-
-.copyright{
-    margin-top:25px;
-    padding-top:18px;
-    border-top:1px solid #252b31;
-    color:#454e56;
-    text-align:center;
-    font-size:10px;
-    letter-spacing:1px;
-}
-
-/* GAME */
-
-#gameScreen{
-    display:none;
-}
-
-.gameInfo{
+.auth-screen{
     position:absolute;
-    bottom:25px;
-    left:25px;
-    padding:15px 20px;
-    background:rgba(0,0,0,.85);
-    border-left:3px solid #ff2045;
-}
-
-.gameInfo b{
-    color:#ff2045;
-}
-
-.back{
-    position:absolute;
-    right:25px;
-    bottom:25px;
-    padding:13px 20px;
-    border:1px solid #292f36;
-    background:#0b0e12;
-    color:#fff;
-}
-
-/* ROTATE */
-
-#rotate{
-    display:none;
-    position:fixed;
     inset:0;
-    z-index:99999;
-    background:#030405;
+    z-index:500;
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            #1a1d25,
+            #030405 65%
+        );
+    display:flex;
     align-items:center;
     justify-content:center;
+    padding:20px;
+}
+
+.auth-card{
+    width:min(450px,100%);
+    padding:32px;
+    border:1px solid #282c35;
+    border-radius:24px;
+    background:rgba(10,11,14,.92);
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.65),
+        0 0 45px rgba(255,32,69,.06);
+}
+
+.auth-title{
     text-align:center;
+    font-size:30px;
+    font-weight:1000;
+    letter-spacing:3px;
 }
 
-.rotateContent{
-    padding:30px;
+.auth-title span{
+    color:#ff2045;
 }
 
-.rotateContent div{
-    font-size:65px;
+.auth-subtitle{
+    text-align:center;
+    margin:8px 0 25px;
+    color:#777f8d;
+    font-size:13px;
+}
+
+.auth-tabs{
+    display:flex;
+    gap:8px;
     margin-bottom:20px;
 }
 
-.rotateContent h2{
-    font-size:22px;
+.auth-tab{
+    flex:1;
+    padding:12px;
+    border:1px solid #292d36;
+    background:#101217;
+    color:#777f8d;
+    border-radius:12px;
+}
+
+.auth-tab.active{
+    color:#fff;
+    border-color:#ff2045;
+    background:#1a0b10;
+}
+
+.input{
+    width:100%;
+    height:50px;
+    margin-top:10px;
+    padding:0 16px;
+    border:1px solid #292d36;
+    border-radius:12px;
+    outline:none;
+    background:#0c0e12;
+    color:#fff;
+}
+
+.input:focus{
+    border-color:#ff2045;
+}
+
+.primary-button{
+    width:100%;
+    height:52px;
+    margin-top:18px;
+    border:0;
+    border-radius:13px;
+    background:
+        linear-gradient(
+            90deg,
+            #ff1744,
+            #c9002b
+        );
+    color:#fff;
+    font-weight:900;
+    letter-spacing:1px;
+    box-shadow:0 10px 30px rgba(255,23,68,.2);
+}
+
+.auth-error{
+    min-height:22px;
+    margin-top:12px;
+    color:#ff5b78;
+    text-align:center;
+    font-size:13px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu-screen{
+    position:absolute;
+    inset:0;
+    z-index:200;
+    overflow:hidden;
+}
+
+.menu-overlay{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.75),
+            rgba(0,0,0,.25),
+            rgba(0,0,0,.6)
+        );
+}
+
+.menu-panel{
+    position:absolute;
+    z-index:5;
+    left:5%;
+    top:50%;
+    transform:translateY(-50%);
+    width:min(440px,90%);
+}
+
+.menu-logo{
+    font-size:clamp(42px,6vw,75px);
+    font-weight:1000;
+    line-height:.9;
+    letter-spacing:5px;
+}
+
+.menu-logo span{
+    color:#ff2045;
+}
+
+.menu-company{
+    margin-top:14px;
+    color:#aeb4bf;
+    letter-spacing:3px;
+    font-size:12px;
+}
+
+.menu-buttons{
+    margin-top:35px;
+    display:grid;
+    gap:10px;
+}
+
+.menu-button{
+    width:100%;
+    height:58px;
+    border:1px solid #343944;
+    border-radius:13px;
+    background:rgba(9,10,13,.85);
+    color:#fff;
+    text-align:left;
+    padding:0 22px;
+    font-weight:900;
+    letter-spacing:1px;
+    transition:.2s;
+}
+
+.menu-button:hover{
+    transform:translateX(5px);
+    border-color:#ff2045;
+    background:#160b0f;
+}
+
+.menu-button.play{
+    background:#ff1744;
+    border-color:#ff1744;
+    box-shadow:0 12px 35px rgba(255,23,68,.25);
+}
+
+.menu-button small{
+    display:block;
+    color:#747c8b;
+    margin-top:3px;
+    font-size:10px;
+}
+
+.menu-button.play small{
+    color:#ffd9df;
+}
+
+.top-hud{
+    position:absolute;
+    z-index:20;
+    right:25px;
+    top:22px;
+    display:flex;
+    gap:10px;
+}
+
+.hud-button{
+    height:42px;
+    padding:0 15px;
+    border:1px solid #30343e;
+    border-radius:11px;
+    background:rgba(5,6,8,.75);
+    color:#fff;
+}
+
+.profile-mini{
+    position:absolute;
+    z-index:20;
+    right:25px;
+    bottom:25px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 15px;
+    border:1px solid #30343e;
+    border-radius:14px;
+    background:rgba(5,6,8,.8);
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#191c23;
+}
+
+.profile-name{
+    font-weight:900;
+}
+
+.profile-phone{
+    color:#707785;
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modal{
+    position:absolute;
+    inset:0;
+    z-index:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(8px);
+}
+
+.modal-card{
+    width:min(700px,100%);
+    max-height:85vh;
+    overflow:auto;
+    border:1px solid #30343e;
+    border-radius:22px;
+    background:#0a0c10;
+    padding:30px;
+    box-shadow:0 30px 100px rgba(0,0,0,.7);
+}
+
+.modal-title{
+    font-size:27px;
+    font-weight:1000;
+}
+
+.modal-text{
+    color:#9ba2af;
+    line-height:1.65;
+    margin-top:15px;
+}
+
+.modal-close{
+    float:right;
+    width:36px;
+    height:36px;
+    border:1px solid #30343e;
+    border-radius:10px;
+    background:#111319;
+    color:#fff;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:20px;
+}
+
+.info-item{
+    padding:15px;
+    border:1px solid #272b34;
+    border-radius:13px;
+    background:#0f1116;
+}
+
+.info-label{
+    color:#686f7d;
+    font-size:10px;
+    text-transform:uppercase;
     letter-spacing:2px;
 }
 
-.rotateContent p{
-    margin-top:10px;
-    color:#666;
+.info-value{
+    margin-top:6px;
+    font-weight:800;
 }
 
-@media(max-width:800px) and (orientation:portrait){
-    #rotate{
-        display:flex;
+/* =========================
+   GAME
+========================= */
+
+.game-screen{
+    position:absolute;
+    inset:0;
+    z-index:300;
+    background:
+        linear-gradient(
+            180deg,
+            #4b7ca0,
+            #17222c 45%,
+            #101216
+        );
+}
+
+.game-city{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.4),
+            transparent 45%,
+            rgba(0,0,0,.5)
+        );
+}
+
+.game-hud{
+    position:absolute;
+    top:20px;
+    left:20px;
+    right:20px;
+    display:flex;
+    justify-content:space-between;
+    z-index:5;
+}
+
+.game-box{
+    padding:12px 16px;
+    border:1px solid #363b46;
+    border-radius:12px;
+    background:rgba(5,6,8,.75);
+}
+
+.game-player{
+    font-weight:900;
+}
+
+.game-location{
+    color:#ff3657;
+    font-size:11px;
+    margin-top:4px;
+}
+
+.game-center{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.game-center h1{
+    font-size:clamp(40px,7vw,85px);
+    margin:0;
+    font-weight:1000;
+    letter-spacing:5px;
+}
+
+.game-center p{
+    color:#a4aab6;
+    max-width:500px;
+}
+
+.back-button{
+    margin-top:20px;
+    padding:14px 25px;
+    border:1px solid #ff2045;
+    border-radius:12px;
+    background:#180a0e;
+    color:#fff;
+    font-weight:900;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .character{
+        right:-100px;
+        transform:scale(.72) rotate(2deg);
+        transform-origin:bottom right;
+    }
+
+    .police-car{
+        left:-100px;
+        transform:scale(.65);
+        transform-origin:left bottom;
+    }
+
+    .menu-panel{
+        top:54%;
+        left:25px;
+    }
+
+    .top-hud{
+        right:15px;
+        top:15px;
+    }
+
+    .profile-mini{
+        right:15px;
+        bottom:15px;
     }
 }
 
 @media(max-width:600px){
-    .infoGrid{
+
+    .info-grid{
         grid-template-columns:1fr;
     }
 
-    .modalBox{
-        padding:22px;
+    .auth-card{
+        padding:23px;
+    }
+
+    .menu-panel{
+        width:calc(100% - 50px);
+    }
+
+    .menu-logo{
+        font-size:40px;
+    }
+
+    .game-title{
+        top:18px;
+    }
+
+    .game-title h1{
+        font-size:31px;
+    }
+
+    .game-title h2{
+        font-size:22px;
+        letter-spacing:7px;
+    }
+
+    .game-title p{
+        font-size:9px;
+        letter-spacing:3px;
+    }
+}
+
+@media(orientation:portrait){
+    .rotate-screen{
+        display:flex;
     }
 }
 </style>
@@ -694,608 +1235,734 @@ button{
 
 <body>
 
-<div id="rotate">
-    <div class="rotateContent">
-        <div>↔</div>
-        <h2>ПОВЕРНИТЕ ТЕЛЕФОН</h2>
-        <p>Игра работает в горизонтальном режиме</p>
+<!-- =========================
+     ПОВОРОТ ЭКРАНА
+========================= -->
+
+<div class="rotate-screen">
+    <div class="rotate-box">
+        <div class="rotate-icon">📱↔️</div>
+        <div class="rotate-title">
+            Поверните устройство
+        </div>
+        <div class="rotate-text">
+            TWO CITIES: RUSSIA разработана для горизонтального режима.
+        </div>
     </div>
 </div>
 
-<div id="app">
 
-<div class="bg"></div>
-<div class="grid"></div>
-<div class="redGlow"></div>
-<div class="blueGlow"></div>
+<!-- =========================
+     ЗАГРУЗКА
+========================= -->
 
-<div class="city">
-    <div class="building b1"></div>
-    <div class="building b2"></div>
-    <div class="building b3"></div>
-    <div class="building b4"></div>
-    <div class="building b5"></div>
-    <div class="building b6"></div>
-    <div class="building b7"></div>
-    <div class="building b8"></div>
-    <div class="building b9"></div>
-    <div class="building b10"></div>
-</div>
+<div class="loading-screen" id="loadingScreen">
 
-<div class="road"></div>
+    <div class="loading-content">
 
-<div class="top">
-
-    <div class="logo">
-        <b>TWO CITIES <span>RUSSIA</span></b>
-    </div>
-
-    <div id="hud" class="hud">
-        <img id="hudAvatar" src="./icon.svg">
-        <div id="hudName" class="hud-name">
-            Игрок
-        </div>
-    </div>
-
-</div>
-
-<!-- LOADING -->
-
-<section id="loadingScreen"
-         class="screen">
-
-    <div class="loadingCenter">
-
-        <div class="brand">
-            TWO CITIES
-            <span>RUSSIA</span>
+        <div class="loading-logo">
+            TWO CITIES <span>RUSSIA</span>
         </div>
 
-        <div class="brandSub">
-            MOSCOW • KRASNODAR
-        </div>
-
-        <div class="studioName">
+        <div class="loading-company">
             CATS DEVELOPER STUDIO
         </div>
 
-        <div class="loadingLine">
-            <div id="loadingProgress"
-                 class="loadingProgress"></div>
+        <div class="loading-bar">
+            <div
+                class="loading-progress"
+                id="loadingProgress">
+            </div>
         </div>
 
-        <div id="loadingPercent"
-             class="loadingPercent">
+        <div
+            class="loading-percent"
+            id="loadingPercent">
             0%
         </div>
 
-        <div id="loadingStatus"
-             class="loadingStatus">
+        <div
+            class="loading-status"
+            id="loadingStatus">
             Запуск TWO CITIES: RUSSIA...
         </div>
 
-        <div class="loadingVersion">
-            VERSION 1.0.0 • OFFICIAL BUILD
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ОБЛОЖКА
+========================= -->
+
+<div class="screen hidden" id="coverScreen">
+
+    <div class="cover">
+
+        <div class="sky-light"></div>
+
+        <div class="city">
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+        </div>
+
+        <div class="road">
+            <div class="road-line"></div>
+        </div>
+
+        <div class="blue-light"></div>
+        <div class="red-light"></div>
+
+        <!-- машина -->
+
+        <div class="police-car">
+
+            <div class="car-shadow"></div>
+
+            <div class="car-roof"></div>
+
+            <div class="window1"></div>
+            <div class="window2"></div>
+
+            <div class="siren"></div>
+
+            <div class="car-body"></div>
+
+            <div class="blue-stripe"></div>
+            <div class="red-stripe"></div>
+
+            <div class="headlight left"></div>
+            <div class="headlight right"></div>
+
+            <div class="wheel left"></div>
+            <div class="wheel right"></div>
+
+        </div>
+
+
+        <!-- персонаж -->
+
+        <div class="character">
+
+            <div class="hair"></div>
+
+            <div class="head">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="mask"></div>
+            </div>
+
+            <div class="neck"></div>
+
+            <div class="body"></div>
+
+            <div class="arm-left"></div>
+            <div class="arm-right"></div>
+
+            <div class="leg left"></div>
+            <div class="leg right"></div>
+
+            <div class="shoe left"></div>
+            <div class="shoe right"></div>
+
+        </div>
+
+
+        <!-- название -->
+
+        <div class="game-title">
+
+            <h1>TWO CITIES</h1>
+
+            <h2>RUSSIA</h2>
+
+            <p>MOSCOW • KRASNODAR</p>
+
         </div>
 
     </div>
 
-</section>
+</div>
 
-<!-- AUTH -->
 
-<section id="authScreen"
-         class="screen">
+<!-- =========================
+     АВТОРИЗАЦИЯ
+========================= -->
 
-    <div class="authBox">
+<div class="screen auth-screen hidden" id="authScreen">
 
-        <div class="authTitle">
-            TWO CITIES
-            <span>RUSSIA</span>
+    <div class="auth-card">
+
+        <div class="auth-title">
+            TWO CITIES <span>RUSSIA</span>
         </div>
 
-        <div class="tabs">
+        <div class="auth-subtitle">
+            Локальный игровой аккаунт
+        </div>
 
-            <button id="loginTab"
-                    class="tab active">
-                ВХОД
+        <div class="auth-tabs">
+
+            <button
+                class="auth-tab active"
+                id="loginTab">
+                Войти
             </button>
 
-            <button id="registerTab"
-                    class="tab">
-                РЕГИСТРАЦИЯ
+            <button
+                class="auth-tab"
+                id="registerTab">
+                Регистрация
             </button>
 
         </div>
 
-        <div class="field">
+        <input
+            class="input"
+            id="phoneInput"
+            type="tel"
+            placeholder="Номер телефона"
+            autocomplete="tel">
 
-            <label>НОМЕР ТЕЛЕФОНА</label>
+        <input
+            class="input"
+            id="passwordInput"
+            type="password"
+            placeholder="Пароль"
+            autocomplete="current-password">
 
-            <input id="phone"
-                   type="tel"
-                   placeholder="+7 900 000-00-00">
+        <input
+            class="input hidden"
+            id="nameInput"
+            type="text"
+            placeholder="Имя игрока"
+            autocomplete="nickname">
 
-        </div>
-
-        <div id="nicknameField"
-             class="field"
-             style="display:none">
-
-            <label>НИКНЕЙМ</label>
-
-            <input id="nickname"
-                   type="text"
-                   maxlength="24"
-                   placeholder="Введите никнейм">
-
-        </div>
-
-        <div class="field">
-
-            <label>ПАРОЛЬ</label>
-
-            <input id="password"
-                   type="password"
-                   placeholder="Введите пароль">
-
-        </div>
-
-        <button id="authButton"
-                class="primary">
+        <button
+            class="primary-button"
+            id="authButton">
             ВОЙТИ В ИГРУ
         </button>
 
-        <div id="authMessage"
-             class="message">
+        <div
+            class="auth-error"
+            id="authError">
         </div>
 
     </div>
 
-</section>
+</div>
 
-<!-- MENU -->
 
-<section id="menuScreen"
-         class="screen">
+<!-- =========================
+     ГЛАВНОЕ МЕНЮ
+========================= -->
 
-    <div class="menu">
+<div class="screen menu-screen hidden" id="menuScreen">
 
-        <div class="redLine"></div>
+    <div class="cover">
 
-        <div class="menuTitle">
-            TWO<br>
-            CITIES<br>
+        <div class="sky-light"></div>
+
+        <div class="city">
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+            <div class="building">
+                <div class="windows"></div>
+            </div>
+
+        </div>
+
+        <div class="road">
+            <div class="road-line"></div>
+        </div>
+
+        <div class="blue-light"></div>
+        <div class="red-light"></div>
+
+        <div class="police-car">
+
+            <div class="car-shadow"></div>
+            <div class="car-roof"></div>
+
+            <div class="window1"></div>
+            <div class="window2"></div>
+
+            <div class="siren"></div>
+
+            <div class="car-body"></div>
+
+            <div class="blue-stripe"></div>
+            <div class="red-stripe"></div>
+
+            <div class="headlight left"></div>
+            <div class="headlight right"></div>
+
+            <div class="wheel left"></div>
+            <div class="wheel right"></div>
+
+        </div>
+
+        <div class="character">
+
+            <div class="hair"></div>
+
+            <div class="head">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="mask"></div>
+            </div>
+
+            <div class="neck"></div>
+            <div class="body"></div>
+
+            <div class="arm-left"></div>
+            <div class="arm-right"></div>
+
+            <div class="leg left"></div>
+            <div class="leg right"></div>
+
+            <div class="shoe left"></div>
+            <div class="shoe right"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-overlay"></div>
+
+
+    <div class="top-hud">
+
+        <button
+            class="hud-button"
+            id="profileButton">
+            ПРОФИЛЬ
+        </button>
+
+        <button
+            class="hud-button"
+            id="settingsButton">
+            ⚙
+        </button>
+
+    </div>
+
+
+    <div class="menu-panel">
+
+        <div class="menu-logo">
+            TWO CITIES
+            <br>
             <span>RUSSIA</span>
         </div>
 
-        <div class="cityName">
-            MOSCOW / KRASNODAR
+        <div class="menu-company">
+            CATS DEVELOPER STUDIO
         </div>
 
-        <div class="menuButtons">
+        <div class="menu-buttons">
 
-            <button id="playButton"
-                    class="menuButton play">
-                ▶ &nbsp; ИГРАТЬ
+            <button
+                class="menu-button play"
+                id="playButton">
+                ▶ ИГРАТЬ
+                <small>Войти в игровой мир</small>
             </button>
 
-            <button id="profileButton"
-                    class="menuButton">
-                ◉ &nbsp; ПРОФИЛЬ
+            <button
+                class="menu-button"
+                id="aboutButton">
+                ОБ ИГРЕ
+                <small>Информация о TWO CITIES: RUSSIA</small>
             </button>
 
-            <button id="settingsButton"
-                    class="menuButton">
-                ⚙ &nbsp; НАСТРОЙКИ
+            <button
+                class="menu-button"
+                id="logoutButton">
+                ВЫЙТИ ИЗ АККАУНТА
+                <small>Сменить локальный профиль</small>
             </button>
 
         </div>
 
     </div>
 
-</section>
 
-<!-- GAME -->
+    <div class="profile-mini">
 
-<section id="gameScreen"
-         class="screen">
+        <img
+            class="avatar"
+            id="miniAvatar"
+            alt="Avatar">
 
-    <div class="gameInfo">
-        <b>TWO CITIES: RUSSIA</b><br>
-        МОСКВА • ОТКРЫТЫЙ МИР
+        <div>
+
+            <div
+                class="profile-name"
+                id="miniName">
+                Player
+            </div>
+
+            <div
+                class="profile-phone"
+                id="miniPhone">
+                —
+            </div>
+
+        </div>
+
     </div>
-
-    <button id="backButton"
-            class="back">
-        ← МЕНЮ
-    </button>
-
-</section>
 
 </div>
 
-<!-- PROFILE -->
 
-<div id="profileModal"
-     class="modal">
+<!-- =========================
+     ПРОФИЛЬ
+========================= -->
 
-    <div class="modalBox">
+<div
+    class="modal hidden"
+    id="profileModal">
 
-        <div class="modalHead">
+    <div class="modal-card">
 
-            <h2>ПРОФИЛЬ</h2>
+        <button
+            class="modal-close"
+            data-close="profileModal">
+            ×
+        </button>
 
-            <button class="close"
-                    data-close="profileModal">
-                ×
-            </button>
+        <div class="modal-title">
+            ПРОФИЛЬ
+        </div>
+
+        <div style="margin-top:25px;text-align:center;">
+
+            <img
+                id="profileAvatar"
+                class="avatar"
+                style="width:100px;height:100px;"
+                alt="Avatar">
+
+            <br>
+
+            <input
+                id="avatarInput"
+                type="file"
+                accept="image/*"
+                style="margin-top:15px;color:#999;">
 
         </div>
 
-        <div class="avatarBox">
+        <input
+            class="input"
+            id="profileNameInput"
+            placeholder="Имя игрока">
 
-            <img id="profileAvatar"
-                 class="avatar"
-                 src="./icon.svg">
-
-            <label class="avatarUpload">
-
-                📷 ИЗМЕНИТЬ АВАТАР
-
-                <input id="avatarInput"
-                       type="file"
-                       accept="image/*">
-
-            </label>
-
-        </div>
-
-        <div class="field">
-
-            <label>НИКНЕЙМ</label>
-
-            <input id="profileNickname"
-                   maxlength="24">
-
-        </div>
-
-        <div class="field">
-
-            <label>О СЕБЕ</label>
-
-            <textarea id="profileDescription"
-                      maxlength="180"></textarea>
-
-        </div>
-
-        <button id="saveProfile"
-                class="primary">
+        <button
+            class="primary-button"
+            id="saveProfileButton">
             СОХРАНИТЬ
         </button>
 
-        <button id="profileLogout"
-                class="danger">
-            ВЫЙТИ ИЗ АККАУНТА
-        </button>
-
     </div>
 
 </div>
 
-<!-- SETTINGS -->
 
-<div id="settingsModal"
-     class="modal">
+<!-- =========================
+     НАСТРОЙКИ
+========================= -->
 
-    <div class="modalBox">
+<div
+    class="modal hidden"
+    id="settingsModal">
 
-        <div class="modalHead">
+    <div class="modal-card">
 
-            <h2>НАСТРОЙКИ</h2>
-
-            <button class="close"
-                    data-close="settingsModal">
-                ×
-            </button>
-
-        </div>
-
-        <button id="aboutButton"
-                class="secondary">
-            ℹ &nbsp; ОБ ИГРЕ
+        <button
+            class="modal-close"
+            data-close="settingsModal">
+            ×
         </button>
 
-        <button id="fullscreenButton"
-                class="secondary">
-            ⛶ &nbsp; ПОЛНЫЙ ЭКРАН
-        </button>
-
-        <button id="settingsLogout"
-                class="danger">
-            ВЫЙТИ ИЗ АККАУНТА
-        </button>
-
-    </div>
-
-</div>
-
-<!-- ABOUT GAME -->
-
-<div id="aboutModal"
-     class="modal">
-
-    <div class="modalBox">
-
-        <div class="modalHead">
-
-            <h2>ОБ ИГРЕ</h2>
-
-            <button class="close"
-                    data-close="aboutModal">
-                ×
-            </button>
-
+        <div class="modal-title">
+            НАСТРОЙКИ
         </div>
 
-        <div class="aboutLogo">
-
-            <div class="aboutLogoTitle">
-                TWO CITIES
-                <span>RUSSIA</span>
-            </div>
-
-            <div class="aboutVersion">
-                VERSION 1.0.0 • OFFICIAL BUILD
-            </div>
-
-        </div>
-
-        <div class="aboutDescription">
+        <div class="modal-text">
 
             <p>
-                <strong>TWO CITIES: RUSSIA</strong> —
-                одиночная городская sandbox-игра от
-                <strong>Cats Developer Studio</strong>.
+                <b>Графика</b><br>
+                Игровой интерфейс использует тёмную стилистику,
+                яркие красные и синие акценты.
             </p>
-
-            <br>
 
             <p>
-                Проект создан как самостоятельная игровая
-                вселенная с большим городским пространством,
-                свободным перемещением, транспортом,
-                персонажами, зданиями и различными игровыми
-                ситуациями.
+                <b>Управление</b><br>
+                Игра рассчитана на горизонтальный экран.
+                В будущих версиях появится полноценное управление персонажем.
             </p>
-
-            <br>
 
             <p>
-                По атмосфере и формату проект вдохновлён
-                городскими sandbox-играми и пользовательскими
-                мирами в духе Roblox, но
-                <strong>TWO CITIES: RUSSIA</strong> —
-                отдельная игра со своей концепцией,
-                дизайном и игровой вселенной.
+                <b>Сохранение</b><br>
+                Профиль хранится локально в браузере устройства.
             </p>
-
-        </div>
-
-        <div class="infoGrid">
-
-            <div class="infoItem">
-
-                <div class="infoLabel">
-                    РАЗРАБОТЧИК
-                </div>
-
-                <div class="infoValue">
-                    Cats Developer Studio
-                </div>
-
-            </div>
-
-            <div class="infoItem">
-
-                <div class="infoLabel">
-                    НАЗВАНИЕ
-                </div>
-
-                <div class="infoValue">
-                    TWO CITIES: RUSSIA
-                </div>
-
-            </div>
-
-            <div class="infoItem">
-
-                <div class="infoLabel">
-                    ВЕРСИЯ
-                </div>
-
-                <div class="infoValue">
-                    1.0.0
-                </div>
-
-            </div>
-
-            <div class="infoItem">
-
-                <div class="infoLabel">
-                    ТИП СБОРКИ
-                </div>
-
-                <div class="infoValue">
-                    Official Build
-                </div>
-
-            </div>
-
-            <div class="infoItem">
-
-                <div class="infoLabel">
-                    РЕЖИМ
-                </div>
-
-                <div class="infoValue">
-                    Single Player
-                </div>
-
-            </div>
-
-            <div class="infoItem">
-
-                <div class="infoLabel">
-                    ЖАНР
-                </div>
-
-                <div class="infoValue">
-                    City Sandbox
-                </div>
-
-            </div>
-
-            <div class="infoItem">
-
-                <div class="infoLabel">
-                    ГОРОДА
-                </div>
-
-                <div class="infoValue">
-                    Москва / Краснодар
-                </div>
-
-            </div>
-
-            <div class="infoItem">
-
-                <div class="infoLabel">
-                    ПЛАТФОРМА
-                </div>
-
-                <div class="infoValue">
-                    Web / PWA
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="aboutBlock">
-
-            <h3>О КОМПАНИИ</h3>
 
             <p>
-                <strong>Cats Developer Studio</strong> —
-                разработчик проекта TWO CITIES: RUSSIA.
-                Студия развивает собственную игровую
-                вселенную и создаёт проекты,
-                ориентированные на исследование мира,
-                свободу действий и атмосферу большого города.
+                <b>Версия</b><br>
+                1.0.0 Official Build
             </p>
-
-        </div>
-
-        <div class="aboutBlock">
-
-            <h3>ОБ ИГРОВОМ МИРЕ</h3>
-
-            <p>
-                Игрок получает возможность оказаться
-                внутри виртуальной городской среды,
-                исследовать районы, перемещаться по улицам,
-                взаимодействовать с объектами мира и
-                постепенно открывать новые возможности.
-            </p>
-
-            <br>
-
-            <p>
-                Основная концепция TWO CITIES: RUSSIA —
-                объединить два разных города в одной
-                игровой вселенной: Москву и Краснодар.
-                Каждый город должен иметь собственную
-                атмосферу, архитектуру, районы и игровые
-                особенности.
-            </p>
-
-        </div>
-
-        <div class="aboutBlock">
-
-            <h3>ТЕХНОЛОГИИ</h3>
-
-            <p>
-                Игра распространяется как веб-приложение
-                и может запускаться непосредственно
-                из браузера или как установленное
-                PWA-приложение.
-            </p>
-
-            <br>
-
-            <p>
-                Локальные игровые данные и профиль
-                сохраняются непосредственно на устройстве
-                пользователя.
-            </p>
-
-        </div>
-
-        <div class="aboutBlock">
-
-            <h3>СТАТУС ПРОЕКТА</h3>
-
-            <p>
-                Version 1.0.0 является официальной
-                текущей сборкой проекта. Игра продолжает
-                развиваться, поэтому в будущих версиях
-                могут появляться новые районы, здания,
-                транспорт, персонажи, задания,
-                игровые механики и дополнительные
-                возможности.
-            </p>
-
-        </div>
-
-        <div class="copyright">
-
-            © 2026 Cats Developer Studio<br>
-            TWO CITIES: RUSSIA<br>
-            ALL RIGHTS RESERVED
 
         </div>
 
     </div>
 
 </div>
+
+
+<!-- =========================
+     ОБ ИГРЕ
+========================= -->
+
+<div
+    class="modal hidden"
+    id="aboutModal">
+
+    <div class="modal-card">
+
+        <button
+            class="modal-close"
+            data-close="aboutModal">
+            ×
+        </button>
+
+        <div class="modal-title">
+            TWO CITIES: RUSSIA
+        </div>
+
+        <div class="modal-text">
+
+            <p>
+                <b>TWO CITIES: RUSSIA</b> — одиночная городская
+                sandbox-игра от <b>Cats Developer Studio</b>.
+            </p>
+
+            <p>
+                Игровая вселенная строится вокруг двух больших
+                городов — <b>Москвы</b> и <b>Краснодара</b>.
+                Игрок сможет исследовать городское пространство,
+                перемещаться по улицам, взаимодействовать с
+                игровым миром и постепенно получать новые возможности.
+            </p>
+
+            <p>
+                По атмосфере и формату проект вдохновлён городскими
+                sandbox-играми и пользовательскими мирами в духе Roblox,
+                но <b>TWO CITIES: RUSSIA</b> — отдельная игра со своей
+                концепцией, дизайном и игровой вселенной.
+            </p>
+
+        </div>
+
+        <div class="info-grid">
+
+            <div class="info-item">
+                <div class="info-label">Разработчик</div>
+                <div class="info-value">Cats Developer Studio</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Название</div>
+                <div class="info-value">TWO CITIES: RUSSIA</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Версия</div>
+                <div class="info-value">1.0.0</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Тип</div>
+                <div class="info-value">Single Player</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Жанр</div>
+                <div class="info-value">City Sandbox</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Города</div>
+                <div class="info-value">Moscow / Krasnodar</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Платформа</div>
+                <div class="info-value">Web / PWA</div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Статус</div>
+                <div class="info-value">Official Build</div>
+            </div>
+
+        </div>
+
+        <div class="modal-text">
+
+            <p>
+                <b>Cats Developer Studio</b> — разработчик
+                проекта и создатель игровой вселенной TWO CITIES.
+            </p>
+
+            <p>
+                Проект создаётся как самостоятельная игра для
+                браузера и мобильных устройств.
+            </p>
+
+            <p>
+                © 2026 Cats Developer Studio
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ИГРОВОЙ ЭКРАН
+========================= -->
+
+<div
+    class="screen game-screen hidden"
+    id="gameScreen">
+
+    <div class="game-city"></div>
+
+    <div class="game-hud">
+
+        <div class="game-box">
+
+            <div
+                class="game-player"
+                id="gamePlayer">
+                Player
+            </div>
+
+            <div class="game-location">
+                MOSCOW
+            </div>
+
+        </div>
+
+        <div class="game-box">
+            ₽ 0
+        </div>
+
+    </div>
+
+    <div class="game-center">
+
+        <h1>МОСКВА</h1>
+
+        <p>
+            Игровой мир TWO CITIES: RUSSIA загружен.
+            Реальная 3D-карта города будет добавляться
+            в следующих версиях.
+        </p>
+
+        <button
+            class="back-button"
+            id="backToMenu">
+            ВЕРНУТЬСЯ В МЕНЮ
+        </button>
+
+    </div>
+
+</div>
+
 
 <script>
+/* =========================================
+   TWO CITIES: RUSSIA
+   LOCAL GAME SYSTEM
+========================================= */
 
-const ACCOUNTS_KEY =
-    "two_cities_accounts_v2";
+const ACCOUNTS_KEY = "two_cities_accounts_v2";
+const PROFILES_KEY = "two_cities_profiles_v2";
+const CURRENT_KEY = "two_cities_current_v2";
 
-const PROFILES_KEY =
-    "two_cities_profiles_v2";
 
-const CURRENT_KEY =
-    "two_cities_current_v2";
+const $ = id => document.getElementById(id);
 
-let mode="login";
 
-const $=id=>
-    document.getElementById(id);
+/* =========================================
+   DATA
+========================================= */
 
 function getAccounts(){
 
     try{
         return JSON.parse(
-            localStorage.getItem(
-                ACCOUNTS_KEY
-            )
+            localStorage.getItem(ACCOUNTS_KEY)
         ) || {};
-    }catch{
+    }catch(e){
         return {};
     }
 
@@ -1314,11 +1981,9 @@ function getProfiles(){
 
     try{
         return JSON.parse(
-            localStorage.getItem(
-                PROFILES_KEY
-            )
+            localStorage.getItem(PROFILES_KEY)
         ) || {};
-    }catch{
+    }catch(e){
         return {};
     }
 
@@ -1335,467 +2000,46 @@ function saveProfiles(profiles){
 
 function normalizePhone(phone){
 
-    phone=phone.replace(
-        /[^\d+]/g,
-        ""
-    );
+    return phone
+        .replace(/\s+/g,"")
+        .replace(/[()-]/g,"");
 
-    if(phone.startsWith("8")){
-        phone="+7"+phone.substring(1);
-    }
-
-    if(phone.startsWith("7")){
-        phone="+"+phone;
-    }
-
-    return phone;
 }
 
-function showScreen(screen){
+
+/* =========================================
+   SCREEN CONTROL
+========================================= */
+
+function hideAllScreens(){
 
     [
-        "loadingScreen",
+        "coverScreen",
         "authScreen",
         "menuScreen",
         "gameScreen"
-    ].forEach(id=>{
-        $(id).style.display="none";
+    ].forEach(id => {
+
+        $(id).classList.add("hidden");
+
     });
 
-    if(screen==="loading")
-        $("loadingScreen").style.display="flex";
+}
 
-    if(screen==="auth")
-        $("authScreen").style.display="flex";
+function showScreen(id){
 
-    if(screen==="menu")
-        $("menuScreen").style.display="block";
+    hideAllScreens();
 
-    if(screen==="game")
-        $("gameScreen").style.display="block";
+    $(id).classList.remove("hidden");
 
 }
 
-function updateHUD(){
 
-    const current=
-        localStorage.getItem(
-            CURRENT_KEY
-        );
+/* =========================================
+   LOADING
+========================================= */
 
-    if(!current){
-        $("hud").style.display="none";
-        return;
-    }
-
-    const profiles=getProfiles();
-    const profile=profiles[current] || {};
-
-    $("hudName").textContent=
-        profile.nickname || "Игрок";
-
-    $("hudAvatar").src=
-        profile.avatar || "./icon.svg";
-
-    $("hud").style.display="flex";
-
-}
-
-function enterMenu(){
-
-    updateHUD();
-    showScreen("menu");
-
-}
-
-function setMessage(text){
-
-    $("authMessage").textContent=text;
-
-}
-
-/* AUTH */
-
-$("loginTab").onclick=()=>{
-
-    mode="login";
-
-    $("loginTab").classList.add("active");
-    $("registerTab").classList.remove("active");
-
-    $("nicknameField").style.display="none";
-
-    $("authButton").textContent=
-        "ВОЙТИ В ИГРУ";
-
-    setMessage("");
-
-};
-
-$("registerTab").onclick=()=>{
-
-    mode="register";
-
-    $("registerTab").classList.add("active");
-    $("loginTab").classList.remove("active");
-
-    $("nicknameField").style.display="block";
-
-    $("authButton").textContent=
-        "СОЗДАТЬ АККАУНТ";
-
-    setMessage("");
-
-};
-
-function auth(){
-
-    const phone=
-        normalizePhone(
-            $("phone").value.trim()
-        );
-
-    const password=
-        $("password").value;
-
-    const nickname=
-        $("nickname").value.trim();
-
-    if(!phone){
-        setMessage("Введите номер телефона");
-        return;
-    }
-
-    if(!password){
-        setMessage("Введите пароль");
-        return;
-    }
-
-    const accounts=getAccounts();
-    const profiles=getProfiles();
-
-    if(mode==="register"){
-
-        if(accounts[phone]){
-            setMessage(
-                "Этот номер телефона уже зарегистрирован"
-            );
-            return;
-        }
-
-        if(!nickname){
-            setMessage("Введите никнейм");
-            return;
-        }
-
-        if(password.length<4){
-            setMessage(
-                "Пароль должен содержать минимум 4 символа"
-            );
-            return;
-        }
-
-        accounts[phone]={
-            password:password
-        };
-
-        profiles[phone]={
-            nickname:nickname,
-            description:"",
-            avatar:"./icon.svg"
-        };
-
-        saveAccounts(accounts);
-        saveProfiles(profiles);
-
-        localStorage.setItem(
-            CURRENT_KEY,
-            phone
-        );
-
-        enterMenu();
-        return;
-
-    }
-
-    if(!accounts[phone]){
-
-        setMessage(
-            "Номер не зарегистрирован. Сначала создайте аккаунт."
-        );
-
-        return;
-
-    }
-
-    if(
-        accounts[phone].password !==
-        password
-    ){
-
-        setMessage(
-            "Неверный пароль"
-        );
-
-        return;
-
-    }
-
-    localStorage.setItem(
-        CURRENT_KEY,
-        phone
-    );
-
-    enterMenu();
-
-}
-
-$("authButton").onclick=auth;
-
-$("password").addEventListener(
-    "keydown",
-    e=>{
-        if(e.key==="Enter"){
-            auth();
-        }
-    }
-);
-
-/* PROFILE */
-
-$("profileButton").onclick=()=>{
-
-    const current=
-        localStorage.getItem(
-            CURRENT_KEY
-        );
-
-    if(!current)return;
-
-    const profiles=getProfiles();
-    const profile=profiles[current] || {};
-
-    $("profileNickname").value=
-        profile.nickname || "";
-
-    $("profileDescription").value=
-        profile.description || "";
-
-    $("profileAvatar").src=
-        profile.avatar || "./icon.svg";
-
-    $("profileModal").style.display="flex";
-
-};
-
-$("avatarInput").onchange=e=>{
-
-    const file=e.target.files[0];
-
-    if(!file)return;
-
-    const reader=new FileReader();
-
-    reader.onload=()=>{
-
-        const img=new Image();
-
-        img.onload=()=>{
-
-            const canvas=
-                document.createElement(
-                    "canvas"
-                );
-
-            const size=500;
-
-            canvas.width=size;
-            canvas.height=size;
-
-            const ctx=
-                canvas.getContext("2d");
-
-            const scale=Math.max(
-                size/img.width,
-                size/img.height
-            );
-
-            const w=img.width*scale;
-            const h=img.height*scale;
-
-            const x=(size-w)/2;
-            const y=(size-h)/2;
-
-            ctx.drawImage(
-                img,
-                x,
-                y,
-                w,
-                h
-            );
-
-            $("profileAvatar").src=
-                canvas.toDataURL(
-                    "image/jpeg",
-                    .82
-                );
-
-        };
-
-        img.src=reader.result;
-
-    };
-
-    reader.readAsDataURL(file);
-
-};
-
-$("saveProfile").onclick=()=>{
-
-    const current=
-        localStorage.getItem(
-            CURRENT_KEY
-        );
-
-    if(!current)return;
-
-    const profiles=getProfiles();
-
-    profiles[current]={
-
-        nickname:
-            $("profileNickname")
-            .value
-            .trim() || "Игрок",
-
-        description:
-            $("profileDescription")
-            .value
-            .trim(),
-
-        avatar:
-            $("profileAvatar").src
-
-    };
-
-    saveProfiles(profiles);
-    updateHUD();
-
-    $("profileModal").style.display="none";
-
-};
-
-/* LOGOUT */
-
-function logout(){
-
-    localStorage.removeItem(
-        CURRENT_KEY
-    );
-
-    $("phone").value="";
-    $("password").value="";
-    $("nickname").value="";
-
-    setMessage("");
-
-    updateHUD();
-    showScreen("auth");
-
-}
-
-$("profileLogout").onclick=logout;
-$("settingsLogout").onclick=logout;
-
-/* SETTINGS */
-
-$("settingsButton").onclick=()=>{
-
-    $("settingsModal").style.display="flex";
-
-};
-
-/* ABOUT */
-
-$("aboutButton").onclick=()=>{
-
-    $("settingsModal").style.display="none";
-
-    $("aboutModal").style.display="flex";
-
-};
-
-/* FULLSCREEN */
-
-$("fullscreenButton").onclick=async()=>{
-
-    try{
-
-        if(!document.fullscreenElement){
-
-            await document
-                .documentElement
-                .requestFullscreen();
-
-        }else{
-
-            await document.exitFullscreen();
-
-        }
-
-    }catch{}
-
-};
-
-/* CLOSE */
-
-document
-.querySelectorAll("[data-close]")
-.forEach(button=>{
-
-    button.onclick=()=>{
-
-        $(button.dataset.close)
-            .style.display="none";
-
-    };
-
-});
-
-document
-.querySelectorAll(".modal")
-.forEach(modal=>{
-
-    modal.addEventListener(
-        "click",
-        e=>{
-
-            if(e.target===modal){
-                modal.style.display="none";
-            }
-
-        }
-    );
-
-});
-
-/* GAME */
-
-$("playButton").onclick=()=>{
-
-    showScreen("game");
-
-};
-
-$("backButton").onclick=()=>{
-
-    enterMenu();
-
-};
-
-/* LOADING */
-
-const loadingStatuses=[
+const loadingStatuses = [
 
     "Запуск TWO CITIES: RUSSIA...",
 
@@ -1823,92 +2067,610 @@ const loadingStatuses=[
 
 ];
 
-let progress=0;
+let progress = 0;
 
-const loadingTimer=setInterval(()=>{
+const loadingTimer = setInterval(() => {
 
     progress++;
 
-    if(progress>100)
-        progress=100;
+    $("loadingProgress").style.width =
+        progress + "%";
 
-    $("loadingProgress")
-        .style.width=
-        progress+"%";
+    $("loadingPercent").textContent =
+        progress + "%";
 
-    $("loadingPercent")
-        .textContent=
-        progress+"%";
-
-    const index=Math.min(
+    const index = Math.min(
+        loadingStatuses.length - 1,
         Math.floor(
             progress /
-            (100/loadingStatuses.length)
-        ),
-        loadingStatuses.length-1
+            (100 / loadingStatuses.length)
+        )
     );
 
-    $("loadingStatus")
-        .textContent=
+    $("loadingStatus").textContent =
         loadingStatuses[index];
 
-    if(progress>=100){
+    if(progress >= 100){
 
         clearInterval(loadingTimer);
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
-            const current=
-                localStorage.getItem(
-                    CURRENT_KEY
-                );
+            $("loadingScreen").classList.add("hidden");
+
+            const current =
+                localStorage.getItem(CURRENT_KEY);
 
             if(current){
-                enterMenu();
+
+                showMenu();
+
             }else{
-                showScreen("auth");
+
+                showScreen("authScreen");
+
             }
 
-        },900);
+        },500);
 
     }
 
 },50);
 
-/* ORIENTATION */
 
-try{
+/* =========================================
+   AUTH MODE
+========================================= */
 
-    if(
-        screen.orientation &&
-        screen.orientation.lock
-    ){
+let authMode = "login";
 
-        screen.orientation.lock(
-            "landscape"
+function setAuthMode(mode){
+
+    authMode = mode;
+
+    $("loginTab").classList.toggle(
+        "active",
+        mode === "login"
+    );
+
+    $("registerTab").classList.toggle(
+        "active",
+        mode === "register"
+    );
+
+    $("nameInput").classList.toggle(
+        "hidden",
+        mode !== "register"
+    );
+
+    $("authButton").textContent =
+        mode === "login"
+            ? "ВОЙТИ В ИГРУ"
+            : "СОЗДАТЬ АККАУНТ";
+
+    $("authError").textContent = "";
+
+    $("passwordInput").value = "";
+
+}
+
+
+$("loginTab").addEventListener(
+    "click",
+    () => setAuthMode("login")
+);
+
+$("registerTab").addEventListener(
+    "click",
+    () => setAuthMode("register")
+);
+
+
+/* =========================================
+   AUTH
+========================================= */
+
+$("authButton").addEventListener(
+    "click",
+    handleAuth
+);
+
+function handleAuth(){
+
+    const phone =
+        normalizePhone(
+            $("phoneInput").value.trim()
         );
+
+    const password =
+        $("passwordInput").value;
+
+    const name =
+        $("nameInput").value.trim();
+
+    $("authError").textContent = "";
+
+    if(!phone){
+
+        $("authError").textContent =
+            "Введите номер телефона.";
+
+        return;
 
     }
 
-}catch{}
+    if(!password){
 
-/* SERVICE WORKER */
+        $("authError").textContent =
+            "Введите пароль.";
+
+        return;
+
+    }
+
+    if(password.length < 4){
+
+        $("authError").textContent =
+            "Пароль должен содержать минимум 4 символа.";
+
+        return;
+
+    }
+
+    const accounts = getAccounts();
+    const profiles = getProfiles();
+
+
+    /* РЕГИСТРАЦИЯ */
+
+    if(authMode === "register"){
+
+        if(accounts[phone]){
+
+            $("authError").textContent =
+                "Этот номер телефона уже зарегистрирован";
+
+            return;
+
+        }
+
+        accounts[phone] = {
+
+            password: password,
+
+            createdAt: Date.now()
+
+        };
+
+        profiles[phone] = {
+
+            name:
+                name ||
+                "Player",
+
+            avatar:""
+
+        };
+
+        saveAccounts(accounts);
+        saveProfiles(profiles);
+
+        localStorage.setItem(
+            CURRENT_KEY,
+            phone
+        );
+
+        showMenu();
+
+        return;
+
+    }
+
+
+    /* ВХОД */
+
+    if(!accounts[phone]){
+
+        $("authError").textContent =
+            "Номер не зарегистрирован. Сначала создайте аккаунт.";
+
+        return;
+
+    }
+
+    if(accounts[phone].password !== password){
+
+        $("authError").textContent =
+            "Неверный пароль";
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        phone
+    );
+
+    showMenu();
+
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+function getCurrentPhone(){
+
+    return localStorage.getItem(
+        CURRENT_KEY
+    );
+
+}
+
+function getCurrentProfile(){
+
+    const phone =
+        getCurrentPhone();
+
+    if(!phone){
+
+        return {
+
+            name:"Player",
+            avatar:""
+
+        };
+
+    }
+
+    const profiles =
+        getProfiles();
+
+    return profiles[phone] || {
+
+        name:"Player",
+        avatar:""
+
+    };
+
+}
+
+function updateMenuProfile(){
+
+    const profile =
+        getCurrentProfile();
+
+    const phone =
+        getCurrentPhone();
+
+    $("miniName").textContent =
+        profile.name || "Player";
+
+    $("miniPhone").textContent =
+        phone || "—";
+
+    $("gamePlayer").textContent =
+        profile.name || "Player";
+
+    if(profile.avatar){
+
+        $("miniAvatar").src =
+            profile.avatar;
+
+    }else{
+
+        $("miniAvatar").src =
+            createDefaultAvatar(
+                profile.name || "P"
+            );
+
+    }
+
+}
+
+function createDefaultAvatar(letter){
+
+    const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="100"
+             height="100"
+             viewBox="0 0 100 100">
+
+            <rect
+                width="100"
+                height="100"
+                rx="50"
+                fill="#151820"/>
+
+            <text
+                x="50"
+                y="62"
+                text-anchor="middle"
+                font-family="Arial"
+                font-size="45"
+                font-weight="900"
+                fill="#ff2045">
+                ${String(letter).charAt(0).toUpperCase()}
+            </text>
+
+        </svg>
+    `;
+
+    return "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(svg);
+
+}
+
+
+/* =========================================
+   MENU
+========================================= */
+
+function showMenu(){
+
+    showScreen("menuScreen");
+
+    updateMenuProfile();
+
+}
+
+$("playButton").addEventListener(
+    "click",
+    () => {
+
+        showScreen("gameScreen");
+
+    }
+);
+
+$("backToMenu").addEventListener(
+    "click",
+    showMenu
+);
+
+
+/* =========================================
+   PROFILE MODAL
+========================================= */
+
+$("profileButton").addEventListener(
+    "click",
+    () => {
+
+        const profile =
+            getCurrentProfile();
+
+        $("profileNameInput").value =
+            profile.name || "";
+
+        if(profile.avatar){
+
+            $("profileAvatar").src =
+                profile.avatar;
+
+        }else{
+
+            $("profileAvatar").src =
+                createDefaultAvatar(
+                    profile.name || "P"
+                );
+
+        }
+
+        $("profileModal")
+            .classList.remove("hidden");
+
+    }
+);
+
+
+$("avatarInput").addEventListener(
+    "change",
+    event => {
+
+        const file =
+            event.target.files[0];
+
+        if(!file){
+            return;
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload = () => {
+
+            $("profileAvatar").src =
+                reader.result;
+
+            $("profileAvatar").dataset.newAvatar =
+                reader.result;
+
+        };
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+$("saveProfileButton").addEventListener(
+    "click",
+    () => {
+
+        const phone =
+            getCurrentPhone();
+
+        if(!phone){
+            return;
+        }
+
+        const profiles =
+            getProfiles();
+
+        if(!profiles[phone]){
+
+            profiles[phone] = {};
+
+        }
+
+        profiles[phone].name =
+            $("profileNameInput")
+                .value
+                .trim() ||
+            "Player";
+
+        const newAvatar =
+            $("profileAvatar")
+                .dataset
+                .newAvatar;
+
+        if(newAvatar){
+
+            profiles[phone].avatar =
+                newAvatar;
+
+        }
+
+        saveProfiles(profiles);
+
+        updateMenuProfile();
+
+        $("profileModal")
+            .classList.add("hidden");
+
+    }
+);
+
+
+/* =========================================
+   SETTINGS
+========================================= */
+
+$("settingsButton").addEventListener(
+    "click",
+    () => {
+
+        $("settingsModal")
+            .classList.remove("hidden");
+
+    }
+);
+
+
+/* =========================================
+   ABOUT
+========================================= */
+
+$("aboutButton").addEventListener(
+    "click",
+    () => {
+
+        $("aboutModal")
+            .classList.remove("hidden");
+
+    }
+);
+
+
+/* =========================================
+   CLOSE MODALS
+========================================= */
+
+document
+    .querySelectorAll("[data-close]")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const id =
+                    button.dataset.close;
+
+                $(id)
+                    .classList
+                    .add("hidden");
+
+            }
+        );
+
+    });
+
+
+document
+    .querySelectorAll(".modal")
+    .forEach(modal => {
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if(event.target === modal){
+
+                    modal.classList.add(
+                        "hidden"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+$("logoutButton").addEventListener(
+    "click",
+    () => {
+
+        localStorage.removeItem(
+            CURRENT_KEY
+        );
+
+        $("phoneInput").value = "";
+        $("passwordInput").value = "";
+        $("nameInput").value = "";
+
+        setAuthMode("login");
+
+        showScreen("authScreen");
+
+    }
+);
+
+
+/* =========================================
+   SERVICE WORKER
+========================================= */
 
 if("serviceWorker" in navigator){
 
     window.addEventListener(
         "load",
-        ()=>{
+        () => {
 
             navigator.serviceWorker
                 .register("./sw.js")
-                .catch(()=>{});
+                .catch(error => {
+
+                    console.log(
+                        "Service Worker:",
+                        error
+                    );
+
+                });
 
         }
     );
 
 }
-
 </script>
 
 </body>
