@@ -1,4 +1,4 @@
-const CACHE_NAME = "avia-phone-v1";
+const CACHE = "avia-ai-v1";
 
 const FILES = [
     "./",
@@ -9,76 +9,96 @@ const FILES = [
 ];
 
 
-self.addEventListener("install", function(event){
+self.addEventListener(
+    "install",
+    event => {
 
-    event.waitUntil(
+        event.waitUntil(
 
-        caches
-            .open(CACHE_NAME)
-            .then(function(cache){
+            caches
+                .open(CACHE)
+                .then(
+                    cache =>
+                        cache.addAll(FILES)
+                )
 
-                return cache.addAll(FILES);
+        );
 
-            })
+        self.skipWaiting();
 
-    );
-
-    self.skipWaiting();
-
-});
-
-
-self.addEventListener("activate", function(event){
-
-    event.waitUntil(
-
-        caches
-            .keys()
-            .then(function(keys){
-
-                return Promise.all(
-
-                    keys
-                        .filter(function(key){
-
-                            return key !== CACHE_NAME;
-
-                        })
-                        .map(function(key){
-
-                            return caches.delete(key);
-
-                        })
-
-                );
-
-            })
-
-    );
-
-    self.clients.claim();
-
-});
+    }
+);
 
 
-self.addEventListener("fetch", function(event){
+self.addEventListener(
+    "activate",
+    event => {
 
-    event.respondWith(
+        event.waitUntil(
 
-        caches
-            .match(event.request)
-            .then(function(cached){
+            caches
+                .keys()
+                .then(keys =>
 
-                if(cached){
+                    Promise.all(
 
-                    return cached;
+                        keys
+                            .filter(
+                                key =>
+                                    key !== CACHE
+                            )
+                            .map(
+                                key =>
+                                    caches.delete(key)
+                            )
 
-                }
+                    )
 
-                return fetch(event.request);
+                )
 
-            })
+        );
 
-    );
+        self.clients.claim();
 
-});
+    }
+);
+
+
+self.addEventListener(
+    "fetch",
+    event => {
+
+        /*
+         * API никогда не берём
+         * из старого кэша.
+         */
+
+        if(
+            new URL(
+                event.request.url
+            ).pathname.startsWith("/api/")
+        ){
+            return;
+        }
+
+
+        event.respondWith(
+
+            caches
+                .match(event.request)
+                .then(cached => {
+
+                    if(cached){
+                        return cached;
+                    }
+
+                    return fetch(
+                        event.request
+                    );
+
+                })
+
+        );
+
+    }
+);
