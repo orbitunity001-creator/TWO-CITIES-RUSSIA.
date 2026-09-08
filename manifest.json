@@ -1,9 +1,9 @@
 {
   "name": "AVION Messenger",
-  "short_name": "Avion",
-  "description": "AVION Messenger",
-  "id": "./?v=20",
-  "start_url": "./?v=20",
+  "short_name": "AVION",
+  "description": "Современный мессенджер AVION",
+  "id": "./?v=34",
+  "start_url": "./?v=34",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -12,7 +12,7 @@
   "lang": "ru",
   "icons": [
     {
-      "src": "./icon.svg?v=20",
+      "src": "./icon.svg?v=34",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
