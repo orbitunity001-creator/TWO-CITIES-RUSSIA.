@@ -10,19 +10,27 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#11131a">
+<meta name="theme-color" content="#10131d">
 
-<link rel="manifest" href="./manifest.json?v=36">
+<link
+    rel="manifest"
+    href="./manifest.json?v=37"
+>
 
 <link
     rel="icon"
     type="image/svg+xml"
-    href="./icon.svg?v=36"
+    href="./icon.svg?v=37"
 >
 
 <title>AVION Messenger</title>
 
+
 <style>
+
+/* =====================================================
+   BASE
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -31,15 +39,17 @@
 
 html,
 body {
+
     width: 100%;
     height: 100%;
-    margin: 0;
-    overflow: hidden;
-}
 
-body {
-    background: #090b10;
-    color: #fff;
+    margin: 0;
+
+    overflow: hidden;
+
+    background: #080a0f;
+
+    color: #ffffff;
 
     font-family:
         -apple-system,
@@ -48,48 +58,74 @@ body {
         Roboto,
         Arial,
         sans-serif;
+}
+
+body {
 
     overscroll-behavior: none;
+
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 button,
 input {
+
     font: inherit;
 }
 
 button {
-    border: 0;
+
     outline: none;
+    border: 0;
+
     touch-action: manipulation;
 }
 
+input {
+
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
 #app {
+
     position: relative;
+
     width: 100%;
     height: 100%;
+
     overflow: hidden;
 
     background:
         radial-gradient(
             circle at 50% -10%,
-            rgba(90,110,255,.22),
+            rgba(98,116,255,.22),
             transparent 38%
         ),
         linear-gradient(
             180deg,
-            #171923 0%,
-            #0d0f15 48%,
-            #090a0e 100%
+            #171a24 0%,
+            #0c0e14 55%,
+            #08090d 100%
         );
 }
 
 
-/* =========================
+/* =====================================================
    SCREENS
-========================= */
+   НИКАКИХ СДВИГОВ ЭКРАНА
+===================================================== */
 
 .screen {
+
     position: absolute;
+
     inset: 0;
 
     display: none;
@@ -98,33 +134,16 @@ button {
 }
 
 .screen.active {
+
     display: flex;
 
-    animation:
-        screenIn
-        .32s
-        cubic-bezier(.2,.8,.2,1)
-        forwards;
-}
-
-@keyframes screenIn {
-
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+    opacity: 1;
 }
 
 
-/* =========================
+/* =====================================================
    LOADING
-========================= */
+===================================================== */
 
 #loadingScreen {
 
@@ -134,57 +153,110 @@ button {
     flex-direction: column;
 
     background:
+
         radial-gradient(
-            circle at 50% 45%,
-            rgba(91,105,255,.16),
-            transparent 25%
+            circle at 50% 42%,
+            rgba(108,125,255,.28),
+            transparent 19%
         ),
-        #08090d;
+
+        radial-gradient(
+            circle at 50% 42%,
+            rgba(255,255,255,.08),
+            transparent 38%
+        ),
+
+        linear-gradient(
+            180deg,
+            #151823,
+            #08090d
+        );
 }
 
-.loading-glow {
+
+/* Большая статичная подсветка */
+
+.loading-light {
 
     position: absolute;
 
-    width: 320px;
-    height: 320px;
+    width: 330px;
+    height: 330px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(105,120,255,.2),
-            transparent 65%
+            rgba(105,123,255,.23),
+            rgba(105,123,255,.08) 35%,
+            transparent 70%
         );
 
-    filter: blur(15px);
-
-    animation:
-        loadingGlow
-        2.4s
-        ease-in-out
-        infinite;
+    filter: blur(18px);
 }
 
-@keyframes loadingGlow {
 
-    0%,
-    100% {
-        transform: scale(.8);
-        opacity: .35;
-    }
+/* Точка сверху */
 
-    50% {
-        transform: scale(1.15);
-        opacity: .9;
-    }
+.loading-orb {
 
+    position: relative;
+
+    width: 82px;
+    height: 82px;
+
+    margin-bottom: 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 25px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #d8dcff 30%,
+            #6878ff 72%,
+            #404dbb
+        );
+
+    box-shadow:
+
+        0 18px 55px
+        rgba(89,105,255,.42),
+
+        inset 0 1px
+        rgba(255,255,255,.8),
+
+        inset 0 -10px 25px
+        rgba(35,45,120,.35);
 }
+
+.loading-orb span {
+
+    font-size: 40px;
+
+    font-weight: 900;
+
+    color: #11131d;
+
+    text-shadow:
+        0 2px 8px
+        rgba(255,255,255,.4);
+}
+
+
+/* Контент */
 
 .loading-content {
 
     position: relative;
+
     z-index: 2;
 
     text-align: center;
@@ -192,96 +264,105 @@ button {
 
 .loading-title {
 
-    font-size: 31px;
-    font-weight: 850;
+    font-size: 32px;
 
-    letter-spacing: -.8px;
+    line-height: 1;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+    color: #ffffff;
 
     text-shadow:
-        0 0 30px
-        rgba(255,255,255,.2);
+
+        0 0 20px
+        rgba(255,255,255,.15);
 }
 
 .loading-subtitle {
 
-    margin-top: 8px;
+    margin-top: 10px;
 
-    color: #8d93a8;
+    color: #a7acc0;
 
     font-size: 12px;
+
     letter-spacing: 1px;
 }
 
-.loading-bars {
 
-    display: flex;
+/* Индикатор */
 
-    align-items: center;
+.loading-line {
 
-    justify-content: center;
+    width: 145px;
 
-    gap: 5px;
+    height: 4px;
 
-    margin-top: 28px;
+    margin:
+        27px
+        auto
+        0;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.1);
 }
 
-.loading-bars span {
+.loading-line span {
 
-    width: 4px;
-    height: 8px;
+    display: block;
 
-    border-radius: 10px;
+    width: 42px;
+    height: 100%;
 
-    background: #fff;
+    margin-left: 0;
 
-    opacity: .25;
+    border-radius: 20px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #6877ff,
+            #ffffff,
+            #9b65ff
+        );
+
+    box-shadow:
+        0 0 15px
+        rgba(105,120,255,.7);
 
     animation:
-        loadingBars
-        1s
+        loaderLine
+        1.5s
         ease-in-out
         infinite;
 }
 
-.loading-bars span:nth-child(2) {
-    animation-delay: .12s;
-}
+@keyframes loaderLine {
 
-.loading-bars span:nth-child(3) {
-    animation-delay: .24s;
-}
-
-.loading-bars span:nth-child(4) {
-    animation-delay: .36s;
-}
-
-.loading-bars span:nth-child(5) {
-    animation-delay: .48s;
-}
-
-@keyframes loadingBars {
-
-    0%,
-    100% {
-        height: 7px;
-        opacity: .25;
+    0% {
+        transform: translateX(-50px);
     }
 
     50% {
-        height: 23px;
-        opacity: 1;
-
-        box-shadow:
-            0 0 14px
-            rgba(110,130,255,.8);
+        transform: translateX(100px);
     }
 
+    100% {
+        transform: translateX(-50px);
+    }
 }
 
 
-/* =========================
+/* =====================================================
    AUTH
-========================= */
+===================================================== */
 
 .auth-screen {
 
@@ -289,22 +370,24 @@ button {
     justify-content: center;
 
     padding:
-        calc(env(safe-area-inset-top) + 22px)
+        calc(env(safe-area-inset-top) + 20px)
         20px
-        calc(env(safe-area-inset-bottom) + 22px);
+        calc(env(safe-area-inset-bottom) + 20px);
 
     overflow-y: auto;
 
     background:
+
         radial-gradient(
-            circle at 50% 10%,
-            rgba(89,104,255,.18),
-            transparent 40%
+            circle at 50% 0%,
+            rgba(103,119,255,.22),
+            transparent 42%
         ),
+
         linear-gradient(
             180deg,
-            #171a26,
-            #0a0b10
+            #161925,
+            #090a0e
         );
 }
 
@@ -314,155 +397,166 @@ button {
     max-width: 430px;
 
     position: relative;
-    z-index: 3;
+
+    z-index: 5;
 }
+
+
+/* =====================================================
+   LOGO
+===================================================== */
 
 .auth-logo {
 
-    width: 76px;
-    height: 76px;
+    width: 72px;
+    height: 72px;
 
     margin-bottom: 25px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    border-radius: 23px;
+    border-radius: 22px;
 
     background:
+
         linear-gradient(
             145deg,
-            #7079ff,
-            #4b52c8 50%,
-            #252a62
+            #ffffff,
+            #dce0ff 28%,
+            #6676ff 70%,
+            #424db8
         );
 
-    border:
-        1px solid
-        rgba(255,255,255,.22);
-
     box-shadow:
-        0 18px 50px
-        rgba(70,80,255,.3),
+
+        0 16px 45px
+        rgba(91,105,255,.34),
 
         inset 0 1px
-        rgba(255,255,255,.35);
+        rgba(255,255,255,.9);
 }
 
 .auth-logo span {
 
-    font-size: 36px;
+    font-size: 35px;
 
     font-weight: 900;
 
-    color: #fff;
-
-    text-shadow:
-        0 3px 15px
-        rgba(0,0,0,.35);
+    color: #151720;
 }
+
+
+/* =====================================================
+   TEXT
+===================================================== */
 
 .auth-title {
 
     margin: 0;
 
-    font-size: 34px;
+    font-size: 33px;
 
     line-height: 1.08;
 
-    font-weight: 850;
+    font-weight: 900;
 
     letter-spacing: -1px;
 }
 
 .auth-subtitle {
 
-    margin-top: 12px;
+    margin:
+        12px
+        0
+        28px;
 
-    margin-bottom: 28px;
-
-    color: #9da2b4;
+    color: #9da3b6;
 
     font-size: 15px;
 
     line-height: 1.55;
 }
 
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
 .auth-button,
 .auth-secondary {
 
     width: 100%;
 
-    min-height: 58px;
+    height: 59px;
 
     border-radius: 18px;
 
     font-size: 16px;
 
-    transition:
-        transform .14s ease,
-        opacity .14s ease,
-        filter .2s ease;
+    font-weight: 800;
 }
 
 .auth-button {
 
-    color: #fff;
-
-    font-weight: 800;
+    color: #ffffff;
 
     background:
+
         linear-gradient(
             135deg,
-            #6573ff,
-            #8d4dff
+            #6475ff,
+            #8c52ff
         );
 
     box-shadow:
+
         0 12px 35px
-        rgba(91,85,255,.3);
+        rgba(91,78,255,.35);
 }
 
 .auth-secondary {
 
     margin-top: 11px;
 
-    color: #fff;
-
-    font-weight: 700;
+    color: #ffffff;
 
     background:
-        rgba(255,255,255,.065);
+        rgba(255,255,255,.075);
 
     border:
         1px solid
-        rgba(255,255,255,.11);
+        rgba(255,255,255,.12);
 }
 
 .auth-button:active,
 .auth-secondary:active {
 
-    transform: scale(.965);
-
+    transform: scale(.97);
 }
 
-.auth-button:active {
-    opacity: .88;
-}
+
+/* =====================================================
+   BACK
+===================================================== */
 
 .back {
 
     width: 48px;
     height: 48px;
 
-    margin-bottom: 27px;
+    margin-bottom: 26px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     border-radius: 16px;
+
+    color: #ffffff;
 
     background:
         rgba(255,255,255,.08);
@@ -471,10 +565,13 @@ button {
         1px solid
         rgba(255,255,255,.1);
 
-    color: #fff;
-
-    font-size: 30px;
+    font-size: 29px;
 }
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
 
 .field {
 
@@ -491,7 +588,7 @@ button {
         8px
         5px;
 
-    color: #aeb3c5;
+    color: #aeb4c7;
 
     font-size: 13px;
 
@@ -504,7 +601,9 @@ button {
 
     height: 59px;
 
-    padding: 0 18px;
+    padding:
+        0
+        18px;
 
     border-radius: 18px;
 
@@ -517,32 +616,26 @@ button {
     background:
         rgba(255,255,255,.075);
 
-    color: #fff;
+    color: #ffffff;
 
     font-size: 16px;
-
-    -webkit-appearance: none;
-
-    transition:
-        border-color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
 }
 
 .field input::placeholder {
-    color: #6f7485;
+
+    color: #70778b;
 }
 
 .field input:focus {
 
-    border-color: #7180ff;
+    border-color: #7381ff;
 
     background:
-        rgba(255,255,255,.1);
+        rgba(255,255,255,.095);
 
     box-shadow:
         0 0 0 3px
-        rgba(105,118,255,.13);
+        rgba(103,118,255,.12);
 }
 
 .error {
@@ -554,39 +647,38 @@ button {
         5px
         10px;
 
-    color: #ff7588;
+    color: #ff7488;
 
     font-size: 13px;
-
-    line-height: 1.4;
 }
 
 
-/* =========================
+/* =====================================================
    REGISTER STARS
-========================= */
+===================================================== */
 
 #registerScreen {
 
     overflow: hidden;
 
     background:
+
         radial-gradient(
             circle at 50% 0%,
-            rgba(100,110,255,.2),
+            rgba(91,107,255,.25),
             transparent 45%
         ),
+
         #090b11;
 }
 
 .stars {
 
     position: absolute;
+
     inset: 0;
 
     pointer-events: none;
-
-    overflow: hidden;
 
     opacity: .75;
 }
@@ -600,64 +692,41 @@ button {
 
     border-radius: 50%;
 
-    background: #fff;
-
-    opacity: .15;
+    background: #ffffff;
 
     box-shadow:
         0 0 8px
-        rgba(120,140,255,.9);
+        rgba(120,140,255,.8);
+
+    opacity: .2;
 
     animation:
-        starFloat
-        var(--duration)
-        ease-in-out
-        infinite,
         starBlink
-        var(--blink)
+        var(--speed)
         ease-in-out
         infinite;
 }
 
-.stars span:nth-child(1)  {left:6%;top:9%;--duration:10s;--blink:3s}
-.stars span:nth-child(2)  {left:18%;top:21%;--duration:13s;--blink:4s}
-.stars span:nth-child(3)  {left:31%;top:8%;--duration:11s;--blink:3.5s}
-.stars span:nth-child(4)  {left:46%;top:16%;--duration:15s;--blink:4.5s}
-.stars span:nth-child(5)  {left:60%;top:7%;--duration:12s;--blink:3.2s}
-.stars span:nth-child(6)  {left:75%;top:18%;--duration:14s;--blink:4.2s}
-.stars span:nth-child(7)  {left:92%;top:10%;--duration:11s;--blink:3.7s}
-.stars span:nth-child(8)  {left:8%;top:38%;--duration:16s;--blink:5s}
-.stars span:nth-child(9)  {left:24%;top:48%;--duration:12s;--blink:3.8s}
-.stars span:nth-child(10) {left:38%;top:40%;--duration:14s;--blink:4.3s}
-.stars span:nth-child(11) {left:65%;top:44%;--duration:15s;--blink:4.7s}
-.stars span:nth-child(12) {left:82%;top:36%;--duration:13s;--blink:3.5s}
-.stars span:nth-child(13) {left:95%;top:50%;--duration:17s;--blink:5.2s}
-.stars span:nth-child(14) {left:5%;top:66%;--duration:14s;--blink:4.4s}
-.stars span:nth-child(15) {left:17%;top:79%;--duration:11s;--blink:3.6s}
-.stars span:nth-child(16) {left:31%;top:69%;--duration:16s;--blink:4.9s}
-.stars span:nth-child(17) {left:46%;top:85%;--duration:13s;--blink:4s}
-.stars span:nth-child(18) {left:59%;top:65%;--duration:15s;--blink:4.6s}
-.stars span:nth-child(19) {left:73%;top:77%;--duration:12s;--blink:3.4s}
-.stars span:nth-child(20) {left:88%;top:70%;--duration:17s;--blink:5.1s}
-.stars span:nth-child(21) {left:8%;top:91%;--duration:15s;--blink:4.5s}
-.stars span:nth-child(22) {left:35%;top:93%;--duration:12s;--blink:3.8s}
-.stars span:nth-child(23) {left:52%;top:90%;--duration:14s;--blink:4.4s}
-.stars span:nth-child(24) {left:69%;top:95%;--duration:16s;--blink:4.9s}
-.stars span:nth-child(25) {left:84%;top:88%;--duration:13s;--blink:4s}
-.stars span:nth-child(26) {left:97%;top:84%;--duration:15s;--blink:4.4s}
-
-@keyframes starFloat {
-
-    0%,
-    100% {
-        transform: translate3d(0,0,0);
-    }
-
-    50% {
-        transform: translate3d(6px,-8px,0);
-    }
-
-}
+.stars span:nth-child(1){left:6%;top:10%;--speed:3s}
+.stars span:nth-child(2){left:18%;top:22%;--speed:4s}
+.stars span:nth-child(3){left:31%;top:8%;--speed:3.5s}
+.stars span:nth-child(4){left:46%;top:16%;--speed:4.5s}
+.stars span:nth-child(5){left:61%;top:7%;--speed:3.2s}
+.stars span:nth-child(6){left:76%;top:18%;--speed:4.2s}
+.stars span:nth-child(7){left:92%;top:11%;--speed:3.7s}
+.stars span:nth-child(8){left:8%;top:38%;--speed:5s}
+.stars span:nth-child(9){left:24%;top:48%;--speed:3.8s}
+.stars span:nth-child(10){left:38%;top:40%;--speed:4.3s}
+.stars span:nth-child(11){left:65%;top:44%;--speed:4.7s}
+.stars span:nth-child(12){left:82%;top:36%;--speed:3.5s}
+.stars span:nth-child(13){left:95%;top:50%;--speed:5.2s}
+.stars span:nth-child(14){left:5%;top:66%;--speed:4.4s}
+.stars span:nth-child(15){left:17%;top:79%;--speed:3.6s}
+.stars span:nth-child(16){left:31%;top:69%;--speed:4.9s}
+.stars span:nth-child(17){left:46%;top:85%;--speed:4s}
+.stars span:nth-child(18){left:59%;top:65%;--speed:4.6s}
+.stars span:nth-child(19){left:73%;top:77%;--speed:3.4s}
+.stars span:nth-child(20){left:88%;top:70%;--speed:5.1s}
 
 @keyframes starBlink {
 
@@ -669,39 +738,41 @@ button {
     50% {
         opacity: .65;
     }
-
 }
 
 
-/* =========================
+/* =====================================================
    MAIN
-========================= */
+===================================================== */
 
 #mainScreen {
 
     flex-direction: column;
 
     background:
+
         linear-gradient(
             180deg,
-            #151821,
-            #0b0d12
+            #151823,
+            #090b10
         );
 }
 
 
-/* HEADER */
+/* =====================================================
+   HEADER
+===================================================== */
 
 .main-header {
 
     flex-shrink: 0;
 
-    min-height: 75px;
+    min-height: 72px;
 
     padding:
-        calc(env(safe-area-inset-top) + 8px)
+        calc(env(safe-area-inset-top) + 7px)
         15px
-        8px;
+        7px;
 
     display: flex;
 
@@ -710,14 +781,11 @@ button {
     justify-content: space-between;
 
     background:
-        rgba(19,21,29,.94);
+        rgba(18,20,29,.97);
 
     border-bottom:
         1px solid
-        rgba(255,255,255,.07);
-
-    backdrop-filter:
-        blur(20px);
+        rgba(255,255,255,.08);
 }
 
 .brand {
@@ -726,15 +794,15 @@ button {
 
     align-items: center;
 
-    gap: 11px;
+    gap: 10px;
 }
 
 .brand-icon {
 
-    width: 45px;
-    height: 45px;
+    width: 44px;
+    height: 44px;
 
-    border-radius: 14px;
+    border-radius: 13px;
 
     overflow: hidden;
 
@@ -755,7 +823,7 @@ button {
 
     font-size: 21px;
 
-    font-weight: 850;
+    font-weight: 900;
 
     letter-spacing: -.5px;
 }
@@ -764,9 +832,7 @@ button {
 
     display: flex;
 
-    align-items: center;
-
-    gap: 8px;
+    gap: 7px;
 }
 
 .header-button {
@@ -781,43 +847,46 @@ button {
 
     border-radius: 50%;
 
-    color: #fff;
+    color: #ffffff;
 
     background:
         rgba(255,255,255,.075);
 
     border:
         1px solid
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.09);
 
     font-size: 20px;
 }
 
 .header-button:active {
 
-    transform: scale(.9);
-
+    transform: scale(.92);
 }
 
 
-/* SEARCH */
+/* =====================================================
+   SEARCH
+===================================================== */
 
 .search-wrap {
 
+    flex-shrink: 0;
+
     padding:
-        12px
+        10px
         15px
-        8px;
+        9px;
 
     background:
-        rgba(19,21,29,.94);
+        rgba(18,20,29,.97);
 }
 
 .search {
 
-    width: 100%;
-
     height: 47px;
+
+    width: 100%;
 
     display: flex;
 
@@ -827,23 +896,19 @@ button {
 
     padding:
         0
-        15px;
+        14px;
 
     border-radius: 15px;
 
     background:
         rgba(255,255,255,.075);
-
-    border:
-        1px solid
-        rgba(255,255,255,.06);
-
-    color: #9298aa;
 }
 
 .search-icon {
 
-    font-size: 17px;
+    color: #8d94a8;
+
+    font-size: 18px;
 }
 
 .search input {
@@ -855,17 +920,20 @@ button {
 
     background: transparent;
 
-    color: #fff;
+    color: #ffffff;
 
     font-size: 15px;
 }
 
 .search input::placeholder {
-    color: #777d8e;
+
+    color: #747b8e;
 }
 
 
-/* CHAT LIST */
+/* =====================================================
+   CHAT LIST
+===================================================== */
 
 .chat-list {
 
@@ -873,18 +941,19 @@ button {
 
     overflow-y: auto;
 
-    padding-bottom: 12px;
+    padding-bottom: 8px;
 
     scrollbar-width: none;
 }
 
 .chat-list::-webkit-scrollbar {
+
     display: none;
 }
 
 .chat-item {
 
-    min-height: 76px;
+    min-height: 78px;
 
     padding:
         10px
@@ -896,56 +965,50 @@ button {
 
     gap: 12px;
 
-    transition:
-        background .15s ease;
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.035);
 }
 
 .chat-item:active {
 
     background:
-        rgba(255,255,255,.06);
+        rgba(255,255,255,.055);
 }
 
 .chat-avatar {
 
     position: relative;
 
-    width: 55px;
-    height: 55px;
+    width: 56px;
+    height: 56px;
 
     flex-shrink: 0;
-
-    border-radius: 50%;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
+    border-radius: 50%;
+
+    color: #ffffff;
+
     font-size: 19px;
 
-    font-weight: 800;
-
-    color: #fff;
+    font-weight: 850;
 
     background:
+
         linear-gradient(
-            145deg,
-            #6777ff,
-            #9a4eff
+            135deg,
+            #6575ff,
+            #914dff
         );
 
     box-shadow:
         0 7px 20px
-        rgba(60,70,200,.25);
-}
-
-.chat-avatar img {
-
-    width: 100%;
-    height: 100%;
-
-    border-radius: 50%;
+        rgba(72,80,210,.22);
 }
 
 .online-dot {
@@ -955,16 +1018,16 @@ button {
     right: 1px;
     bottom: 2px;
 
-    width: 13px;
-    height: 13px;
+    width: 14px;
+    height: 14px;
 
     border-radius: 50%;
 
-    background: #43df82;
+    background: #40df83;
 
     border:
         2px solid
-        #101219;
+        #11131b;
 }
 
 .chat-info {
@@ -1004,14 +1067,12 @@ button {
 
     flex-shrink: 0;
 
-    color: #777d8f;
+    color: #747b8d;
 
     font-size: 11px;
 }
 
 .chat-bottom {
-
-    margin-top: 5px;
 
     display: flex;
 
@@ -1020,6 +1081,8 @@ button {
     justify-content: space-between;
 
     gap: 10px;
+
+    margin-top: 5px;
 }
 
 .chat-message {
@@ -1032,7 +1095,7 @@ button {
 
     text-overflow: ellipsis;
 
-    color: #858b9e;
+    color: #858c9f;
 
     font-size: 14px;
 }
@@ -1053,92 +1116,25 @@ button {
 
     border-radius: 20px;
 
-    color: #fff;
+    color: #ffffff;
 
     background:
+
         linear-gradient(
             135deg,
-            #6573ff,
-            #8b55ff
+            #6475ff,
+            #9150ff
         );
 
     font-size: 11px;
 
-    font-weight: 800;
+    font-weight: 850;
 }
 
 
-/* EMPTY */
-
-.empty-state {
-
-    height: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 30px;
-
-    text-align: center;
-}
-
-.empty-icon {
-
-    width: 74px;
-    height: 74px;
-
-    margin:
-        0
-        auto
-        18px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 24px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #6373ff,
-            #884eff
-        );
-
-    font-size: 31px;
-
-    box-shadow:
-        0 15px 45px
-        rgba(82,79,255,.28);
-}
-
-.empty-state h2 {
-
-    margin:
-        0
-        0
-        8px;
-
-    font-size: 22px;
-}
-
-.empty-state p {
-
-    margin: 0;
-
-    color: #818798;
-
-    font-size: 14px;
-
-    line-height: 1.5;
-}
-
-
-/* FLOATING NEW CHAT */
+/* =====================================================
+   NEW CHAT
+===================================================== */
 
 .new-chat {
 
@@ -1148,18 +1144,21 @@ button {
 
     bottom:
         calc(
-            78px +
+            76px +
             env(safe-area-inset-bottom)
         );
 
-    width: 58px;
-    height: 58px;
+    width: 59px;
+    height: 59px;
 
-    border-radius: 19px;
+    z-index: 10;
 
-    color: #fff;
+    border-radius: 20px;
+
+    color: #ffffff;
 
     background:
+
         linear-gradient(
             135deg,
             #6575ff,
@@ -1167,22 +1166,22 @@ button {
         );
 
     box-shadow:
-        0 12px 35px
-        rgba(77,70,255,.42);
 
-    font-size: 29px;
+        0 14px 38px
+        rgba(75,70,255,.42);
 
-    z-index: 5;
+    font-size: 30px;
 }
 
 .new-chat:active {
 
-    transform: scale(.9);
-
+    transform: scale(.91);
 }
 
 
-/* BOTTOM NAV */
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
 
 .bottom-nav {
 
@@ -1196,81 +1195,74 @@ button {
 
     padding:
         5px
-        12px
+        10px
         env(safe-area-inset-bottom);
 
     display: grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(3, 1fr);
 
     background:
-        rgba(15,17,23,.97);
+        rgba(14,16,23,.98);
 
     border-top:
         1px solid
-        rgba(255,255,255,.07);
-
-    backdrop-filter:
-        blur(20px);
+        rgba(255,255,255,.08);
 }
 
 .nav-button {
 
     display: flex;
 
-    flex-direction: column;
-
     align-items: center;
     justify-content: center;
 
-    gap: 4px;
+    flex-direction: column;
 
-    color: #72788b;
+    gap: 3px;
+
+    color: #73798c;
 
     background: transparent;
 
     font-size: 11px;
 
-    font-weight: 650;
+    font-weight: 700;
 }
 
 .nav-icon {
 
-    width: 35px;
-    height: 31px;
+    width: 36px;
+    height: 30px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    border-radius: 13px;
+    border-radius: 12px;
 
-    font-size: 20px;
-
-    transition:
-        background .2s ease,
-        color .2s ease;
+    font-size: 19px;
 }
 
 .nav-button.active {
 
-    color: #8491ff;
+    color: #8290ff;
 }
 
 .nav-button.active .nav-icon {
 
-    color: #fff;
+    color: #ffffff;
 
     background:
-        rgba(101,116,255,.2);
+        rgba(105,120,255,.2);
 }
 
 
-/* =========================
-   PROFILE SHEET
-========================= */
+/* =====================================================
+   PROFILE
+===================================================== */
 
 .profile {
 
@@ -1278,7 +1270,7 @@ button {
 
     inset: 0;
 
-    z-index: 30;
+    z-index: 50;
 
     display: none;
 
@@ -1288,10 +1280,11 @@ button {
         rgba(0,0,0,.72);
 
     backdrop-filter:
-        blur(12px);
+        blur(10px);
 }
 
 .profile.open {
+
     display: flex;
 }
 
@@ -1307,41 +1300,23 @@ button {
             env(safe-area-inset-bottom)
         );
 
-    background:
-        linear-gradient(
-            180deg,
-            #1c1f2a,
-            #101218
-        );
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.1);
-
     border-radius:
         28px
         28px
         0
         0;
 
-    animation:
-        sheetUp
-        .3s
-        cubic-bezier(.2,.8,.2,1);
-}
+    background:
 
-@keyframes sheetUp {
+        linear-gradient(
+            180deg,
+            #1d202b,
+            #101218
+        );
 
-    from {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
+    border-top:
+        1px solid
+        rgba(255,255,255,.11);
 }
 
 .profile-head {
@@ -1352,7 +1327,7 @@ button {
 
     gap: 14px;
 
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 .profile-avatar {
@@ -1362,15 +1337,15 @@ button {
 
     flex-shrink: 0;
 
-    border-radius: 22px;
-
     overflow: hidden;
+
+    border-radius: 22px;
 
     background:
         linear-gradient(
-            145deg,
-            #6777ff,
-            #954eff
+            135deg,
+            #6575ff,
+            #914dff
         );
 }
 
@@ -1382,14 +1357,16 @@ button {
 
 .profile-card h2 {
 
-    margin: 0 0 4px;
+    margin:
+        0
+        4px;
 
     font-size: 22px;
 }
 
 .profile-phone {
 
-    color: #858b9c;
+    color: #858c9e;
 
     font-size: 14px;
 }
@@ -1404,10 +1381,10 @@ button {
 
     border-radius: 17px;
 
-    color: #fff;
+    color: #ffffff;
 
     background:
-        rgba(255,255,255,.07);
+        rgba(255,255,255,.075);
 
     border:
         1px solid
@@ -1418,48 +1395,53 @@ button {
 
 .profile-action.logout {
 
-    color: #ff7888;
+    color: #ff7788;
 
     background:
         rgba(255,70,90,.07);
-
-    border-color:
-        rgba(255,70,90,.14);
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* =====================================================
+   SHORT SCREENS
+===================================================== */
 
 @media (max-height: 680px) {
 
     .auth-logo {
 
-        width: 62px;
-        height: 62px;
+        width: 60px;
+        height: 60px;
 
-        margin-bottom: 18px;
+        margin-bottom: 17px;
     }
 
     .auth-title {
-        font-size: 29px;
+
+        font-size: 28px;
     }
 
     .auth-subtitle {
-        margin-bottom: 20px;
+
+        margin-bottom: 19px;
+    }
+
+    .field {
+
+        margin-bottom: 11px;
     }
 
     .field input {
-        height: 53px;
+
+        height: 52px;
     }
 
 }
 
 
-/* =========================
-   REDUCED MOTION
-========================= */
+/* =====================================================
+   NO MOTION MODE
+===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1467,11 +1449,9 @@ button {
     *::before,
     *::after {
 
-        animation-duration: .01ms !important;
+        animation: none !important;
 
-        animation-iteration-count: 1 !important;
-
-        transition-duration: .01ms !important;
+        transition: none !important;
     }
 
 }
@@ -1486,16 +1466,20 @@ button {
 <div id="app">
 
 
-<!-- =========================
+<!-- ===================================================
      LOADING
-========================= -->
+=================================================== -->
 
 <section
     id="loadingScreen"
     class="screen active"
 >
 
-    <div class="loading-glow"></div>
+    <div class="loading-light"></div>
+
+    <div class="loading-orb">
+        <span>A</span>
+    </div>
 
     <div class="loading-content">
 
@@ -1507,14 +1491,8 @@ button {
             Cats Developer Studio
         </div>
 
-        <div class="loading-bars">
-
+        <div class="loading-line">
             <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-
         </div>
 
     </div>
@@ -1522,9 +1500,9 @@ button {
 </section>
 
 
-<!-- =========================
+<!-- ===================================================
      WELCOME
-========================= -->
+=================================================== -->
 
 <section
     id="welcomeScreen"
@@ -1543,7 +1521,7 @@ button {
 
         <div class="auth-subtitle">
             Общайтесь с друзьями и близкими
-            в ярком и удобном мессенджере AVION.
+            в красивом и удобном AVION.
         </div>
 
         <button
@@ -1565,9 +1543,9 @@ button {
 </section>
 
 
-<!-- =========================
+<!-- ===================================================
      LOGIN
-========================= -->
+=================================================== -->
 
 <section
     id="loginScreen"
@@ -1639,9 +1617,9 @@ button {
 </section>
 
 
-<!-- =========================
+<!-- ===================================================
      REGISTER
-========================= -->
+=================================================== -->
 
 <section
     id="registerScreen"
@@ -1653,14 +1631,6 @@ button {
         aria-hidden="true"
     >
 
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
         <span></span>
         <span></span>
         <span></span>
@@ -1698,7 +1668,8 @@ button {
         </h1>
 
         <div class="auth-subtitle">
-            Создайте профиль и начинайте общаться.
+            Создайте профиль и начинайте
+            общаться в AVION.
         </div>
 
         <div class="field">
@@ -1764,15 +1735,14 @@ button {
 </section>
 
 
-<!-- =========================
+<!-- ===================================================
      MAIN
-========================= -->
+=================================================== -->
 
 <section
     id="mainScreen"
     class="screen"
 >
-
 
     <header class="main-header">
 
@@ -1781,7 +1751,7 @@ button {
             <div class="brand-icon">
 
                 <img
-                    src="./icon.svg?v=36"
+                    src="./icon.svg?v=37"
                     alt="AVION"
                 >
 
@@ -1792,7 +1762,6 @@ button {
             </div>
 
         </div>
-
 
         <div class="header-actions">
 
@@ -1841,16 +1810,14 @@ button {
         class="chat-list"
     >
 
-        <!--
-        Примеры интерфейса.
-        Потом сюда подключим реальные чаты.
-        -->
-
         <div class="chat-item">
 
             <div class="chat-avatar">
+
                 A
+
                 <span class="online-dot"></span>
+
             </div>
 
             <div class="chat-info">
@@ -1891,9 +1858,9 @@ button {
                 style="
                     background:
                     linear-gradient(
-                        145deg,
-                        #ff6a9b,
-                        #8c5cff
+                        135deg,
+                        #ff679d,
+                        #854fff
                     );
                 "
             >
@@ -1934,9 +1901,9 @@ button {
                 style="
                     background:
                     linear-gradient(
-                        145deg,
-                        #24c6dc,
-                        #514aff
+                        135deg,
+                        #22c6dc,
+                        #5153ff
                     );
                 "
             >
@@ -1960,7 +1927,7 @@ button {
                 <div class="chat-bottom">
 
                     <div class="chat-message">
-                        Здесь появятся ваши сообщения
+                        Здесь появятся сообщения
                     </div>
 
                 </div>
@@ -1996,7 +1963,6 @@ button {
 
         </button>
 
-
         <button
             class="nav-button"
             data-tab="contacts"
@@ -2009,7 +1975,6 @@ button {
             Контакты
 
         </button>
-
 
         <button
             class="nav-button"
@@ -2029,9 +1994,9 @@ button {
 </section>
 
 
-<!-- =========================
+<!-- ===================================================
      PROFILE
-========================= -->
+=================================================== -->
 
 <div
     id="profile"
@@ -2045,7 +2010,7 @@ button {
             <div class="profile-avatar">
 
                 <img
-                    src="./icon.svg?v=36"
+                    src="./icon.svg?v=37"
                     alt="AVION"
                 >
 
@@ -2068,14 +2033,12 @@ button {
 
         </div>
 
-
         <button
             id="profileSettings"
             class="profile-action"
         >
             ⚙ Настройки профиля
         </button>
-
 
         <button
             id="logoutButton"
@@ -2097,20 +2060,20 @@ button {
 "use strict";
 
 
-/* =========================
+/* =====================================================
    STORAGE
-========================= */
+===================================================== */
 
 const USERS_KEY =
-    "avion_users_v36";
+    "avion_users_v37";
 
 const CURRENT_KEY =
-    "avion_current_v36";
+    "avion_current_v37";
 
 
-/* =========================
+/* =====================================================
    HELPERS
-========================= */
+===================================================== */
 
 function $(id) {
 
@@ -2119,7 +2082,7 @@ function $(id) {
 }
 
 
-function users() {
+function getUsers() {
 
     try {
 
@@ -2148,7 +2111,7 @@ function saveUsers(list) {
 }
 
 
-function phoneNumber(value) {
+function normalizePhone(value) {
 
     return value.replace(
         /\D/g,
@@ -2162,9 +2125,9 @@ function showScreen(id) {
 
     document
         .querySelectorAll(".screen")
-        .forEach(item => {
+        .forEach(screen => {
 
-            item.classList.remove(
+            screen.classList.remove(
                 "active"
             );
 
@@ -2177,31 +2140,30 @@ function showScreen(id) {
 }
 
 
-function setError(id, text) {
+function showError(id, text) {
 
     $(id).textContent = text;
 
 }
 
 
-/* =========================
-   LOADING
-========================= */
+/* =====================================================
+   LOADING — 3 СЕКУНДЫ
+===================================================== */
 
-setTimeout(() => {
+setTimeout(
+    checkAccount,
+    3000
+);
 
-    checkAccount();
 
-}, 3000);
-
-
-/* =========================
+/* =====================================================
    WELCOME
-========================= */
+===================================================== */
 
 $("loginStart").onclick = () => {
 
-    setError(
+    showError(
         "loginError",
         ""
     );
@@ -2215,7 +2177,7 @@ $("loginStart").onclick = () => {
 
 $("registerStart").onclick = () => {
 
-    setError(
+    showError(
         "registerError",
         ""
     );
@@ -2227,9 +2189,9 @@ $("registerStart").onclick = () => {
 };
 
 
-/* =========================
+/* =====================================================
    BACK
-========================= */
+===================================================== */
 
 document
     .querySelectorAll("[data-back]")
@@ -2246,9 +2208,9 @@ document
     });
 
 
-/* =========================
+/* =====================================================
    REGISTER
-========================= */
+===================================================== */
 
 $("registerButton").onclick = () => {
 
@@ -2258,7 +2220,7 @@ $("registerButton").onclick = () => {
             .trim();
 
     const phone =
-        phoneNumber(
+        normalizePhone(
             $("registerPhone").value
         );
 
@@ -2267,7 +2229,7 @@ $("registerButton").onclick = () => {
             .value;
 
 
-    setError(
+    showError(
         "registerError",
         ""
     );
@@ -2275,7 +2237,7 @@ $("registerButton").onclick = () => {
 
     if (!name) {
 
-        setError(
+        showError(
             "registerError",
             "Введите имя."
         );
@@ -2287,7 +2249,7 @@ $("registerButton").onclick = () => {
 
     if (phone.length < 10) {
 
-        setError(
+        showError(
             "registerError",
             "Введите корректный номер телефона."
         );
@@ -2299,7 +2261,7 @@ $("registerButton").onclick = () => {
 
     if (password.length < 4) {
 
-        setError(
+        showError(
             "registerError",
             "Пароль должен содержать минимум 4 символа."
         );
@@ -2310,7 +2272,7 @@ $("registerButton").onclick = () => {
 
 
     const list =
-        users();
+        getUsers();
 
 
     if (
@@ -2320,7 +2282,7 @@ $("registerButton").onclick = () => {
         )
     ) {
 
-        setError(
+        showError(
             "registerError",
             "Этот номер уже зарегистрирован."
         );
@@ -2330,7 +2292,7 @@ $("registerButton").onclick = () => {
     }
 
 
-    const newUser = {
+    const user = {
 
         id:
             Date.now(),
@@ -2347,39 +2309,30 @@ $("registerButton").onclick = () => {
     };
 
 
-    list.push(
-        newUser
-    );
+    list.push(user);
 
-
-    saveUsers(
-        list
-    );
+    saveUsers(list);
 
 
     localStorage.setItem(
         CURRENT_KEY,
-        String(
-            newUser.id
-        )
+        String(user.id)
     );
 
 
-    openMain(
-        newUser
-    );
+    openMain(user);
 
 };
 
 
-/* =========================
+/* =====================================================
    LOGIN
-========================= */
+===================================================== */
 
 $("loginButton").onclick = () => {
 
     const phone =
-        phoneNumber(
+        normalizePhone(
             $("loginPhone").value
         );
 
@@ -2388,14 +2341,14 @@ $("loginButton").onclick = () => {
             .value;
 
 
-    setError(
+    showError(
         "loginError",
         ""
     );
 
 
     const user =
-        users().find(
+        getUsers().find(
             item =>
                 item.phone === phone
         );
@@ -2403,7 +2356,7 @@ $("loginButton").onclick = () => {
 
     if (!user) {
 
-        setError(
+        showError(
             "loginError",
             "Номер не зарегистрирован."
         );
@@ -2417,7 +2370,7 @@ $("loginButton").onclick = () => {
         user.password !== password
     ) {
 
-        setError(
+        showError(
             "loginError",
             "Неверный пароль."
         );
@@ -2429,22 +2382,18 @@ $("loginButton").onclick = () => {
 
     localStorage.setItem(
         CURRENT_KEY,
-        String(
-            user.id
-        )
+        String(user.id)
     );
 
 
-    openMain(
-        user
-    );
+    openMain(user);
 
 };
 
 
-/* =========================
+/* =====================================================
    MAIN
-========================= */
+===================================================== */
 
 function openMain(user) {
 
@@ -2474,9 +2423,9 @@ function openMain(user) {
 }
 
 
-/* =========================
-   ACCOUNT CHECK
-========================= */
+/* =====================================================
+   CHECK ACCOUNT
+===================================================== */
 
 function checkAccount() {
 
@@ -2498,7 +2447,7 @@ function checkAccount() {
 
 
     const user =
-        users().find(
+        getUsers().find(
             item =>
                 String(item.id) ===
                 String(current)
@@ -2520,16 +2469,14 @@ function checkAccount() {
     }
 
 
-    openMain(
-        user
-    );
+    openMain(user);
 
 }
 
 
-/* =========================
+/* =====================================================
    PHONE FORMAT
-========================= */
+===================================================== */
 
 function formatPhone(phone) {
 
@@ -2558,9 +2505,9 @@ function formatPhone(phone) {
 }
 
 
-/* =========================
+/* =====================================================
    PROFILE
-========================= */
+===================================================== */
 
 $("profileButton").onclick = () => {
 
@@ -2587,9 +2534,9 @@ $("profile").onclick = event => {
 };
 
 
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
 $("logoutButton").onclick = () => {
 
@@ -2608,9 +2555,9 @@ $("logoutButton").onclick = () => {
 };
 
 
-/* =========================
+/* =====================================================
    BOTTOM NAV
-========================= */
+===================================================== */
 
 document
     .querySelectorAll(".nav-button")
@@ -2634,27 +2581,10 @@ document
             );
 
 
-            const tab =
-                button.dataset.tab;
-
-
-            if (tab === "chats") {
-
-                $("chatList").style.display =
-                    "block";
-
-            }
-
-
-            if (tab === "contacts") {
-
-                $("chatList").style.display =
-                    "block";
-
-            }
-
-
-            if (tab === "settings") {
+            if (
+                button.dataset.tab ===
+                "settings"
+            ) {
 
                 $("profile")
                     .classList
@@ -2667,9 +2597,9 @@ document
     });
 
 
-/* =========================
+/* =====================================================
    SEARCH
-========================= */
+===================================================== */
 
 $("chatSearch").oninput = () => {
 
@@ -2709,22 +2639,9 @@ $("chatSearch").oninput = () => {
 };
 
 
-/* =========================
-   NEW CHAT
-========================= */
-
-$("newChatButton").onclick = () => {
-
-    alert(
-        "Новый чат появится после подключения реального сервера."
-    );
-
-};
-
-
-/* =========================
+/* =====================================================
    SEARCH BUTTON
-========================= */
+===================================================== */
 
 $("searchButton").onclick = () => {
 
@@ -2733,9 +2650,22 @@ $("searchButton").onclick = () => {
 };
 
 
-/* =========================
+/* =====================================================
+   NEW CHAT
+===================================================== */
+
+$("newChatButton").onclick = () => {
+
+    alert(
+        "Создание реального чата подключим после добавления сервера."
+    );
+
+};
+
+
+/* =====================================================
    SERVICE WORKER
-========================= */
+===================================================== */
 
 if (
     "serviceWorker" in navigator
@@ -2747,7 +2677,7 @@ if (
 
             navigator.serviceWorker
                 .register(
-                    "./sw.js?v=36"
+                    "./sw.js?v=37"
                 )
                 .catch(
                     () => {}
@@ -2760,5 +2690,5 @@ if (
 
 </script>
 
-</body> 
+</body>
 </html>
