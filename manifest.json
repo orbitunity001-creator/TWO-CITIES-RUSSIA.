@@ -1,20 +1,46 @@
 {
   "name": "AVIA",
   "short_name": "AVIA",
-  "description": "AVIA AI Assistant",
-  "start_url": "./",
+
+  "description": "AVIA — AI Assistant",
+
+  "id": "./avia-app-v2",
+
+  "start_url": "./index.html",
+
   "scope": "./",
+
   "display": "standalone",
+
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+
   "orientation": "portrait",
+
   "background_color": "#050914",
+
   "theme_color": "#07111f",
+
   "lang": "ru",
+
+  "dir": "ltr",
+
+  "prefer_related_applications": false,
+
   "icons": [
     {
       "src": "./icon.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
