@@ -1,2676 +1,4518 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>TWO CITIES: RUSSIA</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
 
-<meta name="theme-color" content="#ff2045">
-<meta name="description" content="TWO CITIES: RUSSIA — городская sandbox-игра от Cats Developer Studio">
+<meta name="theme-color" content="#080808">
 
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./icon.svg">
+<link rel="manifest" href="./manifest.json?v=31">
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="./icon.svg?v=31"
+>
+
+<title>AVION Messenger</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#030405;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: #050505;
+    color: #fff;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+body {
+    overflow: hidden;
 }
 
 button,
-input{
-    font:inherit;
+input {
+    font: inherit;
 }
 
-button{
-    cursor:pointer;
-}
 
-.screen{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-}
+/* =================================
+   APP
+================================= */
 
-.hidden{
-    display:none!important;
-}
+#app {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
 
-/* =========================
-   ORIENTATION
-========================= */
-
-.rotate-screen{
-    position:fixed;
-    inset:0;
-    z-index:99999;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    background:#030405;
-    text-align:center;
-    padding:30px;
-}
-
-.rotate-box{
-    max-width:420px;
-}
-
-.rotate-icon{
-    font-size:70px;
-    margin-bottom:20px;
-}
-
-.rotate-title{
-    font-size:26px;
-    font-weight:900;
-    margin-bottom:10px;
-}
-
-.rotate-text{
-    color:#9299a8;
-    line-height:1.5;
-}
-
-/* =========================
-   COVER
-========================= */
-
-.cover{
-    position:absolute;
-    inset:0;
-    overflow:hidden;
     background:
-        linear-gradient(
-            180deg,
-            #20bdf0 0%,
-            #5995ef 32%,
-            #9b86bd 58%,
-            #bd664e 100%
+        radial-gradient(
+            circle at 50% 20%,
+            #252525 0%,
+            #111 35%,
+            #050505 75%,
+            #000 100%
         );
 }
 
-/* небо */
 
-.sky-light{
-    position:absolute;
-    width:650px;
-    height:650px;
-    left:-190px;
-    top:-280px;
-    border-radius:50%;
-    background:#fff;
-    opacity:.22;
-    filter:blur(90px);
+/* =================================
+   SCREENS
+================================= */
+
+.screen {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+
+    animation: screenIn .25s ease;
 }
 
-/* город */
-
-.city{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:34%;
-    height:43%;
-    display:flex;
-    align-items:flex-end;
-    gap:1.2%;
-    filter:blur(3px);
+.screen.active {
+    display: flex;
 }
 
-.building{
-    position:relative;
+@keyframes screenIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =================================
+   LOADING
+================================= */
+
+#loadingScreen {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding:
+        env(safe-area-inset-top)
+        25px
+        env(safe-area-inset-bottom);
+}
+
+
+/* Иконка */
+
+.loading-icon {
+
+    width: 108px;
+    height: 108px;
+
+    border-radius: 29px;
+
+    overflow: hidden;
+
+    margin-bottom: 24px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.8),
+        0 0 0 1px rgba(255,255,255,.08);
+
+    animation: iconAppear .7s ease;
+}
+
+.loading-icon img {
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+}
+
+@keyframes iconAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* Название */
+
+.loading-title {
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    letter-spacing: -.6px;
+
+    margin-bottom: 8px;
+}
+
+
+/* Разработчик */
+
+.loading-developer {
+
+    font-size: 12px;
+
+    color: #777;
+
+    letter-spacing: .4px;
+
+}
+
+
+/* =================================
+   AUTH
+================================= */
+
+.auth-screen {
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding:
+        env(safe-area-inset-top)
+        22px
+        env(safe-area-inset-bottom);
+}
+
+.auth-container {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    margin: auto;
+}
+
+.auth-title {
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+
+    color: #858585;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    margin-bottom: 28px;
+}
+
+
+.auth-button {
+
+    width: 100%;
+
+    height: 54px;
+
+    border: 0;
+
+    border-radius: 16px;
+
+    background: #fff;
+
+    color: #080808;
+
+    font-size: 16px;
+
+    font-weight: 750;
+
+    cursor: pointer;
+}
+
+.auth-button:active {
+
+    transform: scale(.98);
+
+}
+
+
+.auth-secondary {
+
+    width: 100%;
+
+    height: 54px;
+
+    margin-top: 11px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 16px;
+
+    background: #151515;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: 650;
+
+}
+
+
+/* =================================
+   FORM
+================================= */
+
+.back {
+
+    width: 43px;
+    height: 43px;
+
+    margin-bottom: 25px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    background: #181818;
+
+    color: white;
+
+    font-size: 27px;
+}
+
+.field {
+
+    margin-bottom: 15px;
+}
+
+.field label {
+
+    display: block;
+
+    margin:
+        0
+        0
+        7px
+        5px;
+
+    color: #8c8c8c;
+
+    font-size: 13px;
+}
+
+.field input {
+
+    width: 100%;
+
+    height: 54px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 16px;
+
+    background: #151515;
+
+    color: white;
+
+    outline: none;
+
+    padding: 0 17px;
+
+    font-size: 16px;
+}
+
+.field input:focus {
+
+    border-color: #666;
+
+    background: #191919;
+}
+
+.error {
+
+    min-height: 20px;
+
+    margin:
+        0
+        4px
+        10px;
+
+    color: #ff6565;
+
+    font-size: 13px;
+}
+
+
+/* =================================
+   MAIN
+================================= */
+
+#mainScreen {
+
+    flex-direction: column;
+
+    padding: 0;
+}
+
+.main-header {
+
+    height: 74px;
+
+    padding:
+        calc(env(safe-area-inset-top) + 10px)
+        17px
+        10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
     background:
-        linear-gradient(
-            180deg,
-            #667487,
-            #26303e
-        );
-    box-shadow:inset 0 0 45px #171e29;
+        rgba(8,8,8,.9);
+
+    border-bottom:
+        1px solid #1c1c1c;
+
+    backdrop-filter: blur(18px);
 }
 
-.building:nth-child(1){
-    width:13%;
-    height:68%;
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
 }
 
-.building:nth-child(2){
-    width:17%;
-    height:91%;
+.brand-icon {
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 12px;
+
+    overflow: hidden;
 }
 
-.building:nth-child(3){
-    width:10%;
-    height:60%;
+.brand-icon img {
+
+    width: 100%;
+    height: 100%;
 }
 
-.building:nth-child(4){
-    width:19%;
-    height:100%;
+.brand-name {
+
+    font-size: 20px;
+
+    font-weight: 800;
 }
 
-.building:nth-child(5){
-    width:13%;
-    height:73%;
-}
+.profile-button {
 
-.building:nth-child(6){
-    width:20%;
-    height:87%;
-}
+    width: 43px;
+    height: 43px;
 
-.building:nth-child(7){
-    width:12%;
-    height:64%;
-}
+    border: 0;
 
-.windows{
-    position:absolute;
-    inset:10%;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0 17px,
-            rgba(198,236,255,.55) 18px 25px,
-            transparent 26px 43px
-        ),
-        repeating-linear-gradient(
-            0deg,
-            transparent 0 22px,
-            rgba(198,236,255,.4) 23px 29px,
-            transparent 30px 51px
-        );
-}
+    border-radius: 50%;
 
-/* дорога */
-
-.road{
-    position:absolute;
-    left:-10%;
-    right:-10%;
-    bottom:-10%;
-    height:49%;
-    background:
-        linear-gradient(
-            175deg,
-            #5e6672,
-            #292d34 55%,
-            #0b0d11
-        );
-    transform:skewY(-3deg);
-}
-
-.road-line{
-    position:absolute;
-    width:120%;
-    height:12px;
-    left:-10%;
-    top:49%;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #fff 0 100px,
-            transparent 100px 170px
-        );
-    opacity:.55;
-}
-
-/* свет */
-
-.light{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(45px);
-    pointer-events:none;
-}
-
-.blue-light{
-    width:450px;
-    height:250px;
-    left:0;
-    bottom:29%;
-    background:#007cff;
-    opacity:.62;
-}
-
-.red-light{
-    width:420px;
-    height:240px;
-    left:24%;
-    bottom:30%;
-    background:#ff174b;
-    opacity:.58;
-}
-
-/* =========================
-   POLICE CAR
-========================= */
-
-.police-car{
-    position:absolute;
-    width:49vw;
-    max-width:650px;
-    min-width:390px;
-    height:310px;
-    left:1%;
-    bottom:24%;
-    transform:rotate(-2deg);
-    z-index:5;
-}
-
-.car-shadow{
-    position:absolute;
-    width:90%;
-    height:65px;
-    left:5%;
-    bottom:0;
-    border-radius:50%;
-    background:#000;
-    opacity:.38;
-    filter:blur(18px);
-}
-
-.car-body{
-    position:absolute;
-    width:100%;
-    height:145px;
-    bottom:20px;
-    left:0;
     background:
         linear-gradient(
             145deg,
             #fff,
-            #dce3ea 55%,
-            #aab4bf
+            #999
         );
-    border:7px solid #202731;
-    border-radius:45px 65px 30px 35px;
-    box-shadow:0 30px 35px rgba(0,0,0,.35);
+
+    color: #111;
+
+    font-weight: 800;
 }
 
-.car-roof{
-    position:absolute;
-    width:48%;
-    height:100px;
-    left:25%;
-    top:35px;
-    background:#dce4ec;
-    border:7px solid #202731;
-    border-bottom:0;
-    border-radius:70px 70px 0 0;
+
+/* =================================
+   EMPTY CHATS
+================================= */
+
+.empty {
+
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
 }
 
-.window1,
-.window2{
-    position:absolute;
-    top:47px;
-    height:65px;
-    background:
-        linear-gradient(
-            135deg,
-            #344a61,
-            #111b27
-        );
-    border:4px solid #202731;
-}
+.empty-icon {
 
-.window1{
-    left:28%;
-    width:21%;
-    transform:skewX(-13deg);
-}
+    width: 82px;
+    height: 82px;
 
-.window2{
-    left:50%;
-    width:20%;
-    transform:skewX(13deg);
-}
+    margin: 0 auto 22px;
 
-.blue-stripe{
-    position:absolute;
-    width:100%;
-    height:28px;
-    bottom:75px;
-    left:0;
-    background:#087dff;
-}
+    border-radius: 24px;
 
-.red-stripe{
-    position:absolute;
-    width:100%;
-    height:23px;
-    bottom:52px;
-    left:0;
-    background:#e5163c;
-}
+    overflow: hidden;
 
-.siren{
-    position:absolute;
-    width:130px;
-    height:34px;
-    left:39%;
-    top:12px;
-    border:5px solid #1a2028;
-    border-radius:10px;
-    background:
-        linear-gradient(
-            90deg,
-            #087dff 0 48%,
-            #ff174b 52% 100%
-        );
     box-shadow:
-        0 0 35px #168cff,
-        0 0 45px #ff174b;
-    animation:siren 1s infinite alternate;
+        0 20px 50px rgba(0,0,0,.6);
 }
 
-@keyframes siren{
-    from{
-        filter:brightness(.85);
-    }
-    to{
-        filter:brightness(1.7);
-    }
+.empty-icon img {
+
+    width: 100%;
+    height: 100%;
 }
 
-.headlight{
-    position:absolute;
-    width:55px;
-    height:30px;
-    border-radius:20px;
-    background:#fff;
-    box-shadow:0 0 35px #fff;
+.empty h2 {
+
+    margin: 0 0 9px;
+
+    font-size: 23px;
 }
 
-.headlight.left{
-    left:13px;
-    bottom:95px;
+.empty p {
+
+    margin: 0;
+
+    color: #777;
+
+    font-size: 15px;
+
+    line-height: 1.55;
+
 }
 
-.headlight.right{
-    right:17px;
-    bottom:92px;
-}
 
-.wheel{
-    position:absolute;
-    width:90px;
-    height:90px;
-    bottom:-5px;
-    border-radius:50%;
-    background:#090b0f;
-    border:10px solid #151922;
-    box-shadow:inset 0 0 0 12px #515a66;
-}
+/* =================================
+   PROFILE
+================================= */
 
-.wheel.left{
-    left:16%;
-}
+.profile {
 
-.wheel.right{
-    right:16%;
-}
+    position: absolute;
 
-/* =========================
-   CHARACTER
-========================= */
+    inset: 0;
 
-.character{
-    position:absolute;
-    right:1%;
-    bottom:3%;
-    width:43vw;
-    max-width:560px;
-    min-width:370px;
-    height:760px;
-    z-index:10;
-    transform:rotate(2deg);
-}
+    z-index: 10;
 
-.head{
-    position:absolute;
-    width:205px;
-    height:205px;
-    right:26%;
-    top:25px;
-    border-radius:35% 35% 43% 43%;
+    display: none;
+
+    align-items: flex-end;
+
     background:
-        linear-gradient(
-            145deg,
-            #e4a073,
-            #b96d4d
-        );
-    border:8px solid #101319;
-    box-shadow:25px 20px 35px rgba(0,0,0,.3);
-}
-
-.hair{
-    position:absolute;
-    width:220px;
-    height:90px;
-    right:-8px;
-    top:-30px;
-    background:#101218;
-    border-radius:70% 70% 35% 30%;
-    transform:rotate(-5deg);
-}
-
-.hair:before,
-.hair:after{
-    content:"";
-    position:absolute;
-    background:#171a21;
-    width:80px;
-    height:100px;
-    top:10px;
-    border-radius:80% 20% 0 0;
-}
-
-.hair:before{
-    left:20px;
-    transform:rotate(-25deg);
-}
-
-.hair:after{
-    right:25px;
-    transform:rotate(25deg);
-}
-
-.eye{
-    position:absolute;
-    top:88px;
-    width:34px;
-    height:13px;
-    border-radius:10px;
-    background:#111;
-}
-
-.eye.left{
-    left:42px;
-    transform:rotate(-13deg);
-}
-
-.eye.right{
-    right:42px;
-    transform:rotate(13deg);
-}
-
-.mask{
-    position:absolute;
-    left:-10px;
-    right:-10px;
-    bottom:15px;
-    height:92px;
-    background:
-        linear-gradient(
-            135deg,
-            #6531e5,
-            #a400a7
-        );
-    border-radius:35px 35px 55px 55px;
-    border:6px solid #11131a;
-}
-
-.neck{
-    position:absolute;
-    width:70px;
-    height:75px;
-    right:38%;
-    top:200px;
-    background:#bd704d;
-    border:7px solid #111319;
-}
-
-.body{
-    position:absolute;
-    width:290px;
-    height:330px;
-    right:17%;
-    top:245px;
-    background:
-        linear-gradient(
-            145deg,
-            #272c36,
-            #090b10
-        );
-    border:10px solid #0b0d11;
-    border-radius:65px 65px 35px 35px;
-    box-shadow:25px 35px 45px rgba(0,0,0,.4);
-}
-
-.body:after{
-    content:"";
-    position:absolute;
-    width:85px;
-    height:270px;
-    right:40px;
-    top:25px;
-    background:#b70d2d;
-    border-radius:20px;
-    opacity:.85;
-}
-
-.arm-left{
-    position:absolute;
-    width:110px;
-    height:280px;
-    right:58%;
-    top:275px;
-    background:#1d222c;
-    border:10px solid #0b0d11;
-    border-radius:60px;
-    transform:rotate(25deg);
-}
-
-.arm-right{
-    position:absolute;
-    width:110px;
-    height:290px;
-    right:5%;
-    top:270px;
-    background:#1d222c;
-    border:10px solid #0b0d11;
-    border-radius:60px;
-    transform:rotate(-25deg);
-}
-
-.leg{
-    position:absolute;
-    width:120px;
-    height:320px;
-    background:#11151c;
-    border:10px solid #080a0e;
-    border-radius:40px;
-    top:535px;
-}
-
-.leg.left{
-    right:49%;
-    transform:rotate(8deg);
-}
-
-.leg.right{
-    right:16%;
-    transform:rotate(-10deg);
-}
-
-.shoe{
-    position:absolute;
-    width:150px;
-    height:70px;
-    background:#080a0d;
-    border-radius:30px;
-    bottom:10px;
-}
-
-.shoe.left{
-    right:48%;
-}
-
-.shoe.right{
-    right:5%;
-}
-
-/* =========================
-   TITLE
-========================= */
-
-.game-title{
-    position:absolute;
-    z-index:30;
-    top:30px;
-    left:50%;
-    transform:translateX(-50%);
-    text-align:center;
-    color:#fff;
-    text-shadow:0 5px 18px rgba(0,0,0,.75);
-    white-space:nowrap;
-}
-
-.game-title h1{
-    margin:0;
-    font-size:clamp(36px,6vw,78px);
-    font-weight:1000;
-    letter-spacing:8px;
-}
-
-.game-title h2{
-    margin:3px 0 0;
-    color:#ff244b;
-    font-size:clamp(24px,3.5vw,48px);
-    letter-spacing:14px;
-    font-weight:1000;
-}
-
-.game-title p{
-    margin:8px 0 0;
-    font-size:13px;
-    letter-spacing:6px;
-    font-weight:bold;
-}
-
-/* =========================
-   LOADING
-========================= */
-
-.loading-screen{
-    position:absolute;
-    inset:0;
-    z-index:1000;
-    background:#030405;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:opacity .5s ease;
-}
-
-.loading-content{
-    width:min(650px,90%);
-    text-align:center;
-}
-
-.loading-logo{
-    font-size:clamp(36px,7vw,70px);
-    font-weight:1000;
-    letter-spacing:8px;
-}
-
-.loading-logo span{
-    color:#ff2045;
-}
-
-.loading-company{
-    margin-top:10px;
-    color:#737a88;
-    letter-spacing:4px;
-    font-size:12px;
-}
-
-.loading-bar{
-    width:100%;
-    height:7px;
-    margin-top:45px;
-    background:#181b21;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.loading-progress{
-    width:0%;
-    height:100%;
-    background:
-        linear-gradient(
-            90deg,
-            #ff2045,
-            #ff5270,
-            #2a8cff
-        );
-    box-shadow:
-        0 0 25px #ff2045;
-    transition:width .08s linear;
-}
-
-.loading-percent{
-    margin-top:13px;
-    font-size:13px;
-    color:#858c99;
-    letter-spacing:3px;
-}
-
-.loading-status{
-    margin-top:12px;
-    min-height:20px;
-    color:#c7ccd5;
-    font-size:13px;
-}
-
-/* =========================
-   AUTH
-========================= */
-
-.auth-screen{
-    position:absolute;
-    inset:0;
-    z-index:500;
-    background:
-        radial-gradient(
-            circle at 50% 30%,
-            #1a1d25,
-            #030405 65%
-        );
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.auth-card{
-    width:min(450px,100%);
-    padding:32px;
-    border:1px solid #282c35;
-    border-radius:24px;
-    background:rgba(10,11,14,.92);
-    box-shadow:
-        0 30px 90px rgba(0,0,0,.65),
-        0 0 45px rgba(255,32,69,.06);
-}
-
-.auth-title{
-    text-align:center;
-    font-size:30px;
-    font-weight:1000;
-    letter-spacing:3px;
-}
-
-.auth-title span{
-    color:#ff2045;
-}
-
-.auth-subtitle{
-    text-align:center;
-    margin:8px 0 25px;
-    color:#777f8d;
-    font-size:13px;
-}
-
-.auth-tabs{
-    display:flex;
-    gap:8px;
-    margin-bottom:20px;
-}
+        rgba(0,0,0,.72);
 
-.auth-tab{
-    flex:1;
-    padding:12px;
-    border:1px solid #292d36;
-    background:#101217;
-    color:#777f8d;
-    border-radius:12px;
+    backdrop-filter: blur(12px);
 }
 
-.auth-tab.active{
-    color:#fff;
-    border-color:#ff2045;
-    background:#1a0b10;
+.profile.open {
+    display: flex;
 }
 
-.input{
-    width:100%;
-    height:50px;
-    margin-top:10px;
-    padding:0 16px;
-    border:1px solid #292d36;
-    border-radius:12px;
-    outline:none;
-    background:#0c0e12;
-    color:#fff;
-}
-
-.input:focus{
-    border-color:#ff2045;
-}
+.profile-card {
 
-.primary-button{
-    width:100%;
-    height:52px;
-    margin-top:18px;
-    border:0;
-    border-radius:13px;
-    background:
-        linear-gradient(
-            90deg,
-            #ff1744,
-            #c9002b
-        );
-    color:#fff;
-    font-weight:900;
-    letter-spacing:1px;
-    box-shadow:0 10px 30px rgba(255,23,68,.2);
-}
-
-.auth-error{
-    min-height:22px;
-    margin-top:12px;
-    color:#ff5b78;
-    text-align:center;
-    font-size:13px;
-}
+    width: 100%;
 
-/* =========================
-   MENU
-========================= */
-
-.menu-screen{
-    position:absolute;
-    inset:0;
-    z-index:200;
-    overflow:hidden;
-}
+    padding:
+        25px
+        20px
+        calc(20px + env(safe-area-inset-bottom));
 
-.menu-overlay{
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.75),
-            rgba(0,0,0,.25),
-            rgba(0,0,0,.6)
-        );
-}
+    background: #111;
 
-.menu-panel{
-    position:absolute;
-    z-index:5;
-    left:5%;
-    top:50%;
-    transform:translateY(-50%);
-    width:min(440px,90%);
-}
+    border-top:
+        1px solid #292929;
 
-.menu-logo{
-    font-size:clamp(42px,6vw,75px);
-    font-weight:1000;
-    line-height:.9;
-    letter-spacing:5px;
+    border-radius:
+        28px
+        28px
+        0
+        0;
 }
 
-.menu-logo span{
-    color:#ff2045;
-}
+.profile-avatar {
 
-.menu-company{
-    margin-top:14px;
-    color:#aeb4bf;
-    letter-spacing:3px;
-    font-size:12px;
-}
+    width: 72px;
+    height: 72px;
 
-.menu-buttons{
-    margin-top:35px;
-    display:grid;
-    gap:10px;
-}
+    border-radius: 22px;
 
-.menu-button{
-    width:100%;
-    height:58px;
-    border:1px solid #343944;
-    border-radius:13px;
-    background:rgba(9,10,13,.85);
-    color:#fff;
-    text-align:left;
-    padding:0 22px;
-    font-weight:900;
-    letter-spacing:1px;
-    transition:.2s;
-}
+    overflow: hidden;
 
-.menu-button:hover{
-    transform:translateX(5px);
-    border-color:#ff2045;
-    background:#160b0f;
+    margin-bottom: 15px;
 }
 
-.menu-button.play{
-    background:#ff1744;
-    border-color:#ff1744;
-    box-shadow:0 12px 35px rgba(255,23,68,.25);
-}
+.profile-avatar img {
 
-.menu-button small{
-    display:block;
-    color:#747c8b;
-    margin-top:3px;
-    font-size:10px;
+    width: 100%;
+    height: 100%;
 }
 
-.menu-button.play small{
-    color:#ffd9df;
-}
+.profile-card h2 {
 
-.top-hud{
-    position:absolute;
-    z-index:20;
-    right:25px;
-    top:22px;
-    display:flex;
-    gap:10px;
-}
+    margin: 0 0 5px;
 
-.hud-button{
-    height:42px;
-    padding:0 15px;
-    border:1px solid #30343e;
-    border-radius:11px;
-    background:rgba(5,6,8,.75);
-    color:#fff;
+    font-size: 23px;
 }
 
-.profile-mini{
-    position:absolute;
-    z-index:20;
-    right:25px;
-    bottom:25px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:10px 15px;
-    border:1px solid #30343e;
-    border-radius:14px;
-    background:rgba(5,6,8,.8);
-}
+.profile-phone {
 
-.avatar{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    object-fit:cover;
-    background:#191c23;
-}
+    color: #777;
 
-.profile-name{
-    font-weight:900;
+    margin-bottom: 22px;
 }
 
-.profile-phone{
-    color:#707785;
-    font-size:11px;
-    margin-top:3px;
-}
+.close-profile {
 
-/* =========================
-   MODALS
-========================= */
-
-.modal{
-    position:absolute;
-    inset:0;
-    z-index:700;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(8px);
-}
+    width: 100%;
 
-.modal-card{
-    width:min(700px,100%);
-    max-height:85vh;
-    overflow:auto;
-    border:1px solid #30343e;
-    border-radius:22px;
-    background:#0a0c10;
-    padding:30px;
-    box-shadow:0 30px 100px rgba(0,0,0,.7);
-}
+    height: 52px;
 
-.modal-title{
-    font-size:27px;
-    font-weight:1000;
-}
+    border: 0;
 
-.modal-text{
-    color:#9ba2af;
-    line-height:1.65;
-    margin-top:15px;
-}
+    border-radius: 15px;
 
-.modal-close{
-    float:right;
-    width:36px;
-    height:36px;
-    border:1px solid #30343e;
-    border-radius:10px;
-    background:#111319;
-    color:#fff;
-}
+    background: #292929;
 
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-top:20px;
-}
+    color: #fff;
 
-.info-item{
-    padding:15px;
-    border:1px solid #272b34;
-    border-radius:13px;
-    background:#0f1116;
+    font-weight: 650;
 }
 
-.info-label{
-    color:#686f7d;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:2px;
-}
+.logout {
 
-.info-value{
-    margin-top:6px;
-    font-weight:800;
-}
+    width: 100%;
 
-/* =========================
-   GAME
-========================= */
-
-.game-screen{
-    position:absolute;
-    inset:0;
-    z-index:300;
-    background:
-        linear-gradient(
-            180deg,
-            #4b7ca0,
-            #17222c 45%,
-            #101216
-        );
-}
+    height: 52px;
 
-.game-city{
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.4),
-            transparent 45%,
-            rgba(0,0,0,.5)
-        );
-}
+    margin-top: 10px;
 
-.game-hud{
-    position:absolute;
-    top:20px;
-    left:20px;
-    right:20px;
-    display:flex;
-    justify-content:space-between;
-    z-index:5;
-}
+    border:
+        1px solid #432222;
 
-.game-box{
-    padding:12px 16px;
-    border:1px solid #363b46;
-    border-radius:12px;
-    background:rgba(5,6,8,.75);
-}
+    border-radius: 15px;
 
-.game-player{
-    font-weight:900;
-}
+    background: #201212;
 
-.game-location{
-    color:#ff3657;
-    font-size:11px;
-    margin-top:4px;
-}
+    color: #ff6b6b;
 
-.game-center{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    text-align:center;
+    font-weight: 700;
 }
 
-.game-center h1{
-    font-size:clamp(40px,7vw,85px);
-    margin:0;
-    font-weight:1000;
-    letter-spacing:5px;
-}
 
-.game-center p{
-    color:#a4aab6;
-    max-width:500px;
-}
+@media (min-width: 600px) {
 
-.back-button{
-    margin-top:20px;
-    padding:14px 25px;
-    border:1px solid #ff2045;
-    border-radius:12px;
-    background:#180a0e;
-    color:#fff;
-    font-weight:900;
-}
+    #app {
 
-/* =========================
-   RESPONSIVE
-========================= */
+        max-width: 480px;
 
-@media(max-width:800px){
+        margin: auto;
 
-    .character{
-        right:-100px;
-        transform:scale(.72) rotate(2deg);
-        transform-origin:bottom right;
+        box-shadow:
+            0 0 80px rgba(0,0,0,.8);
     }
 
-    .police-car{
-        left:-100px;
-        transform:scale(.65);
-        transform-origin:left bottom;
-    }
-
-    .menu-panel{
-        top:54%;
-        left:25px;
-    }
-
-    .top-hud{
-        right:15px;
-        top:15px;
-    }
-
-    .profile-mini{
-        right:15px;
-        bottom:15px;
-    }
 }
 
-@media(max-width:600px){
-
-    .info-grid{
-        grid-template-columns:1fr;
-    }
-
-    .auth-card{
-        padding:23px;
-    }
-
-    .menu-panel{
-        width:calc(100% - 50px);
-    }
-
-    .menu-logo{
-        font-size:40px;
-    }
-
-    .game-title{
-        top:18px;
-    }
-
-    .game-title h1{
-        font-size:31px;
-    }
-
-    .game-title h2{
-        font-size:22px;
-        letter-spacing:7px;
-    }
-
-    .game-title p{
-        font-size:9px;
-        letter-spacing:3px;
-    }
-}
-
-@media(orientation:portrait){
-    .rotate-screen{
-        display:flex;
-    }
-}
 </style>
+
 </head>
+
 
 <body>
 
-<!-- =========================
-     ПОВОРОТ ЭКРАНА
-========================= -->
-
-<div class="rotate-screen">
-    <div class="rotate-box">
-        <div class="rotate-icon">📱↔️</div>
-        <div class="rotate-title">
-            Поверните устройство
-        </div>
-        <div class="rotate-text">
-            TWO CITIES: RUSSIA разработана для горизонтального режима.
-        </div>
-    </div>
-</div>
+<div id="app">
 
 
-<!-- =========================
-     ЗАГРУЗКА
-========================= -->
+<!-- =================================
+     ЗАГРУЗКА 3 СЕКУНДЫ
+================================= -->
 
-<div class="loading-screen" id="loadingScreen">
+<section
+    id="loadingScreen"
+    class="screen active"
+>
 
-    <div class="loading-content">
+    <div class="loading-icon">
 
-        <div class="loading-logo">
-            TWO CITIES <span>RUSSIA</span>
-        </div>
-
-        <div class="loading-company">
-            CATS DEVELOPER STUDIO
-        </div>
-
-        <div class="loading-bar">
-            <div
-                class="loading-progress"
-                id="loadingProgress">
-            </div>
-        </div>
-
-        <div
-            class="loading-percent"
-            id="loadingPercent">
-            0%
-        </div>
-
-        <div
-            class="loading-status"
-            id="loadingStatus">
-            Запуск TWO CITIES: RUSSIA...
-        </div>
+        <img
+            src="./icon.svg?v=31"
+            alt="AVION"
+        >
 
     </div>
 
-</div>
 
-
-<!-- =========================
-     ОБЛОЖКА
-========================= -->
-
-<div class="screen hidden" id="coverScreen">
-
-    <div class="cover">
-
-        <div class="sky-light"></div>
-
-        <div class="city">
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-        </div>
-
-        <div class="road">
-            <div class="road-line"></div>
-        </div>
-
-        <div class="blue-light"></div>
-        <div class="red-light"></div>
-
-        <!-- машина -->
-
-        <div class="police-car">
-
-            <div class="car-shadow"></div>
-
-            <div class="car-roof"></div>
-
-            <div class="window1"></div>
-            <div class="window2"></div>
-
-            <div class="siren"></div>
-
-            <div class="car-body"></div>
-
-            <div class="blue-stripe"></div>
-            <div class="red-stripe"></div>
-
-            <div class="headlight left"></div>
-            <div class="headlight right"></div>
-
-            <div class="wheel left"></div>
-            <div class="wheel right"></div>
-
-        </div>
-
-
-        <!-- персонаж -->
-
-        <div class="character">
-
-            <div class="hair"></div>
-
-            <div class="head">
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-                <div class="mask"></div>
-            </div>
-
-            <div class="neck"></div>
-
-            <div class="body"></div>
-
-            <div class="arm-left"></div>
-            <div class="arm-right"></div>
-
-            <div class="leg left"></div>
-            <div class="leg right"></div>
-
-            <div class="shoe left"></div>
-            <div class="shoe right"></div>
-
-        </div>
-
-
-        <!-- название -->
-
-        <div class="game-title">
-
-            <h1>TWO CITIES</h1>
-
-            <h2>RUSSIA</h2>
-
-            <p>MOSCOW • KRASNODAR</p>
-
-        </div>
-
+    <div class="loading-title">
+        AVION Messenger
     </div>
 
-</div>
+
+    <div class="loading-developer">
+        Cats Developer Studio
+    </div>
+
+</section>
 
 
-<!-- =========================
-     АВТОРИЗАЦИЯ
-========================= -->
+<!-- =================================
+     ГЛАВНЫЙ ЭКРАН
+================================= -->
 
-<div class="screen auth-screen hidden" id="authScreen">
+<section
+    id="welcomeScreen"
+    class="screen auth-screen"
+>
 
-    <div class="auth-card">
+    <div class="auth-container">
 
         <div class="auth-title">
-            TWO CITIES <span>RUSSIA</span>
+            Добро пожаловать
         </div>
 
         <div class="auth-subtitle">
-            Локальный игровой аккаунт
+            Войдите в AVION Messenger
+            или создайте новый аккаунт.
         </div>
 
-        <div class="auth-tabs">
-
-            <button
-                class="auth-tab active"
-                id="loginTab">
-                Войти
-            </button>
-
-            <button
-                class="auth-tab"
-                id="registerTab">
-                Регистрация
-            </button>
-
-        </div>
-
-        <input
-            class="input"
-            id="phoneInput"
-            type="tel"
-            placeholder="Номер телефона"
-            autocomplete="tel">
-
-        <input
-            class="input"
-            id="passwordInput"
-            type="password"
-            placeholder="Пароль"
-            autocomplete="current-password">
-
-        <input
-            class="input hidden"
-            id="nameInput"
-            type="text"
-            placeholder="Имя игрока"
-            autocomplete="nickname">
 
         <button
-            class="primary-button"
-            id="authButton">
-            ВОЙТИ В ИГРУ
+            id="loginStart"
+            class="auth-button"
+        >
+            Войти
         </button>
+
+
+        <button
+            id="registerStart"
+            class="auth-secondary"
+        >
+            Создать аккаунт
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     ВХОД
+================================= -->
+
+<section
+    id="loginScreen"
+    class="screen auth-screen"
+>
+
+    <div class="auth-container">
+
+        <button
+            class="back"
+            data-back="welcomeScreen"
+        >
+            ‹
+        </button>
+
+
+        <div class="auth-title">
+            Вход
+        </div>
+
+
+        <div class="auth-subtitle">
+            Введите номер телефона
+            и пароль.
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Номер телефона
+            </label>
+
+            <input
+                id="loginPhone"
+                type="tel"
+                inputmode="tel"
+                placeholder="+7 900 000-00-00"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Пароль
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Пароль"
+            >
+
+        </div>
+
 
         <div
-            class="auth-error"
-            id="authError">
-        </div>
+            id="loginError"
+            class="error"
+        ></div>
 
-    </div>
-
-</div>
-
-
-<!-- =========================
-     ГЛАВНОЕ МЕНЮ
-========================= -->
-
-<div class="screen menu-screen hidden" id="menuScreen">
-
-    <div class="cover">
-
-        <div class="sky-light"></div>
-
-        <div class="city">
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-            <div class="building">
-                <div class="windows"></div>
-            </div>
-
-        </div>
-
-        <div class="road">
-            <div class="road-line"></div>
-        </div>
-
-        <div class="blue-light"></div>
-        <div class="red-light"></div>
-
-        <div class="police-car">
-
-            <div class="car-shadow"></div>
-            <div class="car-roof"></div>
-
-            <div class="window1"></div>
-            <div class="window2"></div>
-
-            <div class="siren"></div>
-
-            <div class="car-body"></div>
-
-            <div class="blue-stripe"></div>
-            <div class="red-stripe"></div>
-
-            <div class="headlight left"></div>
-            <div class="headlight right"></div>
-
-            <div class="wheel left"></div>
-            <div class="wheel right"></div>
-
-        </div>
-
-        <div class="character">
-
-            <div class="hair"></div>
-
-            <div class="head">
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-                <div class="mask"></div>
-            </div>
-
-            <div class="neck"></div>
-            <div class="body"></div>
-
-            <div class="arm-left"></div>
-            <div class="arm-right"></div>
-
-            <div class="leg left"></div>
-            <div class="leg right"></div>
-
-            <div class="shoe left"></div>
-            <div class="shoe right"></div>
-
-        </div>
-
-    </div>
-
-
-    <div class="menu-overlay"></div>
-
-
-    <div class="top-hud">
 
         <button
-            class="hud-button"
-            id="profileButton">
-            ПРОФИЛЬ
-        </button>
-
-        <button
-            class="hud-button"
-            id="settingsButton">
-            ⚙
+            id="loginButton"
+            class="auth-button"
+        >
+            Войти
         </button>
 
     </div>
 
+</section>
 
-    <div class="menu-panel">
 
-        <div class="menu-logo">
-            TWO CITIES
-            <br>
-            <span>RUSSIA</span>
+<!-- =================================
+     РЕГИСТРАЦИЯ
+================================= -->
+
+<section
+    id="registerScreen"
+    class="screen auth-screen"
+>
+
+    <div class="auth-container">
+
+        <button
+            class="back"
+            data-back="welcomeScreen"
+        >
+            ‹
+        </button>
+
+
+        <div class="auth-title">
+            Регистрация
         </div>
 
-        <div class="menu-company">
-            CATS DEVELOPER STUDIO
+
+        <div class="auth-subtitle">
+            Создайте аккаунт AVION.
+            После регистрации вы сразу
+            попадёте в меню.
         </div>
 
-        <div class="menu-buttons">
 
-            <button
-                class="menu-button play"
-                id="playButton">
-                ▶ ИГРАТЬ
-                <small>Войти в игровой мир</small>
-            </button>
+        <div class="field">
 
-            <button
-                class="menu-button"
-                id="aboutButton">
-                ОБ ИГРЕ
-                <small>Информация о TWO CITIES: RUSSIA</small>
-            </button>
+            <label>
+                Имя
+            </label>
 
-            <button
-                class="menu-button"
-                id="logoutButton">
-                ВЫЙТИ ИЗ АККАУНТА
-                <small>Сменить локальный профиль</small>
-            </button>
+            <input
+                id="registerName"
+                type="text"
+                autocomplete="name"
+                placeholder="Ваше имя"
+            >
 
         </div>
+
+
+        <div class="field">
+
+            <label>
+                Номер телефона
+            </label>
+
+            <input
+                id="registerPhone"
+                type="tel"
+                inputmode="tel"
+                placeholder="+7 900 000-00-00"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Пароль
+            </label>
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Придумайте пароль"
+            >
+
+        </div>
+
+
+        <div
+            id="registerError"
+            class="error"
+        ></div>
+
+
+        <button
+            id="registerButton"
+            class="auth-button"
+        >
+            Создать аккаунт
+        </button>
 
     </div>
 
+</section>
 
-    <div class="profile-mini">
 
-        <img
-            class="avatar"
-            id="miniAvatar"
-            alt="Avatar">
+<!-- =================================
+     МЕНЮ
+================================= -->
+
+<section
+    id="mainScreen"
+    class="screen"
+>
+
+    <header class="main-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <img
+                    src="./icon.svg?v=31"
+                    alt="AVION"
+                >
+
+            </div>
+
+
+            <div class="brand-name">
+                AVION
+            </div>
+
+        </div>
+
+
+        <button
+            id="profileButton"
+            class="profile-button"
+        >
+            A
+        </button>
+
+    </header>
+
+
+    <main class="empty">
 
         <div>
 
-            <div
-                class="profile-name"
-                id="miniName">
-                Player
+            <div class="empty-icon">
+
+                <img
+                    src="./icon.svg?v=31"
+                    alt="AVION"
+                >
+
             </div>
 
-            <div
-                class="profile-phone"
-                id="miniPhone">
-                —
-            </div>
+
+            <h2>
+                Чаты скоро появятся
+            </h2>
+
+
+            <p>
+                Здесь будут ваши сообщения,
+                группы и контакты.
+            </p>
 
         </div>
 
-    </div>
+    </main>
 
-</div>
+</section>
 
 
-<!-- =========================
+<!-- =================================
      ПРОФИЛЬ
-========================= -->
+================================= -->
 
 <div
-    class="modal hidden"
-    id="profileModal">
+    id="profile"
+    class="profile"
+>
 
-    <div class="modal-card">
+    <div class="profile-card">
 
-        <button
-            class="modal-close"
-            data-close="profileModal">
-            ×
-        </button>
-
-        <div class="modal-title">
-            ПРОФИЛЬ
-        </div>
-
-        <div style="margin-top:25px;text-align:center;">
+        <div class="profile-avatar">
 
             <img
-                id="profileAvatar"
-                class="avatar"
-                style="width:100px;height:100px;"
-                alt="Avatar">
-
-            <br>
-
-            <input
-                id="avatarInput"
-                type="file"
-                accept="image/*"
-                style="margin-top:15px;color:#999;">
+                src="./icon.svg?v=31"
+                alt="AVION"
+            >
 
         </div>
 
-        <input
-            class="input"
-            id="profileNameInput"
-            placeholder="Имя игрока">
+
+        <h2 id="profileName">
+            Пользователь
+        </h2>
+
+
+        <div
+            id="profilePhone"
+            class="profile-phone"
+        >
+            —
+        </div>
+
 
         <button
-            class="primary-button"
-            id="saveProfileButton">
-            СОХРАНИТЬ
+            id="logoutButton"
+            class="logout"
+        >
+            Выйти из аккаунта
+        </button>
+
+
+        <button
+            id="closeProfile"
+            class="close-profile"
+        >
+            Закрыть
         </button>
 
     </div>
 
 </div>
 
-
-<!-- =========================
-     НАСТРОЙКИ
-========================= -->
-
-<div
-    class="modal hidden"
-    id="settingsModal">
-
-    <div class="modal-card">
-
-        <button
-            class="modal-close"
-            data-close="settingsModal">
-            ×
-        </button>
-
-        <div class="modal-title">
-            НАСТРОЙКИ
-        </div>
-
-        <div class="modal-text">
-
-            <p>
-                <b>Графика</b><br>
-                Игровой интерфейс использует тёмную стилистику,
-                яркие красные и синие акценты.
-            </p>
-
-            <p>
-                <b>Управление</b><br>
-                Игра рассчитана на горизонтальный экран.
-                В будущих версиях появится полноценное управление персонажем.
-            </p>
-
-            <p>
-                <b>Сохранение</b><br>
-                Профиль хранится локально в браузере устройства.
-            </p>
-
-            <p>
-                <b>Версия</b><br>
-                1.0.0 Official Build
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
-     ОБ ИГРЕ
-========================= -->
-
-<div
-    class="modal hidden"
-    id="aboutModal">
-
-    <div class="modal-card">
-
-        <button
-            class="modal-close"
-            data-close="aboutModal">
-            ×
-        </button>
-
-        <div class="modal-title">
-            TWO CITIES: RUSSIA
-        </div>
-
-        <div class="modal-text">
-
-            <p>
-                <b>TWO CITIES: RUSSIA</b> — одиночная городская
-                sandbox-игра от <b>Cats Developer Studio</b>.
-            </p>
-
-            <p>
-                Игровая вселенная строится вокруг двух больших
-                городов — <b>Москвы</b> и <b>Краснодара</b>.
-                Игрок сможет исследовать городское пространство,
-                перемещаться по улицам, взаимодействовать с
-                игровым миром и постепенно получать новые возможности.
-            </p>
-
-            <p>
-                По атмосфере и формату проект вдохновлён городскими
-                sandbox-играми и пользовательскими мирами в духе Roblox,
-                но <b>TWO CITIES: RUSSIA</b> — отдельная игра со своей
-                концепцией, дизайном и игровой вселенной.
-            </p>
-
-        </div>
-
-        <div class="info-grid">
-
-            <div class="info-item">
-                <div class="info-label">Разработчик</div>
-                <div class="info-value">Cats Developer Studio</div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-label">Название</div>
-                <div class="info-value">TWO CITIES: RUSSIA</div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-label">Версия</div>
-                <div class="info-value">1.0.0</div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-label">Тип</div>
-                <div class="info-value">Single Player</div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-label">Жанр</div>
-                <div class="info-value">City Sandbox</div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-label">Города</div>
-                <div class="info-value">Moscow / Krasnodar</div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-label">Платформа</div>
-                <div class="info-value">Web / PWA</div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-label">Статус</div>
-                <div class="info-value">Official Build</div>
-            </div>
-
-        </div>
-
-        <div class="modal-text">
-
-            <p>
-                <b>Cats Developer Studio</b> — разработчик
-                проекта и создатель игровой вселенной TWO CITIES.
-            </p>
-
-            <p>
-                Проект создаётся как самостоятельная игра для
-                браузера и мобильных устройств.
-            </p>
-
-            <p>
-                © 2026 Cats Developer Studio
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
-     ИГРОВОЙ ЭКРАН
-========================= -->
-
-<div
-    class="screen game-screen hidden"
-    id="gameScreen">
-
-    <div class="game-city"></div>
-
-    <div class="game-hud">
-
-        <div class="game-box">
-
-            <div
-                class="game-player"
-                id="gamePlayer">
-                Player
-            </div>
-
-            <div class="game-location">
-                MOSCOW
-            </div>
-
-        </div>
-
-        <div class="game-box">
-            ₽ 0
-        </div>
-
-    </div>
-
-    <div class="game-center">
-
-        <h1>МОСКВА</h1>
-
-        <p>
-            Игровой мир TWO CITIES: RUSSIA загружен.
-            Реальная 3D-карта города будет добавляться
-            в следующих версиях.
-        </p>
-
-        <button
-            class="back-button"
-            id="backToMenu">
-            ВЕРНУТЬСЯ В МЕНЮ
-        </button>
-
-    </div>
 
 </div>
 
 
 <script>
-/* =========================================
-   TWO CITIES: RUSSIA
-   LOCAL GAME SYSTEM
-========================================= */
 
-const ACCOUNTS_KEY = "two_cities_accounts_v2";
-const PROFILES_KEY = "two_cities_profiles_v2";
-const CURRENT_KEY = "two_cities_current_v2";
+/* =================================
+   AVION MESSENGER
+================================= */
+
+"use strict";
 
 
-const $ = id => document.getElementById(id);
+const USERS_KEY = "avion_users_v31";
+const CURRENT_KEY = "avion_current_v31";
 
 
-/* =========================================
-   DATA
-========================================= */
+function $(id) {
+    return document.getElementById(id);
+}
 
-function getAccounts(){
 
-    try{
+function users() {
+
+    try {
+
         return JSON.parse(
-            localStorage.getItem(ACCOUNTS_KEY)
-        ) || {};
-    }catch(e){
-        return {};
+            localStorage.getItem(USERS_KEY)
+        ) || [];
+
+    } catch {
+
+        return [];
+
     }
 
 }
 
-function saveAccounts(accounts){
+
+function saveUsers(list) {
 
     localStorage.setItem(
-        ACCOUNTS_KEY,
-        JSON.stringify(accounts)
+        USERS_KEY,
+        JSON.stringify(list)
     );
 
 }
 
-function getProfiles(){
 
-    try{
-        return JSON.parse(
-            localStorage.getItem(PROFILES_KEY)
-        ) || {};
-    }catch(e){
-        return {};
-    }
+function phoneNumber(value) {
 
-}
-
-function saveProfiles(profiles){
-
-    localStorage.setItem(
-        PROFILES_KEY,
-        JSON.stringify(profiles)
-    );
-
-}
-
-function normalizePhone(phone){
-
-    return phone
-        .replace(/\s+/g,"")
-        .replace(/[()-]/g,"");
+    return value.replace(/\D/g, "");
 
 }
 
 
-/* =========================================
-   SCREEN CONTROL
-========================================= */
+function screen(id) {
 
-function hideAllScreens(){
+    document
+        .querySelectorAll(".screen")
+        .forEach(item => {
 
-    [
-        "coverScreen",
-        "authScreen",
-        "menuScreen",
-        "gameScreen"
-    ].forEach(id => {
+            item.classList.remove("active");
 
-        $(id).classList.add("hidden");
+        });
+
+
+    $(id).classList.add("active");
+
+}
+
+
+function error(id, text) {
+
+    $(id).textContent = text;
+
+}
+
+
+/* =================================
+   ЗАГРУЗКА РОВНО 3 СЕКУНДЫ
+================================= */
+
+setTimeout(() => {
+
+    checkAccount();
+
+}, 3000);
+
+
+/* =================================
+   НАЧАЛО ВХОДА
+================================= */
+
+$("loginStart").onclick = () => {
+
+    error("loginError", "");
+
+    screen("loginScreen");
+
+};
+
+
+/* =================================
+   НАЧАЛО РЕГИСТРАЦИИ
+================================= */
+
+$("registerStart").onclick = () => {
+
+    error("registerError", "");
+
+    screen("registerScreen");
+
+};
+
+
+/* =================================
+   НАЗАД
+================================= */
+
+document
+    .querySelectorAll("[data-back]")
+    .forEach(button => {
+
+        button.onclick = () => {
+
+            screen(
+                button.dataset.back
+            );
+
+        };
 
     });
 
-}
 
-function showScreen(id){
+/* =================================
+   РЕГИСТРАЦИЯ
+================================= */
 
-    hideAllScreens();
+$("registerButton").onclick = () => {
 
-    $(id).classList.remove("hidden");
-
-}
-
-
-/* =========================================
-   LOADING
-========================================= */
-
-const loadingStatuses = [
-
-    "Запуск TWO CITIES: RUSSIA...",
-
-    "Проверка игровых файлов...",
-
-    "Загрузка игрового движка...",
-
-    "Подготовка Москвы...",
-
-    "Подготовка Краснодара...",
-
-    "Загрузка транспорта...",
-
-    "Загрузка персонажей...",
-
-    "Загрузка игрового мира...",
-
-    "Проверка сохранений...",
-
-    "Инициализация профиля...",
-
-    "Финальная подготовка...",
-
-    "ИГРА ГОТОВА"
-
-];
-
-let progress = 0;
-
-const loadingTimer = setInterval(() => {
-
-    progress++;
-
-    $("loadingProgress").style.width =
-        progress + "%";
-
-    $("loadingPercent").textContent =
-        progress + "%";
-
-    const index = Math.min(
-        loadingStatuses.length - 1,
-        Math.floor(
-            progress /
-            (100 / loadingStatuses.length)
-        )
-    );
-
-    $("loadingStatus").textContent =
-        loadingStatuses[index];
-
-    if(progress >= 100){
-
-        clearInterval(loadingTimer);
-
-        setTimeout(() => {
-
-            $("loadingScreen").classList.add("hidden");
-
-            const current =
-                localStorage.getItem(CURRENT_KEY);
-
-            if(current){
-
-                showMenu();
-
-            }else{
-
-                showScreen("authScreen");
-
-            }
-
-        },500);
-
-    }
-
-},50);
-
-
-/* =========================================
-   AUTH MODE
-========================================= */
-
-let authMode = "login";
-
-function setAuthMode(mode){
-
-    authMode = mode;
-
-    $("loginTab").classList.toggle(
-        "active",
-        mode === "login"
-    );
-
-    $("registerTab").classList.toggle(
-        "active",
-        mode === "register"
-    );
-
-    $("nameInput").classList.toggle(
-        "hidden",
-        mode !== "register"
-    );
-
-    $("authButton").textContent =
-        mode === "login"
-            ? "ВОЙТИ В ИГРУ"
-            : "СОЗДАТЬ АККАУНТ";
-
-    $("authError").textContent = "";
-
-    $("passwordInput").value = "";
-
-}
-
-
-$("loginTab").addEventListener(
-    "click",
-    () => setAuthMode("login")
-);
-
-$("registerTab").addEventListener(
-    "click",
-    () => setAuthMode("register")
-);
-
-
-/* =========================================
-   AUTH
-========================================= */
-
-$("authButton").addEventListener(
-    "click",
-    handleAuth
-);
-
-function handleAuth(){
+    const name =
+        $("registerName").value.trim();
 
     const phone =
-        normalizePhone(
-            $("phoneInput").value.trim()
+        phoneNumber(
+            $("registerPhone").value
         );
 
     const password =
-        $("passwordInput").value;
-
-    const name =
-        $("nameInput").value.trim();
-
-    $("authError").textContent = "";
-
-    if(!phone){
-
-        $("authError").textContent =
-            "Введите номер телефона.";
-
-        return;
-
-    }
-
-    if(!password){
-
-        $("authError").textContent =
-            "Введите пароль.";
-
-        return;
-
-    }
-
-    if(password.length < 4){
-
-        $("authError").textContent =
-            "Пароль должен содержать минимум 4 символа.";
-
-        return;
-
-    }
-
-    const accounts = getAccounts();
-    const profiles = getProfiles();
+        $("registerPassword").value;
 
 
-    /* РЕГИСТРАЦИЯ */
+    error("registerError", "");
 
-    if(authMode === "register"){
 
-        if(accounts[phone]){
+    if (!name) {
 
-            $("authError").textContent =
-                "Этот номер телефона уже зарегистрирован";
-
-            return;
-
-        }
-
-        accounts[phone] = {
-
-            password: password,
-
-            createdAt: Date.now()
-
-        };
-
-        profiles[phone] = {
-
-            name:
-                name ||
-                "Player",
-
-            avatar:""
-
-        };
-
-        saveAccounts(accounts);
-        saveProfiles(profiles);
-
-        localStorage.setItem(
-            CURRENT_KEY,
-            phone
+        error(
+            "registerError",
+            "Введите имя."
         );
 
-        showMenu();
+        return;
+
+    }
+
+
+    if (phone.length < 10) {
+
+        error(
+            "registerError",
+            "Введите корректный номер телефона."
+        );
 
         return;
 
     }
 
 
-    /* ВХОД */
+    if (password.length < 4) {
 
-    if(!accounts[phone]){
-
-        $("authError").textContent =
-            "Номер не зарегистрирован. Сначала создайте аккаунт.";
-
-        return;
-
-    }
-
-    if(accounts[phone].password !== password){
-
-        $("authError").textContent =
-            "Неверный пароль";
+        error(
+            "registerError",
+            "Пароль должен содержать минимум 4 символа."
+        );
 
         return;
 
     }
 
-    localStorage.setItem(
-        CURRENT_KEY,
-        phone
-    );
 
-    showMenu();
-
-}
+    const list = users();
 
 
-/* =========================================
-   PROFILE
-========================================= */
+    if (
+        list.some(
+            user => user.phone === phone
+        )
+    ) {
 
-function getCurrentPhone(){
+        error(
+            "registerError",
+            "Этот номер телефона уже зарегистрирован."
+        );
 
-    return localStorage.getItem(
-        CURRENT_KEY
-    );
-
-}
-
-function getCurrentProfile(){
-
-    const phone =
-        getCurrentPhone();
-
-    if(!phone){
-
-        return {
-
-            name:"Player",
-            avatar:""
-
-        };
+        return;
 
     }
 
-    const profiles =
-        getProfiles();
 
-    return profiles[phone] || {
+    const newUser = {
 
-        name:"Player",
-        avatar:""
+        id: Date.now(),
+
+        name: name,
+
+        phone: phone,
+
+        password: password
 
     };
 
-}
 
-function updateMenuProfile(){
+    list.push(newUser);
 
-    const profile =
-        getCurrentProfile();
+    saveUsers(list);
+
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        String(newUser.id)
+    );
+
+
+    openMain(newUser);
+
+};
+
+
+/* =================================
+   ВХОД
+================================= */
+
+$("loginButton").onclick = () => {
 
     const phone =
-        getCurrentPhone();
-
-    $("miniName").textContent =
-        profile.name || "Player";
-
-    $("miniPhone").textContent =
-        phone || "—";
-
-    $("gamePlayer").textContent =
-        profile.name || "Player";
-
-    if(profile.avatar){
-
-        $("miniAvatar").src =
-            profile.avatar;
-
-    }else{
-
-        $("miniAvatar").src =
-            createDefaultAvatar(
-                profile.name || "P"
-            );
-
-    }
-
-}
-
-function createDefaultAvatar(letter){
-
-    const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg"
-             width="100"
-             height="100"
-             viewBox="0 0 100 100">
-
-            <rect
-                width="100"
-                height="100"
-                rx="50"
-                fill="#151820"/>
-
-            <text
-                x="50"
-                y="62"
-                text-anchor="middle"
-                font-family="Arial"
-                font-size="45"
-                font-weight="900"
-                fill="#ff2045">
-                ${String(letter).charAt(0).toUpperCase()}
-            </text>
-
-        </svg>
-    `;
-
-    return "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(svg);
-
-}
-
-
-/* =========================================
-   MENU
-========================================= */
-
-function showMenu(){
-
-    showScreen("menuScreen");
-
-    updateMenuProfile();
-
-}
-
-$("playButton").addEventListener(
-    "click",
-    () => {
-
-        showScreen("gameScreen");
-
-    }
-);
-
-$("backToMenu").addEventListener(
-    "click",
-    showMenu
-);
-
-
-/* =========================================
-   PROFILE MODAL
-========================================= */
-
-$("profileButton").addEventListener(
-    "click",
-    () => {
-
-        const profile =
-            getCurrentProfile();
-
-        $("profileNameInput").value =
-            profile.name || "";
-
-        if(profile.avatar){
-
-            $("profileAvatar").src =
-                profile.avatar;
-
-        }else{
-
-            $("profileAvatar").src =
-                createDefaultAvatar(
-                    profile.name || "P"
-                );
-
-        }
-
-        $("profileModal")
-            .classList.remove("hidden");
-
-    }
-);
-
-
-$("avatarInput").addEventListener(
-    "change",
-    event => {
-
-        const file =
-            event.target.files[0];
-
-        if(!file){
-            return;
-        }
-
-        const reader =
-            new FileReader();
-
-        reader.onload = () => {
-
-            $("profileAvatar").src =
-                reader.result;
-
-            $("profileAvatar").dataset.newAvatar =
-                reader.result;
-
-        };
-
-        reader.readAsDataURL(file);
-
-    }
-);
-
-
-$("saveProfileButton").addEventListener(
-    "click",
-    () => {
-
-        const phone =
-            getCurrentPhone();
-
-        if(!phone){
-            return;
-        }
-
-        const profiles =
-            getProfiles();
-
-        if(!profiles[phone]){
-
-            profiles[phone] = {};
-
-        }
-
-        profiles[phone].name =
-            $("profileNameInput")
-                .value
-                .trim() ||
-            "Player";
-
-        const newAvatar =
-            $("profileAvatar")
-                .dataset
-                .newAvatar;
-
-        if(newAvatar){
-
-            profiles[phone].avatar =
-                newAvatar;
-
-        }
-
-        saveProfiles(profiles);
-
-        updateMenuProfile();
-
-        $("profileModal")
-            .classList.add("hidden");
-
-    }
-);
-
-
-/* =========================================
-   SETTINGS
-========================================= */
-
-$("settingsButton").addEventListener(
-    "click",
-    () => {
-
-        $("settingsModal")
-            .classList.remove("hidden");
-
-    }
-);
-
-
-/* =========================================
-   ABOUT
-========================================= */
-
-$("aboutButton").addEventListener(
-    "click",
-    () => {
-
-        $("aboutModal")
-            .classList.remove("hidden");
-
-    }
-);
-
-
-/* =========================================
-   CLOSE MODALS
-========================================= */
-
-document
-    .querySelectorAll("[data-close]")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const id =
-                    button.dataset.close;
-
-                $(id)
-                    .classList
-                    .add("hidden");
-
-            }
+        phoneNumber(
+            $("loginPhone").value
         );
 
-    });
+    const password =
+        $("loginPassword").value;
 
 
-document
-    .querySelectorAll(".modal")
-    .forEach(modal => {
+    error("loginError", "");
 
-        modal.addEventListener(
-            "click",
-            event => {
 
-                if(event.target === modal){
+    const list = users();
 
-                    modal.classList.add(
-                        "hidden"
-                    );
 
-                }
-
-            }
+    const user =
+        list.find(
+            item =>
+                item.phone === phone
         );
 
-    });
+
+    if (!user) {
+
+        error(
+            "loginError",
+            "Номер не зарегистрирован."
+        );
+
+        return;
+
+    }
 
 
-/* =========================================
-   LOGOUT
-========================================= */
+    if (user.password !== password) {
 
-$("logoutButton").addEventListener(
-    "click",
-    () => {
+        error(
+            "loginError",
+            "Неверный пароль."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        String(user.id)
+    );
+
+
+    openMain(user);
+
+};
+
+
+/* =================================
+   ОТКРЫТЬ МЕНЮ
+================================= */
+
+function openMain(user) {
+
+    $("profileName").textContent =
+        user.name;
+
+    $("profilePhone").textContent =
+        formatPhone(user.phone);
+
+    $("profileButton").textContent =
+        user.name
+            .charAt(0)
+            .toUpperCase();
+
+
+    screen("mainScreen");
+
+}
+
+
+/* =================================
+   ПРОВЕРКА АККАУНТА
+================================= */
+
+function checkAccount() {
+
+    const current =
+        localStorage.getItem(
+            CURRENT_KEY
+        );
+
+
+    if (!current) {
+
+        screen("welcomeScreen");
+
+        return;
+
+    }
+
+
+    const user =
+        users().find(
+            item =>
+                String(item.id) ===
+                String(current)
+        );
+
+
+    if (!user) {
 
         localStorage.removeItem(
             CURRENT_KEY
         );
 
-        $("phoneInput").value = "";
-        $("passwordInput").value = "";
-        $("nameInput").value = "";
+        screen("welcomeScreen");
 
-        setAuthMode("login");
-
-        showScreen("authScreen");
+        return;
 
     }
-);
 
 
-/* =========================================
+    openMain(user);
+
+}
+
+
+/* =================================
+   ФОРМАТ НОМЕРА
+================================= */
+
+function formatPhone(phone) {
+
+    if (phone.length === 11) {
+
+        return "+" +
+            phone[0] +
+            " " +
+            phone.slice(1,4) +
+            " " +
+            phone.slice(4,7) +
+            "-" +
+            phone.slice(7,9) +
+            "-" +
+            phone.slice(9);
+
+    }
+
+    return "+" + phone;
+
+}
+
+
+/* =================================
+   ПРОФИЛЬ
+================================= */
+
+$("profileButton").onclick = () => {
+
+    $("profile")
+        .classList.add("open");
+
+};
+
+
+$("closeProfile").onclick = () => {
+
+    $("profile")
+        .classList.remove("open");
+
+};
+
+
+/* =================================
+   ВЫХОД
+================================= */
+
+$("logoutButton").onclick = () => {
+
+    localStorage.removeItem(
+        CURRENT_KEY
+    );
+
+    $("profile")
+        .classList.remove("open");
+
+    screen("welcomeScreen");
+
+};
+
+
+/* =================================
    SERVICE WORKER
-========================================= */
+================================= */
 
-if("serviceWorker" in navigator){
+if ("serviceWorker" in navigator) {
 
     window.addEventListener(
         "load",
         () => {
 
             navigator.serviceWorker
-                .register("./sw.js")
-                .catch(error => {
-
-                    console.log(
-                        "Service Worker:",
-                        error
-                    );
-
-                });
+                .register("./sw.js?v=31")
+                .catch(() => {});
 
         }
     );
 
 }
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<meta name="theme-color" content="#080808">
+
+<link rel="manifest" href="./manifest.json?v=31">
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="./icon.svg?v=31"
+>
+
+<title>AVION Messenger</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: #050505;
+    color: #fff;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+body {
+    overflow: hidden;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* =================================
+   APP
+================================= */
+
+#app {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            #252525 0%,
+            #111 35%,
+            #050505 75%,
+            #000 100%
+        );
+}
+
+
+/* =================================
+   SCREENS
+================================= */
+
+.screen {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+
+    animation: screenIn .25s ease;
+}
+
+.screen.active {
+    display: flex;
+}
+
+@keyframes screenIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =================================
+   LOADING
+================================= */
+
+#loadingScreen {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding:
+        env(safe-area-inset-top)
+        25px
+        env(safe-area-inset-bottom);
+}
+
+
+/* Иконка */
+
+.loading-icon {
+
+    width: 108px;
+    height: 108px;
+
+    border-radius: 29px;
+
+    overflow: hidden;
+
+    margin-bottom: 24px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.8),
+        0 0 0 1px rgba(255,255,255,.08);
+
+    animation: iconAppear .7s ease;
+}
+
+.loading-icon img {
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+}
+
+@keyframes iconAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* Название */
+
+.loading-title {
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    letter-spacing: -.6px;
+
+    margin-bottom: 8px;
+}
+
+
+/* Разработчик */
+
+.loading-developer {
+
+    font-size: 12px;
+
+    color: #777;
+
+    letter-spacing: .4px;
+
+}
+
+
+/* =================================
+   AUTH
+================================= */
+
+.auth-screen {
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding:
+        env(safe-area-inset-top)
+        22px
+        env(safe-area-inset-bottom);
+}
+
+.auth-container {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    margin: auto;
+}
+
+.auth-title {
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+
+    color: #858585;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    margin-bottom: 28px;
+}
+
+
+.auth-button {
+
+    width: 100%;
+
+    height: 54px;
+
+    border: 0;
+
+    border-radius: 16px;
+
+    background: #fff;
+
+    color: #080808;
+
+    font-size: 16px;
+
+    font-weight: 750;
+
+    cursor: pointer;
+}
+
+.auth-button:active {
+
+    transform: scale(.98);
+
+}
+
+
+.auth-secondary {
+
+    width: 100%;
+
+    height: 54px;
+
+    margin-top: 11px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 16px;
+
+    background: #151515;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: 650;
+
+}
+
+
+/* =================================
+   FORM
+================================= */
+
+.back {
+
+    width: 43px;
+    height: 43px;
+
+    margin-bottom: 25px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    background: #181818;
+
+    color: white;
+
+    font-size: 27px;
+}
+
+.field {
+
+    margin-bottom: 15px;
+}
+
+.field label {
+
+    display: block;
+
+    margin:
+        0
+        0
+        7px
+        5px;
+
+    color: #8c8c8c;
+
+    font-size: 13px;
+}
+
+.field input {
+
+    width: 100%;
+
+    height: 54px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 16px;
+
+    background: #151515;
+
+    color: white;
+
+    outline: none;
+
+    padding: 0 17px;
+
+    font-size: 16px;
+}
+
+.field input:focus {
+
+    border-color: #666;
+
+    background: #191919;
+}
+
+.error {
+
+    min-height: 20px;
+
+    margin:
+        0
+        4px
+        10px;
+
+    color: #ff6565;
+
+    font-size: 13px;
+}
+
+
+/* =================================
+   MAIN
+================================= */
+
+#mainScreen {
+
+    flex-direction: column;
+
+    padding: 0;
+}
+
+.main-header {
+
+    height: 74px;
+
+    padding:
+        calc(env(safe-area-inset-top) + 10px)
+        17px
+        10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background:
+        rgba(8,8,8,.9);
+
+    border-bottom:
+        1px solid #1c1c1c;
+
+    backdrop-filter: blur(18px);
+}
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+.brand-icon {
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.brand-icon img {
+
+    width: 100%;
+    height: 100%;
+}
+
+.brand-name {
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+.profile-button {
+
+    width: 43px;
+    height: 43px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #999
+        );
+
+    color: #111;
+
+    font-weight: 800;
+}
+
+
+/* =================================
+   EMPTY CHATS
+================================= */
+
+.empty {
+
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+.empty-icon {
+
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 22px;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.6);
+}
+
+.empty-icon img {
+
+    width: 100%;
+    height: 100%;
+}
+
+.empty h2 {
+
+    margin: 0 0 9px;
+
+    font-size: 23px;
+}
+
+.empty p {
+
+    margin: 0;
+
+    color: #777;
+
+    font-size: 15px;
+
+    line-height: 1.55;
+
+}
+
+
+/* =================================
+   PROFILE
+================================= */
+
+.profile {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 10;
+
+    display: none;
+
+    align-items: flex-end;
+
+    background:
+        rgba(0,0,0,.72);
+
+    backdrop-filter: blur(12px);
+}
+
+.profile.open {
+    display: flex;
+}
+
+.profile-card {
+
+    width: 100%;
+
+    padding:
+        25px
+        20px
+        calc(20px + env(safe-area-inset-bottom));
+
+    background: #111;
+
+    border-top:
+        1px solid #292929;
+
+    border-radius:
+        28px
+        28px
+        0
+        0;
+}
+
+.profile-avatar {
+
+    width: 72px;
+    height: 72px;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    margin-bottom: 15px;
+}
+
+.profile-avatar img {
+
+    width: 100%;
+    height: 100%;
+}
+
+.profile-card h2 {
+
+    margin: 0 0 5px;
+
+    font-size: 23px;
+}
+
+.profile-phone {
+
+    color: #777;
+
+    margin-bottom: 22px;
+}
+
+.close-profile {
+
+    width: 100%;
+
+    height: 52px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    background: #292929;
+
+    color: #fff;
+
+    font-weight: 650;
+}
+
+.logout {
+
+    width: 100%;
+
+    height: 52px;
+
+    margin-top: 10px;
+
+    border:
+        1px solid #432222;
+
+    border-radius: 15px;
+
+    background: #201212;
+
+    color: #ff6b6b;
+
+    font-weight: 700;
+}
+
+
+@media (min-width: 600px) {
+
+    #app {
+
+        max-width: 480px;
+
+        margin: auto;
+
+        box-shadow:
+            0 0 80px rgba(0,0,0,.8);
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div id="app">
+
+
+<!-- =================================
+     ЗАГРУЗКА 3 СЕКУНДЫ
+================================= -->
+
+<section
+    id="loadingScreen"
+    class="screen active"
+>
+
+    <div class="loading-icon">
+
+        <img
+            src="./icon.svg?v=31"
+            alt="AVION"
+        >
+
+    </div>
+
+
+    <div class="loading-title">
+        AVION Messenger
+    </div>
+
+
+    <div class="loading-developer">
+        Cats Developer Studio
+    </div>
+
+</section>
+
+
+<!-- =================================
+     ГЛАВНЫЙ ЭКРАН
+================================= -->
+
+<section
+    id="welcomeScreen"
+    class="screen auth-screen"
+>
+
+    <div class="auth-container">
+
+        <div class="auth-title">
+            Добро пожаловать
+        </div>
+
+        <div class="auth-subtitle">
+            Войдите в AVION Messenger
+            или создайте новый аккаунт.
+        </div>
+
+
+        <button
+            id="loginStart"
+            class="auth-button"
+        >
+            Войти
+        </button>
+
+
+        <button
+            id="registerStart"
+            class="auth-secondary"
+        >
+            Создать аккаунт
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     ВХОД
+================================= -->
+
+<section
+    id="loginScreen"
+    class="screen auth-screen"
+>
+
+    <div class="auth-container">
+
+        <button
+            class="back"
+            data-back="welcomeScreen"
+        >
+            ‹
+        </button>
+
+
+        <div class="auth-title">
+            Вход
+        </div>
+
+
+        <div class="auth-subtitle">
+            Введите номер телефона
+            и пароль.
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Номер телефона
+            </label>
+
+            <input
+                id="loginPhone"
+                type="tel"
+                inputmode="tel"
+                placeholder="+7 900 000-00-00"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Пароль
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Пароль"
+            >
+
+        </div>
+
+
+        <div
+            id="loginError"
+            class="error"
+        ></div>
+
+
+        <button
+            id="loginButton"
+            class="auth-button"
+        >
+            Войти
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     РЕГИСТРАЦИЯ
+================================= -->
+
+<section
+    id="registerScreen"
+    class="screen auth-screen"
+>
+
+    <div class="auth-container">
+
+        <button
+            class="back"
+            data-back="welcomeScreen"
+        >
+            ‹
+        </button>
+
+
+        <div class="auth-title">
+            Регистрация
+        </div>
+
+
+        <div class="auth-subtitle">
+            Создайте аккаунт AVION.
+            После регистрации вы сразу
+            попадёте в меню.
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Имя
+            </label>
+
+            <input
+                id="registerName"
+                type="text"
+                autocomplete="name"
+                placeholder="Ваше имя"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Номер телефона
+            </label>
+
+            <input
+                id="registerPhone"
+                type="tel"
+                inputmode="tel"
+                placeholder="+7 900 000-00-00"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Пароль
+            </label>
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Придумайте пароль"
+            >
+
+        </div>
+
+
+        <div
+            id="registerError"
+            class="error"
+        ></div>
+
+
+        <button
+            id="registerButton"
+            class="auth-button"
+        >
+            Создать аккаунт
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     МЕНЮ
+================================= -->
+
+<section
+    id="mainScreen"
+    class="screen"
+>
+
+    <header class="main-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <img
+                    src="./icon.svg?v=31"
+                    alt="AVION"
+                >
+
+            </div>
+
+
+            <div class="brand-name">
+                AVION
+            </div>
+
+        </div>
+
+
+        <button
+            id="profileButton"
+            class="profile-button"
+        >
+            A
+        </button>
+
+    </header>
+
+
+    <main class="empty">
+
+        <div>
+
+            <div class="empty-icon">
+
+                <img
+                    src="./icon.svg?v=31"
+                    alt="AVION"
+                >
+
+            </div>
+
+
+            <h2>
+                Чаты скоро появятся
+            </h2>
+
+
+            <p>
+                Здесь будут ваши сообщения,
+                группы и контакты.
+            </p>
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<!-- =================================
+     ПРОФИЛЬ
+================================= -->
+
+<div
+    id="profile"
+    class="profile"
+>
+
+    <div class="profile-card">
+
+        <div class="profile-avatar">
+
+            <img
+                src="./icon.svg?v=31"
+                alt="AVION"
+            >
+
+        </div>
+
+
+        <h2 id="profileName">
+            Пользователь
+        </h2>
+
+
+        <div
+            id="profilePhone"
+            class="profile-phone"
+        >
+            —
+        </div>
+
+
+        <button
+            id="logoutButton"
+            class="logout"
+        >
+            Выйти из аккаунта
+        </button>
+
+
+        <button
+            id="closeProfile"
+            class="close-profile"
+        >
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =================================
+   AVION MESSENGER
+================================= */
+
+"use strict";
+
+
+const USERS_KEY = "avion_users_v31";
+const CURRENT_KEY = "avion_current_v31";
+
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+
+function users() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(USERS_KEY)
+        ) || [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+
+function saveUsers(list) {
+
+    localStorage.setItem(
+        USERS_KEY,
+        JSON.stringify(list)
+    );
+
+}
+
+
+function phoneNumber(value) {
+
+    return value.replace(/\D/g, "");
+
+}
+
+
+function screen(id) {
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+
+    $(id).classList.add("active");
+
+}
+
+
+function error(id, text) {
+
+    $(id).textContent = text;
+
+}
+
+
+/* =================================
+   ЗАГРУЗКА РОВНО 3 СЕКУНДЫ
+================================= */
+
+setTimeout(() => {
+
+    checkAccount();
+
+}, 3000);
+
+
+/* =================================
+   НАЧАЛО ВХОДА
+================================= */
+
+$("loginStart").onclick = () => {
+
+    error("loginError", "");
+
+    screen("loginScreen");
+
+};
+
+
+/* =================================
+   НАЧАЛО РЕГИСТРАЦИИ
+================================= */
+
+$("registerStart").onclick = () => {
+
+    error("registerError", "");
+
+    screen("registerScreen");
+
+};
+
+
+/* =================================
+   НАЗАД
+================================= */
+
+document
+    .querySelectorAll("[data-back]")
+    .forEach(button => {
+
+        button.onclick = () => {
+
+            screen(
+                button.dataset.back
+            );
+
+        };
+
+    });
+
+
+/* =================================
+   РЕГИСТРАЦИЯ
+================================= */
+
+$("registerButton").onclick = () => {
+
+    const name =
+        $("registerName").value.trim();
+
+    const phone =
+        phoneNumber(
+            $("registerPhone").value
+        );
+
+    const password =
+        $("registerPassword").value;
+
+
+    error("registerError", "");
+
+
+    if (!name) {
+
+        error(
+            "registerError",
+            "Введите имя."
+        );
+
+        return;
+
+    }
+
+
+    if (phone.length < 10) {
+
+        error(
+            "registerError",
+            "Введите корректный номер телефона."
+        );
+
+        return;
+
+    }
+
+
+    if (password.length < 4) {
+
+        error(
+            "registerError",
+            "Пароль должен содержать минимум 4 символа."
+        );
+
+        return;
+
+    }
+
+
+    const list = users();
+
+
+    if (
+        list.some(
+            user => user.phone === phone
+        )
+    ) {
+
+        error(
+            "registerError",
+            "Этот номер телефона уже зарегистрирован."
+        );
+
+        return;
+
+    }
+
+
+    const newUser = {
+
+        id: Date.now(),
+
+        name: name,
+
+        phone: phone,
+
+        password: password
+
+    };
+
+
+    list.push(newUser);
+
+    saveUsers(list);
+
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        String(newUser.id)
+    );
+
+
+    openMain(newUser);
+
+};
+
+
+/* =================================
+   ВХОД
+================================= */
+
+$("loginButton").onclick = () => {
+
+    const phone =
+        phoneNumber(
+            $("loginPhone").value
+        );
+
+    const password =
+        $("loginPassword").value;
+
+
+    error("loginError", "");
+
+
+    const list = users();
+
+
+    const user =
+        list.find(
+            item =>
+                item.phone === phone
+        );
+
+
+    if (!user) {
+
+        error(
+            "loginError",
+            "Номер не зарегистрирован."
+        );
+
+        return;
+
+    }
+
+
+    if (user.password !== password) {
+
+        error(
+            "loginError",
+            "Неверный пароль."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        String(user.id)
+    );
+
+
+    openMain(user);
+
+};
+
+
+/* =================================
+   ОТКРЫТЬ МЕНЮ
+================================= */
+
+function openMain(user) {
+
+    $("profileName").textContent =
+        user.name;
+
+    $("profilePhone").textContent =
+        formatPhone(user.phone);
+
+    $("profileButton").textContent =
+        user.name
+            .charAt(0)
+            .toUpperCase();
+
+
+    screen("mainScreen");
+
+}
+
+
+/* =================================
+   ПРОВЕРКА АККАУНТА
+================================= */
+
+function checkAccount() {
+
+    const current =
+        localStorage.getItem(
+            CURRENT_KEY
+        );
+
+
+    if (!current) {
+
+        screen("welcomeScreen");
+
+        return;
+
+    }
+
+
+    const user =
+        users().find(
+            item =>
+                String(item.id) ===
+                String(current)
+        );
+
+
+    if (!user) {
+
+        localStorage.removeItem(
+            CURRENT_KEY
+        );
+
+        screen("welcomeScreen");
+
+        return;
+
+    }
+
+
+    openMain(user);
+
+}
+
+
+/* =================================
+   ФОРМАТ НОМЕРА
+================================= */
+
+function formatPhone(phone) {
+
+    if (phone.length === 11) {
+
+        return "+" +
+            phone[0] +
+            " " +
+            phone.slice(1,4) +
+            " " +
+            phone.slice(4,7) +
+            "-" +
+            phone.slice(7,9) +
+            "-" +
+            phone.slice(9);
+
+    }
+
+    return "+" + phone;
+
+}
+
+
+/* =================================
+   ПРОФИЛЬ
+================================= */
+
+$("profileButton").onclick = () => {
+
+    $("profile")
+        .classList.add("open");
+
+};
+
+
+$("closeProfile").onclick = () => {
+
+    $("profile")
+        .classList.remove("open");
+
+};
+
+
+/* =================================
+   ВЫХОД
+================================= */
+
+$("logoutButton").onclick = () => {
+
+    localStorage.removeItem(
+        CURRENT_KEY
+    );
+
+    $("profile")
+        .classList.remove("open");
+
+    screen("welcomeScreen");
+
+};
+
+
+/* =================================
+   SERVICE WORKER
+================================= */
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("./sw.js?v=31")
+                .catch(() => {});
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<meta name="theme-color" content="#080808">
+
+<link rel="manifest" href="./manifest.json?v=31">
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="./icon.svg?v=31"
+>
+
+<title>AVION Messenger</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: #050505;
+    color: #fff;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+body {
+    overflow: hidden;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* =================================
+   APP
+================================= */
+
+#app {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            #252525 0%,
+            #111 35%,
+            #050505 75%,
+            #000 100%
+        );
+}
+
+
+/* =================================
+   SCREENS
+================================= */
+
+.screen {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+
+    animation: screenIn .25s ease;
+}
+
+.screen.active {
+    display: flex;
+}
+
+@keyframes screenIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =================================
+   LOADING
+================================= */
+
+#loadingScreen {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding:
+        env(safe-area-inset-top)
+        25px
+        env(safe-area-inset-bottom);
+}
+
+
+/* Иконка */
+
+.loading-icon {
+
+    width: 108px;
+    height: 108px;
+
+    border-radius: 29px;
+
+    overflow: hidden;
+
+    margin-bottom: 24px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.8),
+        0 0 0 1px rgba(255,255,255,.08);
+
+    animation: iconAppear .7s ease;
+}
+
+.loading-icon img {
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+}
+
+@keyframes iconAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* Название */
+
+.loading-title {
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    letter-spacing: -.6px;
+
+    margin-bottom: 8px;
+}
+
+
+/* Разработчик */
+
+.loading-developer {
+
+    font-size: 12px;
+
+    color: #777;
+
+    letter-spacing: .4px;
+
+}
+
+
+/* =================================
+   AUTH
+================================= */
+
+.auth-screen {
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding:
+        env(safe-area-inset-top)
+        22px
+        env(safe-area-inset-bottom);
+}
+
+.auth-container {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    margin: auto;
+}
+
+.auth-title {
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+
+    color: #858585;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    margin-bottom: 28px;
+}
+
+
+.auth-button {
+
+    width: 100%;
+
+    height: 54px;
+
+    border: 0;
+
+    border-radius: 16px;
+
+    background: #fff;
+
+    color: #080808;
+
+    font-size: 16px;
+
+    font-weight: 750;
+
+    cursor: pointer;
+}
+
+.auth-button:active {
+
+    transform: scale(.98);
+
+}
+
+
+.auth-secondary {
+
+    width: 100%;
+
+    height: 54px;
+
+    margin-top: 11px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 16px;
+
+    background: #151515;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: 650;
+
+}
+
+
+/* =================================
+   FORM
+================================= */
+
+.back {
+
+    width: 43px;
+    height: 43px;
+
+    margin-bottom: 25px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    background: #181818;
+
+    color: white;
+
+    font-size: 27px;
+}
+
+.field {
+
+    margin-bottom: 15px;
+}
+
+.field label {
+
+    display: block;
+
+    margin:
+        0
+        0
+        7px
+        5px;
+
+    color: #8c8c8c;
+
+    font-size: 13px;
+}
+
+.field input {
+
+    width: 100%;
+
+    height: 54px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 16px;
+
+    background: #151515;
+
+    color: white;
+
+    outline: none;
+
+    padding: 0 17px;
+
+    font-size: 16px;
+}
+
+.field input:focus {
+
+    border-color: #666;
+
+    background: #191919;
+}
+
+.error {
+
+    min-height: 20px;
+
+    margin:
+        0
+        4px
+        10px;
+
+    color: #ff6565;
+
+    font-size: 13px;
+}
+
+
+/* =================================
+   MAIN
+================================= */
+
+#mainScreen {
+
+    flex-direction: column;
+
+    padding: 0;
+}
+
+.main-header {
+
+    height: 74px;
+
+    padding:
+        calc(env(safe-area-inset-top) + 10px)
+        17px
+        10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background:
+        rgba(8,8,8,.9);
+
+    border-bottom:
+        1px solid #1c1c1c;
+
+    backdrop-filter: blur(18px);
+}
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+.brand-icon {
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.brand-icon img {
+
+    width: 100%;
+    height: 100%;
+}
+
+.brand-name {
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+.profile-button {
+
+    width: 43px;
+    height: 43px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #999
+        );
+
+    color: #111;
+
+    font-weight: 800;
+}
+
+
+/* =================================
+   EMPTY CHATS
+================================= */
+
+.empty {
+
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+.empty-icon {
+
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 22px;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.6);
+}
+
+.empty-icon img {
+
+    width: 100%;
+    height: 100%;
+}
+
+.empty h2 {
+
+    margin: 0 0 9px;
+
+    font-size: 23px;
+}
+
+.empty p {
+
+    margin: 0;
+
+    color: #777;
+
+    font-size: 15px;
+
+    line-height: 1.55;
+
+}
+
+
+/* =================================
+   PROFILE
+================================= */
+
+.profile {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 10;
+
+    display: none;
+
+    align-items: flex-end;
+
+    background:
+        rgba(0,0,0,.72);
+
+    backdrop-filter: blur(12px);
+}
+
+.profile.open {
+    display: flex;
+}
+
+.profile-card {
+
+    width: 100%;
+
+    padding:
+        25px
+        20px
+        calc(20px + env(safe-area-inset-bottom));
+
+    background: #111;
+
+    border-top:
+        1px solid #292929;
+
+    border-radius:
+        28px
+        28px
+        0
+        0;
+}
+
+.profile-avatar {
+
+    width: 72px;
+    height: 72px;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    margin-bottom: 15px;
+}
+
+.profile-avatar img {
+
+    width: 100%;
+    height: 100%;
+}
+
+.profile-card h2 {
+
+    margin: 0 0 5px;
+
+    font-size: 23px;
+}
+
+.profile-phone {
+
+    color: #777;
+
+    margin-bottom: 22px;
+}
+
+.close-profile {
+
+    width: 100%;
+
+    height: 52px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    background: #292929;
+
+    color: #fff;
+
+    font-weight: 650;
+}
+
+.logout {
+
+    width: 100%;
+
+    height: 52px;
+
+    margin-top: 10px;
+
+    border:
+        1px solid #432222;
+
+    border-radius: 15px;
+
+    background: #201212;
+
+    color: #ff6b6b;
+
+    font-weight: 700;
+}
+
+
+@media (min-width: 600px) {
+
+    #app {
+
+        max-width: 480px;
+
+        margin: auto;
+
+        box-shadow:
+            0 0 80px rgba(0,0,0,.8);
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div id="app">
+
+
+<!-- =================================
+     ЗАГРУЗКА 3 СЕКУНДЫ
+================================= -->
+
+<section
+    id="loadingScreen"
+    class="screen active"
+>
+
+    <div class="loading-icon">
+
+        <img
+            src="./icon.svg?v=31"
+            alt="AVION"
+        >
+
+    </div>
+
+
+    <div class="loading-title">
+        AVION Messenger
+    </div>
+
+
+    <div class="loading-developer">
+        Cats Developer Studio
+    </div>
+
+</section>
+
+
+<!-- =================================
+     ГЛАВНЫЙ ЭКРАН
+================================= -->
+
+<section
+    id="welcomeScreen"
+    class="screen auth-screen"
+>
+
+    <div class="auth-container">
+
+        <div class="auth-title">
+            Добро пожаловать
+        </div>
+
+        <div class="auth-subtitle">
+            Войдите в AVION Messenger
+            или создайте новый аккаунт.
+        </div>
+
+
+        <button
+            id="loginStart"
+            class="auth-button"
+        >
+            Войти
+        </button>
+
+
+        <button
+            id="registerStart"
+            class="auth-secondary"
+        >
+            Создать аккаунт
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     ВХОД
+================================= -->
+
+<section
+    id="loginScreen"
+    class="screen auth-screen"
+>
+
+    <div class="auth-container">
+
+        <button
+            class="back"
+            data-back="welcomeScreen"
+        >
+            ‹
+        </button>
+
+
+        <div class="auth-title">
+            Вход
+        </div>
+
+
+        <div class="auth-subtitle">
+            Введите номер телефона
+            и пароль.
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Номер телефона
+            </label>
+
+            <input
+                id="loginPhone"
+                type="tel"
+                inputmode="tel"
+                placeholder="+7 900 000-00-00"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Пароль
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Пароль"
+            >
+
+        </div>
+
+
+        <div
+            id="loginError"
+            class="error"
+        ></div>
+
+
+        <button
+            id="loginButton"
+            class="auth-button"
+        >
+            Войти
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     РЕГИСТРАЦИЯ
+================================= -->
+
+<section
+    id="registerScreen"
+    class="screen auth-screen"
+>
+
+    <div class="auth-container">
+
+        <button
+            class="back"
+            data-back="welcomeScreen"
+        >
+            ‹
+        </button>
+
+
+        <div class="auth-title">
+            Регистрация
+        </div>
+
+
+        <div class="auth-subtitle">
+            Создайте аккаунт AVION.
+            После регистрации вы сразу
+            попадёте в меню.
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Имя
+            </label>
+
+            <input
+                id="registerName"
+                type="text"
+                autocomplete="name"
+                placeholder="Ваше имя"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Номер телефона
+            </label>
+
+            <input
+                id="registerPhone"
+                type="tel"
+                inputmode="tel"
+                placeholder="+7 900 000-00-00"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Пароль
+            </label>
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Придумайте пароль"
+            >
+
+        </div>
+
+
+        <div
+            id="registerError"
+            class="error"
+        ></div>
+
+
+        <button
+            id="registerButton"
+            class="auth-button"
+        >
+            Создать аккаунт
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     МЕНЮ
+================================= -->
+
+<section
+    id="mainScreen"
+    class="screen"
+>
+
+    <header class="main-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <img
+                    src="./icon.svg?v=31"
+                    alt="AVION"
+                >
+
+            </div>
+
+
+            <div class="brand-name">
+                AVION
+            </div>
+
+        </div>
+
+
+        <button
+            id="profileButton"
+            class="profile-button"
+        >
+            A
+        </button>
+
+    </header>
+
+
+    <main class="empty">
+
+        <div>
+
+            <div class="empty-icon">
+
+                <img
+                    src="./icon.svg?v=31"
+                    alt="AVION"
+                >
+
+            </div>
+
+
+            <h2>
+                Чаты скоро появятся
+            </h2>
+
+
+            <p>
+                Здесь будут ваши сообщения,
+                группы и контакты.
+            </p>
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<!-- =================================
+     ПРОФИЛЬ
+================================= -->
+
+<div
+    id="profile"
+    class="profile"
+>
+
+    <div class="profile-card">
+
+        <div class="profile-avatar">
+
+            <img
+                src="./icon.svg?v=31"
+                alt="AVION"
+            >
+
+        </div>
+
+
+        <h2 id="profileName">
+            Пользователь
+        </h2>
+
+
+        <div
+            id="profilePhone"
+            class="profile-phone"
+        >
+            —
+        </div>
+
+
+        <button
+            id="logoutButton"
+            class="logout"
+        >
+            Выйти из аккаунта
+        </button>
+
+
+        <button
+            id="closeProfile"
+            class="close-profile"
+        >
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =================================
+   AVION MESSENGER
+================================= */
+
+"use strict";
+
+
+const USERS_KEY = "avion_users_v31";
+const CURRENT_KEY = "avion_current_v31";
+
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+
+function users() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(USERS_KEY)
+        ) || [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+
+function saveUsers(list) {
+
+    localStorage.setItem(
+        USERS_KEY,
+        JSON.stringify(list)
+    );
+
+}
+
+
+function phoneNumber(value) {
+
+    return value.replace(/\D/g, "");
+
+}
+
+
+function screen(id) {
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+
+    $(id).classList.add("active");
+
+}
+
+
+function error(id, text) {
+
+    $(id).textContent = text;
+
+}
+
+
+/* =================================
+   ЗАГРУЗКА РОВНО 3 СЕКУНДЫ
+================================= */
+
+setTimeout(() => {
+
+    checkAccount();
+
+}, 3000);
+
+
+/* =================================
+   НАЧАЛО ВХОДА
+================================= */
+
+$("loginStart").onclick = () => {
+
+    error("loginError", "");
+
+    screen("loginScreen");
+
+};
+
+
+/* =================================
+   НАЧАЛО РЕГИСТРАЦИИ
+================================= */
+
+$("registerStart").onclick = () => {
+
+    error("registerError", "");
+
+    screen("registerScreen");
+
+};
+
+
+/* =================================
+   НАЗАД
+================================= */
+
+document
+    .querySelectorAll("[data-back]")
+    .forEach(button => {
+
+        button.onclick = () => {
+
+            screen(
+                button.dataset.back
+            );
+
+        };
+
+    });
+
+
+/* =================================
+   РЕГИСТРАЦИЯ
+================================= */
+
+$("registerButton").onclick = () => {
+
+    const name =
+        $("registerName").value.trim();
+
+    const phone =
+        phoneNumber(
+            $("registerPhone").value
+        );
+
+    const password =
+        $("registerPassword").value;
+
+
+    error("registerError", "");
+
+
+    if (!name) {
+
+        error(
+            "registerError",
+            "Введите имя."
+        );
+
+        return;
+
+    }
+
+
+    if (phone.length < 10) {
+
+        error(
+            "registerError",
+            "Введите корректный номер телефона."
+        );
+
+        return;
+
+    }
+
+
+    if (password.length < 4) {
+
+        error(
+            "registerError",
+            "Пароль должен содержать минимум 4 символа."
+        );
+
+        return;
+
+    }
+
+
+    const list = users();
+
+
+    if (
+        list.some(
+            user => user.phone === phone
+        )
+    ) {
+
+        error(
+            "registerError",
+            "Этот номер телефона уже зарегистрирован."
+        );
+
+        return;
+
+    }
+
+
+    const newUser = {
+
+        id: Date.now(),
+
+        name: name,
+
+        phone: phone,
+
+        password: password
+
+    };
+
+
+    list.push(newUser);
+
+    saveUsers(list);
+
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        String(newUser.id)
+    );
+
+
+    openMain(newUser);
+
+};
+
+
+/* =================================
+   ВХОД
+================================= */
+
+$("loginButton").onclick = () => {
+
+    const phone =
+        phoneNumber(
+            $("loginPhone").value
+        );
+
+    const password =
+        $("loginPassword").value;
+
+
+    error("loginError", "");
+
+
+    const list = users();
+
+
+    const user =
+        list.find(
+            item =>
+                item.phone === phone
+        );
+
+
+    if (!user) {
+
+        error(
+            "loginError",
+            "Номер не зарегистрирован."
+        );
+
+        return;
+
+    }
+
+
+    if (user.password !== password) {
+
+        error(
+            "loginError",
+            "Неверный пароль."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        CURRENT_KEY,
+        String(user.id)
+    );
+
+
+    openMain(user);
+
+};
+
+
+/* =================================
+   ОТКРЫТЬ МЕНЮ
+================================= */
+
+function openMain(user) {
+
+    $("profileName").textContent =
+        user.name;
+
+    $("profilePhone").textContent =
+        formatPhone(user.phone);
+
+    $("profileButton").textContent =
+        user.name
+            .charAt(0)
+            .toUpperCase();
+
+
+    screen("mainScreen");
+
+}
+
+
+/* =================================
+   ПРОВЕРКА АККАУНТА
+================================= */
+
+function checkAccount() {
+
+    const current =
+        localStorage.getItem(
+            CURRENT_KEY
+        );
+
+
+    if (!current) {
+
+        screen("welcomeScreen");
+
+        return;
+
+    }
+
+
+    const user =
+        users().find(
+            item =>
+                String(item.id) ===
+                String(current)
+        );
+
+
+    if (!user) {
+
+        localStorage.removeItem(
+            CURRENT_KEY
+        );
+
+        screen("welcomeScreen");
+
+        return;
+
+    }
+
+
+    openMain(user);
+
+}
+
+
+/* =================================
+   ФОРМАТ НОМЕРА
+================================= */
+
+function formatPhone(phone) {
+
+    if (phone.length === 11) {
+
+        return "+" +
+            phone[0] +
+            " " +
+            phone.slice(1,4) +
+            " " +
+            phone.slice(4,7) +
+            "-" +
+            phone.slice(7,9) +
+            "-" +
+            phone.slice(9);
+
+    }
+
+    return "+" + phone;
+
+}
+
+
+/* =================================
+   ПРОФИЛЬ
+================================= */
+
+$("profileButton").onclick = () => {
+
+    $("profile")
+        .classList.add("open");
+
+};
+
+
+$("closeProfile").onclick = () => {
+
+    $("profile")
+        .classList.remove("open");
+
+};
+
+
+/* =================================
+   ВЫХОД
+================================= */
+
+$("logoutButton").onclick = () => {
+
+    localStorage.removeItem(
+        CURRENT_KEY
+    );
+
+    $("profile")
+        .classList.remove("open");
+
+    screen("welcomeScreen");
+
+};
+
+
+/* =================================
+   SERVICE WORKER
+================================= */
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("./sw.js?v=31")
+                .catch(() => {});
+
+        }
+    );
+
+}
+
 </script>
 
 </body>
