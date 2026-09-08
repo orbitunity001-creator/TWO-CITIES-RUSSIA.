@@ -2,7 +2,12 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1,
+               maximum-scale=1,
+               user-scalable=no,
+               viewport-fit=cover">
 
 <title>AVIA</title>
 
@@ -19,188 +24,265 @@
     -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
-    margin:0;
+html,
+body{
     width:100%;
-    min-height:100%;
-    background:#040812;
-    color:white;
-    font-family:Arial,sans-serif;
+    height:100%;
+    margin:0;
+    padding:0;
+
     overflow:hidden;
+
+    background:#040812;
+    color:#fff;
+
+    font-family:Arial,sans-serif;
 }
 
 body{
-    min-height:100vh;
+    position:fixed;
+    inset:0;
 }
 
 /* =========================
-   ЗАПУСК AVIA
+   ЗАСТАВКА
 ========================= */
 
 #splash{
     position:fixed;
     inset:0;
-    z-index:10000;
+
+    width:100%;
+    height:100%;
+
     overflow:hidden;
 
     display:flex;
     flex-direction:column;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 
     background:
-        radial-gradient(circle at 50% 42%,#102b50 0%,#071326 32%,#040812 70%);
+        radial-gradient(
+            circle at 50% 42%,
+            #102b50 0%,
+            #071326 32%,
+            #040812 72%
+        );
+
+    transition:opacity .5s ease;
 }
 
-/* Звёзды */
+/* ЗВЁЗДЫ */
 
 .stars{
     position:absolute;
     inset:0;
+
+    width:100%;
+    height:100%;
+
     overflow:hidden;
 }
 
 .star{
     position:absolute;
+
     width:2px;
     height:2px;
-    background:white;
+
     border-radius:50%;
-    opacity:.65;
-    animation:twinkle 2.5s infinite ease-in-out;
+
+    background:#fff;
+
+    opacity:.6;
+
+    animation:
+        twinkle 2.5s
+        infinite
+        ease-in-out;
 }
 
 @keyframes twinkle{
+
     0%,100%{
-        opacity:.2;
+        opacity:.15;
         transform:scale(.7);
     }
+
     50%{
         opacity:1;
         transform:scale(1.4);
     }
 }
 
-/* Свет за птицей */
+/* СВЕЧЕНИЕ */
 
 .glow{
     position:absolute;
+
     width:260px;
     height:260px;
+
     border-radius:50%;
 
     background:#1675ed;
+
     filter:blur(90px);
+
     opacity:.18;
 
-    animation:glowMove 3s ease-in-out infinite;
+    animation:glowMove 3s
+        ease-in-out
+        infinite;
 }
 
 @keyframes glowMove{
+
     0%,100%{
         transform:scale(.9);
         opacity:.12;
     }
+
     50%{
         transform:scale(1.15);
-        opacity:.24;
+        opacity:.25;
     }
 }
 
-/* Птица */
+/* ПТИЦА */
 
 .bird-wrap{
     position:relative;
-    width:230px;
-    height:230px;
+
+    width:min(62vw,270px);
+    height:min(62vw,270px);
 
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 
-    animation:birdFly 3s ease-in-out infinite;
+    animation:
+        birdFly 3s
+        ease-in-out
+        infinite;
 }
 
 .bird{
-    width:210px;
-    height:210px;
-    filter:drop-shadow(0 20px 35px #0009);
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    filter:
+        drop-shadow(0 20px 35px #0009);
 }
 
-/*
-   Машем крыльями через SVG-группы.
-*/
+/* КРЫЛЬЯ */
 
 .left-wing{
     transform-origin:220px 230px;
-    animation:leftWing 0.75s ease-in-out infinite;
+
+    animation:
+        leftWing .75s
+        ease-in-out
+        infinite;
 }
 
 .right-wing{
     transform-origin:285px 245px;
-    animation:rightWing 0.75s ease-in-out infinite;
+
+    animation:
+        rightWing .75s
+        ease-in-out
+        infinite;
 }
 
 @keyframes leftWing{
+
     0%,100%{
         transform:rotate(5deg);
     }
+
     50%{
         transform:rotate(-14deg);
     }
 }
 
 @keyframes rightWing{
+
     0%,100%{
         transform:rotate(-5deg);
     }
+
     50%{
         transform:rotate(14deg);
     }
 }
 
 @keyframes birdFly{
+
     0%,100%{
         transform:translateY(5px);
     }
+
     50%{
         transform:translateY(-12px);
     }
 }
 
-/* Название */
+/* =========================
+   НАЗВАНИЕ НА ЗАСТАВКЕ
+========================= */
 
 .splash-title{
     position:absolute;
+
     bottom:88px;
+
+    width:100%;
 
     text-align:center;
 
-    font-size:42px;
-    font-weight:800;
-    letter-spacing:8px;
+    font-size:clamp(48px,14vw,72px);
+    line-height:1;
 
-    text-shadow:0 5px 30px #1675ed66;
+    font-weight:900;
+
+    letter-spacing:
+        clamp(7px,2.5vw,12px);
+
+    text-shadow:
+        0 5px 30px #1675ed66;
 
     animation:titleIn 1.5s ease forwards;
 }
 
 .splash-studio{
     position:absolute;
-    bottom:55px;
+
+    bottom:48px;
+
+    width:100%;
+
+    text-align:center;
 
     color:#71839c;
-    font-size:13px;
+
+    font-size:14px;
+
     letter-spacing:.5px;
 
     animation:titleIn 1.8s ease forwards;
 }
 
 @keyframes titleIn{
+
     from{
         opacity:0;
         transform:translateY(12px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
@@ -215,11 +297,21 @@ body{
     position:fixed;
     inset:0;
 
+    width:100%;
+    height:100%;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
 
-    padding:25px;
+    padding:
+        max(18px,env(safe-area-inset-top))
+        18px
+        max(18px,env(safe-area-inset-bottom))
+        18px;
+
+    overflow:hidden;
 
     opacity:0;
     pointer-events:none;
@@ -227,7 +319,11 @@ body{
     transition:opacity .5s ease;
 
     background:
-        radial-gradient(circle at 50% 20%,#0b1d35 0%,#040812 55%);
+        radial-gradient(
+            circle at 50% 20%,
+            #0b1d35 0%,
+            #040812 58%
+        );
 }
 
 #app.visible{
@@ -236,20 +332,27 @@ body{
 }
 
 /* =========================
-   ВХОД
+   КАРТОЧКА ВХОДА
 ========================= */
 
 .auth-card{
+
     position:relative;
 
     width:100%;
-    max-width:400px;
+    max-width:390px;
 
-    padding:30px 24px 26px;
+    max-height:calc(100vh - 36px);
 
-    border-radius:28px;
+    padding:
+        28px
+        20px
+        24px;
 
-    background:#0c1729eF;
+    border-radius:26px;
+
+    background:#0c1729ef;
+
     border:1px solid #263852;
 
     box-shadow:
@@ -260,134 +363,193 @@ body{
     -webkit-backdrop-filter:blur(20px);
 
     animation:cardIn .7s ease;
+
+    overflow:hidden;
 }
 
 @keyframes cardIn{
+
     from{
         opacity:0;
-        transform:translateY(25px) scale(.96);
+        transform:
+            translateY(25px)
+            scale(.96);
     }
+
     to{
         opacity:1;
-        transform:translateY(0) scale(1);
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
 
+/* ЛОГО */
+
 .auth-logo{
-    width:76px;
-    height:76px;
 
-    margin:0 auto 18px;
+    width:72px;
+    height:72px;
 
-    border-radius:21px;
+    margin:
+        0 auto
+        17px;
+
+    border-radius:20px;
+
     overflow:hidden;
 
-    box-shadow:0 15px 40px #1675ed40;
+    box-shadow:
+        0 15px 40px #1675ed40;
 }
 
 .auth-logo img{
+
     width:100%;
     height:100%;
+
     display:block;
 }
 
+/* ЗАГОЛОВОК */
+
 .auth-title{
+
+    width:100%;
+
     text-align:center;
 
     font-size:30px;
-    font-weight:800;
+
+    font-weight:900;
+
     letter-spacing:3px;
 }
 
 .auth-subtitle{
+
     margin-top:8px;
+
+    width:100%;
 
     text-align:center;
 
     color:#8495ad;
+
     font-size:14px;
+
     line-height:1.5;
 }
 
-/* Крестик */
+/* КРЕСТИК */
 
 .skip{
+
     position:absolute;
-    top:15px;
-    right:15px;
+
+    top:13px;
+    right:13px;
 
     width:38px;
     height:38px;
 
+    padding:0;
+
     border:0;
+
     border-radius:50%;
 
     background:#17243a;
+
     color:#9aabc0;
 
     font-size:22px;
 
-    cursor:pointer;
+    line-height:38px;
 
-    transition:.2s;
+    text-align:center;
+
+    cursor:pointer;
 }
 
 .skip:active{
     transform:scale(.9);
 }
 
-/* Кнопки */
+/* КНОПКИ */
 
 .auth-buttons{
-    margin-top:28px;
+
+    width:100%;
+
+    margin-top:25px;
 
     display:flex;
     flex-direction:column;
-    gap:12px;
+
+    gap:11px;
 }
 
 .auth-button{
+
     width:100%;
 
-    padding:16px;
+    min-height:54px;
+
+    padding:15px;
 
     border:0;
+
     border-radius:15px;
 
     font-size:16px;
+
     font-weight:bold;
 
     cursor:pointer;
 
     transition:
-        transform .15s,
-        opacity .15s;
+        transform .15s ease,
+        opacity .15s ease;
 }
 
 .auth-button:active{
+
     transform:scale(.98);
 }
 
 .login{
+
     background:#1675ed;
+
     color:white;
 
-    box-shadow:0 10px 30px #1675ed35;
+    box-shadow:
+        0 10px 30px #1675ed35;
 }
 
 .register{
+
     background:#18263b;
+
     color:#eaf3ff;
+
     border:1px solid #2a3d58;
 }
 
 .auth-note{
-    margin-top:20px;
+
+    width:100%;
+
+    margin-top:18px;
 
     text-align:center;
 
     color:#566b86;
+
     font-size:12px;
+
+    line-height:1.45;
 }
 
 /* =========================
@@ -395,10 +557,14 @@ body{
 ========================= */
 
 #message{
+
     position:fixed;
-    left:20px;
-    right:20px;
-    bottom:25px;
+
+    left:18px;
+    right:18px;
+
+    bottom:
+        max(20px,env(safe-area-inset-bottom));
 
     z-index:20000;
 
@@ -411,6 +577,7 @@ body{
     text-align:center;
 
     background:#101d31;
+
     border:1px solid #293d59;
 
     color:#aab9cc;
@@ -421,13 +588,58 @@ body{
 }
 
 @keyframes messageIn{
+
     from{
         opacity:0;
         transform:translateY(15px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
+    }
+}
+
+/* =========================
+   ОЧЕНЬ УЗКИЕ ТЕЛЕФОНЫ
+========================= */
+
+@media(max-width:360px){
+
+    .bird-wrap{
+        width:210px;
+        height:210px;
+    }
+
+    .splash-title{
+        bottom:78px;
+        font-size:48px;
+    }
+
+    .splash-studio{
+        bottom:40px;
+        font-size:12px;
+    }
+
+    .auth-card{
+        padding:
+            23px
+            17px
+            20px;
+    }
+
+    .auth-logo{
+        width:64px;
+        height:64px;
+        margin-bottom:14px;
+    }
+
+    .auth-title{
+        font-size:27px;
+    }
+
+    .auth-buttons{
+        margin-top:21px;
     }
 }
 </style>
@@ -469,39 +681,80 @@ body{
 
     <div class="bird-wrap">
 
-        <svg class="bird"
-             viewBox="0 0 512 512"
-             xmlns="http://www.w3.org/2000/svg">
+        <svg
+            class="bird"
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg">
 
             <defs>
 
-                <linearGradient id="body"
-                    x1="0" y1="0"
-                    x2="1" y2="1">
-                    <stop offset="0" stop-color="#ffffff"/>
-                    <stop offset=".65" stop-color="#e8f5ff"/>
-                    <stop offset="1" stop-color="#a8d8ff"/>
+                <linearGradient
+                    id="body"
+                    x1="0"
+                    y1="0"
+                    x2="1"
+                    y2="1">
+
+                    <stop
+                        offset="0"
+                        stop-color="#ffffff"/>
+
+                    <stop
+                        offset=".65"
+                        stop-color="#e8f5ff"/>
+
+                    <stop
+                        offset="1"
+                        stop-color="#a8d8ff"/>
+
                 </linearGradient>
 
-                <linearGradient id="wing"
-                    x1="0" y1="0"
-                    x2="1" y2="1">
-                    <stop offset="0" stop-color="#ffffff"/>
-                    <stop offset=".55" stop-color="#d8edff"/>
-                    <stop offset="1" stop-color="#75baff"/>
+                <linearGradient
+                    id="wing"
+                    x1="0"
+                    y1="0"
+                    x2="1"
+                    y2="1">
+
+                    <stop
+                        offset="0"
+                        stop-color="#ffffff"/>
+
+                    <stop
+                        offset=".55"
+                        stop-color="#d8edff"/>
+
+                    <stop
+                        offset="1"
+                        stop-color="#75baff"/>
+
                 </linearGradient>
 
-                <linearGradient id="blue"
-                    x1="0" y1="0"
-                    x2="1" y2="1">
-                    <stop offset="0" stop-color="#8bd5ff"/>
-                    <stop offset=".55" stop-color="#4ca9ff"/>
-                    <stop offset="1" stop-color="#1675ed"/>
+                <linearGradient
+                    id="blue"
+                    x1="0"
+                    y1="0"
+                    x2="1"
+                    y2="1">
+
+                    <stop
+                        offset="0"
+                        stop-color="#8bd5ff"/>
+
+                    <stop
+                        offset=".55"
+                        stop-color="#4ca9ff"/>
+
+                    <stop
+                        offset="1"
+                        stop-color="#1675ed"/>
+
                 </linearGradient>
 
             </defs>
 
             <!-- Нижнее крыло -->
+
             <path
                 class="left-wing"
                 d="M250 300
@@ -513,6 +766,7 @@ body{
             />
 
             <!-- Верхнее крыло -->
+
             <path
                 class="right-wing"
                 d="M279 267
@@ -536,6 +790,7 @@ body{
             />
 
             <!-- Тело -->
+
             <path
                 d="M283 248
                 C295 203 318 166 350 153
@@ -560,6 +815,7 @@ body{
             />
 
             <!-- Глаз -->
+
             <circle
                 cx="397"
                 cy="183"
@@ -578,24 +834,35 @@ body{
 
     </div>
 
-    <div class="splash-title">AVIA</div>
-    <div class="splash-studio">Cats Developer Studio</div>
+    <div class="splash-title">
+        AVIA
+    </div>
+
+    <div class="splash-studio">
+        Cats Developer Studio
+    </div>
 
 </div>
 
 
 <!-- =========================
-     ОСНОВНОЙ ЭКРАН
+     ЭКРАН ВХОДА
 ========================= -->
 
 <div id="app">
 
     <div class="auth-card">
 
-        <button class="skip" id="skipButton">×</button>
+        <button
+            class="skip"
+            id="skipButton">
+            ×
+        </button>
 
         <div class="auth-logo">
-            <img src="./icon.svg" alt="AVIA">
+            <img
+                src="./icon.svg"
+                alt="AVIA">
         </div>
 
         <div class="auth-title">
@@ -609,11 +876,15 @@ body{
 
         <div class="auth-buttons">
 
-            <button class="auth-button login" id="loginButton">
+            <button
+                class="auth-button login"
+                id="loginButton">
                 Войти
             </button>
 
-            <button class="auth-button register" id="registerButton">
+            <button
+                class="auth-button register"
+                id="registerButton">
                 Зарегистрироваться
             </button>
 
@@ -629,7 +900,9 @@ body{
 </div>
 
 
-<!-- Сообщение -->
+<!-- =========================
+     СООБЩЕНИЕ
+========================= -->
 
 <div id="message">
     Этот раздел ещё не готов
@@ -639,11 +912,14 @@ body{
 <script>
 
 /* =========================
-   SPLASH 5 СЕКУНД
+   5 СЕКУНД ЗАСТАВКИ
 ========================= */
 
-const splash = document.getElementById("splash");
-const app = document.getElementById("app");
+const splash =
+    document.getElementById("splash");
+
+const app =
+    document.getElementById("app");
 
 setTimeout(() => {
 
@@ -655,67 +931,81 @@ setTimeout(() => {
 
         app.classList.add("visible");
 
-    }, 500);
+    },500);
 
-}, 5000);
+},5000);
 
 
 /* =========================
-   КНОПКА ПРОПУСТИТЬ
+   СООБЩЕНИЕ
 ========================= */
 
-const skipButton = document.getElementById("skipButton");
-const message = document.getElementById("message");
+const message =
+    document.getElementById("message");
 
-skipButton.addEventListener("click", () => {
+function showMessage(text){
 
-    app.style.opacity = "0";
+    message.textContent = text;
+
+    message.style.display = "block";
 
     setTimeout(() => {
 
-        app.style.display = "none";
+        message.style.display = "none";
 
-        message.style.display = "block";
-
-        setTimeout(() => {
-            message.style.display = "none";
-        }, 3000);
-
-    }, 300);
-
-});
+    },3000);
+}
 
 
 /* =========================
-   ВХОД И РЕГИСТРАЦИЯ
+   ПРОПУСТИТЬ
 ========================= */
 
-document.getElementById("loginButton")
-    .addEventListener("click", () => {
+document
+    .getElementById("skipButton")
+    .addEventListener("click",() => {
 
-        message.textContent =
-            "Раздел входа ещё не готов";
-
-        message.style.display = "block";
+        app.style.opacity = "0";
 
         setTimeout(() => {
-            message.style.display = "none";
-        }, 3000);
+
+            app.style.display = "none";
+
+            showMessage(
+                "Этот раздел ещё не готов"
+            );
+
+        },300);
 
     });
 
 
-document.getElementById("registerButton")
-    .addEventListener("click", () => {
+/* =========================
+   ВХОД
+========================= */
 
-        message.textContent =
-            "Регистрация ещё не готова";
+document
+    .getElementById("loginButton")
+    .addEventListener("click",() => {
 
-        message.style.display = "block";
+        showMessage(
+            "Раздел входа ещё не готов"
+        );
 
-        setTimeout(() => {
-            message.style.display = "none";
-        }, 3000);
+    });
+
+
+/* =========================
+   РЕГИСТРАЦИЯ
+========================= */
+
+document
+    .getElementById("registerButton")
+    .addEventListener("click",() => {
+
+        showMessage(
+            "Регистрация ещё не готова"
+        );
 
     });
 
@@ -726,15 +1016,17 @@ document.getElementById("registerButton")
 
 if("serviceWorker" in navigator){
 
-    window.addEventListener("load", () => {
+    window.addEventListener("load",() => {
 
         navigator.serviceWorker
             .register("./sw.js")
             .catch(error => {
+
                 console.error(
                     "Service Worker:",
                     error
                 );
+
             });
 
     });
