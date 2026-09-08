@@ -1,20 +1,15 @@
 {
-  "name": "AVIA",
+  "name": "AVIA AI",
   "short_name": "AVIA",
   "description": "Умная нейросеть от Cats Developer Studio",
   "id": "./avia",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "display_override": [
-    "standalone",
-    "fullscreen"
-  ],
   "background_color": "#040812",
   "theme_color": "#06101f",
   "orientation": "portrait",
   "lang": "ru",
-  "prefer_related_applications": false,
   "icons": [
     {
       "src": "./icon.svg",
