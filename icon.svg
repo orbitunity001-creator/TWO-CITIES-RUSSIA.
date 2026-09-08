@@ -2,73 +2,50 @@
 
 <defs>
 
-  <!-- ФОН -->
+  <!-- ТЁМНЫЙ ФОН -->
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#505050"/>
+    <stop offset="0%" stop-color="#4a4a4a"/>
     <stop offset="35%" stop-color="#303030"/>
-    <stop offset="70%" stop-color="#1b1b1b"/>
-    <stop offset="100%" stop-color="#090909"/>
+    <stop offset="70%" stop-color="#191919"/>
+    <stop offset="100%" stop-color="#080808"/>
   </linearGradient>
 
-  <!-- ОСНОВА БУКВЫ -->
-  <linearGradient id="Aface" x1="0" y1="0" x2="0.8" y2="1">
+  <!-- БУКВА -->
+  <linearGradient id="letter" x1="0" y1="0" x2="0" y2="1">
     <stop offset="0%" stop-color="#ffffff"/>
-    <stop offset="20%" stop-color="#fdfdfd"/>
-    <stop offset="48%" stop-color="#e7e7e7"/>
-    <stop offset="75%" stop-color="#c5c5c5"/>
-    <stop offset="100%" stop-color="#8d8d8d"/>
-  </linearGradient>
-
-  <!-- БОКОВАЯ ЧАСТЬ -->
-  <linearGradient id="Aside" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#999999"/>
-    <stop offset="45%" stop-color="#626262"/>
-    <stop offset="100%" stop-color="#292929"/>
+    <stop offset="45%" stop-color="#f1f1f1"/>
+    <stop offset="100%" stop-color="#a8a8a8"/>
   </linearGradient>
 
   <!-- БЛИК -->
   <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#ffffff" stop-opacity=".9"/>
-    <stop offset="35%" stop-color="#ffffff" stop-opacity=".25"/>
+    <stop offset="0%" stop-color="#ffffff" stop-opacity=".8"/>
+    <stop offset="50%" stop-color="#ffffff" stop-opacity=".15"/>
     <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
   </linearGradient>
 
   <!-- ТЕНЬ -->
   <filter id="shadow"
-          x="-40%"
-          y="-40%"
-          width="180%"
-          height="180%">
-
-    <feDropShadow
-      dx="0"
-      dy="16"
-      stdDeviation="14"
-      flood-color="#000000"
-      flood-opacity=".75"/>
-
-  </filter>
-
-  <!-- МЯГКИЙ БЛИК -->
-  <filter id="glow"
           x="-50%"
           y="-50%"
           width="200%"
           height="200%">
 
-    <feGaussianBlur
-      stdDeviation="5"/>
+    <feDropShadow
+      dx="0"
+      dy="10"
+      stdDeviation="10"
+      flood-color="#000000"
+      flood-opacity=".8"/>
 
   </filter>
 
 </defs>
 
 
-<!-- ЧЁРНО-ГРАФИТОВЫЙ ФОН -->
+<!-- ФОН -->
 
 <rect
-  x="0"
-  y="0"
   width="512"
   height="512"
   rx="105"
@@ -76,145 +53,100 @@
 />
 
 
-<!-- СВЕТ В ЦЕНТРЕ -->
+<!-- МЯГКИЙ СВЕТ -->
 
 <ellipse
   cx="256"
-  cy="225"
-  rx="190"
-  ry="205"
+  cy="220"
+  rx="180"
+  ry="190"
   fill="#ffffff"
   opacity=".035"
 />
 
 
-<!-- ОБЪЁМНАЯ ЗАДНЯЯ ЧАСТЬ A -->
+<!-- ЗАДНЯЯ ОБЪЁМНАЯ ЧАСТЬ A -->
 
 <path
   d="
-    M256 72
-    L96 438
-    L177 438
-    L213 350
-    L299 350
-    L335 438
-    L416 438
+    M256 125
+    L145 395
+    L205 395
+    L230 325
+    L282 325
+    L307 395
+    L367 395
     Z
 
-    M256 181
-    L282 293
-    L230 293
+    M256 205
+    L272 278
+    L240 278
     Z
   "
-  transform="translate(0 14)"
-  fill="url(#Aside)"
-  opacity=".95"
+  transform="translate(0 10)"
+  fill="#666666"
 />
 
 
-<!-- ОСНОВНАЯ БУКВА A -->
+<!-- ОСНОВНАЯ A -->
 
 <path
   d="
-    M256 72
+    M256 125
 
-    L96 438
+    L145 395
 
-    L177 438
+    L205 395
 
-    L213 350
+    L230 325
 
-    L299 350
+    L282 325
 
-    L335 438
+    L307 395
 
-    L416 438
+    L367 395
 
     Z
 
-    M256 181
+    M256 205
 
-    L282 293
+    L272 278
 
-    L230 293
+    L240 278
 
     Z
   "
-  fill="url(#Aface)"
+  fill="url(#letter)"
   filter="url(#shadow)"
 />
 
 
-<!-- ЯРКИЙ ВЕРХНИЙ КРАЙ -->
+<!-- БЛИК НА БУКВЕ -->
 
 <path
   d="
-    M256 72
-    L96 438
-    L112 438
-    L265 91
+    M256 130
+    L158 382
+    L178 382
+    L266 165
     Z
   "
   fill="url(#shine)"
-  opacity=".65"
+  opacity=".6"
 />
 
 
-<!-- БЛИК НА ЛЕВОЙ СТОРОНЕ -->
+<!-- ВЕРХНИЙ БЛИК -->
 
 <path
   d="
-    M256 82
-    L119 418
-    L145 418
-    L274 103
+    M256 125
+    L248 145
+    L264 145
     Z
   "
   fill="#ffffff"
-  opacity=".16"
-/>
-
-
-<!-- БЛИК НА ВЕРХУ -->
-
-<path
-  d="
-    M256 72
-    L247 94
-    L265 94
-    Z
-  "
-  fill="#ffffff"
-  opacity=".95"
-/>
-
-
-<!-- ВНУТРЕННИЙ ОБЪЁМ -->
-
-<path
-  d="
-    M256 181
-    L230 293
-    L242 293
-    L264 202
-    Z
-  "
-  fill="#ffffff"
-  opacity=".18"
-/>
-
-
-<!-- ТОНКАЯ СВЕТОВАЯ ЛИНИЯ -->
-
-<path
-  d="
-    M213 350
-    L299 350
-  "
-  stroke="#ffffff"
-  stroke-width="3"
-  opacity=".45"
-  stroke-linecap="round"
+  opacity=".9"
 />
 
 
