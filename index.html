@@ -5,12 +5,12 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     >
 
     <meta name="theme-color" content="#07111f">
 
-    <!-- Иконка сайта -->
+    <!-- Иконка AVIA -->
     <link
         rel="icon"
         type="image/png"
@@ -18,16 +18,16 @@
         href="./icon.png"
     >
 
-    <!-- Иконка при установке на iPhone -->
     <link
         rel="apple-touch-icon"
+        sizes="512x512"
         href="./icon.png"
     >
 
     <!-- PWA -->
     <link
         rel="manifest"
-        href="./manifest.json"
+        href="./manifest.json?v=2"
     >
 
     <title>AVIA</title>
@@ -42,12 +42,15 @@
             width: 100%;
             height: 100%;
             margin: 0;
+            padding: 0;
         }
 
         body {
             display: flex;
             align-items: center;
             justify-content: center;
+
+            overflow: hidden;
 
             background: #050914;
 
@@ -63,6 +66,7 @@
         }
 
         .avia {
+            width: 100%;
             text-align: center;
         }
 
@@ -77,8 +81,8 @@
             overflow: hidden;
 
             box-shadow:
-                0 20px 60px rgba(40, 130, 255, 0.25),
-                0 0 40px rgba(40, 130, 255, 0.12);
+                0 20px 60px rgba(40, 130, 255, .25),
+                0 0 45px rgba(40, 130, 255, .12);
         }
 
         .logo img {
@@ -125,6 +129,14 @@
         <p>AI Assistant</p>
 
     </main>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./sw.js?v=2");
+            });
+        }
+    </script>
 
 </body>
 </html>
