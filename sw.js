@@ -1,4 +1,4 @@
-const CACHE_NAME = "avion-v36";
+const CACHE_NAME = "avion-v37";
 
 const APP_FILES = [
     "./",
