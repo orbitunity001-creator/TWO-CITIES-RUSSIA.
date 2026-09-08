@@ -1,4 +1,4 @@
-const CACHE_NAME = "avia-v9";
+const CACHE_NAME = "avia-v10";
 
 const FILES = [
     "./",
@@ -36,9 +36,16 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
 
     event.respondWith(
-        caches.match(event.request).then(cached => {
-            return cached || fetch(event.request);
-        })
+        caches.match(event.request)
+            .then(cached => {
+
+                if(cached){
+                    return cached;
+                }
+
+                return fetch(event.request);
+
+            })
     );
 
 });
