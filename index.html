@@ -1,320 +1,187 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width,
-        initial-scale=1.0,
-        maximum-scale=1.0,
-        user-scalable=no"
-    >
-
-    <meta name="theme-color" content="#06101f">
-
-    <meta
-        name="mobile-web-app-capable"
-        content="yes"
-    >
-
-    <meta
-        name="apple-mobile-web-app-capable"
-        content="yes"
-    >
-
-    <!-- ИМЕННО ПТИЧКА -->
-    <link
-        rel="icon"
-        type="image/png"
-        href="icon.png"
-    >
-
-    <link
-        rel="apple-touch-icon"
-        href="icon.png"
-    >
-
-    <link
-        rel="manifest"
-        href="manifest.json"
-    >
-
-    <title>AVIA</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-
-            width: 100%;
-            height: 100%;
-
-            background: #040812;
-            color: white;
-
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Arial,
-                sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            min-height: 100dvh;
-            overflow: hidden;
-        }
-
-        .page {
-            width: 100%;
-            height: 100vh;
-            height: 100dvh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 25px;
-        }
-
-        .content {
-            width: 100%;
-            max-width: 430px;
-
-            text-align: center;
-        }
-
-        /*
-        =====================================
-        ПТИЧКА AVIA
-        =====================================
-        */
-
-        .bird {
-            width: 150px;
-            height: 150px;
-
-            margin: 0 auto 25px;
-
-            border-radius: 40px;
-
-            overflow: hidden;
-
-            background: #06101f;
-
-            box-shadow:
-                0 20px 70px
-                rgba(20, 130, 255, 0.30);
-        }
-
-        .bird img {
-            width: 100%;
-            height: 100%;
-
-            display: block;
-
-            object-fit: cover;
-        }
-
-        /*
-        =====================================
-        AVIA
-        =====================================
-        */
-
-        h1 {
-            margin: 0;
-
-            font-size: 54px;
-            font-weight: 800;
-
-            letter-spacing: -2px;
-
-            line-height: 1;
-        }
-
-        .subtitle {
-            margin-top: 12px;
-
-            color: #9ca8ba;
-
-            font-size: 17px;
-        }
-
-        .studio {
-            margin-top: 9px;
-
-            color: #4e9cff;
-
-            font-size: 11px;
-
-            font-weight: 800;
-
-            letter-spacing: 2px;
-        }
-
-        /*
-        =====================================
-        КАРТОЧКА
-        =====================================
-        */
-
-        .card {
-            margin-top: 32px;
-
-            padding: 24px;
-
-            border-radius: 25px;
-
-            background:
-                rgba(255,255,255,0.035);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
-
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        .card h2 {
-            margin: 0 0 9px;
-
-            font-size: 21px;
-        }
-
-        .card p {
-            margin: 0;
-
-            color: #929daf;
-
-            font-size: 14px;
-
-            line-height: 1.55;
-        }
-
-        /*
-        =====================================
-        КНОПКА УСТАНОВКИ
-        =====================================
-        */
-
-        #install {
-            display: none;
-
-            width: 100%;
-
-            margin-top: 20px;
-
-            padding: 16px;
-
-            border: none;
-
-            border-radius: 17px;
-
-            background: #1683ff;
-
-            color: white;
-
-            font-size: 16px;
-
-            font-weight: 800;
-        }
-
-        #install.show {
-            display: block;
-        }
-
-        #install:active {
-            transform: scale(0.97);
-        }
-
-        .hint {
-            margin-top: 15px;
-
-            color: #687588;
-
-            font-size: 12px;
-
-            line-height: 1.5;
-        }
-
-    </style>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<meta name="theme-color" content="#06101f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="icon"
+      type="image/png"
+      href="icon.png">
+
+<link rel="apple-touch-icon"
+      href="icon.png">
+
+<title>AVIA</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #040812;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100dvh;
+}
+
+.page {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.content {
+    width: 100%;
+    max-width: 430px;
+    text-align: center;
+}
+
+.bird {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 24px;
+    border-radius: 38px;
+    overflow: hidden;
+    box-shadow: 0 20px 70px rgba(30,130,255,.3);
+}
+
+.bird img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+h1 {
+    margin: 0;
+    font-size: 54px;
+    font-weight: 800;
+    letter-spacing: -2px;
+}
+
+.subtitle {
+    margin-top: 10px;
+    color: #9ca8ba;
+    font-size: 17px;
+}
+
+.studio {
+    margin-top: 8px;
+    color: #4e9cff;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.card {
+    margin-top: 32px;
+    padding: 24px;
+    border-radius: 25px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    font-size: 21px;
+}
+
+.card p {
+    margin: 0;
+    color: #929daf;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#install {
+    display: none;
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px;
+    border: 0;
+    border-radius: 17px;
+    background: #1683ff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#install.show {
+    display: block;
+}
+
+.hint {
+    margin-top: 15px;
+    color: #687588;
+    font-size: 12px;
+    line-height: 1.5;
+}
+</style>
 </head>
-
 
 <body>
 
 <div class="page">
 
-    <div class="content">
+<div class="content">
 
-        <!-- ТВОЯ ПТИЧКА -->
-        <div class="bird">
+    <div class="bird">
+        <img src="icon.png" alt="AVIA">
+    </div>
 
-            <img
-                src="icon.png"
-                alt="AVIA"
-            >
+    <h1>AVIA</h1>
 
-        </div>
+    <div class="subtitle">
+        Умная нейросеть
+    </div>
 
+    <div class="studio">
+        CATS DEVELOPER STUDIO
+    </div>
 
-        <h1>
-            AVIA
-        </h1>
+    <div class="card">
 
+        <h2>
+            Добро пожаловать в AVIA
+        </h2>
 
-        <div class="subtitle">
-            Умная нейросеть
-        </div>
+        <p>
+            Установи AVIA на телефон
+            как обычное приложение.
+        </p>
 
+        <button id="install">
+            Установить AVIA
+        </button>
 
-        <div class="studio">
-            CATS DEVELOPER STUDIO
-        </div>
-
-
-        <div class="card">
-
-            <h2>
-                Добро пожаловать в AVIA
-            </h2>
-
-            <p>
-                Установи AVIA на главный экран
-                телефона и запускай как обычное
-                приложение.
-            </p>
-
-
-            <button id="install">
-                Установить AVIA
-            </button>
-
-
-            <div class="hint">
-                Если кнопка не появилась,
-                открой меню Chrome →
-                «Установить приложение».
-            </div>
-
+        <div class="hint">
+            После появления кнопки нажми
+            «Установить AVIA».
         </div>
 
     </div>
 
 </div>
 
+</div>
 
 <script>
 
@@ -322,13 +189,6 @@ let deferredPrompt = null;
 
 const installButton =
     document.getElementById("install");
-
-
-/*
-=====================================
-УСТАНОВКА PWA
-=====================================
-*/
 
 window.addEventListener(
     "beforeinstallprompt",
@@ -338,13 +198,9 @@ window.addEventListener(
 
         deferredPrompt = event;
 
-        installButton.classList.add(
-            "show"
-        );
-
+        installButton.classList.add("show");
     }
 );
-
 
 installButton.addEventListener(
     "click",
@@ -360,19 +216,9 @@ installButton.addEventListener(
 
         deferredPrompt = null;
 
-        installButton.classList.remove(
-            "show"
-        );
-
+        installButton.classList.remove("show");
     }
 );
-
-
-/*
-=====================================
-SERVICE WORKER
-=====================================
-*/
 
 if ("serviceWorker" in navigator) {
 
@@ -381,12 +227,14 @@ if ("serviceWorker" in navigator) {
         function() {
 
             navigator.serviceWorker.register(
-                "sw.js"
+                "sw.js",
+                {
+                    scope: "./"
+                }
             );
 
         }
     );
-
 }
 
 </script>
