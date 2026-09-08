@@ -1,58 +1,94 @@
-const CACHE = "avia-v4";
+const CACHE = "avia-v6";
 
 const FILES = [
     "./",
     "./index.html",
     "./manifest.json",
+    "./icon.svg",
     "./sw.js"
 ];
 
-self.addEventListener("install", event => {
 
-    self.skipWaiting();
+self.addEventListener(
+    "install",
+    event => {
 
-    event.waitUntil(
-        caches.open(CACHE)
-            .then(cache => cache.addAll(FILES))
-    );
+        self.skipWaiting();
 
-});
+        event.waitUntil(
 
+            caches
+                .open(CACHE)
+                .then(cache => {
 
-self.addEventListener("activate", event => {
-
-    event.waitUntil(
-
-        caches.keys().then(keys =>
-
-            Promise.all(
-                keys.map(key => {
-
-                    if (key !== CACHE) {
-                        return caches.delete(key);
-                    }
+                    return cache.addAll(FILES);
 
                 })
-            )
 
-        ).then(() => self.clients.claim())
+        );
 
-    );
-
-});
-
-
-self.addEventListener("fetch", event => {
-
-    if (event.request.method !== "GET") {
-        return;
     }
+);
 
-    event.respondWith(
 
-        fetch(event.request)
-            .catch(() => caches.match(event.request))
+self.addEventListener(
+    "activate",
+    event => {
 
-    );
+        event.waitUntil(
 
-});
+            caches.keys().then(keys => {
+
+                return Promise.all(
+
+                    keys.map(key => {
+
+                        if (key !== CACHE) {
+
+                            return caches.delete(key);
+
+                        }
+
+                    })
+
+                );
+
+            }).then(() => {
+
+                return self.clients.claim();
+
+            })
+
+        );
+
+    }
+);
+
+
+self.addEventListener(
+    "fetch",
+    event => {
+
+        if (
+            event.request.method !== "GET"
+        ) {
+            return;
+        }
+
+
+        event.respondWith(
+
+            fetch(event.request)
+
+                .catch(() => {
+
+                    return caches.match(
+                        event.request
+                    );
+
+                })
+
+        );
+
+    }
+);
