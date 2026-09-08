@@ -7,20 +7,38 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#10131d">
+<meta
+    name="theme-color"
+    content="#0b0e17"
+>
+
+<meta
+    name="mobile-web-app-capable"
+    content="yes"
+>
+
+<meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+>
+
+<meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent"
+>
 
 <link
     rel="manifest"
-    href="./manifest.json?v=37"
+    href="./manifest.json?v=40"
 >
 
 <link
     rel="icon"
     type="image/svg+xml"
-    href="./icon.svg?v=37"
+    href="./icon.svg?v=40"
 >
 
 <title>AVION Messenger</title>
@@ -29,63 +47,95 @@
 <style>
 
 /* =====================================================
-   BASE
+   RESET
 ===================================================== */
 
-* {
+*,
+*::before,
+*::after {
+
     box-sizing: border-box;
+
     -webkit-tap-highlight-color: transparent;
+
+    -webkit-touch-callout: none;
+
 }
 
-html,
+html {
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background: #080a10;
+
+    overscroll-behavior: none;
+
+}
+
 body {
 
     width: 100%;
     height: 100%;
 
     margin: 0;
+    padding: 0;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 
     overflow: hidden;
 
-    background: #080a0f;
+    background: #080a10;
 
     color: #ffffff;
 
     font-family:
         -apple-system,
         BlinkMacSystemFont,
+        "SF Pro Display",
         "Segoe UI",
         Roboto,
         Arial,
         sans-serif;
-}
-
-body {
 
     overscroll-behavior: none;
 
     -webkit-user-select: none;
     user-select: none;
+
 }
 
 button,
 input {
 
     font: inherit;
+
 }
 
 button {
 
-    outline: none;
     border: 0;
+    outline: none;
 
     touch-action: manipulation;
+
 }
 
 input {
 
     -webkit-user-select: text;
     user-select: text;
+
 }
 
 
@@ -95,49 +145,72 @@ input {
 
 #app {
 
-    position: relative;
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 
     width: 100%;
     height: 100%;
 
+    height: 100dvh;
+
+    min-height: 100svh;
+
+    max-height: 100dvh;
+
     overflow: hidden;
 
     background:
+
         radial-gradient(
             circle at 50% -10%,
-            rgba(98,116,255,.22),
-            transparent 38%
+            rgba(100,116,255,.20),
+            transparent 40%
         ),
+
         linear-gradient(
             180deg,
-            #171a24 0%,
-            #0c0e14 55%,
-            #08090d 100%
+            #151823 0%,
+            #0c0f16 55%,
+            #080a10 100%
         );
+
 }
 
 
 /* =====================================================
    SCREENS
-   НИКАКИХ СДВИГОВ ЭКРАНА
 ===================================================== */
 
 .screen {
 
-    position: absolute;
+    position: fixed;
 
     inset: 0;
 
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    max-width: 100%;
+
+    overflow: hidden;
+
     display: none;
 
-    opacity: 0;
+    flex-direction: column;
+
+    touch-action: none;
+
 }
 
 .screen.active {
 
     display: flex;
 
-    opacity: 1;
 }
 
 
@@ -148,22 +221,28 @@ input {
 #loadingScreen {
 
     align-items: center;
+
     justify-content: center;
 
-    flex-direction: column;
+    text-align: center;
+
+    padding:
+        calc(20px + env(safe-area-inset-top))
+        20px
+        calc(20px + env(safe-area-inset-bottom));
 
     background:
 
         radial-gradient(
             circle at 50% 42%,
             rgba(108,125,255,.28),
-            transparent 19%
+            transparent 20%
         ),
 
         radial-gradient(
             circle at 50% 42%,
-            rgba(255,255,255,.08),
-            transparent 38%
+            rgba(255,255,255,.07),
+            transparent 40%
         ),
 
         linear-gradient(
@@ -171,42 +250,55 @@ input {
             #151823,
             #08090d
         );
+
 }
 
 
-/* Большая статичная подсветка */
+/* =====================================================
+   LOADING LIGHT
+===================================================== */
 
 .loading-light {
 
     position: absolute;
 
-    width: 330px;
-    height: 330px;
+    width: min(330px, 80vw);
+    height: min(330px, 80vw);
 
     border-radius: 50%;
 
     background:
+
         radial-gradient(
             circle,
-            rgba(105,123,255,.23),
-            rgba(105,123,255,.08) 35%,
+            rgba(105,123,255,.20),
+            rgba(105,123,255,.06) 35%,
             transparent 70%
         );
 
     filter: blur(18px);
+
+    pointer-events: none;
+
 }
 
 
-/* Точка сверху */
+/* =====================================================
+   LOADING LOGO
+===================================================== */
 
 .loading-orb {
 
     position: relative;
 
-    width: 82px;
-    height: 82px;
+    z-index: 2;
 
-    margin-bottom: 24px;
+    width: 84px;
+    height: 84px;
+
+    flex-shrink: 0;
+
+    margin-bottom: 23px;
 
     display: flex;
 
@@ -228,43 +320,47 @@ input {
     box-shadow:
 
         0 18px 55px
-        rgba(89,105,255,.42),
+        rgba(89,105,255,.40),
 
         inset 0 1px
         rgba(255,255,255,.8),
 
         inset 0 -10px 25px
         rgba(35,45,120,.35);
+
 }
 
 .loading-orb span {
 
-    font-size: 40px;
+    font-size: 41px;
 
     font-weight: 900;
 
     color: #11131d;
 
-    text-shadow:
-        0 2px 8px
-        rgba(255,255,255,.4);
 }
 
 
-/* Контент */
+/* =====================================================
+   LOADING TEXT
+===================================================== */
 
 .loading-content {
 
     position: relative;
 
-    z-index: 2;
+    z-index: 3;
+
+    width: 100%;
 
     text-align: center;
+
 }
 
 .loading-title {
 
-    font-size: 32px;
+    font-size:
+        clamp(27px, 8vw, 33px);
 
     line-height: 1;
 
@@ -272,12 +368,6 @@ input {
 
     letter-spacing: -1px;
 
-    color: #ffffff;
-
-    text-shadow:
-
-        0 0 20px
-        rgba(255,255,255,.15);
 }
 
 .loading-subtitle {
@@ -289,10 +379,13 @@ input {
     font-size: 12px;
 
     letter-spacing: 1px;
+
 }
 
 
-/* Индикатор */
+/* =====================================================
+   LOADING BAR
+===================================================== */
 
 .loading-line {
 
@@ -300,10 +393,7 @@ input {
 
     height: 4px;
 
-    margin:
-        27px
-        auto
-        0;
+    margin: 27px auto 0;
 
     overflow: hidden;
 
@@ -311,6 +401,7 @@ input {
 
     background:
         rgba(255,255,255,.1);
+
 }
 
 .loading-line span {
@@ -318,9 +409,8 @@ input {
     display: block;
 
     width: 42px;
-    height: 100%;
 
-    margin-left: 0;
+    height: 100%;
 
     border-radius: 20px;
 
@@ -334,6 +424,7 @@ input {
         );
 
     box-shadow:
+
         0 0 15px
         rgba(105,120,255,.7);
 
@@ -342,6 +433,7 @@ input {
         1.5s
         ease-in-out
         infinite;
+
 }
 
 @keyframes loaderLine {
@@ -357,24 +449,40 @@ input {
     100% {
         transform: translateX(-50px);
     }
+
 }
 
 
 /* =====================================================
-   AUTH
+   AUTH SCREEN
 ===================================================== */
 
 .auth-screen {
 
     align-items: center;
-    justify-content: center;
-
-    padding:
-        calc(env(safe-area-inset-top) + 20px)
-        20px
-        calc(env(safe-area-inset-bottom) + 20px);
 
     overflow-y: auto;
+    overflow-x: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-y;
+
+    overscroll-behavior-y: contain;
+
+    padding:
+
+        calc(
+            20px +
+            env(safe-area-inset-top)
+        )
+
+        20px
+
+        calc(
+            24px +
+            env(safe-area-inset-bottom)
+        );
 
     background:
 
@@ -389,36 +497,56 @@ input {
             #161925,
             #090a0e
         );
-}
 
-.auth-container {
-
-    width: 100%;
-    max-width: 430px;
-
-    position: relative;
-
-    z-index: 5;
 }
 
 
 /* =====================================================
-   LOGO
+   AUTH CONTAINER
+===================================================== */
+
+.auth-container {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    min-height: 100%;
+
+    margin: 0 auto;
+
+    padding:
+        18px
+        0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+
+/* =====================================================
+   AUTH LOGO
 ===================================================== */
 
 .auth-logo {
 
-    width: 72px;
-    height: 72px;
+    width: 76px;
+    height: 76px;
 
-    margin-bottom: 25px;
+    flex-shrink: 0;
+
+    margin-bottom: 23px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    border-radius: 22px;
+    border-radius: 23px;
 
     background:
 
@@ -437,52 +565,57 @@ input {
 
         inset 0 1px
         rgba(255,255,255,.9);
+
 }
 
 .auth-logo span {
 
-    font-size: 35px;
+    font-size: 37px;
 
     font-weight: 900;
 
     color: #151720;
+
 }
 
 
 /* =====================================================
-   TEXT
+   AUTH TEXT
 ===================================================== */
 
 .auth-title {
 
     margin: 0;
 
-    font-size: 33px;
+    font-size:
+        clamp(28px, 8vw, 34px);
 
     line-height: 1.08;
 
     font-weight: 900;
 
     letter-spacing: -1px;
+
 }
 
 .auth-subtitle {
 
     margin:
-        12px
+        11px
         0
-        28px;
+        26px;
 
     color: #9da3b6;
 
     font-size: 15px;
 
-    line-height: 1.55;
+    line-height: 1.5;
+
 }
 
 
 /* =====================================================
-   BUTTONS
+   AUTH BUTTONS
 ===================================================== */
 
 .auth-button,
@@ -490,13 +623,20 @@ input {
 
     width: 100%;
 
-    height: 59px;
+    min-height: 58px;
+
+    height: 58px;
 
     border-radius: 18px;
 
     font-size: 16px;
 
     font-weight: 800;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+
 }
 
 .auth-button {
@@ -515,6 +655,7 @@ input {
 
         0 12px 35px
         rgba(91,78,255,.35);
+
 }
 
 .auth-secondary {
@@ -529,17 +670,19 @@ input {
     border:
         1px solid
         rgba(255,255,255,.12);
+
 }
 
 .auth-button:active,
 .auth-secondary:active {
 
     transform: scale(.97);
+
 }
 
 
 /* =====================================================
-   BACK
+   BACK BUTTON
 ===================================================== */
 
 .back {
@@ -547,7 +690,10 @@ input {
     width: 48px;
     height: 48px;
 
-    margin-bottom: 26px;
+    min-width: 48px;
+    min-height: 48px;
+
+    margin-bottom: 24px;
 
     display: flex;
 
@@ -566,16 +712,22 @@ input {
         rgba(255,255,255,.1);
 
     font-size: 29px;
+
+    cursor: pointer;
+
 }
 
 
 /* =====================================================
-   INPUTS
+   FIELDS
 ===================================================== */
 
 .field {
 
-    margin-bottom: 15px;
+    width: 100%;
+
+    margin-bottom: 14px;
+
 }
 
 .field label {
@@ -593,13 +745,18 @@ input {
     font-size: 13px;
 
     font-weight: 650;
+
 }
 
 .field input {
 
+    display: block;
+
     width: 100%;
 
-    height: 59px;
+    height: 58px;
+
+    min-height: 58px;
 
     padding:
         0
@@ -619,11 +776,15 @@ input {
     color: #ffffff;
 
     font-size: 16px;
+
+    touch-action: manipulation;
+
 }
 
 .field input::placeholder {
 
     color: #70778b;
+
 }
 
 .field input:focus {
@@ -636,7 +797,13 @@ input {
     box-shadow:
         0 0 0 3px
         rgba(103,118,255,.12);
+
 }
+
+
+/* =====================================================
+   ERROR
+===================================================== */
 
 .error {
 
@@ -645,11 +812,12 @@ input {
     margin:
         0
         5px
-        10px;
+        9px;
 
     color: #ff7488;
 
     font-size: 13px;
+
 }
 
 
@@ -658,8 +826,6 @@ input {
 ===================================================== */
 
 #registerScreen {
-
-    overflow: hidden;
 
     background:
 
@@ -670,6 +836,7 @@ input {
         ),
 
         #090b11;
+
 }
 
 .stars {
@@ -680,7 +847,8 @@ input {
 
     pointer-events: none;
 
-    opacity: .75;
+    opacity: .7;
+
 }
 
 .stars span {
@@ -705,6 +873,7 @@ input {
         var(--speed)
         ease-in-out
         infinite;
+
 }
 
 .stars span:nth-child(1){left:6%;top:10%;--speed:3s}
@@ -738,14 +907,17 @@ input {
     50% {
         opacity: .65;
     }
+
 }
 
 
 /* =====================================================
-   MAIN
+   MAIN SCREEN
 ===================================================== */
 
 #mainScreen {
+
+    display: none;
 
     flex-direction: column;
 
@@ -756,23 +928,38 @@ input {
             #151823,
             #090b10
         );
+
+}
+
+#mainScreen.active {
+
+    display: flex;
+
 }
 
 
 /* =====================================================
-   HEADER
+   MAIN HEADER
 ===================================================== */
 
 .main-header {
 
-    flex-shrink: 0;
+    flex: 0 0 auto;
 
-    min-height: 72px;
+    width: 100%;
+
+    min-height: 64px;
 
     padding:
-        calc(env(safe-area-inset-top) + 7px)
-        15px
-        7px;
+
+        calc(
+            6px +
+            env(safe-area-inset-top)
+        )
+
+        14px
+
+        6px;
 
     display: flex;
 
@@ -781,64 +968,95 @@ input {
     justify-content: space-between;
 
     background:
-        rgba(18,20,29,.97);
+        rgba(18,20,29,.98);
 
     border-bottom:
         1px solid
         rgba(255,255,255,.08);
+
 }
 
+
+/* =====================================================
+   BRAND
+===================================================== */
+
 .brand {
+
+    min-width: 0;
 
     display: flex;
 
     align-items: center;
 
     gap: 10px;
+
 }
 
 .brand-icon {
 
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
 
-    border-radius: 13px;
+    flex-shrink: 0;
 
     overflow: hidden;
+
+    border-radius: 13px;
 
     box-shadow:
         0 6px 20px
         rgba(0,0,0,.35);
+
 }
 
 .brand-icon img {
 
+    display: block;
+
     width: 100%;
     height: 100%;
 
-    display: block;
 }
 
 .brand-name {
 
-    font-size: 21px;
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    font-size: 20px;
 
     font-weight: 900;
 
     letter-spacing: -.5px;
+
 }
+
+
+/* =====================================================
+   HEADER BUTTONS
+===================================================== */
 
 .header-actions {
 
     display: flex;
 
-    gap: 7px;
+    align-items: center;
+
+    gap: 6px;
+
 }
 
 .header-button {
 
     width: 44px;
     height: 44px;
+
+    min-width: 44px;
+    min-height: 44px;
 
     display: flex;
 
@@ -856,12 +1074,18 @@ input {
         1px solid
         rgba(255,255,255,.09);
 
-    font-size: 20px;
+    font-size: 19px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
 }
 
 .header-button:active {
 
     transform: scale(.92);
+
 }
 
 
@@ -871,28 +1095,31 @@ input {
 
 .search-wrap {
 
-    flex-shrink: 0;
+    flex: 0 0 auto;
+
+    width: 100%;
 
     padding:
-        10px
-        15px
+        9px
+        14px
         9px;
 
     background:
-        rgba(18,20,29,.97);
+        rgba(18,20,29,.98);
+
 }
 
 .search {
 
-    height: 47px;
-
     width: 100%;
+
+    height: 46px;
 
     display: flex;
 
     align-items: center;
 
-    gap: 9px;
+    gap: 8px;
 
     padding:
         0
@@ -902,32 +1129,45 @@ input {
 
     background:
         rgba(255,255,255,.075);
+
 }
 
 .search-icon {
 
+    flex: 0 0 auto;
+
     color: #8d94a8;
 
     font-size: 18px;
+
 }
 
 .search input {
 
+    min-width: 0;
+
     width: 100%;
 
+    height: 100%;
+
     border: 0;
+
     outline: 0;
+
+    padding: 0;
 
     background: transparent;
 
     color: #ffffff;
 
     font-size: 15px;
+
 }
 
 .search input::placeholder {
 
     color: #747b8e;
+
 }
 
 
@@ -937,27 +1177,51 @@ input {
 
 .chat-list {
 
-    flex: 1;
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    width: 100%;
 
     overflow-y: auto;
 
-    padding-bottom: 8px;
+    overflow-x: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-y;
+
+    overscroll-behavior-y: contain;
 
     scrollbar-width: none;
+
+    padding:
+        2px
+        0
+        8px;
+
 }
 
 .chat-list::-webkit-scrollbar {
 
     display: none;
+
 }
+
+
+/* =====================================================
+   CHAT ITEM
+===================================================== */
 
 .chat-item {
 
-    min-height: 78px;
+    width: 100%;
+
+    min-height: 76px;
 
     padding:
-        10px
-        15px;
+        9px
+        14px;
 
     display: flex;
 
@@ -968,13 +1232,24 @@ input {
     border-bottom:
         1px solid
         rgba(255,255,255,.035);
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+
 }
 
 .chat-item:active {
 
     background:
         rgba(255,255,255,.055);
+
 }
+
+
+/* =====================================================
+   AVATAR
+===================================================== */
 
 .chat-avatar {
 
@@ -983,7 +1258,7 @@ input {
     width: 56px;
     height: 56px;
 
-    flex-shrink: 0;
+    flex: 0 0 56px;
 
     display: flex;
 
@@ -1007,16 +1282,18 @@ input {
         );
 
     box-shadow:
+
         0 7px 20px
         rgba(72,80,210,.22);
+
 }
 
 .online-dot {
 
     position: absolute;
 
-    right: 1px;
-    bottom: 2px;
+    right: 0;
+    bottom: 1px;
 
     width: 14px;
     height: 14px;
@@ -1028,24 +1305,34 @@ input {
     border:
         2px solid
         #11131b;
+
 }
+
+
+/* =====================================================
+   CHAT INFO
+===================================================== */
 
 .chat-info {
 
     min-width: 0;
 
-    flex: 1;
+    flex: 1 1 auto;
+
 }
 
 .chat-top {
 
-    display: flex;
+    min-width: 0;
 
-    justify-content: space-between;
+    display: flex;
 
     align-items: center;
 
+    justify-content: space-between;
+
     gap: 10px;
+
 }
 
 .chat-name {
@@ -1061,18 +1348,24 @@ input {
     font-size: 16px;
 
     font-weight: 750;
+
 }
 
 .chat-time {
 
-    flex-shrink: 0;
+    flex: 0 0 auto;
 
     color: #747b8d;
 
     font-size: 11px;
+
 }
 
 .chat-bottom {
+
+    min-width: 0;
+
+    margin-top: 5px;
 
     display: flex;
 
@@ -1082,7 +1375,6 @@ input {
 
     gap: 10px;
 
-    margin-top: 5px;
 }
 
 .chat-message {
@@ -1098,12 +1390,15 @@ input {
     color: #858c9f;
 
     font-size: 14px;
+
 }
 
 .unread {
 
     min-width: 21px;
     height: 21px;
+
+    flex: 0 0 auto;
 
     padding:
         0
@@ -1129,6 +1424,7 @@ input {
     font-size: 11px;
 
     font-weight: 850;
+
 }
 
 
@@ -1140,20 +1436,29 @@ input {
 
     position: absolute;
 
-    right: 18px;
+    right: 17px;
 
     bottom:
+
         calc(
-            76px +
+            78px +
             env(safe-area-inset-bottom)
         );
 
-    width: 59px;
-    height: 59px;
+    z-index: 20;
 
-    z-index: 10;
+    width: 58px;
+    height: 58px;
 
-    border-radius: 20px;
+    min-width: 58px;
+    min-height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 19px;
 
     color: #ffffff;
 
@@ -1171,11 +1476,15 @@ input {
         rgba(75,70,255,.42);
 
     font-size: 30px;
+
+    cursor: pointer;
+
 }
 
 .new-chat:active {
 
     transform: scale(.91);
+
 }
 
 
@@ -1185,17 +1494,28 @@ input {
 
 .bottom-nav {
 
-    flex-shrink: 0;
+    flex: 0 0 auto;
+
+    width: 100%;
 
     height:
+
         calc(
-            70px +
+            68px +
+            env(safe-area-inset-bottom)
+        );
+
+    min-height:
+
+        calc(
+            68px +
             env(safe-area-inset-bottom)
         );
 
     padding:
+
         5px
-        10px
+        8px
         env(safe-area-inset-bottom);
 
     display: grid;
@@ -1204,14 +1524,19 @@ input {
         repeat(3, 1fr);
 
     background:
-        rgba(14,16,23,.98);
+        rgba(14,16,23,.99);
 
     border-top:
         1px solid
         rgba(255,255,255,.08);
+
 }
 
 .nav-button {
+
+    min-width: 0;
+
+    min-height: 53px;
 
     display: flex;
 
@@ -1222,6 +1547,8 @@ input {
 
     gap: 3px;
 
+    border-radius: 15px;
+
     color: #73798c;
 
     background: transparent;
@@ -1229,26 +1556,37 @@ input {
     font-size: 11px;
 
     font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+.nav-button:active {
+
+    transform: scale(.96);
+
+}
+
+.nav-button.active {
+
+    color: #8290ff;
+
 }
 
 .nav-icon {
 
     width: 36px;
-    height: 30px;
+    height: 29px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    border-radius: 12px;
+    border-radius: 11px;
 
     font-size: 19px;
-}
 
-.nav-button.active {
-
-    color: #8290ff;
 }
 
 .nav-button.active .nav-icon {
@@ -1257,20 +1595,21 @@ input {
 
     background:
         rgba(105,120,255,.2);
+
 }
 
 
 /* =====================================================
-   PROFILE
+   PROFILE OVERLAY
 ===================================================== */
 
 .profile {
 
-    position: absolute;
+    position: fixed;
 
     inset: 0;
 
-    z-index: 50;
+    z-index: 100;
 
     display: none;
 
@@ -1281,19 +1620,36 @@ input {
 
     backdrop-filter:
         blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    touch-action: none;
+
 }
 
 .profile.open {
 
     display: flex;
+
 }
+
+
+/* =====================================================
+   PROFILE CARD
+===================================================== */
 
 .profile-card {
 
     width: 100%;
 
+    max-height: 85dvh;
+
+    overflow-y: auto;
+
     padding:
-        24px
+
+        23px
         20px
         calc(
             20px +
@@ -1317,7 +1673,15 @@ input {
     border-top:
         1px solid
         rgba(255,255,255,.11);
+
+    touch-action: pan-y;
+
 }
+
+
+/* =====================================================
+   PROFILE HEAD
+===================================================== */
 
 .profile-head {
 
@@ -1327,7 +1691,8 @@ input {
 
     gap: 14px;
 
-    margin-bottom: 20px;
+    margin-bottom: 19px;
+
 }
 
 .profile-avatar {
@@ -1335,24 +1700,29 @@ input {
     width: 68px;
     height: 68px;
 
-    flex-shrink: 0;
+    flex: 0 0 68px;
 
     overflow: hidden;
 
     border-radius: 22px;
 
     background:
+
         linear-gradient(
             135deg,
             #6575ff,
             #914dff
         );
+
 }
 
 .profile-avatar img {
 
     width: 100%;
     height: 100%;
+
+    display: block;
+
 }
 
 .profile-card h2 {
@@ -1362,6 +1732,7 @@ input {
         4px;
 
     font-size: 22px;
+
 }
 
 .profile-phone {
@@ -1369,11 +1740,19 @@ input {
     color: #858c9e;
 
     font-size: 14px;
+
 }
+
+
+/* =====================================================
+   PROFILE BUTTONS
+===================================================== */
 
 .profile-action {
 
     width: 100%;
+
+    min-height: 55px;
 
     height: 55px;
 
@@ -1391,6 +1770,15 @@ input {
         rgba(255,255,255,.08);
 
     font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+.profile-action:active {
+
+    transform: scale(.98);
+
 }
 
 .profile-action.logout {
@@ -1399,48 +1787,127 @@ input {
 
     background:
         rgba(255,70,90,.07);
+
 }
 
 
 /* =====================================================
-   SHORT SCREENS
+   SMALL PHONES
 ===================================================== */
 
-@media (max-height: 680px) {
+@media (max-height: 700px) {
+
+    .auth-container {
+
+        padding:
+            10px
+            0;
+
+    }
 
     .auth-logo {
 
-        width: 60px;
-        height: 60px;
+        width: 62px;
+        height: 62px;
 
-        margin-bottom: 17px;
+        margin-bottom: 16px;
+
+        border-radius: 19px;
+
+    }
+
+    .auth-logo span {
+
+        font-size: 31px;
+
     }
 
     .auth-title {
 
         font-size: 28px;
+
     }
 
     .auth-subtitle {
 
         margin-bottom: 19px;
+
     }
 
     .field {
 
-        margin-bottom: 11px;
+        margin-bottom: 10px;
+
     }
 
     .field input {
 
         height: 52px;
+        min-height: 52px;
+
+    }
+
+    .auth-button,
+    .auth-secondary {
+
+        height: 54px;
+        min-height: 54px;
+
     }
 
 }
 
 
 /* =====================================================
-   NO MOTION MODE
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-height: 590px) {
+
+    .auth-screen {
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+    }
+
+    .auth-container {
+
+        justify-content: flex-start;
+
+    }
+
+    .auth-logo {
+
+        width: 52px;
+        height: 52px;
+
+        margin-bottom: 12px;
+
+    }
+
+    .auth-title {
+
+        font-size: 25px;
+
+    }
+
+    .auth-subtitle {
+
+        margin:
+            8px
+            0
+            14px;
+
+        font-size: 14px;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUCE MOTION
 ===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1452,6 +1919,7 @@ input {
         animation: none !important;
 
         transition: none !important;
+
     }
 
 }
@@ -1462,6 +1930,7 @@ input {
 
 
 <body>
+
 
 <div id="app">
 
@@ -1478,7 +1947,9 @@ input {
     <div class="loading-light"></div>
 
     <div class="loading-orb">
+
         <span>A</span>
+
     </div>
 
     <div class="loading-content">
@@ -1492,7 +1963,9 @@ input {
         </div>
 
         <div class="loading-line">
+
             <span></span>
+
         </div>
 
     </div>
@@ -1512,7 +1985,9 @@ input {
     <div class="auth-container">
 
         <div class="auth-logo">
+
             <span>A</span>
+
         </div>
 
         <h1 class="auth-title">
@@ -1520,8 +1995,10 @@ input {
         </h1>
 
         <div class="auth-subtitle">
+
             Общайтесь с друзьями и близкими
             в красивом и удобном AVION.
+
         </div>
 
         <button
@@ -1557,6 +2034,7 @@ input {
         <button
             class="back"
             data-back="welcomeScreen"
+            aria-label="Назад"
         >
             ‹
         </button>
@@ -1566,7 +2044,9 @@ input {
         </h1>
 
         <div class="auth-subtitle">
+
             Войдите в свой аккаунт AVION.
+
         </div>
 
         <div class="field">
@@ -1659,6 +2139,7 @@ input {
         <button
             class="back"
             data-back="welcomeScreen"
+            aria-label="Назад"
         >
             ‹
         </button>
@@ -1668,8 +2149,10 @@ input {
         </h1>
 
         <div class="auth-subtitle">
+
             Создайте профиль и начинайте
             общаться в AVION.
+
         </div>
 
         <div class="field">
@@ -1744,252 +2227,274 @@ input {
     class="screen"
 >
 
-    <header class="main-header">
 
-        <div class="brand">
+<header class="main-header">
 
-            <div class="brand-icon">
+    <div class="brand">
 
-                <img
-                    src="./icon.svg?v=37"
-                    alt="AVION"
-                >
+        <div class="brand-icon">
 
+            <img
+                src="./icon.svg?v=40"
+                alt="AVION"
+            >
+
+        </div>
+
+        <div class="brand-name">
+            AVION
+        </div>
+
+    </div>
+
+    <div class="header-actions">
+
+        <button
+            id="searchButton"
+            class="header-button"
+            aria-label="Поиск"
+        >
+            ⌕
+        </button>
+
+        <button
+            id="profileButton"
+            class="header-button"
+            aria-label="Профиль"
+        >
+            A
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ===================================================
+     SEARCH
+=================================================== -->
+
+<div class="search-wrap">
+
+    <div class="search">
+
+        <span class="search-icon">
+            ⌕
+        </span>
+
+        <input
+            id="chatSearch"
+            type="search"
+            autocomplete="off"
+            placeholder="Поиск"
+        >
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================
+     CHAT LIST
+=================================================== -->
+
+<main
+    id="chatList"
+    class="chat-list"
+>
+
+
+<div class="chat-item">
+
+    <div class="chat-avatar">
+
+        A
+
+        <span class="online-dot"></span>
+
+    </div>
+
+    <div class="chat-info">
+
+        <div class="chat-top">
+
+            <div class="chat-name">
+                AVION Support
             </div>
 
-            <div class="brand-name">
-                AVION
+            <div class="chat-time">
+                сейчас
             </div>
 
         </div>
 
-        <div class="header-actions">
+        <div class="chat-bottom">
 
-            <button
-                id="searchButton"
-                class="header-button"
-                aria-label="Поиск"
-            >
-                ⌕
-            </button>
+            <div class="chat-message">
+                Добро пожаловать в AVION!
+            </div>
 
-            <button
-                id="profileButton"
-                class="header-button"
-                aria-label="Профиль"
-            >
-                A
-            </button>
-
-        </div>
-
-    </header>
-
-
-    <div class="search-wrap">
-
-        <div class="search">
-
-            <span class="search-icon">
-                ⌕
-            </span>
-
-            <input
-                id="chatSearch"
-                type="search"
-                placeholder="Поиск"
-            >
+            <div class="unread">
+                1
+            </div>
 
         </div>
 
     </div>
 
+</div>
 
-    <main
-        id="chatList"
-        class="chat-list"
+
+<div class="chat-item">
+
+    <div
+        class="chat-avatar"
+        style="
+            background:
+            linear-gradient(
+                135deg,
+                #ff679d,
+                #854fff
+            );
+        "
     >
+        C
+    </div>
 
-        <div class="chat-item">
+    <div class="chat-info">
 
-            <div class="chat-avatar">
+        <div class="chat-top">
 
-                A
-
-                <span class="online-dot"></span>
-
+            <div class="chat-name">
+                Cats Developer Studio
             </div>
 
-            <div class="chat-info">
-
-                <div class="chat-top">
-
-                    <div class="chat-name">
-                        AVION Support
-                    </div>
-
-                    <div class="chat-time">
-                        сейчас
-                    </div>
-
-                </div>
-
-                <div class="chat-bottom">
-
-                    <div class="chat-message">
-                        Добро пожаловать в AVION!
-                    </div>
-
-                    <div class="unread">
-                        1
-                    </div>
-
-                </div>
-
+            <div class="chat-time">
+                11:31
             </div>
 
         </div>
 
+        <div class="chat-bottom">
 
-        <div class="chat-item">
-
-            <div
-                class="chat-avatar"
-                style="
-                    background:
-                    linear-gradient(
-                        135deg,
-                        #ff679d,
-                        #854fff
-                    );
-                "
-            >
-                C
-            </div>
-
-            <div class="chat-info">
-
-                <div class="chat-top">
-
-                    <div class="chat-name">
-                        Cats Developer Studio
-                    </div>
-
-                    <div class="chat-time">
-                        11:31
-                    </div>
-
-                </div>
-
-                <div class="chat-bottom">
-
-                    <div class="chat-message">
-                        Проект AVION
-                    </div>
-
-                </div>
-
+            <div class="chat-message">
+                Проект AVION
             </div>
 
         </div>
 
+    </div>
 
-        <div class="chat-item">
+</div>
 
-            <div
-                class="chat-avatar"
-                style="
-                    background:
-                    linear-gradient(
-                        135deg,
-                        #22c6dc,
-                        #5153ff
-                    );
-                "
-            >
-                D
+
+<div class="chat-item">
+
+    <div
+        class="chat-avatar"
+        style="
+            background:
+            linear-gradient(
+                135deg,
+                #22c6dc,
+                #5153ff
+            );
+        "
+    >
+        D
+    </div>
+
+    <div class="chat-info">
+
+        <div class="chat-top">
+
+            <div class="chat-name">
+                Друзья
             </div>
 
-            <div class="chat-info">
-
-                <div class="chat-top">
-
-                    <div class="chat-name">
-                        Друзья
-                    </div>
-
-                    <div class="chat-time">
-                        вчера
-                    </div>
-
-                </div>
-
-                <div class="chat-bottom">
-
-                    <div class="chat-message">
-                        Здесь появятся сообщения
-                    </div>
-
-                </div>
-
+            <div class="chat-time">
+                вчера
             </div>
 
         </div>
 
-    </main>
+        <div class="chat-bottom">
 
+            <div class="chat-message">
+                Здесь появятся сообщения
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+<!-- ===================================================
+     NEW CHAT
+=================================================== -->
+
+<button
+    id="newChatButton"
+    class="new-chat"
+    aria-label="Новый чат"
+>
+    +
+</button>
+
+
+<!-- ===================================================
+     BOTTOM NAV
+=================================================== -->
+
+<nav class="bottom-nav">
 
     <button
-        id="newChatButton"
-        class="new-chat"
-        aria-label="Новый чат"
+        class="nav-button active"
+        data-tab="chats"
     >
-        +
+
+        <span class="nav-icon">
+            ▣
+        </span>
+
+        Чаты
+
     </button>
 
 
-    <nav class="bottom-nav">
+    <button
+        class="nav-button"
+        data-tab="contacts"
+    >
 
-        <button
-            class="nav-button active"
-            data-tab="chats"
-        >
+        <span class="nav-icon">
+            ♡
+        </span>
 
-            <span class="nav-icon">
-                ▣
-            </span>
+        Контакты
 
-            Чаты
+    </button>
 
-        </button>
 
-        <button
-            class="nav-button"
-            data-tab="contacts"
-        >
+    <button
+        class="nav-button"
+        data-tab="settings"
+    >
 
-            <span class="nav-icon">
-                ♡
-            </span>
+        <span class="nav-icon">
+            ⚙
+        </span>
 
-            Контакты
+        Настройки
 
-        </button>
+    </button>
 
-        <button
-            class="nav-button"
-            data-tab="settings"
-        >
-
-            <span class="nav-icon">
-                ⚙
-            </span>
-
-            Настройки
-
-        </button>
-
-    </nav>
+</nav>
 
 </section>
 
@@ -2010,7 +2515,7 @@ input {
             <div class="profile-avatar">
 
                 <img
-                    src="./icon.svg?v=37"
+                    src="./icon.svg?v=40"
                     alt="AVION"
                 >
 
@@ -2033,12 +2538,14 @@ input {
 
         </div>
 
+
         <button
             id="profileSettings"
             class="profile-action"
         >
             ⚙ Настройки профиля
         </button>
+
 
         <button
             id="logoutButton"
@@ -2061,18 +2568,20 @@ input {
 
 
 /* =====================================================
-   STORAGE
+   VERSION
 ===================================================== */
 
+const VERSION = "v40";
+
 const USERS_KEY =
-    "avion_users_v37";
+    "avion_users_" + VERSION;
 
 const CURRENT_KEY =
-    "avion_current_v37";
+    "avion_current_" + VERSION;
 
 
 /* =====================================================
-   HELPERS
+   SHORTCUT
 ===================================================== */
 
 function $(id) {
@@ -2081,6 +2590,10 @@ function $(id) {
 
 }
 
+
+/* =====================================================
+   USERS
+===================================================== */
 
 function getUsers() {
 
@@ -2111,15 +2624,45 @@ function saveUsers(list) {
 }
 
 
+/* =====================================================
+   PHONE
+===================================================== */
+
 function normalizePhone(value) {
 
-    return value.replace(
-        /\D/g,
-        ""
-    );
+    return String(value)
+        .replace(/\D/g, "");
 
 }
 
+
+function formatPhone(phone) {
+
+    if (phone.length === 11) {
+
+        return (
+            "+" +
+            phone[0] +
+            " " +
+            phone.slice(1, 4) +
+            " " +
+            phone.slice(4, 7) +
+            "-" +
+            phone.slice(7, 9) +
+            "-" +
+            phone.slice(9)
+        );
+
+    }
+
+    return "+" + phone;
+
+}
+
+
+/* =====================================================
+   SCREEN
+===================================================== */
 
 function showScreen(id) {
 
@@ -2133,27 +2676,138 @@ function showScreen(id) {
 
         });
 
-    $(id).classList.add(
-        "active"
-    );
+    const screen = $(id);
 
-}
+    if (screen) {
 
+        screen.classList.add(
+            "active"
+        );
 
-function showError(id, text) {
-
-    $(id).textContent = text;
+    }
 
 }
 
 
 /* =====================================================
-   LOADING — 3 СЕКУНДЫ
+   ERROR
+===================================================== */
+
+function showError(id, text) {
+
+    const element = $(id);
+
+    if (element) {
+
+        element.textContent = text;
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE VIEWPORT
+===================================================== */
+
+function fixViewport() {
+
+    const app = $("app");
+
+    if (!app) return;
+
+    const viewport =
+        window.visualViewport;
+
+    let height =
+        viewport
+            ? viewport.height
+            : window.innerHeight;
+
+    if (!height || height < 100) {
+
+        height =
+            window.innerHeight;
+
+    }
+
+    app.style.height =
+        Math.round(height) + "px";
+
+}
+
+
+window.addEventListener(
+    "resize",
+    fixViewport,
+    { passive: true }
+);
+
+
+window.addEventListener(
+    "orientationchange",
+    () => {
+
+        setTimeout(
+            fixViewport,
+            150
+        );
+
+    },
+    { passive: true }
+);
+
+
+if (window.visualViewport) {
+
+    window.visualViewport.addEventListener(
+        "resize",
+        fixViewport,
+        { passive: true }
+    );
+
+}
+
+
+fixViewport();
+
+
+/* =====================================================
+   PREVENT BODY SWIPE
+===================================================== */
+
+document.addEventListener(
+    "touchmove",
+    event => {
+
+        const target =
+            event.target;
+
+        const allowed =
+            target.closest(
+                ".chat-list, .auth-screen, .profile-card, input"
+            );
+
+        if (!allowed) {
+
+            event.preventDefault();
+
+        }
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+/* =====================================================
+   LOADING
 ===================================================== */
 
 setTimeout(
     checkAccount,
-    3000
+    2200
 );
 
 
@@ -2271,12 +2925,12 @@ $("registerButton").onclick = () => {
     }
 
 
-    const list =
+    const users =
         getUsers();
 
 
     if (
-        list.some(
+        users.some(
             user =>
                 user.phone === phone
         )
@@ -2309,9 +2963,9 @@ $("registerButton").onclick = () => {
     };
 
 
-    list.push(user);
+    users.push(user);
 
-    saveUsers(list);
+    saveUsers(users);
 
 
     localStorage.setItem(
@@ -2392,7 +3046,7 @@ $("loginButton").onclick = () => {
 
 
 /* =====================================================
-   MAIN
+   OPEN MAIN
 ===================================================== */
 
 function openMain(user) {
@@ -2409,16 +3063,23 @@ function openMain(user) {
         );
 
 
-    $("profileButton")
-        .textContent =
+    const avatar =
         user.name
             .charAt(0)
             .toUpperCase();
 
 
+    $("profileButton")
+        .textContent =
+        avatar;
+
+
     showScreen(
         "mainScreen"
     );
+
+
+    fixViewport();
 
 }
 
@@ -2475,37 +3136,6 @@ function checkAccount() {
 
 
 /* =====================================================
-   PHONE FORMAT
-===================================================== */
-
-function formatPhone(phone) {
-
-    if (
-        phone.length === 11
-    ) {
-
-        return (
-            "+" +
-            phone[0] +
-            " " +
-            phone.slice(1,4) +
-            " " +
-            phone.slice(4,7) +
-            "-" +
-            phone.slice(7,9) +
-            "-" +
-            phone.slice(9)
-        );
-
-    }
-
-
-    return "+" + phone;
-
-}
-
-
-/* =====================================================
    PROFILE
 ===================================================== */
 
@@ -2535,6 +3165,19 @@ $("profile").onclick = event => {
 
 
 /* =====================================================
+   PROFILE SETTINGS
+===================================================== */
+
+$("profileSettings").onclick = () => {
+
+    alert(
+        "Настройки профиля будут добавлены следующим обновлением AVION."
+    );
+
+};
+
+
+/* =====================================================
    LOGOUT
 ===================================================== */
 
@@ -2547,6 +3190,10 @@ $("logoutButton").onclick = () => {
     $("profile")
         .classList
         .remove("open");
+
+    $("loginPhone").value = "";
+
+    $("loginPassword").value = "";
 
     showScreen(
         "welcomeScreen"
@@ -2592,6 +3239,18 @@ document
 
             }
 
+
+            if (
+                button.dataset.tab ===
+                "contacts"
+            ) {
+
+                alert(
+                    "Контакты будут добавлены следующим обновлением AVION."
+                );
+
+            }
+
         };
 
     });
@@ -2601,42 +3260,58 @@ document
    SEARCH
 ===================================================== */
 
-$("chatSearch").oninput = () => {
+$("chatSearch").addEventListener(
+    "input",
+    () => {
 
-    const query =
-        $("chatSearch")
-            .value
-            .trim()
-            .toLowerCase();
-
-
-    document
-        .querySelectorAll(".chat-item")
-        .forEach(item => {
-
-            const name =
-                item
-                    .querySelector(".chat-name")
-                    .textContent
-                    .toLowerCase();
-
-            const message =
-                item
-                    .querySelector(".chat-message")
-                    ?.textContent
-                    .toLowerCase() || "";
+        const query =
+            $("chatSearch")
+                .value
+                .trim()
+                .toLowerCase();
 
 
-            item.style.display =
-                !query ||
-                name.includes(query) ||
-                message.includes(query)
-                    ? "flex"
-                    : "none";
+        document
+            .querySelectorAll(".chat-item")
+            .forEach(item => {
 
-        });
+                const name =
+                    item
+                        .querySelector(
+                            ".chat-name"
+                        )
+                        .textContent
+                        .toLowerCase();
 
-};
+
+                const message =
+                    item
+                        .querySelector(
+                            ".chat-message"
+                        )
+                        ?.textContent
+                        .toLowerCase()
+                        || "";
+
+
+                const visible =
+                    !query ||
+                    name.includes(query) ||
+                    message.includes(query);
+
+
+                item.style.display =
+                    visible
+                        ? "flex"
+                        : "none";
+
+            });
+
+    },
+    {
+        passive: true
+    }
+);
 
 
 /* =====================================================
@@ -2645,7 +3320,22 @@ $("chatSearch").oninput = () => {
 
 $("searchButton").onclick = () => {
 
-    $("chatSearch").focus();
+    const input =
+        $("chatSearch");
+
+    input.focus();
+
+    setTimeout(
+        () => {
+
+            input.scrollIntoView({
+                block: "nearest",
+                behavior: "smooth"
+            });
+
+        },
+        100
+    );
 
 };
 
@@ -2664,6 +3354,46 @@ $("newChatButton").onclick = () => {
 
 
 /* =====================================================
+   ENTER LOGIN
+===================================================== */
+
+$("loginPassword").addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            $("loginButton").click();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ENTER REGISTER
+===================================================== */
+
+$("registerPassword").addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            $("registerButton").click();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
    SERVICE WORKER
 ===================================================== */
 
@@ -2677,7 +3407,7 @@ if (
 
             navigator.serviceWorker
                 .register(
-                    "./sw.js?v=37"
+                    "./sw.js?v=40"
                 )
                 .catch(
                     () => {}
