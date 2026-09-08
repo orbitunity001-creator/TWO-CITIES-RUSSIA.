@@ -1,15 +1,11 @@
 {
-  "name": "Avion Messenger",
-  "short_name": "Avion",
-  "description": "Милый мессенджер со снегирём",
-  "id": "./",
+  "name": "AVION Messenger",
+  "short_name": "AVION",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#229ED9",
-  "theme_color": "#229ED9",
-  "lang": "ru",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "./icon.svg",
