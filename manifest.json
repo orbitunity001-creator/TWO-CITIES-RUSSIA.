@@ -6,6 +6,10 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "fullscreen"
+  ],
   "background_color": "#040812",
   "theme_color": "#06101f",
   "orientation": "portrait",
