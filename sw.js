@@ -1,9 +1,10 @@
-const CACHE_NAME = "avia-v10";
+const CACHE_NAME = "avia-v1";
 
-const APP_FILES = [
+const FILES = [
     "./",
     "./index.html",
     "./manifest.json",
+    "./sw.js",
     "./icon.png"
 ];
 
@@ -15,14 +16,19 @@ self.addEventListener(
         self.skipWaiting();
 
         event.waitUntil(
+
             caches
                 .open(CACHE_NAME)
                 .then(cache => {
+
                     return cache.addAll(
-                        APP_FILES
+                        FILES
                     );
+
                 })
+
         );
+
     }
 );
 
@@ -42,23 +48,29 @@ self.addEventListener(
                         keys.map(key => {
 
                             if (
-                                key !== CACHE_NAME
+                                key !==
+                                CACHE_NAME
                             ) {
+
                                 return caches.delete(
                                     key
                                 );
+
                             }
 
                         })
 
                     );
-                })
 
+                })
                 .then(() => {
+
                     return self.clients.claim();
+
                 })
 
         );
+
     }
 );
 
@@ -68,7 +80,8 @@ self.addEventListener(
     event => {
 
         if (
-            event.request.method !== "GET"
+            event.request.method !==
+            "GET"
         ) {
             return;
         }
@@ -81,7 +94,7 @@ self.addEventListener(
 
                     if (
                         response &&
-                        response.status === 200
+                        response.ok
                     ) {
 
                         const copy =
@@ -97,6 +110,7 @@ self.addEventListener(
                                 );
 
                             });
+
                     }
 
                     return response;
@@ -112,5 +126,6 @@ self.addEventListener(
                 })
 
         );
+
     }
 );
