@@ -1,159 +1,173 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0,
+                 maximum-scale=1.0, user-scalable=no"
+    >
 
-<meta name="theme-color" content="#06101f">
+    <title>AVIA</title>
 
-<link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="./manifest.json">
 
-<title>AVIA</title>
+    <meta name="theme-color" content="#040812">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-<style>
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-html, body {
-    margin: 0;
-    width: 100%;
-    min-height: 100%;
-    background: #040812;
-    color: white;
-    font-family: Arial, sans-serif;
-}
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+        }
 
-body {
-    min-height: 100dvh;
-}
+        body {
+            min-height: 100vh;
 
-.app {
-    min-height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-}
+            background: #040812;
+            color: #fff;
 
-.box {
-    width: 100%;
-    max-width: 430px;
-    text-align: center;
-}
+            font-family: Arial, sans-serif;
 
-/* ЛОГОТИП-ПТИЧКА */
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-.logo {
-    width: 155px;
-    height: 155px;
-    margin: 0 auto 25px;
+            text-align: center;
+        }
 
-    border-radius: 40px;
-    overflow: hidden;
+        .app {
+            width: 100%;
+            max-width: 420px;
+            padding: 30px 20px;
+        }
 
-    background: #06142b;
+        /* ИКОНКА AVIA */
 
-    box-shadow:
-        0 20px 70px rgba(40,140,255,.30);
-}
+        .logo {
+            width: 155px;
+            height: 155px;
 
-.logo svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
+            margin: 0 auto 25px;
 
-/* AVIA */
+            border-radius: 40px;
+            overflow: hidden;
 
-h1 {
-    margin: 0;
+            background: #06142b;
 
-    font-size: 54px;
-    font-weight: 800;
+            box-shadow:
+                0 20px 70px rgba(40, 140, 255, .30);
+        }
 
-    letter-spacing: -2px;
-}
+        .logo svg {
+            display: block;
 
-.subtitle {
-    margin-top: 10px;
+            width: 100%;
+            height: 100%;
+        }
 
-    color: #9ca8ba;
-    font-size: 17px;
-}
+        h1 {
+            margin: 0;
 
-.studio {
-    margin-top: 9px;
+            font-size: 42px;
+            line-height: 1;
 
-    color: #4e9cff;
+            letter-spacing: -2px;
+        }
 
-    font-size: 11px;
-    font-weight: 800;
+        .subtitle {
+            margin-top: 9px;
 
-    letter-spacing: 2px;
-}
+            color: #9ca3af;
 
-.card {
-    margin-top: 32px;
-    padding: 24px;
+            font-size: 14px;
+        }
 
-    border-radius: 25px;
+        .studio {
+            margin-top: 8px;
 
-    background: rgba(255,255,255,.04);
+            color: #5da9ff;
 
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-}
+            font-size: 9px;
+            font-weight: bold;
 
-.card h2 {
-    margin: 0 0 10px;
-    font-size: 21px;
-}
+            letter-spacing: 2px;
+        }
 
-.card p {
-    margin: 0;
+        .card {
+            margin-top: 25px;
 
-    color: #929daf;
+            padding: 22px;
 
-    font-size: 14px;
-    line-height: 1.5;
-}
+            border-radius: 18px;
 
-#install {
-    display: none;
+            background: rgba(255, 255, 255, .035);
 
-    width: 100%;
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
 
-    margin-top: 20px;
-    padding: 16px;
+        .card h2 {
+            margin: 0 0 10px;
 
-    border: 0;
-    border-radius: 17px;
+            font-size: 16px;
+        }
 
-    background: #1683ff;
-    color: white;
+        .card p {
+            margin: 0 0 18px;
 
-    font-size: 16px;
-    font-weight: 800;
-}
+            color: #8b93a1;
 
-#install.show {
-    display: block;
-}
-</style>
+            font-size: 11px;
+        }
+
+        #install {
+            width: 100%;
+
+            padding: 14px;
+
+            border: 0;
+            border-radius: 13px;
+
+            background: #1675ed;
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 30px rgba(22, 117, 237, .30);
+        }
+
+        #install:active {
+            transform: scale(.98);
+        }
+
+        #status {
+            margin-top: 12px;
+
+            color: #777f8e;
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="app">
 
-<div class="box">
-
-    <!-- ПТИЧКА НАРИСОВАНА ПРЯМО КОДОМ -->
+    <!-- ПТИЧКА РИСУЕТСЯ ПРЯМО КОДОМ -->
 
     <div class="logo">
 
@@ -164,7 +178,6 @@ h1 {
 
             <defs>
 
-                <!-- бело-голубой корпус -->
                 <linearGradient
                     id="body"
                     x1="0"
@@ -178,7 +191,7 @@ h1 {
                     />
 
                     <stop
-                        offset="0.65"
+                        offset=".65"
                         stop-color="#e8f5ff"
                     />
 
@@ -188,8 +201,6 @@ h1 {
                     />
                 </linearGradient>
 
-
-                <!-- большое крыло -->
                 <linearGradient
                     id="wing"
                     x1="0"
@@ -203,7 +214,7 @@ h1 {
                     />
 
                     <stop
-                        offset="0.55"
+                        offset=".55"
                         stop-color="#d8edff"
                     />
 
@@ -213,8 +224,6 @@ h1 {
                     />
                 </linearGradient>
 
-
-                <!-- синее крыло -->
                 <linearGradient
                     id="blueWing"
                     x1="0"
@@ -228,7 +237,7 @@ h1 {
                     />
 
                     <stop
-                        offset="0.55"
+                        offset=".55"
                         stop-color="#4ca9ff"
                     />
 
@@ -240,8 +249,7 @@ h1 {
 
             </defs>
 
-
-            <!-- тёмно-синий фон -->
+            <!-- ТЁМНЫЙ ФОН -->
 
             <rect
                 width="512"
@@ -250,8 +258,7 @@ h1 {
                 fill="#07152d"
             />
 
-
-            <!-- МАЛЕНЬКИЙ БЛИК -->
+            <!-- МЯГКОЕ СВЕЧЕНИЕ -->
 
             <ellipse
                 cx="245"
@@ -262,182 +269,95 @@ h1 {
                 opacity=".35"
             />
 
-
-            <!-- ХВОСТ -->
+            <!-- НИЖНЯЯ СИНЯЯ ЧАСТЬ -->
 
             <path
                 d="
-                M250 300
-                C215 325 174 350 145 381
-                C121 406 108 430 103 453
-                C137 431 170 414 205 405
-                C242 396 274 382 302 363
-                Z
+                    M250 300
+                    C215 325 174 350 145 381
+                    C121 406 108 430 103 453
+                    C137 431 170 414 205 405
+                    C242 396 274 382 302 363
+                    Z
                 "
                 fill="url(#blueWing)"
             />
-
 
             <!-- БОЛЬШОЕ ВЕРХНЕЕ КРЫЛО -->
 
             <path
                 d="
-                M279 267
-
-                C299 238
-                306 207
-                291 180
-
-                C271 143
-                232 124
-                190 111
-
-                C150 99
-                119 82
-                86 58
-
-                C87 103
-                98 143
-                122 175
-
-                C151 214
-                193 235
-                236 249
-
-                C255 255
-                270 261
-                279 267
-
-                Z
+                    M279 267
+                    C299 238 306 207 291 180
+                    C271 143 232 124 190 111
+                    C150 99 119 82 86 58
+                    C87 103 98 143 122 175
+                    C151 214 193 235 236 249
+                    C255 255 270 261 279 267
+                    Z
                 "
                 fill="url(#wing)"
             />
 
-
-            <!-- СИНЯЯ НИЖНЯЯ ЧАСТЬ КРЫЛА -->
+            <!-- СИНЕЕ КРЫЛО -->
 
             <path
                 d="
-                M89 183
-
-                C126 201
-                165 213
-                208 225
-
-                C248 236
-                276 251
-                286 272
-
-                C272 293
-                246 307
-                216 311
-
-                C175 306
-                136 288
-                109 262
-
-                C92 245
-                80 216
-                89 183
-
-                Z
+                    M89 183
+                    C126 201 165 213 208 225
+                    C248 236 276 251 286 272
+                    C272 293 246 307 216 311
+                    C175 306 136 288 109 262
+                    C92 245 80 216 89 183
+                    Z
                 "
                 fill="url(#blueWing)"
             />
-
 
             <!-- ТЕЛО ПТИЦЫ -->
 
             <path
                 d="
-                M283 248
-
-                C295 203
-                318 166
-                350 153
-
-                C379 141
-                403 151
-                424 168
-
-                C440 181
-                455 187
-                474 190
-
-                C452 204
-                430 211
-                416 229
-
-                C402 247
-                398 277
-                388 307
-
-                C375 346
-                350 371
-                314 385
-
-                C282 398
-                247 398
-                211 407
-
-                C232 386
-                253 365
-                272 344
-
-                C293 320
-                305 286
-                283 248
-
-                Z
+                    M283 248
+                    C295 203 318 166 350 153
+                    C379 141 403 151 424 168
+                    C440 181 455 187 474 190
+                    C452 204 430 211 416 229
+                    C402 247 398 277 388 307
+                    C375 346 350 371 314 385
+                    C282 398 247 398 211 407
+                    C232 386 253 365 272 344
+                    C293 320 305 286 283 248
+                    Z
                 "
                 fill="url(#body)"
             />
-
 
             <!-- ГОЛОВА -->
 
             <path
                 d="
-                M347 153
-
-                C369 141
-                393 149
-                414 166
-
-                C432 180
-                452 187
-                474 190
-
-                C452 202
-                431 207
-                414 220
-
-                C402 199
-                383 186
-                360 182
-
-                Z
+                    M347 153
+                    C369 141 393 149 414 166
+                    C432 180 452 187 474 190
+                    C452 202 431 207 414 220
+                    C402 199 383 186 360 182
+                    Z
                 "
                 fill="#f7fbff"
             />
-
 
             <!-- КЛЮВ -->
 
             <path
                 d="
-                M421 170
-                C441 181
-                457 187
-                474 190
-                C456 199
-                441 201
-                425 198
-                Z
+                    M421 170
+                    C441 181 457 187 474 190
+                    C456 199 441 201 425 198
+                    Z
                 "
                 fill="#eaf6ff"
             />
-
 
             <!-- ГЛАЗ -->
 
@@ -447,9 +367,6 @@ h1 {
                 r="12"
                 fill="#07152d"
             />
-
-
-            <!-- маленький блик глаза -->
 
             <circle
                 cx="401"
@@ -481,17 +398,16 @@ h1 {
         </h2>
 
         <p>
-            Установи AVIA на главный экран
-            как приложение.
+            Установи AVIA на главный экран как приложение.
         </p>
 
         <button id="install">
             Установить AVIA
         </button>
 
-    </div>
+        <div id="status"></div>
 
-</div>
+    </div>
 
 </div>
 
@@ -500,41 +416,90 @@ h1 {
 
 let deferredPrompt = null;
 
-const install =
+const installButton =
     document.getElementById("install");
 
+const status =
+    document.getElementById("status");
+
+
+/* Chrome сообщает,
+   когда PWA готова к установке */
 
 window.addEventListener(
     "beforeinstallprompt",
-    event => {
+    (event) => {
 
         event.preventDefault();
 
         deferredPrompt = event;
 
-        install.classList.add("show");
+        installButton.style.display = "block";
+
+        status.textContent =
+            "AVIA готова к установке.";
 
     }
 );
 
 
-install.addEventListener(
+/* НАСТОЯЩАЯ КНОПКА УСТАНОВКИ */
+
+installButton.addEventListener(
     "click",
     async () => {
 
-        if (!deferredPrompt) return;
+        if (!deferredPrompt) {
+
+            status.textContent =
+                "Chrome пока не подготовил установку. Открой меню ⋮ и выбери «Установить приложение».";
+
+            return;
+        }
 
         deferredPrompt.prompt();
 
-        await deferredPrompt.userChoice;
+        const result =
+            await deferredPrompt.userChoice;
+
+        if (result.outcome === "accepted") {
+
+            installButton.textContent =
+                "AVIA установлена ✓";
+
+            status.textContent =
+                "AVIA установлена на телефон.";
+
+        } else {
+
+            status.textContent =
+                "Установка отменена.";
+
+        }
 
         deferredPrompt = null;
-
-        install.classList.remove("show");
 
     }
 );
 
+
+/* AVIA установлена */
+
+window.addEventListener(
+    "appinstalled",
+    () => {
+
+        installButton.textContent =
+            "AVIA установлена ✓";
+
+        status.textContent =
+            "Приложение установлено.";
+
+    }
+);
+
+
+/* Service Worker */
 
 if ("serviceWorker" in navigator) {
 
