@@ -5,35 +5,45 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        content="width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        user-scalable=no"
     >
 
     <meta name="theme-color" content="#06101f">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- ИКОНКА AVIA -->
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <!-- ИМЕННО ПТИЧКА -->
     <link
         rel="icon"
-        href="./icon.png?v=10"
         type="image/png"
+        href="icon.png"
     >
 
     <link
         rel="apple-touch-icon"
-        href="./icon.png?v=10"
+        href="icon.png"
     >
 
-    <!-- PWA -->
     <link
         rel="manifest"
-        href="./manifest.json?v=10"
+        href="manifest.json"
     >
 
     <title>AVIA</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -41,14 +51,12 @@
 
         html,
         body {
-            width: 100%;
-            height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-        }
 
-        body {
+            width: 100%;
+            height: 100%;
+
             background: #040812;
             color: white;
 
@@ -61,69 +69,55 @@
                 sans-serif;
         }
 
-        #app {
-            position: fixed;
-            inset: 0;
-
-            width: 100%;
-            height: 100dvh;
-
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
             overflow: hidden;
-
-            background:
-                radial-gradient(
-                    circle at 50% 20%,
-                    rgba(30, 120, 255, 0.20),
-                    transparent 38%
-                ),
-                #040812;
         }
 
-        .screen {
+        .page {
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            height: 100dvh;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            padding:
-                25px
-                20px
-                calc(25px + env(safe-area-inset-bottom));
-
-            text-align: center;
+            padding: 25px;
         }
 
         .content {
             width: 100%;
-            max-width: 390px;
+            max-width: 430px;
 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-align: center;
         }
 
-        /* ИКОНКА */
+        /*
+        =====================================
+        ПТИЧКА AVIA
+        =====================================
+        */
 
-        .icon {
-            width: 140px;
-            height: 140px;
+        .bird {
+            width: 150px;
+            height: 150px;
 
-            border-radius: 38px;
+            margin: 0 auto 25px;
+
+            border-radius: 40px;
 
             overflow: hidden;
 
-            background: #071426;
-
-            border: 1px solid rgba(255,255,255,.12);
+            background: #06101f;
 
             box-shadow:
-                0 25px 80px rgba(0, 110, 255, .30),
-                0 0 55px rgba(0, 120, 255, .15);
+                0 20px 70px
+                rgba(20, 130, 255, 0.30);
         }
 
-        .icon img {
+        .bird img {
             width: 100%;
             height: 100%;
 
@@ -132,222 +126,191 @@
             object-fit: cover;
         }
 
-        /* AVIA */
+        /*
+        =====================================
+        AVIA
+        =====================================
+        */
 
         h1 {
-            margin: 24px 0 0;
+            margin: 0;
 
-            font-size: 43px;
+            font-size: 54px;
+            font-weight: 800;
+
+            letter-spacing: -2px;
+
             line-height: 1;
-
-            font-weight: 850;
-
-            letter-spacing: 6px;
         }
 
         .subtitle {
-            margin-top: 10px;
+            margin-top: 12px;
 
-            color: #8d9db4;
+            color: #9ca8ba;
 
-            font-size: 16px;
+            font-size: 17px;
         }
 
         .studio {
-            margin-top: 7px;
+            margin-top: 9px;
 
-            color: #53637a;
+            color: #4e9cff;
 
-            font-size: 10px;
+            font-size: 11px;
 
-            letter-spacing: 1.5px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
         }
 
-        /* КАРТОЧКА */
+        /*
+        =====================================
+        КАРТОЧКА
+        =====================================
+        */
 
         .card {
-            width: 100%;
-
             margin-top: 32px;
 
-            padding: 19px;
+            padding: 24px;
 
-            border-radius: 23px;
+            border-radius: 25px;
 
             background:
-                rgba(255,255,255,.045);
+                rgba(255,255,255,0.035);
 
             border:
-                1px solid rgba(255,255,255,.08);
+                1px solid
+                rgba(255,255,255,0.08);
 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
 
-        .card-title {
-            font-size: 15px;
-            font-weight: 700;
+        .card h2 {
+            margin: 0 0 9px;
+
+            font-size: 21px;
         }
 
-        .card-text {
-            margin-top: 7px;
+        .card p {
+            margin: 0;
 
-            color: #728198;
+            color: #929daf;
+
+            font-size: 14px;
+
+            line-height: 1.55;
+        }
+
+        /*
+        =====================================
+        КНОПКА УСТАНОВКИ
+        =====================================
+        */
+
+        #install {
+            display: none;
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 17px;
+
+            background: #1683ff;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 800;
+        }
+
+        #install.show {
+            display: block;
+        }
+
+        #install:active {
+            transform: scale(0.97);
+        }
+
+        .hint {
+            margin-top: 15px;
+
+            color: #687588;
 
             font-size: 12px;
 
             line-height: 1.5;
         }
 
-        /* КНОПКА */
-
-        #installButton {
-            width: 100%;
-
-            min-height: 57px;
-
-            margin-top: 17px;
-
-            border: none;
-            border-radius: 17px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #318cff,
-                    #1760d9
-                );
-
-            color: white;
-
-            font-size: 15px;
-            font-weight: 750;
-
-            box-shadow:
-                0 12px 35px rgba(30, 115, 245, .28);
-        }
-
-        #installButton:active {
-            transform: scale(.97);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .status {
-            margin-top: 13px;
-
-            color: #53627a;
-
-            font-size: 10px;
-        }
-
-        .installed {
-            color: #4bd995;
-        }
-
-        .footer {
-            position: absolute;
-
-            left: 0;
-            right: 0;
-
-            bottom:
-                calc(
-                    15px +
-                    env(safe-area-inset-bottom)
-                );
-
-            text-align: center;
-
-            color: #3c4859;
-
-            font-size: 9px;
-
-            letter-spacing: 1px;
-        }
-
-        @media (max-height: 650px) {
-
-            .icon {
-                width: 100px;
-                height: 100px;
-
-                border-radius: 28px;
-            }
-
-            h1 {
-                margin-top: 17px;
-                font-size: 33px;
-            }
-
-            .card {
-                margin-top: 20px;
-            }
-        }
     </style>
 </head>
 
+
 <body>
 
-<div id="app">
+<div class="page">
 
-    <main class="screen">
+    <div class="content">
 
-        <div class="content">
+        <!-- ТВОЯ ПТИЧКА -->
+        <div class="bird">
 
-            <!-- ТВОЯ ПТИЧКА -->
-            <div class="icon">
-                <img
-                    src="./icon.png?v=10"
-                    alt="AVIA"
-                >
-            </div>
+            <img
+                src="icon.png"
+                alt="AVIA"
+            >
 
-            <h1>AVIA</h1>
+        </div>
 
-            <div class="subtitle">
-                Умная нейросеть
-            </div>
 
-            <div class="studio">
-                CATS DEVELOPER STUDIO
-            </div>
+        <h1>
+            AVIA
+        </h1>
 
-            <div class="card">
 
-                <div class="card-title">
-                    Добро пожаловать в AVIA
-                </div>
+        <div class="subtitle">
+            Умная нейросеть
+        </div>
 
-                <div class="card-text">
-                    Новый AI-проект от
-                    Cats Developer Studio.
-                </div>
 
-                <button
-                    id="installButton"
-                    class="hidden"
-                >
-                    Установить AVIA
-                </button>
+        <div class="studio">
+            CATS DEVELOPER STUDIO
+        </div>
 
-                <div
-                    id="status"
-                    class="status"
-                >
-                    Проверка установки...
-                </div>
 
+        <div class="card">
+
+            <h2>
+                Добро пожаловать в AVIA
+            </h2>
+
+            <p>
+                Установи AVIA на главный экран
+                телефона и запускай как обычное
+                приложение.
+            </p>
+
+
+            <button id="install">
+                Установить AVIA
+            </button>
+
+
+            <div class="hint">
+                Если кнопка не появилась,
+                открой меню Chrome →
+                «Установить приложение».
             </div>
 
         </div>
 
-    </main>
-
-    <div class="footer">
-        CATS DEVELOPER STUDIO • AVIA
     </div>
 
 </div>
@@ -355,24 +318,17 @@
 
 <script>
 
-"use strict";
-
 let deferredPrompt = null;
 
 const installButton =
-    document.getElementById(
-        "installButton"
-    );
-
-const status =
-    document.getElementById(
-        "status"
-    );
+    document.getElementById("install");
 
 
-/* =========================
-   УСТАНОВКА PWA
-========================= */
+/*
+=====================================
+УСТАНОВКА PWA
+=====================================
+*/
 
 window.addEventListener(
     "beforeinstallprompt",
@@ -382,132 +338,53 @@ window.addEventListener(
 
         deferredPrompt = event;
 
-        installButton.classList.remove(
-            "hidden"
+        installButton.classList.add(
+            "show"
         );
-
-        status.textContent =
-            "AVIA готова к установке";
 
     }
 );
 
-
-/* =========================
-   КНОПКА УСТАНОВКИ
-========================= */
 
 installButton.addEventListener(
     "click",
     async function() {
 
         if (!deferredPrompt) {
-
-            alert(
-                "Открой меню Chrome и выбери «Установить приложение»."
-            );
-
             return;
         }
 
         deferredPrompt.prompt();
 
-        const result =
-            await deferredPrompt.userChoice;
-
-        if (
-            result.outcome === "accepted"
-        ) {
-
-            status.textContent =
-                "AVIA устанавливается...";
-
-        }
+        await deferredPrompt.userChoice;
 
         deferredPrompt = null;
 
-        installButton.classList.add(
-            "hidden"
-        );
-    }
-);
-
-
-/* =========================
-   ПРИЛОЖЕНИЕ УСТАНОВЛЕНО
-========================= */
-
-window.addEventListener(
-    "appinstalled",
-    function() {
-
-        installButton.classList.add(
-            "hidden"
-        );
-
-        status.textContent =
-            "AVIA установлена";
-
-        status.classList.add(
-            "installed"
+        installButton.classList.remove(
+            "show"
         );
 
     }
 );
 
 
-/* =========================
-   SERVICE WORKER
-========================= */
+/*
+=====================================
+SERVICE WORKER
+=====================================
+*/
 
-if (
-    "serviceWorker" in navigator
-) {
+if ("serviceWorker" in navigator) {
 
     window.addEventListener(
         "load",
         function() {
 
-            navigator.serviceWorker
-                .register(
-                    "./sw.js?v=10"
-                )
-                .then(function() {
-
-                    console.log(
-                        "AVIA PWA готова"
-                    );
-
-                })
-                .catch(function(error) {
-
-                    console.error(
-                        "SW error:",
-                        error
-                    );
-
-                });
+            navigator.serviceWorker.register(
+                "sw.js"
+            );
 
         }
-    );
-}
-
-
-/* =========================
-   ПРОВЕРКА STANDALONE
-========================= */
-
-if (
-    window.matchMedia(
-        "(display-mode: standalone)"
-    ).matches
-) {
-
-    status.textContent =
-        "AVIA запущена как приложение";
-
-    status.classList.add(
-        "installed"
     );
 
 }
