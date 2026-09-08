@@ -1,88 +1,58 @@
-const CACHE_NAME = "avia-v3";
+const CACHE = "avia-v4";
 
 const FILES = [
     "./",
     "./index.html",
     "./manifest.json",
-    "./sw.js",
-    "./icon.png"
+    "./sw.js"
 ];
 
-self.addEventListener(
-    "install",
-    event => {
+self.addEventListener("install", event => {
 
-        self.skipWaiting();
+    self.skipWaiting();
 
-        event.waitUntil(
-            caches
-                .open(CACHE_NAME)
-                .then(cache => cache.addAll(FILES))
-        );
-    }
-);
+    event.waitUntil(
+        caches.open(CACHE)
+            .then(cache => cache.addAll(FILES))
+    );
 
-self.addEventListener(
-    "activate",
-    event => {
+});
 
-        event.waitUntil(
 
-            caches.keys().then(keys =>
+self.addEventListener("activate", event => {
 
-                Promise.all(
+    event.waitUntil(
 
-                    keys.map(key => {
+        caches.keys().then(keys =>
 
-                        if (key !== CACHE_NAME) {
-                            return caches.delete(key);
-                        }
+            Promise.all(
+                keys.map(key => {
 
-                    })
-
-                )
-
-            ).then(() => self.clients.claim())
-
-        );
-    }
-);
-
-self.addEventListener(
-    "fetch",
-    event => {
-
-        if (event.request.method !== "GET") {
-            return;
-        }
-
-        event.respondWith(
-
-            fetch(event.request)
-                .then(response => {
-
-                    if (response.ok) {
-
-                        const copy =
-                            response.clone();
-
-                        caches.open(CACHE_NAME)
-                            .then(cache => {
-
-                                cache.put(
-                                    event.request,
-                                    copy
-                                );
-
-                            });
+                    if (key !== CACHE) {
+                        return caches.delete(key);
                     }
 
-                    return response;
                 })
+            )
 
-                .catch(() =>
-                    caches.match(event.request)
-                )
-        );
+        ).then(() => self.clients.claim())
+
+    );
+
+});
+
+
+self.addEventListener("fetch", event => {
+
+    if (event.request.method !== "GET") {
+        return;
     }
-);
+
+    event.respondWith(
+
+        fetch(event.request)
+            .catch(() => caches.match(event.request))
+
+    );
+
+});
