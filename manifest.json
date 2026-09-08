@@ -7,7 +7,6 @@
     "id": "./avia",
 
     "start_url": "./",
-
     "scope": "./",
 
     "display": "standalone",
@@ -20,19 +19,9 @@
     "orientation": "portrait",
 
     "background_color": "#040812",
-
     "theme_color": "#06101f",
 
     "lang": "ru",
 
-    "prefer_related_applications": false,
-
-    "icons": [
-        {
-            "src": "icon.png",
-            "sizes": "192x192 512x512",
-            "type": "image/png",
-            "purpose": "any maskable"
-        }
-    ]
+    "prefer_related_applications": false
 }
