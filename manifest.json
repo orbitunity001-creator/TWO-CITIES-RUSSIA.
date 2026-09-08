@@ -2,17 +2,17 @@
   "name": "AVION Messenger",
   "short_name": "AVION",
   "description": "Современный мессенджер AVION",
-  "id": "./?v=36",
-  "start_url": "./?v=36",
+  "id": "./?v=37",
+  "start_url": "./?v=37",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#090b10",
-  "theme_color": "#11131a",
+  "background_color": "#080a0f",
+  "theme_color": "#10131d",
   "lang": "ru",
   "icons": [
     {
-      "src": "./icon.svg?v=36",
+      "src": "./icon.svg?v=37",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
