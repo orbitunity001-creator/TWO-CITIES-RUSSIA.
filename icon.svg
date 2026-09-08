@@ -2,278 +2,104 @@
 
 <defs>
 
-  <!-- ЧЁРНЫЙ ФОН -->
-  <radialGradient id="bg" cx="50%" cy="40%" r="75%">
-    <stop offset="0%" stop-color="#151515"/>
-    <stop offset="55%" stop-color="#070707"/>
-    <stop offset="100%" stop-color="#000000"/>
-  </radialGradient>
-
-  <!-- БЕЛЫЙ ГРАДИЕНТ БУКВЫ -->
-  <linearGradient id="whiteA"
-    x1="0"
-    y1="0"
-    x2="0"
-    y2="1">
-
-    <stop offset="0%" stop-color="#FFFFFF"/>
-    <stop offset="45%" stop-color="#FFFFFF"/>
-    <stop offset="75%" stop-color="#E8E8E8"/>
-    <stop offset="100%" stop-color="#BDBDBD"/>
-
-  </linearGradient>
-
-  <!-- БЕЛЫЙ БЛИК -->
-  <linearGradient id="shine"
+  <!-- простой тёмный фон -->
+  <linearGradient id="bg"
     x1="0"
     y1="0"
     x2="1"
     y2="1">
-
-    <stop offset="0%" stop-color="#FFFFFF" stop-opacity=".9"/>
-    <stop offset="45%" stop-color="#FFFFFF" stop-opacity=".25"/>
-    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
-
+    <stop offset="0%" stop-color="#3a3a3a"/>
+    <stop offset="50%" stop-color="#242424"/>
+    <stop offset="100%" stop-color="#111111"/>
   </linearGradient>
 
-  <!-- СВЕЧЕНИЕ -->
-  <filter id="glow"
-    x="-100%"
-    y="-100%"
-    width="300%"
-    height="300%">
+  <!-- объём буквы -->
+  <linearGradient id="letter"
+    x1="0"
+    y1="0"
+    x2="0"
+    y2="1">
+    <stop offset="0%" stop-color="#ffffff"/>
+    <stop offset="45%" stop-color="#f4f4f4"/>
+    <stop offset="100%" stop-color="#bdbdbd"/>
+  </linearGradient>
 
-    <feGaussianBlur
-      stdDeviation="12"
-      result="blur"/>
-
-    <feMerge>
-      <feMergeNode in="blur"/>
-      <feMergeNode in="SourceGraphic"/>
-    </feMerge>
-
-  </filter>
-
-  <!-- МЯГКАЯ ТЕНЬ -->
+  <!-- мягкая тень -->
   <filter id="shadow"
-    x="-50%"
-    y="-50%"
-    width="200%"
-    height="200%">
+    x="-30%"
+    y="-30%"
+    width="160%"
+    height="160%">
 
     <feDropShadow
       dx="0"
       dy="12"
-      stdDeviation="14"
-      flood-color="#FFFFFF"
-      flood-opacity=".18"/>
+      stdDeviation="10"
+      flood-color="#000000"
+      flood-opacity=".55"/>
 
   </filter>
 
 </defs>
 
 
-<!-- ЧЁРНЫЙ ФОН -->
+<!-- ФОН -->
 
 <rect
   width="512"
   height="512"
-  rx="115"
+  rx="35"
   fill="url(#bg)"
 />
 
 
-<!-- БОЛЬШОЙ БЕЛЫЙ БЛИК В ЛЕВОМ ВЕРХНЕМ УГЛУ -->
-
-<circle
-  cx="70"
-  cy="65"
-  r="125"
-  fill="#FFFFFF"
-  opacity=".08"
-  filter="url(#glow)"
-/>
-
-
-<!-- БЕЛЫЙ БЛИК СПРАВА -->
-
-<circle
-  cx="455"
-  cy="420"
-  r="110"
-  fill="#FFFFFF"
-  opacity=".06"
-  filter="url(#glow)"
-/>
-
-
-<!-- ДИАГОНАЛЬНЫЙ БЛИК -->
-
-<path
-  d="
-    M0 115
-    L115 0
-    L250 0
-    L0 250
-    Z
-  "
-  fill="url(#shine)"
-  opacity=".16"
-/>
-
-
-<!-- ТОНКАЯ ЛИНИЯ БЛИКА -->
-
-<path
-  d="
-    M40 145
-    L145 40
-  "
-  stroke="#FFFFFF"
-  stroke-width="3"
-  stroke-linecap="round"
-  opacity=".65"
-  filter="url(#glow)"
-/>
-
-
-<!-- СВЕЧЕНИЕ ЗА БУКВОЙ -->
-
-<path
-  d="
-    M256 65
-    L98 438
-    L181 438
-    L215 345
-    L297 345
-    L331 438
-    L414 438
-    Z
-  "
-  fill="#FFFFFF"
-  opacity=".12"
-  filter="url(#glow)"
-/>
-
-
-<!-- БОЛЬШАЯ БУКВА A -->
-
-<path
-  d="
-    M256 68
-
-    L98 438
-
-    L181 438
-
-    L215 344
-
-    L297 344
-
-    L331 438
-
-    L414 438
-
-    Z
-
-    M256 170
-
-    L280 286
-
-    L232 286
-
-    Z
-  "
-  fill="url(#whiteA)"
-  filter="url(#shadow)"
-/>
-
-
-<!-- БЛИК НА БУКВЕ -->
+<!-- БУКВА A -->
 
 <path
   d="
     M256 82
-    L122 420
-    L157 420
-    L276 115
+
+    L105 430
+
+    L178 430
+
+    L211 348
+
+    L301 348
+
+    L334 430
+
+    L407 430
+
+    Z
+
+    M256 190
+
+    L282 295
+
+    L230 295
+
     Z
   "
-  fill="#FFFFFF"
-  opacity=".16"
+
+  fill="url(#letter)"
+  filter="url(#shadow)"
 />
 
 
-<!-- ВЕРХНИЙ БЛИК БУКВЫ -->
+<!-- лёгкий верхний блик -->
 
 <path
   d="
-    M256 68
-    L238 112
-    L270 112
+    M256 82
+    L119 414
+    L145 414
+    L274 104
     Z
   "
-  fill="#FFFFFF"
-  opacity=".95"
-/>
 
-
-<!-- МАЛЕНЬКИЕ БЕЛЫЕ БЛИКИ -->
-
-<circle
-  cx="105"
-  cy="105"
-  r="4"
-  fill="#FFFFFF"
-  opacity=".8"
-  filter="url(#glow)"
-/>
-
-<circle
-  cx="420"
-  cy="115"
-  r="3"
-  fill="#FFFFFF"
-  opacity=".7"
-  filter="url(#glow)"
-/>
-
-<circle
-  cx="410"
-  cy="375"
-  r="4"
-  fill="#FFFFFF"
-  opacity=".65"
-  filter="url(#glow)"
-/>
-
-<circle
-  cx="92"
-  cy="385"
-  r="3"
-  fill="#FFFFFF"
-  opacity=".55"
-  filter="url(#glow)"
-/>
-
-
-<!-- МАЛЕНЬКАЯ ЗВЁЗДОЧКА -->
-
-<path
-  d="
-    M420 170
-    L424 181
-    L435 185
-    L424 189
-    L420 201
-    L416 189
-    L405 185
-    L416 181
-    Z
-  "
-  fill="#FFFFFF"
-  opacity=".8"
-  filter="url(#glow)"
+  fill="#ffffff"
+  opacity=".10"
 />
 
 
