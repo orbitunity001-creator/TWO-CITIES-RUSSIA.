@@ -1,6 +1,6 @@
 {
   "name": "AVION Messenger",
-  "short_name": "AVION",
+  "short_name": "Avion",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
