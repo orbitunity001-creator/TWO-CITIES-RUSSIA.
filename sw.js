@@ -1,4 +1,4 @@
-const CACHE_NAME = "avia-v1";
+const CACHE_NAME = "avia-v3";
 
 const FILES = [
     "./",
@@ -8,7 +8,6 @@ const FILES = [
     "./icon.png"
 ];
 
-
 self.addEventListener(
     "install",
     event => {
@@ -16,22 +15,12 @@ self.addEventListener(
         self.skipWaiting();
 
         event.waitUntil(
-
             caches
                 .open(CACHE_NAME)
-                .then(cache => {
-
-                    return cache.addAll(
-                        FILES
-                    );
-
-                })
-
+                .then(cache => cache.addAll(FILES))
         );
-
     }
 );
-
 
 self.addEventListener(
     "activate",
@@ -39,69 +28,45 @@ self.addEventListener(
 
         event.waitUntil(
 
-            caches
-                .keys()
-                .then(keys => {
+            caches.keys().then(keys =>
 
-                    return Promise.all(
+                Promise.all(
 
-                        keys.map(key => {
+                    keys.map(key => {
 
-                            if (
-                                key !==
-                                CACHE_NAME
-                            ) {
+                        if (key !== CACHE_NAME) {
+                            return caches.delete(key);
+                        }
 
-                                return caches.delete(
-                                    key
-                                );
+                    })
 
-                            }
+                )
 
-                        })
-
-                    );
-
-                })
-                .then(() => {
-
-                    return self.clients.claim();
-
-                })
+            ).then(() => self.clients.claim())
 
         );
-
     }
 );
-
 
 self.addEventListener(
     "fetch",
     event => {
 
-        if (
-            event.request.method !==
-            "GET"
-        ) {
+        if (event.request.method !== "GET") {
             return;
         }
 
         event.respondWith(
 
             fetch(event.request)
-
                 .then(response => {
 
-                    if (
-                        response &&
-                        response.ok
-                    ) {
+                    if (response.ok) {
 
                         const copy =
                             response.clone();
 
-                        caches
-                            .open(CACHE_NAME)
+                        caches.open(CACHE_NAME)
                             .then(cache => {
 
                                 cache.put(
@@ -110,22 +75,14 @@ self.addEventListener(
                                 );
 
                             });
-
                     }
 
                     return response;
-
                 })
 
-                .catch(() => {
-
-                    return caches.match(
-                        event.request
-                    );
-
-                })
-
+                .catch(() =>
+                    caches.match(event.request)
+                )
         );
-
     }
 );
