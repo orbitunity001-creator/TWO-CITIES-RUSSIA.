@@ -11,577 +11,113 @@
 <title>AVIA</title>
 
 <meta name="theme-color" content="#040812">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
 
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icon.svg">
 
 <style>
 
-/* ================================
-   ОСНОВА
-================================ */
-
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
-
     -webkit-tap-highlight-color:transparent;
-    -webkit-touch-callout:none;
 }
 
 html,
 body{
-
     width:100%;
     height:100%;
-
-    min-height:100%;
-
     overflow:hidden;
-
-    overscroll-behavior:none;
-
     background:#040812;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    touch-action:none;
 }
 
 body{
+    font-family:Arial,Helvetica,sans-serif;
     color:#fff;
 }
 
 
-/* ================================
-   ЭКРАН ЗАГРУЗКИ
-================================ */
+/* =========================
+   ПРИЛОЖЕНИЕ
+========================= */
 
-#splash{
+.app{
 
     position:fixed;
-
     inset:0;
 
-    width:100vw;
+    width:100%;
     height:100dvh;
 
-    min-height:100vh;
-
     overflow:hidden;
 
     display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            #102b50 0%,
-            #071326 38%,
-            #040812 80%
-        );
-
-    z-index:9999;
-
-    transition:
-        opacity .6s ease;
-}
-
-
-/* ================================
-   СВЕЧЕНИЕ ЗА ПТИЦЕЙ
-================================ */
-
-.glow{
-
-    position:absolute;
-
-    width:380px;
-    height:380px;
-
-    border-radius:50%;
-
-    background:#1675ed;
-
-    filter:blur(110px);
-
-    opacity:.20;
-
-    animation:
-        glowPulse
-        3s
-        ease-in-out
-        infinite;
-}
-
-@keyframes glowPulse{
-
-    0%,
-    100%{
-        transform:scale(.9);
-        opacity:.12;
-    }
-
-    50%{
-        transform:scale(1.12);
-        opacity:.25;
-    }
-}
-
-
-/* ================================
-   ПТИЦА
-================================ */
-
-.bird-wrap{
-
-    position:absolute;
-
-    width:min(88vw,390px);
-    height:min(88vw,390px);
-
-    left:50%;
-    top:38%;
-
-    transform:
-        translate(-50%,-50%);
-
-    animation:
-        birdFloat
-        3s
-        ease-in-out
-        infinite;
-
-    z-index:3;
-}
-
-.bird{
-
-    width:100%;
-    height:100%;
-
-    display:block;
-
-    filter:
-        drop-shadow(
-            0 25px 45px #000b
-        );
-}
-
-
-/* ================================
-   МАХАНИЕ КРЫЛЬЯМИ
-================================ */
-
-.left-wing{
-
-    transform-origin:
-        220px 230px;
-
-    animation:
-        leftWing
-        .72s
-        ease-in-out
-        infinite;
-}
-
-.right-wing{
-
-    transform-origin:
-        285px 245px;
-
-    animation:
-        rightWing
-        .72s
-        ease-in-out
-        infinite;
-}
-
-@keyframes leftWing{
-
-    0%,
-    100%{
-        transform:rotate(5deg);
-    }
-
-    50%{
-        transform:rotate(-16deg);
-    }
-}
-
-@keyframes rightWing{
-
-    0%,
-    100%{
-        transform:rotate(-5deg);
-    }
-
-    50%{
-        transform:rotate(16deg);
-    }
-}
-
-@keyframes birdFloat{
-
-    0%,
-    100%{
-        margin-top:10px;
-    }
-
-    50%{
-        margin-top:-18px;
-    }
-}
-
-
-/* ================================
-   AVIA
-================================ */
-
-.splash-title{
-
-    position:absolute;
-
-    left:0;
-    right:0;
-
-    bottom:
-        calc(
-            105px +
-            env(safe-area-inset-bottom)
-        );
-
-    width:100%;
-
-    text-align:center;
-
-    font-size:
-        clamp(
-            60px,
-            19vw,
-            90px
-        );
-
-    line-height:1;
-
-    font-weight:900;
-
-    letter-spacing:
-        clamp(
-            8px,
-            3vw,
-            16px
-        );
-
-    color:#fff;
-
-    text-shadow:
-        0 5px 35px #1675ed80;
-
-    z-index:5;
-}
-
-
-/* ================================
-   CATS DEVELOPER STUDIO
-================================ */
-
-.splash-studio{
-
-    position:absolute;
-
-    left:0;
-    right:0;
-
-    bottom:
-        calc(
-            67px +
-            env(safe-area-inset-bottom)
-        );
-
-    text-align:center;
-
-    color:#71839c;
-
-    font-size:14px;
-
-    letter-spacing:.5px;
-
-    z-index:5;
-}
-
-
-/* ================================
-   ПОЛОСКА ЗАГРУЗКИ
-================================ */
-
-.loading-area{
-
-    position:absolute;
-
-    left:10%;
-    right:10%;
-
-    bottom:
-        calc(
-            30px +
-            env(safe-area-inset-bottom)
-        );
-
-    z-index:10;
-}
-
-
-/* фон полоски */
-
-.loading-track{
-
-    width:100%;
-
-    height:6px;
-
-    border-radius:20px;
-
-    background:#172941;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 0 12px #0008;
-}
-
-
-/* голубая загрузка */
-
-.loading-bar{
-
-    width:0%;
-
-    height:100%;
-
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #1685ff,
-            #58c4ff
-        );
-
-    box-shadow:
-        0 0 14px #1685ff;
-
-    animation:
-        loading
-        5s
-        linear
-        forwards;
-}
-
-@keyframes loading{
-
-    from{
-        width:0%;
-    }
-
-    to{
-        width:100%;
-    }
-}
-
-
-/* ================================
-   ОСНОВНОЙ ЭКРАН
-================================ */
-
-#app{
-
-    position:fixed;
-
-    inset:0;
-
-    width:100vw;
-    height:100dvh;
-
-    min-height:100vh;
-
-    overflow:hidden;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    padding:
-        calc(
-            12px +
-            env(safe-area-inset-top)
-        )
-        10px
-        calc(
-            12px +
-            env(safe-area-inset-bottom)
-        )
-        10px;
-
-    opacity:0;
-
-    pointer-events:none;
-
-    background:
-        radial-gradient(
-            circle at 50% 25%,
-            #0c203b 0%,
-            #040812 65%
-        );
-
-    transition:
-        opacity .6s ease;
-
-    z-index:5000;
-}
-
-#app.visible{
-
-    opacity:1;
-
-    pointer-events:auto;
-}
-
-
-/* ================================
-   КАРТОЧКА
-================================ */
-
-.auth-card{
-
-    position:relative;
-
-    width:100%;
-    height:100%;
-
-    max-width:560px;
-    max-height:850px;
-
-    display:flex;
-
     flex-direction:column;
 
-    align-items:center;
-    justify-content:center;
-
-    padding:
-        30px
-        22px
-        30px;
-
-    border-radius:30px;
-
     background:
-        linear-gradient(
-            180deg,
-            #0d1b2ff7,
-            #081323f7
+        radial-gradient(
+            circle at 50% -10%,
+            #12345c 0%,
+            #071326 38%,
+            #040812 75%
         );
-
-    border:1px solid #263852;
-
-    box-shadow:
-        0 30px 100px #000a,
-        inset 0 1px 0 #ffffff08;
-
-    overflow:hidden;
-
-    animation:
-        cardAppear
-        .7s
-        ease;
-}
-
-@keyframes cardAppear{
-
-    from{
-        opacity:0;
-        transform:scale(.96);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
 }
 
 
-/* ================================
-   КРЕСТИК
-================================ */
+/* =========================
+   HEADER
+========================= */
 
-.skip{
+.header{
 
-    position:absolute;
+    flex-shrink:0;
 
-    top:
+    height:
         calc(
-            14px +
+            72px +
             env(safe-area-inset-top)
         );
 
-    right:14px;
+    padding:
+        calc(
+            10px +
+            env(safe-area-inset-top)
+        )
+        16px
+        10px
+        16px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    border-bottom:1px solid #1d3048;
+
+    background:#071323dd;
+
+    backdrop-filter:blur(20px);
+}
+
+
+.logo{
 
     width:48px;
     height:48px;
 
-    border:0;
+    flex-shrink:0;
 
-    border-radius:50%;
-
-    background:#17253a;
-
-    color:#a6b4c6;
-
-    font-size:29px;
-
-    line-height:48px;
-
-    text-align:center;
-
-    touch-action:manipulation;
-}
-
-.skip:active{
-
-    transform:scale(.9);
-}
-
-
-/* ================================
-   ЛОГО
-================================ */
-
-.auth-logo{
-
-    width:105px;
-    height:105px;
-
-    border-radius:29px;
+    border-radius:14px;
 
     overflow:hidden;
 
-    flex-shrink:0;
-
     box-shadow:
-        0 20px 55px #1675ed50;
+        0 8px 25px #1675ed40;
 }
 
-.auth-logo img{
+.logo img{
 
     width:100%;
     height:100%;
@@ -590,294 +126,474 @@ body{
 }
 
 
-/* ================================
-   AVIA
-================================ */
+.header-info{
 
-.auth-title{
+    flex:1;
 
-    margin-top:22px;
+    min-width:0;
+}
 
-    font-size:46px;
+.header-title{
 
-    line-height:1;
+    font-size:20px;
 
     font-weight:900;
 
-    letter-spacing:6px;
-
-    text-align:center;
+    letter-spacing:3px;
 }
 
-.auth-subtitle{
+.header-status{
 
-    margin-top:14px;
+    margin-top:3px;
 
-    font-size:17px;
+    color:#667d99;
 
-    line-height:1.5;
-
-    text-align:center;
-
-    color:#8c9db3;
+    font-size:12px;
 }
 
 
-/* ================================
-   КНОПКИ
-================================ */
+.status-dot{
 
-.auth-buttons{
+    display:inline-block;
+
+    width:7px;
+    height:7px;
+
+    margin-right:5px;
+
+    border-radius:50%;
+
+    background:#35b8ff;
+
+    box-shadow:
+        0 0 10px #35b8ff;
+}
+
+
+/* =========================
+   НОВЫЙ ЧАТ
+========================= */
+
+.new-chat{
+
+    width:44px;
+    height:44px;
+
+    flex-shrink:0;
+
+    border:1px solid #29405d;
+
+    border-radius:14px;
+
+    background:#101f34;
+
+    color:#a8bdd5;
+
+    font-size:24px;
+}
+
+.new-chat:active{
+    transform:scale(.92);
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+.chat{
+
+    flex:1;
+
+    min-height:0;
 
     width:100%;
 
-    margin-top:38px;
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    padding:
+        20px
+        14px
+        18px;
+
+    scroll-behavior:smooth;
+
+    -webkit-overflow-scrolling:touch;
+}
+
+
+/* =========================
+   ПРИВЕТСТВИЕ
+========================= */
+
+.welcome{
+
+    min-height:100%;
 
     display:flex;
 
     flex-direction:column;
 
-    gap:15px;
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:20px;
 }
 
-.auth-button{
+.welcome-logo{
+
+    width:105px;
+    height:105px;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 20px 60px #1675ed35;
+}
+
+.welcome-logo img{
 
     width:100%;
-
-    height:68px;
-
-    border-radius:18px;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    touch-action:manipulation;
-
-    transition:
-        transform .12s ease,
-        opacity .12s ease;
+    height:100%;
 }
 
-.auth-button:active{
+.welcome h1{
 
-    transform:scale(.975);
+    margin-top:22px;
 
-    opacity:.9;
+    font-size:42px;
+
+    letter-spacing:6px;
+
+    font-weight:900;
+}
+
+.welcome p{
+
+    margin-top:12px;
+
+    color:#778ca5;
+
+    font-size:15px;
+
+    line-height:1.5;
+
+    max-width:310px;
 }
 
 
-/* ================================
-   ВОЙТИ
-================================ */
+/* =========================
+   СООБЩЕНИЯ
+========================= */
 
-.login{
+.message{
 
-    border:0;
+    display:flex;
+
+    margin-bottom:18px;
+
+    animation:
+        messageIn
+        .25s
+        ease;
+}
+
+@keyframes messageIn{
+
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+.message.user{
+
+    justify-content:flex-end;
+}
+
+
+.message.ai{
+
+    justify-content:flex-start;
+}
+
+
+.bubble{
+
+    max-width:88%;
+
+    padding:
+        13px
+        15px;
+
+    border-radius:20px;
+
+    font-size:16px;
+
+    line-height:1.5;
+
+    white-space:pre-wrap;
+
+    overflow-wrap:anywhere;
+}
+
+
+.user .bubble{
 
     background:#1675ed;
 
     color:#fff;
 
+    border-bottom-right-radius:6px;
+
     box-shadow:
-        0 14px 38px #1675ed45;
+        0 10px 30px #1675ed30;
 }
 
 
-/* ================================
-   РЕГИСТРАЦИЯ
-================================ */
-
-.register{
-
-    background:#18263b;
-
-    color:#edf5ff;
-
-    border:1px solid #2c405c;
-}
-
-
-/* ================================
-   НИЖНИЙ ТЕКСТ
-================================ */
-
-.auth-note{
-
-    margin-top:25px;
-
-    color:#596e88;
-
-    font-size:12px;
-
-    line-height:1.5;
-
-    text-align:center;
-}
-
-
-/* ================================
-   СООБЩЕНИЕ
-================================ */
-
-#message{
-
-    position:fixed;
-
-    left:12px;
-    right:12px;
-
-    bottom:
-        calc(
-            18px +
-            env(safe-area-inset-bottom)
-        );
-
-    z-index:20000;
-
-    display:none;
-
-    padding:19px;
-
-    border-radius:18px;
+.ai .bubble{
 
     background:#101e32;
 
-    border:1px solid #2b405d;
+    border:1px solid #253b56;
 
-    color:#b4c2d3;
+    color:#e8f1fa;
 
-    text-align:center;
+    border-bottom-left-radius:6px;
+}
 
-    font-size:15px;
+
+/* =========================
+   TYPING
+========================= */
+
+.typing{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:15px 17px;
+}
+
+.typing span{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#58bfff;
+
+    animation:
+        typing
+        1s
+        infinite;
+}
+
+.typing span:nth-child(2){
+    animation-delay:.15s;
+}
+
+.typing span:nth-child(3){
+    animation-delay:.3s;
+}
+
+@keyframes typing{
+
+    0%,60%,100%{
+        opacity:.25;
+        transform:translateY(0);
+    }
+
+    30%{
+        opacity:1;
+        transform:translateY(-4px);
+    }
+}
+
+
+/* =========================
+   INPUT AREA
+========================= */
+
+.input-area{
+
+    flex-shrink:0;
+
+    padding:
+        10px
+        12px
+        calc(
+            10px +
+            env(safe-area-inset-bottom)
+        );
+
+    border-top:1px solid #1b2e46;
+
+    background:#071323ee;
+
+    backdrop-filter:blur(20px);
+}
+
+
+.input-box{
+
+    width:100%;
+
+    min-height:58px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:8px;
+
+    padding:7px 7px 7px 15px;
+
+    border-radius:20px;
+
+    background:#101e32;
+
+    border:1px solid #29415d;
 
     box-shadow:
-        0 15px 50px #0009;
+        0 10px 35px #0005;
 }
 
 
-/* ================================
-   НИЗКИЙ ЭКРАН
-================================ */
+textarea{
 
-@media(max-height:700px){
+    flex:1;
 
-    .bird-wrap{
+    width:100%;
 
-        width:300px;
-        height:300px;
+    min-width:0;
 
-        top:36%;
-    }
+    max-height:130px;
 
-    .splash-title{
+    min-height:42px;
 
-        bottom:
-            calc(
-                82px +
-                env(safe-area-inset-bottom)
-            );
+    resize:none;
 
-        font-size:58px;
-    }
+    overflow-y:auto;
 
-    .splash-studio{
+    border:0;
 
-        bottom:
-            calc(
-                48px +
-                env(safe-area-inset-bottom)
-            );
+    outline:0;
 
-        font-size:12px;
-    }
+    background:transparent;
 
-    .loading-area{
+    color:white;
 
-        bottom:
-            calc(
-                25px +
-                env(safe-area-inset-bottom)
-            );
-    }
+    font-family:inherit;
 
-    .auth-card{
+    font-size:16px;
 
-        padding:
-            22px
-            18px
-            20px;
-    }
+    line-height:1.4;
 
-    .auth-logo{
+    padding:
+        10px
+        0;
+}
 
-        width:78px;
-        height:78px;
-    }
-
-    .auth-title{
-
-        margin-top:15px;
-
-        font-size:34px;
-    }
-
-    .auth-subtitle{
-
-        margin-top:9px;
-
-        font-size:14px;
-    }
-
-    .auth-buttons{
-
-        margin-top:25px;
-
-        gap:11px;
-    }
-
-    .auth-button{
-
-        height:58px;
-
-        font-size:17px;
-    }
-
-    .auth-note{
-
-        margin-top:17px;
-    }
+textarea::placeholder{
+    color:#60748e;
 }
 
 
-/* ================================
-   УЗКИЙ ТЕЛЕФОН
-================================ */
+.send{
 
-@media(max-width:360px){
+    width:46px;
+    height:46px;
 
-    .bird-wrap{
+    flex-shrink:0;
 
-        width:285px;
-        height:285px;
+    border:0;
+
+    border-radius:15px;
+
+    background:#1675ed;
+
+    color:#fff;
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    box-shadow:
+        0 8px 25px #1675ed40;
+}
+
+.send:active{
+    transform:scale(.92);
+}
+
+.send:disabled{
+
+    opacity:.35;
+
+    box-shadow:none;
+}
+
+
+/* =========================
+   ОШИБКА
+========================= */
+
+.error{
+
+    color:#ff9a9a !important;
+
+    border-color:#693d45 !important;
+
+    background:#29171d !important;
+}
+
+
+/* =========================
+   МОБИЛЬНЫЙ ЭКРАН
+========================= */
+
+@media(max-width:380px){
+
+    .header{
+        padding-left:11px;
+        padding-right:11px;
     }
 
-    .auth-card{
-
-        padding-left:15px;
-        padding-right:15px;
-
-        border-radius:25px;
+    .chat{
+        padding-left:10px;
+        padding-right:10px;
     }
 
-    .auth-title{
-
-        font-size:32px;
+    .bubble{
+        max-width:92%;
+        font-size:15px;
     }
 
-    .auth-button{
+    .welcome h1{
+        font-size:36px;
+    }
 
-        height:57px;
+    .welcome-logo{
+        width:90px;
+        height:90px;
     }
 }
 
@@ -887,245 +603,14 @@ body{
 
 <body>
 
+<div class="app">
 
-<!-- =================================
-     ЗАГРУЗКА
-================================= -->
 
-<div id="splash">
+    <!-- HEADER -->
 
+    <header class="header">
 
-    <div class="glow"></div>
-
-
-    <!-- ПТИЦА -->
-
-    <div class="bird-wrap">
-
-        <svg
-            class="bird"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg">
-
-            <defs>
-
-                <linearGradient
-                    id="body"
-                    x1="0"
-                    y1="0"
-                    x2="1"
-                    y2="1">
-
-                    <stop
-                        offset="0"
-                        stop-color="#ffffff"/>
-
-                    <stop
-                        offset=".65"
-                        stop-color="#e8f5ff"/>
-
-                    <stop
-                        offset="1"
-                        stop-color="#a8d8ff"/>
-
-                </linearGradient>
-
-
-                <linearGradient
-                    id="wing"
-                    x1="0"
-                    y1="0"
-                    x2="1"
-                    y2="1">
-
-                    <stop
-                        offset="0"
-                        stop-color="#ffffff"/>
-
-                    <stop
-                        offset=".55"
-                        stop-color="#d8edff"/>
-
-                    <stop
-                        offset="1"
-                        stop-color="#75baff"/>
-
-                </linearGradient>
-
-
-                <linearGradient
-                    id="blue"
-                    x1="0"
-                    y1="0"
-                    x2="1"
-                    y2="1">
-
-                    <stop
-                        offset="0"
-                        stop-color="#8bd5ff"/>
-
-                    <stop
-                        offset=".55"
-                        stop-color="#4ca9ff"/>
-
-                    <stop
-                        offset="1"
-                        stop-color="#1675ed"/>
-
-                </linearGradient>
-
-            </defs>
-
-
-            <!-- НИЖНЕЕ КРЫЛО -->
-
-            <path
-                class="left-wing"
-                d="
-                M250 300
-                C215 325 174 350 145 381
-                C121 406 108 430 103 453
-                C137 431 170 414 205 405
-                C242 396 274 382 302 363Z"
-                fill="url(#blue)"
-            />
-
-
-            <!-- ВЕРХНЕЕ КРЫЛО -->
-
-            <path
-                class="right-wing"
-                d="
-                M279 267
-                C299 238 306 207 291 180
-                C271 143 232 124 190 111
-                C150 99 119 82 86 58
-                C87 103 98 143 122 175
-                C151 214 193 235 236 249
-                C255 255 270 261 279 267Z"
-                fill="url(#wing)"
-            />
-
-
-            <!-- СИНЯЯ ЧАСТЬ -->
-
-            <path
-                d="
-                M89 183
-                C126 201 165 213 208 225
-                C248 236 276 251 286 272
-                C272 293 246 307 216 311
-                C175 306 136 288 109 262
-                C92 245 80 216 89 183Z"
-                fill="url(#blue)"
-            />
-
-
-            <!-- ТЕЛО -->
-
-            <path
-                d="
-                M283 248
-                C295 203 318 166 350 153
-                C379 141 403 151 424 168
-                C440 181 455 187 474 190
-                C452 204 430 211 416 229
-                C402 247 398 277 388 307
-                C375 346 350 371 314 385
-                C282 398 247 398 211 407
-                C232 386 253 365 272 344
-                C293 320 305 286 283 248Z"
-                fill="url(#body)"
-            />
-
-
-            <!-- ГОЛОВА -->
-
-            <path
-                d="
-                M347 153
-                C369 141 393 149 414 166
-                C432 180 452 187 474 190
-                C452 202 431 207 414 220
-                C402 199 383 186 360 182Z"
-                fill="#f7fbff"
-            />
-
-
-            <!-- ГЛАЗ -->
-
-            <circle
-                cx="397"
-                cy="183"
-                r="12"
-                fill="#07152d"
-            />
-
-            <circle
-                cx="401"
-                cy="179"
-                r="3"
-                fill="#fff"
-            />
-
-        </svg>
-
-    </div>
-
-
-    <!-- AVIA -->
-
-    <div class="splash-title">
-        AVIA
-    </div>
-
-
-    <!-- СТУДИЯ -->
-
-    <div class="splash-studio">
-        Cats Developer Studio
-    </div>
-
-
-    <!-- ПОЛОСКА ЗАГРУЗКИ -->
-
-    <div class="loading-area">
-
-        <div class="loading-track">
-
-            <div class="loading-bar"></div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =================================
-     ОСНОВНОЙ ЭКРАН
-================================= -->
-
-<div id="app">
-
-
-    <div class="auth-card">
-
-
-        <!-- КРЕСТИК -->
-
-        <button
-            class="skip"
-            id="skipButton">
-
-            ×
-
-        </button>
-
-
-        <!-- ЛОГО -->
-
-        <div class="auth-logo">
+        <div class="logo">
 
             <img
                 src="./icon.svg"
@@ -1134,215 +619,439 @@ body{
         </div>
 
 
-        <!-- НАЗВАНИЕ -->
+        <div class="header-info">
 
-        <div class="auth-title">
-            AVIA
+            <div class="header-title">
+                AVIA
+            </div>
+
+            <div class="header-status">
+
+                <span class="status-dot"></span>
+
+                Cats Developer Studio
+
+            </div>
+
         </div>
 
 
-        <div class="auth-subtitle">
+        <button
+            class="new-chat"
+            id="newChat"
+            aria-label="Новый чат">
 
-            Войдите или зарегистрируйтесь,<br>
-            чтобы продолжить
+            +
+
+        </button>
+
+    </header>
+
+
+    <!-- CHAT -->
+
+    <main
+        class="chat"
+        id="chat">
+
+        <div
+            class="welcome"
+            id="welcome">
+
+            <div class="welcome-logo">
+
+                <img
+                    src="./icon.svg"
+                    alt="AVIA">
+
+            </div>
+
+            <h1>
+                AVIA
+            </h1>
+
+            <p>
+                Привет! Я AVIA.<br>
+                Задай мне любой вопрос.
+            </p>
 
         </div>
 
+    </main>
 
-        <!-- КНОПКИ -->
 
-        <div class="auth-buttons">
+    <!-- INPUT -->
+
+    <footer class="input-area">
+
+        <div class="input-box">
+
+            <textarea
+                id="input"
+                rows="1"
+                maxlength="8000"
+                placeholder="Напишите сообщение..."
+                autocomplete="off"></textarea>
 
 
             <button
-                class="auth-button login"
-                id="loginButton">
+                class="send"
+                id="send"
+                disabled>
 
-                Войти
-
-            </button>
-
-
-            <button
-                class="auth-button register"
-                id="registerButton">
-
-                Зарегистрироваться
+                ➤
 
             </button>
 
-
         </div>
 
+    </footer>
 
-        <div class="auth-note">
-
-            Ваш аккаунт позволит сохранять<br>
-            историю общения с AVIA
-
-        </div>
-
-
-    </div>
-
-</div>
-
-
-<!-- =================================
-     СООБЩЕНИЕ
-================================= -->
-
-<div id="message">
-    Этот раздел ещё не готов
 </div>
 
 
 <script>
 
 /* =================================
-   ЗАГРУЗКА 5 СЕКУНД
+   ЭЛЕМЕНТЫ
 ================================= */
 
-const splash =
-    document.getElementById("splash");
+const chat =
+    document.getElementById("chat");
 
-const app =
-    document.getElementById("app");
+const welcome =
+    document.getElementById("welcome");
 
+const input =
+    document.getElementById("input");
 
-setTimeout(function(){
+const send =
+    document.getElementById("send");
 
-    splash.style.opacity = "0";
-
-
-    setTimeout(function(){
-
-        splash.style.display = "none";
-
-        app.classList.add("visible");
-
-    },600);
-
-},5000);
+const newChat =
+    document.getElementById("newChat");
 
 
 /* =================================
-   СООБЩЕНИЯ
+   ИСТОРИЯ ДИАЛОГА
 ================================= */
 
-const message =
-    document.getElementById("message");
+let messages = [];
 
-let messageTimer = null;
-
-
-function showMessage(text){
-
-    clearTimeout(messageTimer);
-
-    message.textContent = text;
-
-    message.style.display = "block";
+let waiting = false;
 
 
-    messageTimer =
-        setTimeout(function(){
+/* =================================
+   INPUT
+================================= */
 
-            message.style.display = "none";
+input.addEventListener(
+    "input",
+    function(){
 
-        },3000);
+        send.disabled =
+            waiting ||
+            !input.value.trim();
+
+        input.style.height = "auto";
+
+        input.style.height =
+            Math.min(
+                input.scrollHeight,
+                130
+            ) + "px";
+    }
+);
+
+
+/* =================================
+   ENTER
+================================= */
+
+input.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            if(!send.disabled){
+                sendMessage();
+            }
+
+        }
+
+    }
+);
+
+
+/* =================================
+   НОВЫЙ ЧАТ
+================================= */
+
+newChat.addEventListener(
+    "click",
+    function(){
+
+        messages = [];
+
+        chat.innerHTML = "";
+
+        chat.appendChild(welcome);
+
+        welcome.style.display = "flex";
+
+        input.value = "";
+
+        input.style.height = "auto";
+
+        send.disabled = true;
+
+        input.focus();
+
+    }
+);
+
+
+/* =================================
+   ДОБАВИТЬ СООБЩЕНИЕ
+================================= */
+
+function addMessage(
+    text,
+    type
+){
+
+    if(welcome.parentNode){
+        welcome.style.display = "none";
+    }
+
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "message " + type;
+
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "bubble";
+
+    bubble.textContent = text;
+
+
+    wrapper.appendChild(bubble);
+
+    chat.appendChild(wrapper);
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+
+    return bubble;
 }
 
 
 /* =================================
-   КРЕСТИК
+   ПЕЧАТАЮЩИЙ ИНДИКАТОР
 ================================= */
 
-document
-    .getElementById("skipButton")
-    .addEventListener(
-        "click",
-        function(){
+function addTyping(){
 
-            app.style.opacity = "0";
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "message ai";
+
+    wrapper.id =
+        "typingMessage";
 
 
-            setTimeout(function(){
+    const bubble =
+        document.createElement("div");
 
-                app.style.display = "none";
+    bubble.className =
+        "bubble typing";
 
-                showMessage(
-                    "Этот раздел ещё не готов"
-                );
 
-            },300);
+    bubble.innerHTML =
+        "<span></span><span></span><span></span>";
 
-        }
-    );
+
+    wrapper.appendChild(bubble);
+
+    chat.appendChild(wrapper);
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
 
 
 /* =================================
-   ВОЙТИ
+   УДАЛИТЬ TYPING
 ================================= */
 
-document
-    .getElementById("loginButton")
-    .addEventListener(
-        "click",
-        function(){
+function removeTyping(){
 
-            showMessage(
-                "Раздел входа ещё не готов"
+    const element =
+        document.getElementById(
+            "typingMessage"
+        );
+
+    if(element){
+        element.remove();
+    }
+}
+
+
+/* =================================
+   ОТПРАВКА
+================================= */
+
+async function sendMessage(){
+
+    const text =
+        input.value.trim();
+
+
+    if(!text || waiting){
+        return;
+    }
+
+
+    waiting = true;
+
+    send.disabled = true;
+
+
+    /* пользователь */
+
+    addMessage(
+        text,
+        "user"
+    );
+
+
+    messages.push({
+        role:"user",
+        content:text
+    });
+
+
+    input.value = "";
+
+    input.style.height = "auto";
+
+
+    /* typing */
+
+    addTyping();
+
+
+    try{
+
+        const response =
+            await fetch(
+                "/api/chat",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+                        messages:messages
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        removeTyping();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.error ||
+                "Ошибка сервера"
             );
 
         }
-    );
 
 
-/* =================================
-   РЕГИСТРАЦИЯ
-================================= */
+        const answer =
+            data.answer ||
+            "Я не смог сформировать ответ.";
 
-document
-    .getElementById("registerButton")
-    .addEventListener(
-        "click",
-        function(){
 
-            showMessage(
-                "Регистрация ещё не готова"
+        addMessage(
+            answer,
+            "ai"
+        );
+
+
+        messages.push({
+            role:"assistant",
+            content:answer
+        });
+
+
+    }catch(error){
+
+        removeTyping();
+
+
+        const bubble =
+            addMessage(
+                "Не удалось подключиться к AVIA. Проверь, запущен ли сервер.",
+                "ai"
             );
 
-        }
-    );
+
+        bubble.classList.add(
+            "error"
+        );
 
 
-/* =================================
-   SERVICE WORKER
-================================= */
+        console.error(error);
 
-if("serviceWorker" in navigator){
+    }
 
-    window.addEventListener(
-        "load",
-        function(){
 
-            navigator
-                .serviceWorker
-                .register("./sw.js")
-                .catch(function(error){
+    waiting = false;
 
-                    console.error(
-                        "Service Worker:",
-                        error
-                    );
+    send.disabled =
+        !input.value.trim();
 
-                });
-
-        }
-    );
+    input.focus();
 
 }
+
+
+/* =================================
+   КНОПКА
+================================= */
+
+send.addEventListener(
+    "click",
+    sendMessage
+);
 
 </script>
 
