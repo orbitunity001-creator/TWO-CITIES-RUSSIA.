@@ -3,220 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>AVIA</title>
 
 <meta name="theme-color" content="#06101f">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icon.svg">
 
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#040812;
+    color:#fff;
+    font-family:Arial,sans-serif;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    background: #040812;
-    color: white;
-    font-family: Arial, sans-serif;
+/* КНОПКА ВСЕГДА СВЕРХУ */
+#installBanner{
+    position:fixed;
+    top:12px;
+    left:12px;
+    right:12px;
+    z-index:999999;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:12px;
+    border-radius:18px;
+
+    background:#101d31;
+    border:1px solid #263852;
+    box-shadow:0 15px 45px #0008;
 }
 
-/* ВЕРХНЯЯ ПАНЕЛЬ УСТАНОВКИ */
-#installBanner {
-    position: fixed;
-    top: 12px;
-    left: 12px;
-    right: 12px;
-    z-index: 99999;
-
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    padding: 12px;
-
-    border-radius: 18px;
-
-    background: #101d31;
-    border: 1px solid #263852;
-
-    box-shadow: 0 15px 45px #0008;
-
-    backdrop-filter: blur(15px);
+#installIcon{
+    width:52px;
+    height:52px;
+    border-radius:14px;
 }
 
-#installIcon {
-    width: 52px;
-    height: 52px;
-
-    flex-shrink: 0;
-
-    border-radius: 14px;
+.info{
+    flex:1;
 }
 
-.installInfo {
-    flex: 1;
-    min-width: 0;
+.title{
+    font-size:16px;
+    font-weight:bold;
 }
 
-.installTitle {
-    font-size: 16px;
-    font-weight: bold;
+.text{
+    margin-top:4px;
+    color:#8293ab;
+    font-size:12px;
 }
 
-.installText {
-    margin-top: 4px;
-
-    color: #8293ab;
-
-    font-size: 12px;
+button{
+    border:0;
+    border-radius:12px;
+    background:#1675ed;
+    color:#fff;
+    font-weight:bold;
 }
 
-#installButton {
-    border: 0;
-    border-radius: 12px;
-
-    padding: 11px 14px;
-
-    background: #1675ed;
-    color: white;
-
-    font-size: 14px;
-    font-weight: bold;
-
-    white-space: nowrap;
+#installButton{
+    padding:11px 14px;
 }
 
-#installButton:active {
-    transform: scale(.96);
+#closeButton{
+    background:none;
+    color:#8293ab;
+    font-size:22px;
 }
 
-#closeButton {
-    border: 0;
-    background: none;
-
-    color: #8293ab;
-
-    font-size: 22px;
+main{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
 }
 
-/* ОСНОВНАЯ СТРАНИЦА */
-
-main {
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 25px;
+.app{
+    width:100%;
+    max-width:430px;
+    text-align:center;
 }
 
-.app {
-    width: 100%;
-    max-width: 430px;
-
-    text-align: center;
+.logo{
+    width:110px;
+    height:110px;
+    margin:auto;
+    border-radius:26px;
+    overflow:hidden;
 }
 
-.logo {
-    width: 110px;
-    height: 110px;
-
-    margin: auto;
-
-    border-radius: 26px;
-    overflow: hidden;
-
-    box-shadow: 0 20px 60px #1675ed40;
+.logo img{
+    width:100%;
+    height:100%;
 }
 
-.logo img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
+h1{
+    margin:24px 0 0;
+    font-size:48px;
+    letter-spacing:4px;
 }
 
-h1 {
-    margin: 24px 0 0;
-
-    font-size: 48px;
-    letter-spacing: 4px;
+.sub{
+    margin-top:10px;
+    color:#9aa9bd;
 }
 
-.sub {
-    margin-top: 10px;
-
-    color: #9aa9bd;
-
-    font-size: 17px;
+.studio{
+    margin-top:8px;
+    color:#526986;
+    font-size:13px;
 }
 
-.studio {
-    margin-top: 8px;
-
-    color: #526986;
-
-    font-size: 13px;
+#bigInstall{
+    width:100%;
+    margin-top:30px;
+    padding:17px;
+    font-size:17px;
 }
 
-#bigInstall {
-    width: 100%;
-
-    margin-top: 30px;
-
-    padding: 17px;
-
-    border: 0;
-    border-radius: 16px;
-
-    background: #1675ed;
-    color: white;
-
-    font-size: 17px;
-    font-weight: bold;
-}
-
-#status {
-    min-height: 20px;
-
-    margin-top: 14px;
-
-    color: #687a93;
-
-    font-size: 13px;
+#status{
+    margin-top:14px;
+    color:#687a93;
+    font-size:13px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- УСТАНОВКА ВСЕГДА ВИДНА -->
-
+<!-- ЭТА ПАНЕЛЬ ВСЕГДА ЕСТЬ -->
 <div id="installBanner">
 
-    <img
-        id="installIcon"
-        src="./icon.svg"
-        alt="AVIA"
-    >
+    <img id="installIcon" src="./icon.svg">
 
-    <div class="installInfo">
-
-        <div class="installTitle">
-            Установить AVIA
-        </div>
-
-        <div class="installText">
-            Установить приложение на устройство
-        </div>
-
+    <div class="info">
+        <div class="title">Установить AVIA</div>
+        <div class="text">Установить приложение на устройство</div>
     </div>
 
     <button id="installButton">
@@ -229,229 +160,109 @@ h1 {
 
 </div>
 
-
-<!-- AVIA -->
-
 <main>
+<div class="app">
 
-    <div class="app">
-
-        <div class="logo">
-
-            <img
-                src="./icon.svg"
-                alt="AVIA"
-            >
-
-        </div>
-
-        <h1>AVIA</h1>
-
-        <div class="sub">
-            Умная нейросеть
-        </div>
-
-        <div class="studio">
-            Cats Developer Studio
-        </div>
-
-        <button id="bigInstall">
-            Установить AVIA
-        </button>
-
-        <div id="status"></div>
-
+    <div class="logo">
+        <img src="./icon.svg" alt="AVIA">
     </div>
 
-</main>
+    <h1>AVIA</h1>
 
+    <div class="sub">
+        Умная нейросеть
+    </div>
+
+    <div class="studio">
+        Cats Developer Studio
+    </div>
+
+    <button id="bigInstall">
+        Установить AVIA
+    </button>
+
+    <div id="status"></div>
+
+</div>
+</main>
 
 <script>
 
-let installPrompt = null;
+let deferredPrompt = null;
+
+const banner = document.getElementById("installBanner");
+const installButton = document.getElementById("installButton");
+const bigInstall = document.getElementById("bigInstall");
+const closeButton = document.getElementById("closeButton");
+const status = document.getElementById("status");
 
 
-/* Элементы */
+/* Chrome подготовил настоящую установку */
+window.addEventListener("beforeinstallprompt", event => {
 
-const banner =
-    document.getElementById("installBanner");
+    event.preventDefault();
 
-const installButton =
-    document.getElementById("installButton");
+    deferredPrompt = event;
 
-const bigInstall =
-    document.getElementById("bigInstall");
-
-const closeButton =
-    document.getElementById("closeButton");
-
-const status =
-    document.getElementById("status");
+    banner.style.display = "flex";
+});
 
 
-/*
-    ПАНЕЛЬ НЕ СКРЫВАЕМ.
+/* Установить */
+async function installAVIA(){
 
-    Она показывается сразу при каждом
-    открытии сайта.
-*/
+    if(deferredPrompt){
 
-banner.style.display = "flex";
-
-
-/*
-    Chrome сообщает,
-    что настоящий PWA-install доступен.
-*/
-
-window.addEventListener(
-    "beforeinstallprompt",
-    function(event) {
-
-        event.preventDefault();
-
-        installPrompt = event;
-
-        banner.style.display = "flex";
-
-        status.textContent = "";
-    }
-);
-
-
-/*
-    НАСТОЯЩАЯ УСТАНОВКА
-*/
-
-async function installAVIA() {
-
-    /*
-        Если Chrome уже дал настоящий
-        install prompt — открываем его.
-    */
-
-    if (installPrompt) {
-
-        installPrompt.prompt();
+        deferredPrompt.prompt();
 
         const result =
-            await installPrompt.userChoice;
+            await deferredPrompt.userChoice;
 
-        if (result.outcome === "accepted") {
-
-            status.textContent =
-                "AVIA устанавливается...";
-
-            banner.style.display = "none";
-
-        } else {
-
-            status.textContent =
-                "Установка отменена.";
+        if(result.outcome === "accepted"){
+            status.textContent = "AVIA устанавливается...";
         }
 
-        installPrompt = null;
+        deferredPrompt = null;
 
         return;
     }
 
-
     /*
-        Если Chrome пока не дал
-        beforeinstallprompt.
+      Chrome пока не дал системный prompt.
+      Кнопка остаётся сверху.
     */
-
     status.textContent =
-        "Если окно установки не появилось, открой меню Chrome ⋮ и выбери «Установить приложение».";
+        "Открой меню Chrome ⋮ → «Установить приложение».";
 }
 
 
-/*
-    Верхняя кнопка
-*/
-
-installButton.addEventListener(
-    "click",
-    installAVIA
-);
+installButton.onclick = installAVIA;
+bigInstall.onclick = installAVIA;
 
 
-/*
-    Большая кнопка
-*/
-
-bigInstall.addEventListener(
-    "click",
-    installAVIA
-);
+/* Закрыть */
+closeButton.onclick = () => {
+    banner.style.display = "none";
+};
 
 
-/*
-    Закрыть верхнюю панель.
-    При следующем входе она снова появится.
-*/
+/* Установлено */
+window.addEventListener("appinstalled", () => {
 
-closeButton.addEventListener(
-    "click",
-    function() {
+    banner.style.display = "none";
 
-        banner.style.display = "none";
+    bigInstall.style.display = "none";
 
-    }
-);
+    status.textContent = "AVIA установлена.";
+
+});
 
 
-/*
-    Chrome сообщил,
-    что приложение установлено.
-*/
+/* Service Worker */
+if("serviceWorker" in navigator){
 
-window.addEventListener(
-    "appinstalled",
-    function() {
-
-        banner.style.display = "none";
-
-        bigInstall.style.display = "none";
-
-        status.textContent =
-            "AVIA установлена на устройство.";
-
-        installPrompt = null;
-    }
-);
-
-
-/*
-    SERVICE WORKER
-*/
-
-if ("serviceWorker" in navigator) {
-
-    window.addEventListener(
-        "load",
-        function() {
-
-            navigator.serviceWorker
-                .register("./sw.js")
-                .then(function() {
-
-                    console.log(
-                        "AVIA Service Worker OK"
-                    );
-
-                })
-                .catch(function(error) {
-
-                    console.error(
-                        "Service Worker:",
-                        error
-                    );
-
-                });
-
-        }
-    );
+    navigator.serviceWorker.register("./sw.js")
+        .catch(error => console.error(error));
 
 }
 
