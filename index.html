@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -8,18 +10,19 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#11131a">
 
-<link rel="manifest" href="./manifest.json?v=35">
-<link rel="icon" type="image/svg+xml" href="./icon.svg?v=35">
+<link rel="manifest" href="./manifest.json?v=36">
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="./icon.svg?v=36"
+>
 
 <title>AVION Messenger</title>
 
 <style>
-
-/* =========================================
-   RESET
-========================================= */
 
 * {
     box-sizing: border-box;
@@ -31,10 +34,11 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-
     overflow: hidden;
+}
 
-    background: #030303;
+body {
+    background: #090b10;
     color: #fff;
 
     font-family:
@@ -44,9 +48,7 @@ body {
         Roboto,
         Arial,
         sans-serif;
-}
 
-body {
     overscroll-behavior: none;
 }
 
@@ -56,33 +58,35 @@ input {
 }
 
 button {
-    -webkit-user-select: none;
-    user-select: none;
+    border: 0;
+    outline: none;
     touch-action: manipulation;
 }
 
 #app {
     position: relative;
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
 
     background:
         radial-gradient(
-            circle at 50% 0%,
-            #2b2b2b 0%,
-            #151515 25%,
-            #080808 58%,
-            #020202 100%
+            circle at 50% -10%,
+            rgba(90,110,255,.22),
+            transparent 38%
+        ),
+        linear-gradient(
+            180deg,
+            #171923 0%,
+            #0d0f15 48%,
+            #090a0e 100%
         );
 }
 
 
-/* =========================================
+/* =========================
    SCREENS
-========================================= */
+========================= */
 
 .screen {
     position: absolute;
@@ -97,17 +101,17 @@ button {
     display: flex;
 
     animation:
-        screenAppear
-        .38s
+        screenIn
+        .32s
         cubic-bezier(.2,.8,.2,1)
         forwards;
 }
 
-@keyframes screenAppear {
+@keyframes screenIn {
 
     from {
         opacity: 0;
-        transform: translateY(14px);
+        transform: translateY(12px);
     }
 
     to {
@@ -118,61 +122,52 @@ button {
 }
 
 
-/* =========================================
-   LOADING SCREEN
-========================================= */
+/* =========================
+   LOADING
+========================= */
 
 #loadingScreen {
+
     align-items: center;
     justify-content: center;
 
     flex-direction: column;
 
-    overflow: hidden;
-
     background:
         radial-gradient(
             circle at 50% 45%,
-            rgba(255,255,255,.13),
-            transparent 18%
+            rgba(91,105,255,.16),
+            transparent 25%
         ),
-        radial-gradient(
-            circle at 50% 50%,
-            #1b1b1b 0%,
-            #090909 45%,
-            #020202 100%
-        );
+        #08090d;
 }
 
-
-/* glowing background */
-
 .loading-glow {
+
     position: absolute;
 
-    width: 280px;
-    height: 280px;
+    width: 320px;
+    height: 320px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(255,255,255,.14),
-            rgba(255,255,255,.035) 35%,
-            transparent 70%
+            rgba(105,120,255,.2),
+            transparent 65%
         );
 
-    filter: blur(12px);
+    filter: blur(15px);
 
     animation:
-        glowPulse
+        loadingGlow
         2.4s
         ease-in-out
         infinite;
 }
 
-@keyframes glowPulse {
+@keyframes loadingGlow {
 
     0%,
     100% {
@@ -181,205 +176,57 @@ button {
     }
 
     50% {
-        transform: scale(1.18);
-        opacity: .85;
+        transform: scale(1.15);
+        opacity: .9;
     }
 
 }
-
-
-/* loading particles */
-
-.loading-particles {
-    position: absolute;
-    inset: 0;
-
-    pointer-events: none;
-}
-
-.loading-particles span {
-    position: absolute;
-
-    width: 3px;
-    height: 3px;
-
-    border-radius: 50%;
-
-    background: #fff;
-
-    box-shadow:
-        0 0 10px
-        rgba(255,255,255,.9);
-
-    opacity: 0;
-
-    animation:
-        particle
-        var(--time)
-        ease-in-out
-        infinite;
-}
-
-.loading-particles span:nth-child(1) {
-    left: 16%;
-    top: 31%;
-    --time: 3.1s;
-}
-
-.loading-particles span:nth-child(2) {
-    left: 28%;
-    top: 20%;
-    --time: 4.2s;
-}
-
-.loading-particles span:nth-child(3) {
-    left: 78%;
-    top: 27%;
-    --time: 3.7s;
-}
-
-.loading-particles span:nth-child(4) {
-    left: 87%;
-    top: 48%;
-    --time: 4.4s;
-}
-
-.loading-particles span:nth-child(5) {
-    left: 12%;
-    top: 57%;
-    --time: 3.8s;
-}
-
-.loading-particles span:nth-child(6) {
-    left: 24%;
-    top: 76%;
-    --time: 4.6s;
-}
-
-.loading-particles span:nth-child(7) {
-    left: 74%;
-    top: 78%;
-    --time: 3.4s;
-}
-
-.loading-particles span:nth-child(8) {
-    left: 89%;
-    top: 70%;
-    --time: 4.1s;
-}
-
-@keyframes particle {
-
-    0% {
-        opacity: 0;
-        transform: translateY(12px) scale(.5);
-    }
-
-    35% {
-        opacity: .8;
-    }
-
-    70% {
-        opacity: .2;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-25px) scale(1.2);
-    }
-
-}
-
-
-/* loading content */
 
 .loading-content {
+
     position: relative;
     z-index: 2;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     text-align: center;
 }
 
 .loading-title {
-    font-size: 32px;
 
+    font-size: 31px;
     font-weight: 850;
 
-    letter-spacing: -1px;
+    letter-spacing: -.8px;
 
     text-shadow:
         0 0 30px
-        rgba(255,255,255,.18);
-
-    animation:
-        loadingTitle
-        1s
-        cubic-bezier(.2,.8,.2,1)
-        forwards;
+        rgba(255,255,255,.2);
 }
 
 .loading-subtitle {
-    margin-top: 9px;
 
-    color: #9a9a9a;
+    margin-top: 8px;
+
+    color: #8d93a8;
 
     font-size: 12px;
-
     letter-spacing: 1px;
-
-    animation:
-        loadingSub
-        1.4s
-        ease
-        forwards;
 }
-
-@keyframes loadingTitle {
-
-    from {
-        opacity: 0;
-        transform: translateY(12px) scale(.96);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-
-}
-
-@keyframes loadingSub {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-
-}
-
-
-/* animated loading bars */
 
 .loading-bars {
+
     display: flex;
 
     align-items: center;
 
+    justify-content: center;
+
     gap: 5px;
 
-    margin-top: 27px;
-
-    height: 22px;
+    margin-top: 28px;
 }
 
 .loading-bars span {
+
     width: 4px;
     height: 8px;
 
@@ -387,17 +234,13 @@ button {
 
     background: #fff;
 
-    opacity: .3;
+    opacity: .25;
 
     animation:
-        bars
+        loadingBars
         1s
         ease-in-out
         infinite;
-}
-
-.loading-bars span:nth-child(1) {
-    animation-delay: 0s;
 }
 
 .loading-bars span:nth-child(2) {
@@ -416,7 +259,7 @@ button {
     animation-delay: .48s;
 }
 
-@keyframes bars {
+@keyframes loadingBars {
 
     0%,
     100% {
@@ -425,21 +268,23 @@ button {
     }
 
     50% {
-        height: 20px;
+        height: 23px;
         opacity: 1;
+
         box-shadow:
-            0 0 12px
-            rgba(255,255,255,.55);
+            0 0 14px
+            rgba(110,130,255,.8);
     }
 
 }
 
 
-/* =========================================
-   AUTH SCREENS
-========================================= */
+/* =========================
+   AUTH
+========================= */
 
 .auth-screen {
+
     align-items: center;
     justify-content: center;
 
@@ -449,27 +294,33 @@ button {
         calc(env(safe-area-inset-bottom) + 22px);
 
     overflow-y: auto;
+
+    background:
+        radial-gradient(
+            circle at 50% 10%,
+            rgba(89,104,255,.18),
+            transparent 40%
+        ),
+        linear-gradient(
+            180deg,
+            #171a26,
+            #0a0b10
+        );
 }
 
 .auth-container {
-    width: 100%;
 
+    width: 100%;
     max-width: 430px;
 
-    margin: auto;
-
     position: relative;
-    z-index: 5;
+    z-index: 3;
 }
 
-
-/* =========================================
-   WELCOME LOGO
-========================================= */
-
 .auth-logo {
-    width: 64px;
-    height: 64px;
+
+    width: 76px;
+    height: 76px;
 
     margin-bottom: 25px;
 
@@ -477,48 +328,46 @@ button {
     align-items: center;
     justify-content: center;
 
-    border-radius: 20px;
+    border-radius: 23px;
 
     background:
         linear-gradient(
             145deg,
-            #555,
-            #181818 55%,
-            #080808
+            #7079ff,
+            #4b52c8 50%,
+            #252a62
         );
 
     border:
         1px solid
-        rgba(255,255,255,.12);
+        rgba(255,255,255,.22);
 
     box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.7),
+        0 18px 50px
+        rgba(70,80,255,.3),
+
         inset 0 1px
-        rgba(255,255,255,.14);
+        rgba(255,255,255,.35);
 }
 
 .auth-logo span {
-    font-size: 30px;
 
-    font-weight: 850;
+    font-size: 36px;
+
+    font-weight: 900;
 
     color: #fff;
 
     text-shadow:
-        0 2px 12px
-        rgba(255,255,255,.3);
+        0 3px 15px
+        rgba(0,0,0,.35);
 }
 
-
-/* =========================================
-   TITLES
-========================================= */
-
 .auth-title {
+
     margin: 0;
 
-    font-size: 32px;
+    font-size: 34px;
 
     line-height: 1.08;
 
@@ -528,128 +377,112 @@ button {
 }
 
 .auth-subtitle {
-    margin-top: 11px;
 
-    margin-bottom: 30px;
+    margin-top: 12px;
 
-    color: #888;
+    margin-bottom: 28px;
+
+    color: #9da2b4;
 
     font-size: 15px;
 
     line-height: 1.55;
 }
 
-
-/* =========================================
-   BUTTONS
-========================================= */
-
 .auth-button,
 .auth-secondary {
+
     width: 100%;
 
-    min-height: 56px;
+    min-height: 58px;
 
-    border-radius: 17px;
+    border-radius: 18px;
 
     font-size: 16px;
 
-    touch-action: manipulation;
-
     transition:
-        transform .15s ease,
-        opacity .15s ease,
-        background .2s ease;
+        transform .14s ease,
+        opacity .14s ease,
+        filter .2s ease;
 }
 
 .auth-button {
-    border: 0;
 
-    background: #fff;
-
-    color: #080808;
+    color: #fff;
 
     font-weight: 800;
 
+    background:
+        linear-gradient(
+            135deg,
+            #6573ff,
+            #8d4dff
+        );
+
     box-shadow:
         0 12px 35px
-        rgba(0,0,0,.25);
+        rgba(91,85,255,.3);
+}
+
+.auth-secondary {
+
+    margin-top: 11px;
+
+    color: #fff;
+
+    font-weight: 700;
+
+    background:
+        rgba(255,255,255,.065);
+
+    border:
+        1px solid
+        rgba(255,255,255,.11);
 }
 
 .auth-button:active,
 .auth-secondary:active {
+
     transform: scale(.965);
+
 }
 
 .auth-button:active {
     opacity: .88;
 }
 
-.auth-secondary {
-    margin-top: 11px;
-
-    border:
-        1px solid #303030;
-
-    background:
-        rgba(25,25,25,.9);
-
-    color: #fff;
-
-    font-weight: 650;
-}
-
-
-/* =========================================
-   BACK
-========================================= */
-
 .back {
-    width: 46px;
-    height: 46px;
+
+    width: 48px;
+    height: 48px;
 
     margin-bottom: 27px;
-
-    border:
-        1px solid #303030;
-
-    border-radius: 15px;
-
-    background: #151515;
-
-    color: #fff;
-
-    font-size: 28px;
-
-    line-height: 1;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    transition:
-        transform .15s ease,
-        background .2s ease;
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    color: #fff;
+
+    font-size: 30px;
 }
-
-.back:active {
-    transform: scale(.9);
-}
-
-.back:hover {
-    background: #202020;
-}
-
-
-/* =========================================
-   INPUTS
-========================================= */
 
 .field {
-    margin-bottom: 16px;
+
+    margin-bottom: 15px;
 }
 
 .field label {
+
     display: block;
 
     margin:
@@ -658,31 +491,31 @@ button {
         8px
         5px;
 
-    color: #999;
+    color: #aeb3c5;
 
     font-size: 13px;
 
-    font-weight: 600;
+    font-weight: 650;
 }
 
 .field input {
+
     width: 100%;
 
-    height: 58px;
+    height: 59px;
 
-    padding:
-        0
-        18px;
+    padding: 0 18px;
+
+    border-radius: 18px;
 
     border:
-        1px solid #303030;
-
-    border-radius: 17px;
+        1px solid
+        rgba(255,255,255,.11);
 
     outline: none;
 
     background:
-        rgba(20,20,20,.95);
+        rgba(255,255,255,.075);
 
     color: #fff;
 
@@ -697,20 +530,23 @@ button {
 }
 
 .field input::placeholder {
-    color: #555;
+    color: #6f7485;
 }
 
 .field input:focus {
-    border-color: #777;
 
-    background: #191919;
+    border-color: #7180ff;
+
+    background:
+        rgba(255,255,255,.1);
 
     box-shadow:
         0 0 0 3px
-        rgba(255,255,255,.035);
+        rgba(105,118,255,.13);
 }
 
 .error {
+
     min-height: 20px;
 
     margin:
@@ -718,7 +554,7 @@ button {
         5px
         10px;
 
-    color: #ff7070;
+    color: #ff7588;
 
     font-size: 13px;
 
@@ -726,41 +562,37 @@ button {
 }
 
 
-/* =========================================
+/* =========================
    REGISTER STARS
-========================================= */
+========================= */
 
 #registerScreen {
+
     overflow: hidden;
 
     background:
         radial-gradient(
-            circle at 50% 20%,
-            rgba(110,110,110,.12),
-            transparent 40%
+            circle at 50% 0%,
+            rgba(100,110,255,.2),
+            transparent 45%
         ),
-        #060606;
-}
-
-#registerScreen .auth-container {
-    position: relative;
-    z-index: 5;
+        #090b11;
 }
 
 .stars {
+
     position: absolute;
     inset: 0;
-
-    z-index: 1;
 
     pointer-events: none;
 
     overflow: hidden;
 
-    opacity: .7;
+    opacity: .75;
 }
 
 .stars span {
+
     position: absolute;
 
     width: 2px;
@@ -770,14 +602,14 @@ button {
 
     background: #fff;
 
-    opacity: .12;
+    opacity: .15;
 
     box-shadow:
-        0 0 6px
-        rgba(255,255,255,.55);
+        0 0 8px
+        rgba(120,140,255,.9);
 
     animation:
-        starMove
+        starFloat
         var(--duration)
         ease-in-out
         infinite,
@@ -787,51 +619,42 @@ button {
         infinite;
 }
 
-.stars span:nth-child(1)  { left: 6%;  top: 10%; --duration: 10s; --blink: 3s; }
-.stars span:nth-child(2)  { left: 17%; top: 22%; --duration: 13s; --blink: 4s; }
-.stars span:nth-child(3)  { left: 29%; top: 7%;  --duration: 11s; --blink: 3.5s; }
-.stars span:nth-child(4)  { left: 43%; top: 15%; --duration: 15s; --blink: 4.5s; }
-.stars span:nth-child(5)  { left: 57%; top: 8%;  --duration: 12s; --blink: 3.2s; }
-.stars span:nth-child(6)  { left: 73%; top: 17%; --duration: 14s; --blink: 4.2s; }
-.stars span:nth-child(7)  { left: 91%; top: 11%; --duration: 11s; --blink: 3.7s; }
+.stars span:nth-child(1)  {left:6%;top:9%;--duration:10s;--blink:3s}
+.stars span:nth-child(2)  {left:18%;top:21%;--duration:13s;--blink:4s}
+.stars span:nth-child(3)  {left:31%;top:8%;--duration:11s;--blink:3.5s}
+.stars span:nth-child(4)  {left:46%;top:16%;--duration:15s;--blink:4.5s}
+.stars span:nth-child(5)  {left:60%;top:7%;--duration:12s;--blink:3.2s}
+.stars span:nth-child(6)  {left:75%;top:18%;--duration:14s;--blink:4.2s}
+.stars span:nth-child(7)  {left:92%;top:10%;--duration:11s;--blink:3.7s}
+.stars span:nth-child(8)  {left:8%;top:38%;--duration:16s;--blink:5s}
+.stars span:nth-child(9)  {left:24%;top:48%;--duration:12s;--blink:3.8s}
+.stars span:nth-child(10) {left:38%;top:40%;--duration:14s;--blink:4.3s}
+.stars span:nth-child(11) {left:65%;top:44%;--duration:15s;--blink:4.7s}
+.stars span:nth-child(12) {left:82%;top:36%;--duration:13s;--blink:3.5s}
+.stars span:nth-child(13) {left:95%;top:50%;--duration:17s;--blink:5.2s}
+.stars span:nth-child(14) {left:5%;top:66%;--duration:14s;--blink:4.4s}
+.stars span:nth-child(15) {left:17%;top:79%;--duration:11s;--blink:3.6s}
+.stars span:nth-child(16) {left:31%;top:69%;--duration:16s;--blink:4.9s}
+.stars span:nth-child(17) {left:46%;top:85%;--duration:13s;--blink:4s}
+.stars span:nth-child(18) {left:59%;top:65%;--duration:15s;--blink:4.6s}
+.stars span:nth-child(19) {left:73%;top:77%;--duration:12s;--blink:3.4s}
+.stars span:nth-child(20) {left:88%;top:70%;--duration:17s;--blink:5.1s}
+.stars span:nth-child(21) {left:8%;top:91%;--duration:15s;--blink:4.5s}
+.stars span:nth-child(22) {left:35%;top:93%;--duration:12s;--blink:3.8s}
+.stars span:nth-child(23) {left:52%;top:90%;--duration:14s;--blink:4.4s}
+.stars span:nth-child(24) {left:69%;top:95%;--duration:16s;--blink:4.9s}
+.stars span:nth-child(25) {left:84%;top:88%;--duration:13s;--blink:4s}
+.stars span:nth-child(26) {left:97%;top:84%;--duration:15s;--blink:4.4s}
 
-.stars span:nth-child(8)  { left: 9%;  top: 38%; --duration: 16s; --blink: 5s; }
-.stars span:nth-child(9)  { left: 23%; top: 48%; --duration: 12s; --blink: 3.8s; }
-.stars span:nth-child(10) { left: 36%; top: 40%; --duration: 14s; --blink: 4.3s; }
-.stars span:nth-child(11) { left: 64%; top: 44%; --duration: 15s; --blink: 4.7s; }
-.stars span:nth-child(12) { left: 81%; top: 36%; --duration: 13s; --blink: 3.5s; }
-.stars span:nth-child(13) { left: 95%; top: 50%; --duration: 17s; --blink: 5.2s; }
+@keyframes starFloat {
 
-.stars span:nth-child(14) { left: 5%;  top: 66%; --duration: 14s; --blink: 4.4s; }
-.stars span:nth-child(15) { left: 16%; top: 79%; --duration: 11s; --blink: 3.6s; }
-.stars span:nth-child(16) { left: 30%; top: 69%; --duration: 16s; --blink: 4.9s; }
-.stars span:nth-child(17) { left: 45%; top: 85%; --duration: 13s; --blink: 4s; }
-.stars span:nth-child(18) { left: 58%; top: 65%; --duration: 15s; --blink: 4.6s; }
-.stars span:nth-child(19) { left: 72%; top: 77%; --duration: 12s; --blink: 3.4s; }
-.stars span:nth-child(20) { left: 87%; top: 70%; --duration: 17s; --blink: 5.1s; }
-
-.stars span:nth-child(21) { left: 8%;  top: 91%; --duration: 15s; --blink: 4.5s; }
-.stars span:nth-child(22) { left: 35%; top: 93%; --duration: 12s; --blink: 3.8s; }
-.stars span:nth-child(23) { left: 52%; top: 90%; --duration: 14s; --blink: 4.4s; }
-.stars span:nth-child(24) { left: 69%; top: 95%; --duration: 16s; --blink: 4.9s; }
-.stars span:nth-child(25) { left: 84%; top: 88%; --duration: 13s; --blink: 4s; }
-.stars span:nth-child(26) { left: 97%; top: 84%; --duration: 15s; --blink: 4.4s; }
-
-@keyframes starMove {
-
-    0% {
-        transform:
-            translate3d(0,0,0);
+    0%,
+    100% {
+        transform: translate3d(0,0,0);
     }
 
     50% {
-        transform:
-            translate3d(5px,-7px,0);
-    }
-
-    100% {
-        transform:
-            translate3d(0,0,0);
+        transform: translate3d(6px,-8px,0);
     }
 
 }
@@ -850,19 +673,30 @@ button {
 }
 
 
-/* =========================================
+/* =========================
    MAIN
-========================================= */
+========================= */
 
 #mainScreen {
+
     flex-direction: column;
 
     background:
-        #080808;
+        linear-gradient(
+            180deg,
+            #151821,
+            #0b0d12
+        );
 }
 
+
+/* HEADER */
+
 .main-header {
-    min-height: 72px;
+
+    flex-shrink: 0;
+
+    min-height: 75px;
 
     padding:
         calc(env(safe-area-inset-top) + 8px)
@@ -872,36 +706,45 @@ button {
     display: flex;
 
     align-items: center;
+
     justify-content: space-between;
 
     background:
-        rgba(8,8,8,.92);
+        rgba(19,21,29,.94);
 
     border-bottom:
-        1px solid #202020;
+        1px solid
+        rgba(255,255,255,.07);
 
     backdrop-filter:
         blur(20px);
 }
 
 .brand {
+
     display: flex;
 
     align-items: center;
 
-    gap: 10px;
+    gap: 11px;
 }
 
 .brand-icon {
-    width: 43px;
-    height: 43px;
 
-    border-radius: 13px;
+    width: 45px;
+    height: 45px;
+
+    border-radius: 14px;
 
     overflow: hidden;
+
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,.35);
 }
 
 .brand-icon img {
+
     width: 100%;
     height: 100%;
 
@@ -909,102 +752,543 @@ button {
 }
 
 .brand-name {
-    font-size: 20px;
+
+    font-size: 21px;
 
     font-weight: 850;
 
     letter-spacing: -.5px;
 }
 
-.profile-button {
+.header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.header-button {
+
     width: 44px;
     height: 44px;
-
-    padding: 0;
-
-    border:
-        1px solid
-        rgba(255,255,255,.16);
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #fff,
-            #999
-        );
-
-    color: #111;
-
-    font-size: 16px;
-
-    font-weight: 850;
-
-    touch-action: manipulation;
-}
-
-.profile-button:active {
-    transform: scale(.92);
-}
-
-
-/* =========================================
-   EMPTY
-========================================= */
-
-.empty {
-    flex: 1;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    text-align: center;
+    border-radius: 50%;
 
-    padding: 25px;
+    color: #fff;
+
+    background:
+        rgba(255,255,255,.075);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    font-size: 20px;
 }
 
-.empty h2 {
+.header-button:active {
+
+    transform: scale(.9);
+
+}
+
+
+/* SEARCH */
+
+.search-wrap {
+
+    padding:
+        12px
+        15px
+        8px;
+
+    background:
+        rgba(19,21,29,.94);
+}
+
+.search {
+
+    width: 100%;
+
+    height: 47px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        0
+        15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.075);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    color: #9298aa;
+}
+
+.search-icon {
+
+    font-size: 17px;
+}
+
+.search input {
+
+    width: 100%;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: #fff;
+
+    font-size: 15px;
+}
+
+.search input::placeholder {
+    color: #777d8e;
+}
+
+
+/* CHAT LIST */
+
+.chat-list {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding-bottom: 12px;
+
+    scrollbar-width: none;
+}
+
+.chat-list::-webkit-scrollbar {
+    display: none;
+}
+
+.chat-item {
+
+    min-height: 76px;
+
+    padding:
+        10px
+        15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    transition:
+        background .15s ease;
+}
+
+.chat-item:active {
+
+    background:
+        rgba(255,255,255,.06);
+}
+
+.chat-avatar {
+
+    position: relative;
+
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            145deg,
+            #6777ff,
+            #9a4eff
+        );
+
+    box-shadow:
+        0 7px 20px
+        rgba(60,70,200,.25);
+}
+
+.chat-avatar img {
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+}
+
+.online-dot {
+
+    position: absolute;
+
+    right: 1px;
+    bottom: 2px;
+
+    width: 13px;
+    height: 13px;
+
+    border-radius: 50%;
+
+    background: #43df82;
+
+    border:
+        2px solid
+        #101219;
+}
+
+.chat-info {
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+.chat-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.chat-name {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    font-size: 16px;
+
+    font-weight: 750;
+}
+
+.chat-time {
+
+    flex-shrink: 0;
+
+    color: #777d8f;
+
+    font-size: 11px;
+}
+
+.chat-bottom {
+
+    margin-top: 5px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.chat-message {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    color: #858b9e;
+
+    font-size: 14px;
+}
+
+.unread {
+
+    min-width: 21px;
+    height: 21px;
+
+    padding:
+        0
+        6px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6573ff,
+            #8b55ff
+        );
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* EMPTY */
+
+.empty-state {
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    text-align: center;
+}
+
+.empty-icon {
+
+    width: 74px;
+    height: 74px;
+
+    margin:
+        0
+        auto
+        18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #6373ff,
+            #884eff
+        );
+
+    font-size: 31px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(82,79,255,.28);
+}
+
+.empty-state h2 {
+
     margin:
         0
         0
-        9px;
+        8px;
 
-    font-size: 23px;
+    font-size: 22px;
 }
 
-.empty p {
+.empty-state p {
+
     margin: 0;
 
-    color: #777;
+    color: #818798;
 
-    font-size: 15px;
+    font-size: 14px;
 
-    line-height: 1.55;
+    line-height: 1.5;
 }
 
 
-/* =========================================
-   PROFILE
-========================================= */
+/* FLOATING NEW CHAT */
+
+.new-chat {
+
+    position: absolute;
+
+    right: 18px;
+
+    bottom:
+        calc(
+            78px +
+            env(safe-area-inset-bottom)
+        );
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 19px;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6575ff,
+            #914dff
+        );
+
+    box-shadow:
+        0 12px 35px
+        rgba(77,70,255,.42);
+
+    font-size: 29px;
+
+    z-index: 5;
+}
+
+.new-chat:active {
+
+    transform: scale(.9);
+
+}
+
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+
+    flex-shrink: 0;
+
+    height:
+        calc(
+            70px +
+            env(safe-area-inset-bottom)
+        );
+
+    padding:
+        5px
+        12px
+        env(safe-area-inset-bottom);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    background:
+        rgba(15,17,23,.97);
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.07);
+
+    backdrop-filter:
+        blur(20px);
+}
+
+.nav-button {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    color: #72788b;
+
+    background: transparent;
+
+    font-size: 11px;
+
+    font-weight: 650;
+}
+
+.nav-icon {
+
+    width: 35px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    font-size: 20px;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+.nav-button.active {
+
+    color: #8491ff;
+}
+
+.nav-button.active .nav-icon {
+
+    color: #fff;
+
+    background:
+        rgba(101,116,255,.2);
+}
+
+
+/* =========================
+   PROFILE SHEET
+========================= */
 
 .profile {
+
     position: absolute;
+
     inset: 0;
 
-    z-index: 20;
+    z-index: 30;
 
     display: none;
 
     align-items: flex-end;
 
     background:
-        rgba(0,0,0,.75);
+        rgba(0,0,0,.72);
 
     backdrop-filter:
-        blur(15px);
+        blur(12px);
 }
 
 .profile.open {
@@ -1012,10 +1296,11 @@ button {
 }
 
 .profile-card {
+
     width: 100%;
 
     padding:
-        26px
+        24px
         20px
         calc(
             20px +
@@ -1025,12 +1310,13 @@ button {
     background:
         linear-gradient(
             180deg,
-            #171717,
-            #0f0f0f
+            #1c1f2a,
+            #101218
         );
 
     border-top:
-        1px solid #303030;
+        1px solid
+        rgba(255,255,255,.1);
 
     border-radius:
         28px
@@ -1039,123 +1325,129 @@ button {
         0;
 
     animation:
-        profileUp
+        sheetUp
         .3s
         cubic-bezier(.2,.8,.2,1);
 }
 
-@keyframes profileUp {
+@keyframes sheetUp {
 
     from {
+        transform: translateY(50px);
         opacity: 0;
-        transform: translateY(45px);
     }
 
     to {
-        opacity: 1;
         transform: translateY(0);
+        opacity: 1;
     }
 
 }
 
+.profile-head {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 22px;
+}
+
 .profile-avatar {
-    width: 70px;
-    height: 70px;
 
-    margin-bottom: 15px;
+    width: 68px;
+    height: 68px;
 
-    border-radius: 21px;
+    flex-shrink: 0;
+
+    border-radius: 22px;
 
     overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #6777ff,
+            #954eff
+        );
 }
 
 .profile-avatar img {
+
     width: 100%;
     height: 100%;
 }
 
 .profile-card h2 {
-    margin:
-        0
-        0
-        5px;
 
-    font-size: 23px;
+    margin: 0 0 4px;
+
+    font-size: 22px;
 }
 
 .profile-phone {
-    margin-bottom: 22px;
 
-    color: #777;
+    color: #858b9c;
+
+    font-size: 14px;
 }
 
-.close-profile,
-.logout {
+.profile-action {
+
     width: 100%;
-    height: 53px;
 
-    border-radius: 16px;
+    height: 55px;
 
-    font-size: 15px;
-}
+    margin-top: 10px;
 
-.close-profile {
-    border: 0;
-
-    background: #292929;
+    border-radius: 17px;
 
     color: #fff;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
     font-weight: 700;
 }
 
-.logout {
-    margin-top: 10px;
+.profile-action.logout {
 
-    border:
-        1px solid #482727;
+    color: #ff7888;
 
-    background: #211313;
+    background:
+        rgba(255,70,90,.07);
 
-    color: #ff7070;
-
-    font-weight: 750;
-}
-
-.close-profile:active,
-.logout:active {
-    transform: scale(.97);
+    border-color:
+        rgba(255,70,90,.14);
 }
 
 
-/* =========================================
-   SMALL PHONES
-========================================= */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-height: 680px) {
 
-    .auth-screen {
-        padding-top: 16px;
-        padding-bottom: 16px;
-    }
-
     .auth-logo {
-        width: 54px;
-        height: 54px;
+
+        width: 62px;
+        height: 62px;
 
         margin-bottom: 18px;
     }
 
     .auth-title {
-        font-size: 28px;
+        font-size: 29px;
     }
 
     .auth-subtitle {
         margin-bottom: 20px;
-    }
-
-    .field {
-        margin-bottom: 12px;
     }
 
     .field input {
@@ -1165,23 +1457,27 @@ button {
 }
 
 
-/* =========================================
+/* =========================
    REDUCED MOTION
-========================================= */
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
     *::after {
+
         animation-duration: .01ms !important;
+
         animation-iteration-count: 1 !important;
+
         transition-duration: .01ms !important;
     }
 
 }
 
 </style>
+
 </head>
 
 
@@ -1190,9 +1486,9 @@ button {
 <div id="app">
 
 
-<!-- =====================================
+<!-- =========================
      LOADING
-===================================== -->
+========================= -->
 
 <section
     id="loadingScreen"
@@ -1200,24 +1496,6 @@ button {
 >
 
     <div class="loading-glow"></div>
-
-
-    <div
-        class="loading-particles"
-        aria-hidden="true"
-    >
-
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-
-    </div>
-
 
     <div class="loading-content">
 
@@ -1229,11 +1507,7 @@ button {
             Cats Developer Studio
         </div>
 
-
-        <div
-            class="loading-bars"
-            aria-hidden="true"
-        >
+        <div class="loading-bars">
 
             <span></span>
             <span></span>
@@ -1248,9 +1522,9 @@ button {
 </section>
 
 
-<!-- =====================================
+<!-- =========================
      WELCOME
-===================================== -->
+========================= -->
 
 <section
     id="welcomeScreen"
@@ -1263,17 +1537,14 @@ button {
             <span>A</span>
         </div>
 
-
-        <div class="auth-title">
+        <h1 class="auth-title">
             Добро пожаловать
-        </div>
-
+        </h1>
 
         <div class="auth-subtitle">
             Общайтесь с друзьями и близкими
-            в современном мессенджере AVION.
+            в ярком и удобном мессенджере AVION.
         </div>
-
 
         <button
             id="loginStart"
@@ -1281,7 +1552,6 @@ button {
         >
             Войти
         </button>
-
 
         <button
             id="registerStart"
@@ -1295,9 +1565,9 @@ button {
 </section>
 
 
-<!-- =====================================
+<!-- =========================
      LOGIN
-===================================== -->
+========================= -->
 
 <section
     id="loginScreen"
@@ -1309,21 +1579,17 @@ button {
         <button
             class="back"
             data-back="welcomeScreen"
-            aria-label="Назад"
         >
             ‹
         </button>
 
-
-        <div class="auth-title">
+        <h1 class="auth-title">
             С возвращением
-        </div>
-
+        </h1>
 
         <div class="auth-subtitle">
-            Введите данные своего аккаунта AVION.
+            Войдите в свой аккаунт AVION.
         </div>
-
 
         <div class="field">
 
@@ -1341,7 +1607,6 @@ button {
 
         </div>
 
-
         <div class="field">
 
             <label>
@@ -1357,12 +1622,10 @@ button {
 
         </div>
 
-
         <div
             id="loginError"
             class="error"
         ></div>
-
 
         <button
             id="loginButton"
@@ -1376,15 +1639,14 @@ button {
 </section>
 
 
-<!-- =====================================
+<!-- =========================
      REGISTER
-===================================== -->
+========================= -->
 
 <section
     id="registerScreen"
     class="screen auth-screen"
 >
-
 
     <div
         class="stars"
@@ -1422,28 +1684,22 @@ button {
 
     </div>
 
-
     <div class="auth-container">
 
         <button
             class="back"
             data-back="welcomeScreen"
-            aria-label="Назад"
         >
             ‹
         </button>
 
-
-        <div class="auth-title">
+        <h1 class="auth-title">
             Создать аккаунт
-        </div>
-
+        </h1>
 
         <div class="auth-subtitle">
-            Заполните данные и начните
-            пользоваться AVION.
+            Создайте профиль и начинайте общаться.
         </div>
-
 
         <div class="field">
 
@@ -1459,7 +1715,6 @@ button {
             >
 
         </div>
-
 
         <div class="field">
 
@@ -1477,7 +1732,6 @@ button {
 
         </div>
 
-
         <div class="field">
 
             <label>
@@ -1493,12 +1747,10 @@ button {
 
         </div>
 
-
         <div
             id="registerError"
             class="error"
         ></div>
-
 
         <button
             id="registerButton"
@@ -1512,14 +1764,15 @@ button {
 </section>
 
 
-<!-- =====================================
+<!-- =========================
      MAIN
-===================================== -->
+========================= -->
 
 <section
     id="mainScreen"
     class="screen"
 >
+
 
     <header class="main-header">
 
@@ -1528,12 +1781,11 @@ button {
             <div class="brand-icon">
 
                 <img
-                    src="./icon.svg?v=35"
+                    src="./icon.svg?v=36"
                     alt="AVION"
                 >
 
             </div>
-
 
             <div class="brand-name">
                 AVION
@@ -1542,39 +1794,244 @@ button {
         </div>
 
 
-        <button
-            id="profileButton"
-            class="profile-button"
-        >
-            A
-        </button>
+        <div class="header-actions">
+
+            <button
+                id="searchButton"
+                class="header-button"
+                aria-label="Поиск"
+            >
+                ⌕
+            </button>
+
+            <button
+                id="profileButton"
+                class="header-button"
+                aria-label="Профиль"
+            >
+                A
+            </button>
+
+        </div>
 
     </header>
 
 
-    <main class="empty">
+    <div class="search-wrap">
 
-        <div>
+        <div class="search">
 
-            <h2>
-                Чаты скоро появятся
-            </h2>
+            <span class="search-icon">
+                ⌕
+            </span>
 
-            <p>
-                Здесь будут ваши сообщения,
-                группы и контакты.
-            </p>
+            <input
+                id="chatSearch"
+                type="search"
+                placeholder="Поиск"
+            >
+
+        </div>
+
+    </div>
+
+
+    <main
+        id="chatList"
+        class="chat-list"
+    >
+
+        <!--
+        Примеры интерфейса.
+        Потом сюда подключим реальные чаты.
+        -->
+
+        <div class="chat-item">
+
+            <div class="chat-avatar">
+                A
+                <span class="online-dot"></span>
+            </div>
+
+            <div class="chat-info">
+
+                <div class="chat-top">
+
+                    <div class="chat-name">
+                        AVION Support
+                    </div>
+
+                    <div class="chat-time">
+                        сейчас
+                    </div>
+
+                </div>
+
+                <div class="chat-bottom">
+
+                    <div class="chat-message">
+                        Добро пожаловать в AVION!
+                    </div>
+
+                    <div class="unread">
+                        1
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-item">
+
+            <div
+                class="chat-avatar"
+                style="
+                    background:
+                    linear-gradient(
+                        145deg,
+                        #ff6a9b,
+                        #8c5cff
+                    );
+                "
+            >
+                C
+            </div>
+
+            <div class="chat-info">
+
+                <div class="chat-top">
+
+                    <div class="chat-name">
+                        Cats Developer Studio
+                    </div>
+
+                    <div class="chat-time">
+                        11:31
+                    </div>
+
+                </div>
+
+                <div class="chat-bottom">
+
+                    <div class="chat-message">
+                        Проект AVION
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-item">
+
+            <div
+                class="chat-avatar"
+                style="
+                    background:
+                    linear-gradient(
+                        145deg,
+                        #24c6dc,
+                        #514aff
+                    );
+                "
+            >
+                D
+            </div>
+
+            <div class="chat-info">
+
+                <div class="chat-top">
+
+                    <div class="chat-name">
+                        Друзья
+                    </div>
+
+                    <div class="chat-time">
+                        вчера
+                    </div>
+
+                </div>
+
+                <div class="chat-bottom">
+
+                    <div class="chat-message">
+                        Здесь появятся ваши сообщения
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
     </main>
 
+
+    <button
+        id="newChatButton"
+        class="new-chat"
+        aria-label="Новый чат"
+    >
+        +
+    </button>
+
+
+    <nav class="bottom-nav">
+
+        <button
+            class="nav-button active"
+            data-tab="chats"
+        >
+
+            <span class="nav-icon">
+                ▣
+            </span>
+
+            Чаты
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-tab="contacts"
+        >
+
+            <span class="nav-icon">
+                ♡
+            </span>
+
+            Контакты
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-tab="settings"
+        >
+
+            <span class="nav-icon">
+                ⚙
+            </span>
+
+            Настройки
+
+        </button>
+
+    </nav>
+
 </section>
 
 
-<!-- =====================================
+<!-- =========================
      PROFILE
-===================================== -->
+========================= -->
 
 <div
     id="profile"
@@ -1583,43 +2040,48 @@ button {
 
     <div class="profile-card">
 
+        <div class="profile-head">
 
-        <div class="profile-avatar">
+            <div class="profile-avatar">
 
-            <img
-                src="./icon.svg?v=35"
-                alt="AVION"
-            >
+                <img
+                    src="./icon.svg?v=36"
+                    alt="AVION"
+                >
 
-        </div>
+            </div>
 
+            <div>
 
-        <h2 id="profileName">
-            Пользователь
-        </h2>
+                <h2 id="profileName">
+                    Пользователь
+                </h2>
 
+                <div
+                    id="profilePhone"
+                    class="profile-phone"
+                >
+                    —
+                </div>
 
-        <div
-            id="profilePhone"
-            class="profile-phone"
-        >
-            —
+            </div>
+
         </div>
 
 
         <button
-            id="logoutButton"
-            class="logout"
+            id="profileSettings"
+            class="profile-action"
         >
-            Выйти из аккаунта
+            ⚙ Настройки профиля
         </button>
 
 
         <button
-            id="closeProfile"
-            class="close-profile"
+            id="logoutButton"
+            class="profile-action logout"
         >
-            Закрыть
+            Выйти из аккаунта
         </button>
 
     </div>
@@ -1635,23 +2097,25 @@ button {
 "use strict";
 
 
-/* =========================================
-   STORAGE VERSION
-========================================= */
+/* =========================
+   STORAGE
+========================= */
 
 const USERS_KEY =
-    "avion_users_v35";
+    "avion_users_v36";
 
 const CURRENT_KEY =
-    "avion_current_v35";
+    "avion_current_v36";
 
 
-/* =========================================
+/* =========================
    HELPERS
-========================================= */
+========================= */
 
 function $(id) {
+
     return document.getElementById(id);
+
 }
 
 
@@ -1694,7 +2158,7 @@ function phoneNumber(value) {
 }
 
 
-function screen(id) {
+function showScreen(id) {
 
     document
         .querySelectorAll(".screen")
@@ -1713,16 +2177,16 @@ function screen(id) {
 }
 
 
-function error(id, text) {
+function setError(id, text) {
 
     $(id).textContent = text;
 
 }
 
 
-/* =========================================
-   LOADING — 3 SECONDS
-========================================= */
+/* =========================
+   LOADING
+========================= */
 
 setTimeout(() => {
 
@@ -1731,18 +2195,18 @@ setTimeout(() => {
 }, 3000);
 
 
-/* =========================================
+/* =========================
    WELCOME
-========================================= */
+========================= */
 
 $("loginStart").onclick = () => {
 
-    error(
+    setError(
         "loginError",
         ""
     );
 
-    screen(
+    showScreen(
         "loginScreen"
     );
 
@@ -1751,21 +2215,21 @@ $("loginStart").onclick = () => {
 
 $("registerStart").onclick = () => {
 
-    error(
+    setError(
         "registerError",
         ""
     );
 
-    screen(
+    showScreen(
         "registerScreen"
     );
 
 };
 
 
-/* =========================================
+/* =========================
    BACK
-========================================= */
+========================= */
 
 document
     .querySelectorAll("[data-back]")
@@ -1773,7 +2237,7 @@ document
 
         button.onclick = () => {
 
-            screen(
+            showScreen(
                 button.dataset.back
             );
 
@@ -1782,9 +2246,9 @@ document
     });
 
 
-/* =========================================
+/* =========================
    REGISTER
-========================================= */
+========================= */
 
 $("registerButton").onclick = () => {
 
@@ -1803,7 +2267,7 @@ $("registerButton").onclick = () => {
             .value;
 
 
-    error(
+    setError(
         "registerError",
         ""
     );
@@ -1811,7 +2275,7 @@ $("registerButton").onclick = () => {
 
     if (!name) {
 
-        error(
+        setError(
             "registerError",
             "Введите имя."
         );
@@ -1823,7 +2287,7 @@ $("registerButton").onclick = () => {
 
     if (phone.length < 10) {
 
-        error(
+        setError(
             "registerError",
             "Введите корректный номер телефона."
         );
@@ -1835,7 +2299,7 @@ $("registerButton").onclick = () => {
 
     if (password.length < 4) {
 
-        error(
+        setError(
             "registerError",
             "Пароль должен содержать минимум 4 символа."
         );
@@ -1845,7 +2309,8 @@ $("registerButton").onclick = () => {
     }
 
 
-    const list = users();
+    const list =
+        users();
 
 
     if (
@@ -1855,9 +2320,9 @@ $("registerButton").onclick = () => {
         )
     ) {
 
-        error(
+        setError(
             "registerError",
-            "Этот номер телефона уже зарегистрирован."
+            "Этот номер уже зарегистрирован."
         );
 
         return;
@@ -1867,13 +2332,17 @@ $("registerButton").onclick = () => {
 
     const newUser = {
 
-        id: Date.now(),
+        id:
+            Date.now(),
 
-        name: name,
+        name:
+            name,
 
-        phone: phone,
+        phone:
+            phone,
 
-        password: password
+        password:
+            password
 
     };
 
@@ -1903,9 +2372,9 @@ $("registerButton").onclick = () => {
 };
 
 
-/* =========================================
+/* =========================
    LOGIN
-========================================= */
+========================= */
 
 $("loginButton").onclick = () => {
 
@@ -1919,17 +2388,14 @@ $("loginButton").onclick = () => {
             .value;
 
 
-    error(
+    setError(
         "loginError",
         ""
     );
 
 
-    const list = users();
-
-
     const user =
-        list.find(
+        users().find(
             item =>
                 item.phone === phone
         );
@@ -1937,7 +2403,7 @@ $("loginButton").onclick = () => {
 
     if (!user) {
 
-        error(
+        setError(
             "loginError",
             "Номер не зарегистрирован."
         );
@@ -1951,7 +2417,7 @@ $("loginButton").onclick = () => {
         user.password !== password
     ) {
 
-        error(
+        setError(
             "loginError",
             "Неверный пароль."
         );
@@ -1976,9 +2442,9 @@ $("loginButton").onclick = () => {
 };
 
 
-/* =========================================
+/* =========================
    MAIN
-========================================= */
+========================= */
 
 function openMain(user) {
 
@@ -2001,16 +2467,16 @@ function openMain(user) {
             .toUpperCase();
 
 
-    screen(
+    showScreen(
         "mainScreen"
     );
 
 }
 
 
-/* =========================================
-   CHECK ACCOUNT
-========================================= */
+/* =========================
+   ACCOUNT CHECK
+========================= */
 
 function checkAccount() {
 
@@ -2022,7 +2488,7 @@ function checkAccount() {
 
     if (!current) {
 
-        screen(
+        showScreen(
             "welcomeScreen"
         );
 
@@ -2045,7 +2511,7 @@ function checkAccount() {
             CURRENT_KEY
         );
 
-        screen(
+        showScreen(
             "welcomeScreen"
         );
 
@@ -2061,9 +2527,9 @@ function checkAccount() {
 }
 
 
-/* =========================================
+/* =========================
    PHONE FORMAT
-========================================= */
+========================= */
 
 function formatPhone(phone) {
 
@@ -2075,11 +2541,11 @@ function formatPhone(phone) {
             "+" +
             phone[0] +
             " " +
-            phone.slice(1, 4) +
+            phone.slice(1,4) +
             " " +
-            phone.slice(4, 7) +
+            phone.slice(4,7) +
             "-" +
-            phone.slice(7, 9) +
+            phone.slice(7,9) +
             "-" +
             phone.slice(9)
         );
@@ -2092,9 +2558,9 @@ function formatPhone(phone) {
 }
 
 
-/* =========================================
+/* =========================
    PROFILE
-========================================= */
+========================= */
 
 $("profileButton").onclick = () => {
 
@@ -2105,18 +2571,25 @@ $("profileButton").onclick = () => {
 };
 
 
-$("closeProfile").onclick = () => {
+$("profile").onclick = event => {
 
-    $("profile")
-        .classList
-        .remove("open");
+    if (
+        event.target ===
+        $("profile")
+    ) {
+
+        $("profile")
+            .classList
+            .remove("open");
+
+    }
 
 };
 
 
-/* =========================================
+/* =========================
    LOGOUT
-========================================= */
+========================= */
 
 $("logoutButton").onclick = () => {
 
@@ -2124,22 +2597,145 @@ $("logoutButton").onclick = () => {
         CURRENT_KEY
     );
 
-
     $("profile")
         .classList
         .remove("open");
 
-
-    screen(
+    showScreen(
         "welcomeScreen"
     );
 
 };
 
 
-/* =========================================
+/* =========================
+   BOTTOM NAV
+========================= */
+
+document
+    .querySelectorAll(".nav-button")
+    .forEach(button => {
+
+        button.onclick = () => {
+
+            document
+                .querySelectorAll(".nav-button")
+                .forEach(item => {
+
+                    item.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            const tab =
+                button.dataset.tab;
+
+
+            if (tab === "chats") {
+
+                $("chatList").style.display =
+                    "block";
+
+            }
+
+
+            if (tab === "contacts") {
+
+                $("chatList").style.display =
+                    "block";
+
+            }
+
+
+            if (tab === "settings") {
+
+                $("profile")
+                    .classList
+                    .add("open");
+
+            }
+
+        };
+
+    });
+
+
+/* =========================
+   SEARCH
+========================= */
+
+$("chatSearch").oninput = () => {
+
+    const query =
+        $("chatSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    document
+        .querySelectorAll(".chat-item")
+        .forEach(item => {
+
+            const name =
+                item
+                    .querySelector(".chat-name")
+                    .textContent
+                    .toLowerCase();
+
+            const message =
+                item
+                    .querySelector(".chat-message")
+                    ?.textContent
+                    .toLowerCase() || "";
+
+
+            item.style.display =
+                !query ||
+                name.includes(query) ||
+                message.includes(query)
+                    ? "flex"
+                    : "none";
+
+        });
+
+};
+
+
+/* =========================
+   NEW CHAT
+========================= */
+
+$("newChatButton").onclick = () => {
+
+    alert(
+        "Новый чат появится после подключения реального сервера."
+    );
+
+};
+
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+$("searchButton").onclick = () => {
+
+    $("chatSearch").focus();
+
+};
+
+
+/* =========================
    SERVICE WORKER
-========================================= */
+========================= */
 
 if (
     "serviceWorker" in navigator
@@ -2151,7 +2747,7 @@ if (
 
             navigator.serviceWorker
                 .register(
-                    "./sw.js?v=35"
+                    "./sw.js?v=36"
                 )
                 .catch(
                     () => {}
