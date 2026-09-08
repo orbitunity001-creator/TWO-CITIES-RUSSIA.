@@ -2,41 +2,31 @@
 
 <defs>
 
-  <!-- ТЁМНЫЙ ФОН -->
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#4a4a4a"/>
-    <stop offset="35%" stop-color="#303030"/>
-    <stop offset="70%" stop-color="#191919"/>
+    <stop offset="0%" stop-color="#454545"/>
+    <stop offset="45%" stop-color="#292929"/>
     <stop offset="100%" stop-color="#080808"/>
   </linearGradient>
 
-  <!-- БУКВА -->
-  <linearGradient id="letter" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#ffffff"/>
-    <stop offset="45%" stop-color="#f1f1f1"/>
-    <stop offset="100%" stop-color="#a8a8a8"/>
+  <linearGradient id="a" x1="0" y1="0" x2="0.8" y2="1">
+    <stop offset="0%" stop-color="#FFFFFF"/>
+    <stop offset="45%" stop-color="#F2F2F2"/>
+    <stop offset="75%" stop-color="#D0D0D0"/>
+    <stop offset="100%" stop-color="#999999"/>
   </linearGradient>
 
-  <!-- БЛИК -->
-  <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#ffffff" stop-opacity=".8"/>
-    <stop offset="50%" stop-color="#ffffff" stop-opacity=".15"/>
-    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-  </linearGradient>
-
-  <!-- ТЕНЬ -->
   <filter id="shadow"
-          x="-50%"
-          y="-50%"
-          width="200%"
-          height="200%">
+    x="-50%"
+    y="-50%"
+    width="200%"
+    height="200%">
 
     <feDropShadow
       dx="0"
-      dy="10"
-      stdDeviation="10"
+      dy="12"
+      stdDeviation="11"
       flood-color="#000000"
-      flood-opacity=".8"/>
+      flood-opacity=".75"/>
 
   </filter>
 
@@ -48,24 +38,12 @@
 <rect
   width="512"
   height="512"
-  rx="105"
+  rx="110"
   fill="url(#bg)"
 />
 
 
-<!-- МЯГКИЙ СВЕТ -->
-
-<ellipse
-  cx="256"
-  cy="220"
-  rx="180"
-  ry="190"
-  fill="#ffffff"
-  opacity=".035"
-/>
-
-
-<!-- ЗАДНЯЯ ОБЪЁМНАЯ ЧАСТЬ A -->
+<!-- МАЛЕНЬКАЯ ОБЪЁМНАЯ БУКВА A -->
 
 <path
   d="
@@ -83,71 +61,46 @@
     L240 278
     Z
   "
-  transform="translate(0 10)"
+  transform="translate(0 9)"
   fill="#666666"
 />
 
 
-<!-- ОСНОВНАЯ A -->
+<!-- ОСНОВНАЯ БУКВА -->
 
 <path
   d="
     M256 125
-
     L145 395
-
     L205 395
-
     L230 325
-
     L282 325
-
     L307 395
-
     L367 395
-
     Z
 
     M256 205
-
     L272 278
-
     L240 278
-
     Z
   "
-  fill="url(#letter)"
+  fill="url(#a)"
   filter="url(#shadow)"
 />
 
 
-<!-- БЛИК НА БУКВЕ -->
+<!-- МЯГКИЙ БЛИК НА БУКВЕ -->
 
 <path
   d="
     M256 130
-    L158 382
-    L178 382
-    L266 165
+    L158 380
+    L178 380
+    L266 160
     Z
   "
-  fill="url(#shine)"
-  opacity=".6"
+  fill="#FFFFFF"
+  opacity=".18"
 />
-
-
-<!-- ВЕРХНИЙ БЛИК -->
-
-<path
-  d="
-    M256 125
-    L248 145
-    L264 145
-    Z
-  "
-  fill="#ffffff"
-  opacity=".9"
-/>
-
 
 </svg>
