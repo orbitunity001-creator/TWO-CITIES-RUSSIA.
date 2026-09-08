@@ -1,337 +1,98 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 
-<defs>
+<rect width="512" height="512" rx="115" fill="#229ED9"/>
 
-<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#020305"/>
-<stop offset=".55" stop-color="#11161c"/>
-<stop offset="1" stop-color="#030405"/>
-</linearGradient>
+<!-- white circle -->
+<circle cx="256" cy="256" r="175" fill="#ffffff"/>
 
-<linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
-<stop offset="0" stop-color="#ff536d"/>
-<stop offset=".45" stop-color="#ef173c"/>
-<stop offset="1" stop-color="#760719"/>
-</linearGradient>
-
-<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#32677f"/>
-<stop offset=".5" stop-color="#0c202b"/>
-<stop offset="1" stop-color="#020609"/>
-</linearGradient>
-
-<filter id="shadow">
-<feDropShadow
-dx="0"
-dy="18"
-stdDeviation="15"
-flood-color="#000"
-flood-opacity=".8"/>
-</filter>
-
-<filter id="glow">
-<feGaussianBlur stdDeviation="9"/>
-</filter>
-
-</defs>
-
-<!-- BACKGROUND -->
-
-<rect width="512" height="512" rx="90" fill="url(#bg)"/>
-
-<circle
-cx="410"
-cy="80"
-r="100"
-fill="#008cff"
-opacity=".12"
-filter="url(#glow)"/>
-
-<circle
-cx="80"
-cy="430"
-r="100"
-fill="#ff123c"
-opacity=".12"
-filter="url(#glow)"/>
-
-<!-- CITY -->
-
-<g opacity=".85">
-
-<rect x="0" y="160" width="70" height="170"
-fill="#080b0f"/>
-
-<rect x="58" y="120" width="70" height="210"
-fill="#10151a"/>
-
-<rect x="120" y="180" width="65" height="150"
-fill="#080b0e"/>
-
-<rect x="180" y="100" width="80" height="230"
-fill="#12171c"/>
-
-<rect x="255" y="155" width="70" height="175"
-fill="#090c10"/>
-
-<rect x="320" y="115" width="75" height="215"
-fill="#13181d"/>
-
-<rect x="390" y="170" width="122" height="160"
-fill="#080b0e"/>
-
-</g>
-
-<!-- WINDOWS -->
-
-<g fill="#087eb9" opacity=".65">
-
-<path d="
-M15 180h35v9H15z
-M15 205h35v9H15z
-M15 230h35v9H15z
-M75 145h30v10H75z
-M75 172h30v10H75z
-M75 199h30v10H75z
-M140 202h28v10H140z
-M140 230h28v10H140z
-M200 125h35v10H200z
-M200 153h35v10H200z
-M200 181h35v10H200z
-M275 180h30v10H275z
-M275 208h30v10H275z
-M340 140h32v10H340z
-M340 168h32v10H340z
-M340 196h32v10H340z
-M420 195h35v10H420z
-M420 223h35v10H420z
-</path>
-
-</g>
-
-<!-- RED LIGHT -->
-
+<!-- tail -->
 <path
-d="M0 345
-L150 310
-L365 310
-L512 345
-L512 370
-L0 370Z"
-fill="#ff173d"
-opacity=".12"/>
+  d="M185 350
+     C145 375 125 400 105 430
+     C145 420 185 402 215 375Z"
+  fill="#3b4650"/>
 
-<!-- ROAD -->
-
-<path
-d="M0 512
-L105 325
-L407 325
-L512 512Z"
-fill="#080a0d"/>
-
-<path
-d="M245 330
-L267 330
-L300 512
-L210 512Z"
-fill="#252a30"/>
-
-<path
-d="M250 340
-L262 340
-L268 375
-L244 375Z
-M270 395
-L278 395
-L284 430
-L264 430Z
-M288 450
-L295 450
-L300 480
-L283 480Z"
-fill="#dce2e6"/>
-
-<!-- CAR SHADOW -->
-
+<!-- body -->
 <ellipse
-cx="256"
-cy="402"
-rx="165"
-ry="38"
-fill="#000"
-opacity=".9"/>
+  cx="265"
+  cy="285"
+  rx="105"
+  ry="120"
+  fill="#39434d"/>
 
-<!-- CAR -->
-
-<g filter="url(#shadow)">
-
-<!-- BODY -->
-
+<!-- red breast -->
 <path
-d="
-M90 375
-Q98 329 145 316
-L186 269
-Q202 247 236 243
-L301 243
-Q332 245 349 268
-L389 316
-Q425 325 433 371
-L427 405
-L393 405
-Q386 365 347 365
-Q307 365 300 405
-L211 405
-Q204 365 165 365
-Q126 365 119 405
-L88 405
-Q83 391 90 375Z"
-fill="url(#red)"
-stroke="#ff3b58"
-stroke-width="5"/>
+  d="M205 245
+     C185 275 185 330 215 365
+     C245 398 295 390 320 355
+     C340 325 330 275 310 250
+     C285 270 235 270 205 245Z"
+  fill="#e34b4b"/>
 
-<!-- ROOF -->
+<!-- head -->
+<circle
+  cx="275"
+  cy="190"
+  r="82"
+  fill="#303941"/>
 
+<!-- face -->
 <path
-d="
-M176 314
-L211 267
-Q223 250 246 248
-L298 248
-Q322 250 338 271
-L369 314Z"
-fill="url(#glass)"
-stroke="#bd1632"
-stroke-width="5"/>
+  d="M220 175
+     C235 135 275 115 315 130
+     C350 145 365 180 350 215
+     C330 245 285 250 250 230
+     C225 215 215 195 220 175Z"
+  fill="#36414a"/>
 
-<!-- WINDOW LINE -->
-
+<!-- beak -->
 <path
-d="M269 251L269 313"
-stroke="#4e7384"
-stroke-width="4"/>
+  d="M345 190
+     L405 210
+     L345 225
+     L325 210Z"
+  fill="#e8a43a"/>
 
-<!-- HEADLIGHTS -->
-
-<path
-d="
-M96 346
-Q116 331 141 335
-L150 353
-L102 361Z"
-fill="#dff8ff"/>
-
-<path
-d="
-M416 346
-Q396 331 371 335
-L362 353
-L410 361Z"
-fill="#dff8ff"/>
-
-<!-- GRILLE -->
-
-<rect
-x="214"
-y="361"
-width="84"
-height="30"
-rx="7"
-fill="#25050a"/>
-
-<path
-d="
-M222 368H290
-M222 377H290
-M222 386H290"
-stroke="#d63a4e"
-stroke-width="3"/>
-
-<!-- PLATE -->
-
-<rect
-x="235"
-y="391"
-width="42"
-height="13"
-rx="2"
-fill="#dfe5e9"/>
-
-<text
-x="256"
-y="400"
-text-anchor="middle"
-font-family="Arial"
-font-size="9"
-font-weight="900"
-fill="#111">
-TCR
-</text>
-
-<!-- WHEELS -->
+<!-- eye -->
+<circle
+  cx="315"
+  cy="177"
+  r="13"
+  fill="#111820"/>
 
 <circle
-cx="162"
-cy="400"
-r="37"
-fill="#020304"
-stroke="#30363d"
-stroke-width="7"/>
+  cx="319"
+  cy="173"
+  r="4"
+  fill="#ffffff"/>
 
-<circle
-cx="162"
-cy="400"
-r="15"
-fill="#68727a"/>
+<!-- wing -->
+<path
+  d="M205 260
+     C155 280 145 325 175 350
+     C205 375 250 350 275 315
+     C245 320 220 300 205 260Z"
+  fill="#29333c"/>
 
-<circle
-cx="350"
-cy="400"
-r="37"
-fill="#020304"
-stroke="#30363d"
-stroke-width="7"/>
+<!-- wing detail -->
+<path
+  d="M175 310 Q210 325 235 330"
+  fill="none"
+  stroke="#56636d"
+  stroke-width="7"
+  stroke-linecap="round"/>
 
-<circle
-cx="350"
-cy="400"
-r="15"
-fill="#68727a"/>
+<path
+  d="M175 330 Q205 345 225 347"
+  fill="none"
+  stroke="#56636d"
+  stroke-width="6"
+  stroke-linecap="round"/>
 
-</g>
-
-<!-- TITLE -->
-
-<text
-x="256"
-y="454"
-text-anchor="middle"
-font-family="Arial"
-font-size="38"
-font-weight="1000"
-letter-spacing="2"
-fill="#ffffff">
-TWO CITIES
-</text>
-
-<rect
-x="175"
-y="465"
-width="162"
-height="3"
-fill="#ff2045"/>
-
-<text
-x="256"
-y="494"
-text-anchor="middle"
-font-family="Arial"
-font-size="25"
-font-weight="1000"
-letter-spacing="8"
-fill="#ff2045">
-RUSSIA
-</text>
+<!-- little snow -->
+<circle cx="130" cy="145" r="6" fill="#ffffff"/>
+<circle cx="390" cy="145" r="5" fill="#ffffff"/>
+<circle cx="385" cy="350" r="6" fill="#ffffff"/>
+<circle cx="125" cy="355" r="4" fill="#ffffff"/>
 
 </svg>
