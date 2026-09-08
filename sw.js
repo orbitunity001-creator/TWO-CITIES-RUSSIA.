@@ -1,4 +1,4 @@
-const CACHE_NAME = "avion-v34";
+const CACHE_NAME = "avion-v35";
 
 const APP_FILES = [
     "./",
@@ -33,7 +33,10 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-    if (event.request.method !== "GET") return;
+
+    if (event.request.method !== "GET") {
+        return;
+    }
 
     event.respondWith(
         fetch(event.request)
@@ -44,6 +47,7 @@ self.addEventListener("fetch", event => {
                     response.status === 200 &&
                     response.type === "basic"
                 ) {
+
                     const copy = response.clone();
 
                     caches.open(CACHE_NAME)
