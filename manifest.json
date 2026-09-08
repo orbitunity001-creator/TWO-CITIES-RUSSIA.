@@ -1,19 +1,15 @@
 {
-  "name": "TWO CITIES: RUSSIA",
-  "short_name": "TWO CITIES",
-  "description": "TWO CITIES: RUSSIA — городская sandbox-игра от Cats Developer Studio",
+  "name": "Avion Messenger",
+  "short_name": "Avion",
+  "description": "Милый мессенджер со снегирём",
   "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "landscape",
-  "background_color": "#030405",
-  "theme_color": "#ff2045",
+  "orientation": "portrait",
+  "background_color": "#229ED9",
+  "theme_color": "#229ED9",
   "lang": "ru",
-  "categories": [
-    "games",
-    "entertainment"
-  ],
   "icons": [
     {
       "src": "./icon.svg",
