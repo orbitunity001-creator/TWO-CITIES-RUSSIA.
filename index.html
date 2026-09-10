@@ -1,925 +1,452 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>AVIA AI</title>
-
-<style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#030711;
-    color:#fff;
-    font-family:Arial,sans-serif
-}
-
-/* ===== ЗАГРУЗКА ===== */
-
-#loading{
-    position:fixed;
-    inset:0;
-    z-index:100;
-    height:100dvh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    background:
-      radial-gradient(circle at 50% 42%,rgba(35,130,255,.18),transparent 34%),
-      linear-gradient(#030711,#061124,#030711);
-    transition:opacity .8s,visibility .8s
-}
-
-#loading.hide{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none
-}
-
-.glow{
-    position:absolute;
-    width:260px;
-    height:260px;
-    border-radius:50%;
-    background:rgba(25,125,255,.12);
-    filter:blur(55px);
-    animation:pulse 2.2s infinite
-}
-
-@keyframes pulse{
-    50%{transform:scale(1.2);opacity:.8}
-}
-
-.flight{
-    position:relative;
-    width:100%;
-    height:300px
-}
-
-.bird{
-    position:absolute;
-    width:270px;
-    height:220px;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    animation:fly 2.8s ease-in-out infinite
-}
-
-@keyframes fly{
-    0%{transform:translate(-80%,-42%) rotate(-8deg);opacity:0}
-    12%{opacity:1}
-    35%{transform:translate(-48%,-55%) rotate(2deg)}
-    55%{transform:translate(-42%,-45%) rotate(5deg)}
-    75%{transform:translate(-50%,-54%) rotate(-1deg)}
-    100%{transform:translate(5%,-65%) rotate(8deg);opacity:0}
-}
-
-.body{
-    position:absolute;
-    width:150px;
-    height:108px;
-    right:20px;
-    top:60px;
-    border-radius:65% 75% 58% 45%;
-    transform:rotate(-7deg);
-    background:linear-gradient(135deg,#fff,#e8f6ff,#a5d7ff);
-    box-shadow:0 0 15px #fff,0 0 40px rgba(55,160,255,.35)
-}
-
-.beak{
-    position:absolute;
-    right:-25px;
-    top:67px;
-    width:40px;
-    height:24px;
-    background:linear-gradient(135deg,#8dd6ff,#1675ed);
-    clip-path:polygon(0 0,100% 50%,0 100%)
-}
-
-.eye{
-    position:absolute;
-    width:13px;
-    height:13px;
-    right:62px;
-    top:36px;
-    border-radius:50%;
-    background:#061124
-}
-
-.eye:after{
-    content:"";
-    position:absolute;
-    width:4px;
-    height:4px;
-    left:3px;
-    top:2px;
-    border-radius:50%;
-    background:#fff
-}
-
-.wing1{
-    position:absolute;
-    width:135px;
-    height:130px;
-    left:42px;
-    top:15px;
-    background:linear-gradient(135deg,#fff,#d9efff,#65b3ff);
-    clip-path:polygon(0 0,78% 28%,100% 80%,55% 100%,18% 70%);
-    transform-origin:80% 90%;
-    animation:wing .7s ease-in-out infinite
-}
-
-.wing2{
-    position:absolute;
-    width:130px;
-    height:92px;
-    left:25px;
-    top:98px;
-    background:linear-gradient(135deg,#8bd5ff,#3da5ff,#146fe8);
-    clip-path:polygon(0 10%,90% 30%,55% 100%,20% 72%);
-    transform-origin:85% 20%;
-    animation:wing2 .7s ease-in-out infinite
-}
-
-@keyframes wing{
-    50%{transform:rotate(-25deg)}
-}
-@keyframes wing2{
-    50%{transform:rotate(18deg)}
-}
-
-.tail{
-    position:absolute;
-    width:105px;
-    height:75px;
-    left:5px;
-    top:125px;
-    background:linear-gradient(135deg,#8bd5ff,#1978ec);
-    clip-path:polygon(100% 0,40% 40%,0 100%,20% 42%);
-    transform:rotate(-7deg)
-}
-
-.line{
-    position:absolute;
-    width:90px;
-    height:3px;
-    left:calc(50% - 145px);
-    top:50%;
-    border-radius:10px;
-    background:linear-gradient(90deg,transparent,#4cb7ff,transparent);
-    animation:speed 1s linear infinite
-}
-
-.line:nth-child(2){margin-top:35px;animation-delay:.25s}
-.line:nth-child(3){margin-top:-40px;animation-delay:.5s}
-
-@keyframes speed{
-    from{opacity:0;transform:translateX(60px)}
-    30%{opacity:1}
-    to{opacity:0;transform:translateX(-80px)}
-}
-
-.brand{text-align:center}
-.brand h1{
-    margin:0;
-    font-size:43px;
-    letter-spacing:8px;
-    background:linear-gradient(#fff,#91d3ff);
-    -webkit-background-clip:text;
-    color:transparent
-}
-.brand p{
-    margin:8px 0 0;
-    font-size:11px;
-    letter-spacing:2px;
-    color:#7891ad
-}
-
-.load{
-    position:absolute;
-    bottom:70px;
-    width:min(280px,75vw);
-    text-align:center
-}
-
-.loadtop{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:8px;
-    font-size:11px;
-    color:#7891ad
-}
-
-.bar{
-    height:5px;
-    border-radius:10px;
-    overflow:hidden;
-    background:#162237
-}
-
-.fill{
-    width:0;
-    height:100%;
-    background:linear-gradient(90deg,#1675ed,#4cb7ff,#a0ddff);
-    box-shadow:0 0 15px #3daeff;
-    transition:width .08s
-}
-
-.bottom{
-    position:absolute;
-    bottom:22px;
-    font-size:9px;
-    letter-spacing:2px;
-    color:#42536a
-}
-
-/* ===== ПРИЛОЖЕНИЕ ===== */
-
-#app{
-    width:100%;
-    height:100dvh;
-    display:flex;
-    flex-direction:column;
-    opacity:0;
-    transition:opacity .7s;
-    background:
-      radial-gradient(circle at 50% -20%,rgba(30,110,255,.12),transparent 35%),
-      #030711
-}
-
-#app.show{opacity:1}
-
-.header{
-    height:68px;
-    min-height:68px;
-    display:flex;
-    align-items:center;
-    padding:10px 15px;
-    border-bottom:1px solid rgba(255,255,255,.07);
-    background:rgba(3,7,17,.85);
-    backdrop-filter:blur(18px)
-}
-
-.logo{
-    width:44px;
-    height:44px;
-    margin-right:11px;
-    border-radius:13px;
-    background:#07152d;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden
-}
-
-.logo svg{width:36px;height:36px}
-
-.title{font-size:18px;font-weight:700}
-.sub{
-    margin-top:2px;
-    font-size:9px;
-    letter-spacing:1px;
-    color:#64778e
-}
-
-.messages{
-    flex:1;
-    overflow-y:auto;
-    padding:20px 13px 105px
-}
-
-.welcome{
-    min-height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center
-}
-
-.wicon{
-    width:88px;
-    height:88px;
-    margin:auto auto 20px;
-    border-radius:27px;
-    background:#07152d;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 0 45px rgba(30,130,255,.18)
-}
-
-.wicon svg{width:70px;height:70px}
-
-.welcome h1{
-    margin:0;
-    font-size:28px
-}
-
-.welcome p{
-    max-width:330px;
-    color:#64778e;
-    line-height:1.5
-}
-
-.message{
-    display:flex;
-    margin:9px 0;
-    animation:msg .2s ease
-}
-
-.message.user{justify-content:flex-end}
-
-@keyframes msg{
-    from{opacity:0;transform:translateY(7px)}
-    to{opacity:1;transform:none}
-}
-
-.bubble{
-    max-width:86%;
-    padding:12px 15px;
-    border-radius:18px;
-    line-height:1.5;
-    font-size:15px;
-    white-space:pre-wrap;
-    overflow-wrap:anywhere
-}
-
-.user .bubble{
-    background:linear-gradient(135deg,#167cf5,#2458c5);
-    border-bottom-right-radius:5px
-}
-
-.assistant .bubble{
-    background:rgba(255,255,255,.065);
-    border:1px solid rgba(255,255,255,.06);
-    border-bottom-left-radius:5px
-}
-
-.typing{
-    display:flex;
-    gap:5px
-}
-
-.typing i{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#55b8ff;
-    animation:dot 1.1s infinite
-}
-
-.typing i:nth-child(2){animation-delay:.15s}
-.typing i:nth-child(3){animation-delay:.3s}
-
-@keyframes dot{
-    0%,100%{opacity:.2;transform:none}
-    40%{opacity:1;transform:translateY(-4px)}
-}
-
-.inputArea{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    padding:9px 11px calc(9px + env(safe-area-inset-bottom));
-    background:linear-gradient(transparent,#030711 25%)
-}
-
-.inputBox{
-    display:flex;
-    align-items:flex-end;
-    gap:7px;
-    padding:6px;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:21px;
-    background:rgba(12,21,37,.95);
-    backdrop-filter:blur(20px)
-}
-
-textarea{
-    flex:1;
-    min-width:0;
-    max-height:130px;
-    resize:none;
-    border:0;
-    outline:0;
-    padding:10px 8px;
-    background:transparent;
-    color:#fff;
-    font:15px Arial;
-    line-height:1.4
-}
-
-textarea::placeholder{color:#52647b}
-
-.send{
-    width:43px;
-    height:43px;
-    border:0;
-    border-radius:15px;
-    color:#fff;
-    font-size:20px;
-    background:linear-gradient(135deg,#1680ff,#1957ce)
-}
-
-.send:disabled{opacity:.35}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#eaf6ff">
+    <title>AVIA Messenger</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ЗАГРУЗКА -->
-
-<div id="loading">
-
-<div class="glow"></div>
-
-<div class="flight">
-
-<div class="line"></div>
-<div class="line"></div>
-<div class="line"></div>
-
-<div class="bird">
-
-<div class="tail"></div>
-<div class="wing1"></div>
-<div class="wing2"></div>
-<div class="body"></div>
-<div class="eye"></div>
-<div class="beak"></div>
-
-</div>
-</div>
-
-<div class="brand">
-<h1>AVIA</h1>
-<p>CATS DEVELOPER STUDIO</p>
-</div>
-
-<div class="load">
-<div class="loadtop">
-<span id="status">Запуск AVIA</span>
-<span><span id="num">0</span>%</span>
-</div>
-
-<div class="bar">
-<div id="fill" class="fill"></div>
-</div>
-</div>
-
-<div class="bottom">
-POWERED BY CATS DEVELOPER STUDIO
-</div>
-
-</div>
-
-
-<!-- ПРИЛОЖЕНИЕ -->
-
 <div id="app">
 
-<header class="header">
+    <!-- AUTH -->
 
-<div class="logo">
-<svg viewBox="0 0 100 100">
-<path d="M53 59C45 66 36 74 29 83C38 78 47 76 57 72L65 66Z" fill="#318df5"/>
-<path d="M57 53C62 44 61 35 56 29C49 21 39 19 27 13C28 26 35 37 46 43C51 46 55 49 57 53Z" fill="#dff3ff"/>
-<path d="M30 39C39 45 49 47 57 52C51 61 42 63 34 58C28 53 25 46 30 39Z" fill="#48a9ff"/>
-<path d="M58 48C61 38 68 30 76 29C83 28 88 34 95 36C85 42 80 48 79 58C77 70 68 78 54 82C64 72 69 62 58 48Z" fill="#f5fbff"/>
-<circle cx="78" cy="36" r="3" fill="#07152d"/>
-</svg>
-</div>
+    <section id="authScreen" class="screen auth-screen">
 
-<div>
-<div class="title">AVIA</div>
-<div class="sub">CATS DEVELOPER STUDIO</div>
-</div>
+        <div class="background-circle circle-one"></div>
+        <div class="background-circle circle-two"></div>
 
-</header>
+        <div class="auth-card">
 
+            <div class="logo">
+                <div class="logo-icon">
+                    ◇
+                </div>
 
-<main id="messages" class="messages">
-
-<div id="welcome" class="welcome">
-
-<div>
-
-<div class="wicon">
-<svg viewBox="0 0 100 100">
-<path d="M53 59C45 66 36 74 29 83C38 78 47 76 57 72L65 66Z" fill="#318df5"/>
-<path d="M57 53C62 44 61 35 56 29C49 21 39 19 27 13C28 26 35 37 46 43C51 46 55 49 57 53Z" fill="#dff3ff"/>
-<path d="M30 39C39 45 49 47 57 52C51 61 42 63 34 58C28 53 25 46 30 39Z" fill="#48a9ff"/>
-<path d="M58 48C61 38 68 30 76 29C83 28 88 34 95 36C85 42 80 48 79 58C77 70 68 78 54 82C64 72 69 62 58 48Z" fill="#f5fbff"/>
-<circle cx="78" cy="36" r="3" fill="#07152d"/>
-</svg>
-</div>
-
-<h1>Чем могу помочь?</h1>
-
-<p>
-Задай вопрос на любую тему и начни диалог с AVIA.
-</p>
-
-</div>
-
-</div>
-
-</main>
-
-
-<div class="inputArea">
-
-<div class="inputBox">
-
-<textarea
-id="input"
-rows="1"
-placeholder="Напишите сообщение..."></textarea>
-
-<button id="send" class="send">↑</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<script type="module">
-
-/*
-    ЛОКАЛЬНАЯ AI-МОДЕЛЬ
-
-    Используется WebLLM.
-    Сервер НЕ нужен.
-
-    При первом запуске браузер
-    скачает модель на устройство.
-*/
-
-import * as webllm from
-"https://esm.run/@mlc-ai/web-llm";
-
-
-const messagesEl =
-    document.getElementById("messages");
-
-const welcome =
-    document.getElementById("welcome");
-
-const input =
-    document.getElementById("input");
-
-const send =
-    document.getElementById("send");
-
-const loading =
-    document.getElementById("loading");
-
-const fill =
-    document.getElementById("fill");
-
-const num =
-    document.getElementById("num");
-
-const status =
-    document.getElementById("status");
-
-
-let engine = null;
-
-let conversation = [];
-
-
-/* =========================
-   ЗАГРУЗКА AVIA
-========================= */
-
-let progress = 0;
-
-const timer = setInterval(() => {
-
-    progress += Math.random() * 4;
-
-    if(progress >= 100){
-
-        progress = 100;
-
-        clearInterval(timer);
-
-        num.textContent = "100";
-        fill.style.width = "100%";
-        status.textContent = "Готово";
-
-        setTimeout(() => {
-
-            loading.classList.add("hide");
-
-            document
-                .getElementById("app")
-                .classList.add("show");
-
-        },700);
-
-        return;
-    }
-
-    num.textContent =
-        Math.floor(progress);
-
-    fill.style.width =
-        progress + "%";
-
-},70);
-
-
-/* =========================
-   ЛОКАЛЬНАЯ МОДЕЛЬ
-========================= */
-
-async function startAI(){
-
-    try{
-
-        engine =
-            await webllm.CreateMLCEngine(
-                "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
-                {
-                    initProgressCallback:
-                    (report) => {
-
-                        console.log(
-                            report.text
-                        );
-
-                    }
-                }
-            );
-
-        console.log(
-            "AVIA AI готова"
-        );
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-}
-
-
-/*
-    Начинаем загрузку модели
-    сразу после открытия приложения.
-*/
-
-startAI();
-
-
-/* =========================
-   СООБЩЕНИЯ
-========================= */
-
-function addMessage(role,text){
-
-    welcome.style.display="none";
-
-    const row =
-        document.createElement("div");
-
-    row.className =
-        "message " + role;
-
-    const bubble =
-        document.createElement("div");
-
-    bubble.className="bubble";
-
-    bubble.textContent=text;
-
-    row.appendChild(bubble);
-
-    messagesEl.appendChild(row);
-
-    messagesEl.scrollTop =
-        messagesEl.scrollHeight;
-}
-
-
-function showTyping(){
-
-    const row =
-        document.createElement("div");
-
-    row.id="typing";
-
-    row.className=
-        "message assistant";
-
-    row.innerHTML=`
-        <div class="bubble">
-            <div class="typing">
-                <i></i>
-                <i></i>
-                <i></i>
+                <div>
+                    <div class="logo-title">AVIA</div>
+                    <div class="logo-subtitle">Messenger</div>
+                </div>
             </div>
+
+            <!-- LOGIN -->
+
+            <div id="loginForm">
+
+                <div class="welcome">
+                    <h1>С возвращением</h1>
+                    <p>Войди в свой аккаунт AVIA</p>
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <input
+                        id="loginEmail"
+                        type="email"
+                        placeholder="example@mail.com"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Пароль</label>
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        placeholder="Введите пароль"
+                    >
+                </div>
+
+                <button
+                    id="loginButton"
+                    class="main-button"
+                >
+                    Войти
+                </button>
+
+                <div id="loginError" class="error"></div>
+
+                <div class="switch">
+                    Нет аккаунта?
+                    <button id="goRegister">
+                        Зарегистрироваться
+                    </button>
+                </div>
+
+            </div>
+
+
+            <!-- REGISTER -->
+
+            <div id="registerForm" class="hidden">
+
+                <div class="welcome">
+                    <h1>Создать аккаунт</h1>
+                    <p>Добро пожаловать в AVIA</p>
+                </div>
+
+                <div class="field">
+                    <label>Имя</label>
+                    <input
+                        id="registerName"
+                        type="text"
+                        placeholder="Как тебя зовут?"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Username</label>
+                    <input
+                        id="registerUsername"
+                        type="text"
+                        placeholder="@username"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <input
+                        id="registerEmail"
+                        type="email"
+                        placeholder="example@mail.com"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Пароль</label>
+                    <input
+                        id="registerPassword"
+                        type="password"
+                        placeholder="Минимум 6 символов"
+                    >
+                </div>
+
+                <button
+                    id="registerButton"
+                    class="main-button"
+                >
+                    Создать аккаунт
+                </button>
+
+                <div id="registerError" class="error"></div>
+
+                <div class="switch">
+                    Уже есть аккаунт?
+                    <button id="goLogin">
+                        Войти
+                    </button>
+                </div>
+
+            </div>
+
         </div>
-    `;
 
-    messagesEl.appendChild(row);
-
-    messagesEl.scrollTop =
-        messagesEl.scrollHeight;
-}
+    </section>
 
 
-function removeTyping(){
+    <!-- MAIN -->
 
-    const el =
-        document.getElementById("typing");
+    <section
+        id="mainScreen"
+        class="screen main-screen hidden"
+    >
 
-    if(el) el.remove();
-}
+        <header class="header">
 
+            <div>
+                <div class="header-title">
+                    Мои чаты
+                </div>
 
-/* =========================
-   AI ОТВЕТ
-========================= */
+                <div
+                    id="headerUser"
+                    class="header-subtitle"
+                >
+                    AVIA Messenger
+                </div>
+            </div>
 
-async function askAI(text){
+            <button
+                id="headerProfile"
+                class="profile-button"
+            >
+                <span id="headerAvatar">
+                    A
+                </span>
+            </button>
 
-    if(!engine){
-
-        addMessage(
-            "assistant",
-            "AVIA ещё загружает локальную нейросеть. Подожди немного и попробуй снова."
-        );
-
-        return;
-    }
-
-    showTyping();
-
-    try{
-
-        const result =
-            await engine.chat.completions.create({
-
-                messages: [
-
-                    {
-                        role:"system",
-                        content:
-                        `Ты — AVIA,
-умная дружелюбная нейросеть
-от Cats Developer Studio.
-
-Веди естественный диалог.
-Понимай контекст предыдущих сообщений.
-Отвечай на русском языке,
-если пользователь не попросил другой язык.
-
-Помогай с программированием,
-играми, математикой, учёбой,
-идеями, текстами, проектами,
-технологиями и повседневными вопросами.
-
-Не выдумывай факты.
-Если не знаешь — скажи честно.
-
-Отвечай понятно и по существу.`
-                    },
-
-                    ...conversation
-
-                ]
-
-            });
+        </header>
 
 
-        removeTyping();
+        <div class="search">
 
-        const answer =
-            result.choices?.[0]?.message?.content ||
-            "Не удалось получить ответ.";
+            <span>⌕</span>
 
-        addMessage(
-            "assistant",
-            answer
-        );
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Поиск чатов"
+            >
 
-        conversation.push({
-            role:"assistant",
-            content:answer
-        });
-
-    }catch(error){
-
-        removeTyping();
-
-        console.error(error);
-
-        addMessage(
-            "assistant",
-            "Произошла ошибка при работе локальной нейросети."
-        );
-    }
-}
+        </div>
 
 
-/* =========================
-   ОТПРАВКА
-========================= */
+        <main class="chat-list">
 
-async function sendMessage(){
+            <div class="section-label">
+                Важное
+            </div>
 
-    const text =
-        input.value.trim();
+            <!-- OFFICIAL -->
 
-    if(!text) return;
+            <button
+                id="officialChat"
+                class="chat-item official"
+            >
 
-    input.value="";
-    input.style.height="auto";
+                <div class="chat-avatar">
+                    ✦
+                </div>
 
-    addMessage(
-        "user",
-        text
-    );
+                <div class="chat-content">
 
-    conversation.push({
-        role:"user",
-        content:text
-    });
+                    <div class="chat-top">
 
-    send.disabled=true;
+                        <strong>
+                            Cats Developer Studio
+                        </strong>
 
-    await askAI(text);
+                        <span class="check">
+                            ✓
+                        </span>
 
-    send.disabled=false;
+                    </div>
 
-    input.focus();
-}
+                    <div class="chat-message">
+                        Новости и обновления AVIA
+                    </div>
 
+                </div>
 
-/* =========================
-   КНОПКА
-========================= */
+                <div class="chat-arrow">
+                    ›
+                </div>
 
-send.addEventListener(
-    "click",
-    sendMessage
-);
-
-
-/* =========================
-   ENTER
-========================= */
-
-input.addEventListener(
-    "keydown",
-    event => {
-
-        if(
-            event.key==="Enter" &&
-            !event.shiftKey
-        ){
-
-            event.preventDefault();
-
-            sendMessage();
-        }
-
-    }
-);
+            </button>
 
 
-/* =========================
-   РАЗМЕР TEXTAREA
-========================= */
+            <div class="section-label personal-label">
+                Чаты
+            </div>
 
-input.addEventListener(
-    "input",
-    () => {
+            <div
+                id="emptyChats"
+                class="empty"
+            >
 
-        input.style.height="auto";
+                <div class="empty-icon">
+                    +
+                </div>
 
-        input.style.height =
-            Math.min(
-                input.scrollHeight,
-                130
-            ) + "px";
+                <h2>
+                    Здесь пока пусто
+                </h2>
 
-    }
-);
+                <p>
+                    Начни общение — личные чаты
+                    появятся здесь.
+                </p>
 
-</script>
+            </div>
+
+        </main>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="bottom-nav">
+
+            <button
+                class="nav active"
+                id="chatsNav"
+            >
+                <span>▣</span>
+                <small>Чаты</small>
+            </button>
+
+            <button
+                class="nav"
+                id="peopleNav"
+            >
+                <span>◎</span>
+                <small>Люди</small>
+            </button>
+
+            <button
+                class="nav"
+                id="profileNav"
+            >
+                <span>◉</span>
+                <small>Профиль</small>
+            </button>
+
+        </nav>
+
+    </section>
+
+
+    <!-- CHANNEL -->
+
+    <section
+        id="channelScreen"
+        class="screen channel-screen hidden"
+    >
+
+        <header class="channel-header">
+
+            <button
+                id="backChannel"
+                class="back-button"
+            >
+                ‹
+            </button>
+
+            <div class="channel-logo">
+                ✦
+            </div>
+
+            <div class="channel-info">
+
+                <div class="channel-name">
+                    Cats Developer Studio
+                    <span class="check">✓</span>
+                </div>
+
+                <div class="channel-subtitle">
+                    Официальный канал разработчика
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <main
+            id="posts"
+            class="posts"
+        ></main>
+
+
+        <!-- ADMIN -->
+
+        <div
+            id="adminPanel"
+            class="admin-panel hidden"
+        >
+
+            <textarea
+                id="newsInput"
+                placeholder="Напиши новость или обновление..."
+            ></textarea>
+
+            <button
+                id="publishButton"
+                class="main-button"
+            >
+                Опубликовать
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section
+        id="profileScreen"
+        class="screen profile-screen hidden"
+    >
+
+        <header class="simple-header">
+
+            <button
+                id="backProfile"
+                class="back-button"
+            >
+                ‹
+            </button>
+
+            <h2>
+                Профиль
+            </h2>
+
+        </header>
+
+
+        <main class="profile-body">
+
+            <div
+                id="profileAvatar"
+                class="large-avatar"
+            >
+                A
+            </div>
+
+            <h1 id="profileName">
+                Пользователь
+            </h1>
+
+            <p id="profileUsername">
+                @username
+            </p>
+
+
+            <div class="info-card">
+
+                <div class="info-row">
+
+                    <span>
+                        Email
+                    </span>
+
+                    <strong id="profileEmail">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="info-row">
+
+                    <span>
+                        Статус
+                    </span>
+
+                    <strong class="online">
+                        Активен
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="logoutButton"
+                class="logout"
+            >
+                Выйти из аккаунта
+            </button>
+
+        </main>
+
+    </section>
+
+</div>
+
+<script src="app.js"></script>
 
 </body>
 </html>
