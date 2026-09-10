@@ -3,205 +3,171 @@ import OpenAI from "openai";
 import path from "path";
 import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const __filename =
-    fileURLToPath(import.meta.url);
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-const __dirname =
-    path.dirname(__filename);
-
-
-/* ================================
-   OPENAI
-================================ */
-
-const client = new OpenAI({
+const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
+app.use(express.json({ limit: "4mb" }));
+app.use(express.static(__dirname));
 
-/* ================================
-   SERVER
-================================ */
+app.get("/api/health", (req, res) => {
+    res.json({
+        ok: true,
+        service: "AVIA"
+    });
+});
 
-const app =
-    express();
+app.post("/api/chat", async (req, res) => {
+    try {
+        const incoming = Array.isArray(req.body.messages)
+            ? req.body.messages
+            : [];
 
-const PORT =
-    process.env.PORT || 3000;
-
-
-app.use(
-    express.json({
-        limit:"2mb"
-    })
-);
-
-
-app.use(
-    express.static(__dirname)
-);
-
-
-/* ================================
-   ПРОВЕРКА
-================================ */
-
-app.get(
-    "/api/health",
-    (req,res)=>{
-
-        res.json({
-            ok:true,
-            name:"AVIA",
-            studio:"Cats Developer Studio"
-        });
-
-    }
-);
-
-
-/* ================================
-   CHAT
-================================ */
-
-app.post(
-    "/api/chat",
-    async (req,res)=>{
-
-        try{
-
-            const messages =
-                Array.isArray(req.body.messages)
-                    ? req.body.messages
-                    : [];
-
-
-            if(messages.length === 0){
-
-                return res
-                    .status(400)
-                    .json({
-                        error:
-                            "Сообщение пустое."
-                    });
-
-            }
-
-
-            /* Ограничиваем историю,
-               чтобы запросы не разрастались
-               бесконечно */
-
-            const safeMessages =
-                messages
-                    .slice(-30)
-                    .map(message => ({
-
-                        role:
-                            message.role === "assistant"
-                                ? "assistant"
-                                : "user",
-
-                        content:
-                            String(
-                                message.content || ""
-                            ).slice(0,8000)
-
-                    }));
-
-
-            const response =
-                await client.responses.create({
-
-                    model:"gpt-5.6-luna",
-
-                    instructions:`
-
-Ты — AVIA, умная нейросеть
-от Cats Developer Studio.
-
-Отвечай пользователю на русском языке,
-если пользователь не попросил другой язык.
-
-Твоя задача — помогать пользователю:
-отвечать на вопросы,
-объяснять сложные темы простыми словами,
-помогать с программированием,
-математикой,
-идеями,
-текстами,
-обучением,
-планированием и другими задачами.
-
-Отвечай естественно и дружелюбно.
-
-Не говори, что ты ChatGPT.
-Представляйся AVIA.
-
-Если вопрос требует актуальной информации,
-не выдумывай факты.
-
-Если не уверен в ответе,
-честно скажи об этом.
-
-Пиши структурировано,
-но не делай огромные ответы,
-если пользователь не просит подробно.
-
-`,
-
-                    input:
-                        safeMessages
-
-                });
-
-
-            const answer =
-                response.output_text;
-
-
-            res.json({
-
-                answer:
-                    answer ||
-                    "Не удалось получить ответ."
-
+        if (!incoming.length) {
+            return res.status(400).json({
+                error: "Сообщение не найдено."
             });
-
-
-        }catch(error){
-
-            console.error(
-                "AVIA API ERROR:",
-                error
-            );
-
-
-            res
-                .status(500)
-                .json({
-
-                    error:
-                        "Ошибка подключения к нейросети."
-
-                });
-
         }
 
+        // Берём последние сообщения,
+        // чтобы сохранять контекст диалога.
+        const messages = incoming
+            .slice(-50)
+            .map((message) => ({
+                role:
+                    message.role === "assistant"
+                        ? "assistant"
+                        : "user",
+
+                content: String(
+                    message.content || ""
+                ).slice(0, 12000)
+            }));
+
+        const response = await openai.responses.create({
+            model: "gpt-5.6-luna",
+
+            instructions: `
+Ты — AVIA, универсальная AI-нейросеть
+от Cats Developer Studio.
+
+Ты ведёшь естественный многоходовой диалог
+с пользователем.
+
+Твоя задача — помогать практически с любыми
+обычными темами и задачами:
+
+• общение и повседневные вопросы;
+• игры;
+• программирование;
+• создание сайтов;
+• разработка приложений;
+• разработка игр;
+• математика;
+• физика;
+• история;
+• наука;
+• технологии;
+• обучение;
+• тексты;
+• идеи;
+• творчество;
+• планирование;
+• объяснение сложных вещей;
+• анализ предоставленного пользователем текста;
+• поиск ошибок в коде;
+• помощь с проектами.
+
+ОБЯЗАТЕЛЬНО УЧИТЫВАЙ КОНТЕКСТ.
+
+Если пользователь говорит:
+"а почему?",
+"а дальше?",
+"сделай это",
+"а если наоборот?",
+"я имел в виду другое",
+то смотри на предыдущие сообщения
+и понимай, о чём идёт речь.
+
+Не относись к каждому сообщению
+как к новому отдельному разговору.
+
+Если пользователь меняет тему —
+спокойно переключайся на новую тему.
+
+Отвечай на языке пользователя.
+Если пользователь пишет на русском —
+отвечай на русском.
+
+Не повторяй своё имя в каждом сообщении.
+
+Не начинай каждый ответ одинаково.
+
+Пиши естественно, как хороший собеседник.
+
+Если пользователь просит объяснить —
+объясняй понятно.
+
+Если просит код —
+давай полноценный код, когда это возможно,
+и объясняй, куда его поставить.
+
+Если пользователь просит изменить существующий
+проект — учитывай предоставленный контекст.
+
+Если вопрос требует актуальных данных,
+не придумывай их.
+
+Если у тебя нет нужной информации,
+скажи об этом честно.
+
+Не утверждай, что сделал действие,
+которого на самом деле не выполнял.
+
+Главная цель AVIA —
+полезный, понятный и естественный диалог.
+`,
+
+            input: messages
+        });
+
+        const answer =
+            response.output_text?.trim();
+
+        if (!answer) {
+            return res.status(500).json({
+                error: "Модель не вернула ответ."
+            });
+        }
+
+        res.json({
+            answer
+        });
+
+    } catch (error) {
+
+        console.error("AVIA ERROR:");
+        console.error(error);
+
+        res.status(500).json({
+            error:
+                "Ошибка соединения с AI. Проверь API-ключ и сервер."
+        });
     }
-);
+});
 
-
-/* ================================
-   START
-================================ */
-
-app.listen(
-    PORT,
-    ()=>{
-        console.log(
-            `AVIA запущена: http://localhost:${PORT}`
-        );
-    }
-);
+app.listen(PORT, () => {
+    console.log("");
+    console.log("╔══════════════════════════════╗");
+    console.log("║          AVIA AI             ║");
+    console.log("║    Cats Developer Studio     ║");
+    console.log("╚══════════════════════════════╝");
+    console.log("");
+    console.log(`AVIA: http://localhost:${PORT}`);
+});
