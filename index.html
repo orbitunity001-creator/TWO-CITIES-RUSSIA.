@@ -1030,3 +1030,80 @@ const loadingTimer = setInterval(() => {
 
 </body>
 </html>
+<script>
+
+let conversation = [];
+
+async function sendMessage(text) {
+
+    text = text.trim();
+
+    if (!text) return;
+
+    addMessage("user", text);
+
+    conversation.push({
+        role: "user",
+        content: text
+    });
+
+    showTyping();
+
+    try {
+
+        const response = await fetch(
+            "/api/chat",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    messages: conversation
+                })
+            }
+        );
+
+        const data =
+            await response.json();
+
+        removeTyping();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error ||
+                "Ошибка сервера"
+            );
+        }
+
+        const answer =
+            data.answer ||
+            "Я не смогла ответить.";
+
+        addMessage(
+            "assistant",
+            answer
+        );
+
+        conversation.push({
+            role: "assistant",
+            content: answer
+        });
+
+    } catch (error) {
+
+        removeTyping();
+
+        addMessage(
+            "assistant",
+            "Не удалось получить ответ.\n\n" +
+            error.message
+        );
+
+    }
+}
+
+</script>
