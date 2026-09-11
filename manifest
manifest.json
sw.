@@ -1,13 +1,13 @@
 {
-    "name": "WINGO Messenger",
-    "short_name": "WINGO",
-    "description": "Красивый современный мессенджер WINGO",
+    "name": "Nexgram Messenger",
+    "short_name": "Nexgram",
+    "description": "Современный мессенджер Nexgram",
     "start_url": "./",
     "scope": "./",
     "display": "standalone",
     "orientation": "portrait",
-    "background_color": "#dff3ff",
-    "theme_color": "#1688ff",
+    "background_color": "#e8f4ff",
+    "theme_color": "#1677e8",
     "lang": "ru",
     "categories": [
         "social",
