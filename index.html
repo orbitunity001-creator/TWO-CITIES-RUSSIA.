@@ -1,445 +1,529 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-    <meta name="theme-color" content="#1688ff">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1677e8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json">
 
-    <title>WINGO Messenger</title>
+<title>Nexgram</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
 
-        html,
-        body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #dff3ff;
-            color: #10243e;
-        }
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#e8f4ff;
+    color:#142b44;
+}
 
-        body {
-            overflow: hidden;
-        }
+body{
+    overflow:hidden;
+}
 
-        .app {
-            width: 100%;
-            height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            background:
-                radial-gradient(circle at 100% 0%, #b8e7ff 0, transparent 35%),
-                radial-gradient(circle at 0% 100%, #ccecff 0, transparent 40%),
-                linear-gradient(145deg, #eefaff, #d8f2ff);
-        }
+.app{
+    height:100dvh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
 
-        /* ===== TOP ===== */
+    background:
+        radial-gradient(circle at 100% 0%,#b9e3ff 0,transparent 35%),
+        radial-gradient(circle at 0% 100%,#d2edff 0,transparent 40%),
+        linear-gradient(145deg,#f1faff,#dcefff);
+}
 
-        .top {
-            padding: 12px 14px 10px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+/* HEADER */
 
-        .brand {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            align-items: center;
-            gap: 11px;
-        }
+.header{
+    padding:13px 14px 10px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
 
-        .logo {
-            width: 52px;
-            height: 52px;
-            flex: 0 0 52px;
-            border-radius: 17px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
+.logo{
+    width:53px;
+    height:53px;
+    flex:0 0 53px;
+    border-radius:17px;
 
-            background:
-                linear-gradient(145deg, #24a5ff, #0869df);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-            box-shadow:
-                0 9px 25px rgba(13, 115, 225, .28);
-        }
+    background:linear-gradient(145deg,#20a0ff,#0866d8);
 
-        .logo::before {
-            content: "";
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(255,255,255,.13);
-            top: -40px;
-            right: -30px;
-        }
+    box-shadow:
+        0 9px 25px rgba(10,112,220,.28);
 
-        .bird {
-            position: relative;
-            z-index: 2;
-            font-size: 30px;
-            filter:
-                drop-shadow(0 4px 5px rgba(0,0,0,.16));
-        }
+    position:relative;
+    overflow:hidden;
+}
 
-        .brand-title {
-            font-size: 21px;
-            font-weight: 900;
-            letter-spacing: -.5px;
-        }
+.logo::after{
+    content:"";
+    position:absolute;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:rgba(255,255,255,.13);
+    top:-34px;
+    right:-27px;
+}
 
-        .brand-subtitle {
-            margin-top: 2px;
-            font-size: 12px;
-            color: #62819e;
-            font-weight: 600;
-        }
+/* Оригинальный символ Nexgram */
+.nex-symbol{
+    position:relative;
+    width:29px;
+    height:29px;
+    z-index:2;
+}
 
-        /* ===== INSTALL ===== */
+.nex-symbol::before{
+    content:"";
+    position:absolute;
+    width:23px;
+    height:15px;
+    border:5px solid white;
+    border-radius:15px 15px 5px 15px;
+    transform:rotate(-35deg);
+    top:4px;
+    left:1px;
+}
 
-        #installButton {
-            display: none;
-            border: 0;
-            color: white;
-            background: linear-gradient(135deg, #178eff, #0869df);
-            border-radius: 15px;
-            padding: 12px 14px;
-            font-size: 13px;
-            font-weight: 800;
-            box-shadow: 0 7px 18px rgba(16, 119, 230, .25);
-            cursor: pointer;
-        }
+.nex-symbol::after{
+    content:"";
+    position:absolute;
+    width:9px;
+    height:9px;
+    background:white;
+    border-radius:50%;
+    right:1px;
+    bottom:2px;
+}
 
-        #installButton:active {
-            transform: scale(.96);
-        }
+.brand{
+    flex:1;
+    min-width:0;
+}
 
-        /* ===== SEARCH ===== */
+.brand-name{
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:-.5px;
+}
 
-        .search {
-            margin: 2px 14px 13px;
-            height: 48px;
-            border-radius: 17px;
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            gap: 10px;
+.brand-status{
+    margin-top:3px;
+    font-size:12px;
+    font-weight:600;
+    color:#66839d;
+}
 
-            background: rgba(255,255,255,.76);
-            border: 1px solid rgba(255,255,255,.9);
+/* INSTALL */
 
-            box-shadow:
-                0 8px 24px rgba(35, 121, 170, .08);
-        }
+#installBtn{
+    display:none;
 
-        .search-icon {
-            font-size: 18px;
-        }
+    border:0;
+    outline:0;
 
-        .search input {
-            border: 0;
-            outline: 0;
-            background: transparent;
-            width: 100%;
-            font-size: 15px;
-            color: #163451;
-        }
+    padding:12px 14px;
+    border-radius:15px;
 
-        .search input::placeholder {
-            color: #7892a8;
-        }
+    color:white;
+    background:linear-gradient(135deg,#168eff,#0868da);
 
-        /* ===== CONTENT ===== */
+    font-size:13px;
+    font-weight:900;
 
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0 14px 100px;
-        }
+    box-shadow:0 7px 18px rgba(9,112,222,.25);
 
-        .section-title {
-            font-size: 14px;
-            font-weight: 900;
-            color: #66849e;
-            margin: 5px 4px 10px;
-        }
+    cursor:pointer;
+}
 
-        .chat {
-            width: 100%;
-            border: 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-align: left;
-            padding: 13px;
-            margin-bottom: 9px;
-            border-radius: 20px;
-            background: rgba(255,255,255,.82);
-            box-shadow: 0 8px 25px rgba(42, 119, 160, .09);
-            cursor: pointer;
-        }
+#installBtn:active{
+    transform:scale(.95);
+}
 
-        .chat:active {
-            transform: scale(.985);
-        }
+/* SEARCH */
 
-        .chat-avatar {
-            width: 54px;
-            height: 54px;
-            flex: 0 0 54px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 26px;
-            background: linear-gradient(145deg, #18a3ff, #0768dc);
-            box-shadow: 0 6px 16px rgba(8, 111, 221, .22);
-        }
+.search{
+    margin:2px 14px 12px;
+    height:48px;
 
-        .chat-info {
-            min-width: 0;
-            flex: 1;
-        }
+    display:flex;
+    align-items:center;
+    gap:10px;
 
-        .chat-name {
-            font-weight: 900;
-            font-size: 16px;
-        }
+    padding:0 16px;
 
-        .chat-message {
-            margin-top: 4px;
-            font-size: 13px;
-            color: #718aa0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    border-radius:17px;
 
-        .chat-time {
-            align-self: flex-start;
-            font-size: 11px;
-            color: #7b95a9;
-        }
+    background:rgba(255,255,255,.78);
 
-        .verified {
-            color: #1389f8;
-        }
+    border:1px solid rgba(255,255,255,.9);
 
-        /* ===== BOTTOM ===== */
+    box-shadow:0 7px 24px rgba(35,120,170,.08);
+}
 
-        .bottom {
-            position: fixed;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            height: 70px;
-            border-radius: 25px;
+.search-icon{
+    font-size:20px;
+    color:#4e7a9d;
+}
 
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+.search input{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
 
-            background: rgba(255,255,255,.88);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+    font-size:15px;
+    color:#17334e;
+}
 
-            box-shadow:
-                0 12px 35px rgba(34, 113, 151, .16);
-        }
+.search input::placeholder{
+    color:#7893a9;
+}
 
-        .nav {
-            border: 0;
-            background: transparent;
-            min-width: 70px;
-            padding: 7px 10px;
-            border-radius: 17px;
-            color: #7690a5;
-            cursor: pointer;
-        }
+/* CONTENT */
 
-        .nav.active {
-            background: #e0f2ff;
-            color: #087cf0;
-        }
+.content{
+    flex:1;
+    overflow-y:auto;
+    padding:0 14px 100px;
+}
 
-        .nav-icon {
-            display: block;
-            font-size: 21px;
-        }
+.section{
+    margin:5px 4px 10px;
 
-        .nav-text {
-            display: block;
-            margin-top: 3px;
-            font-size: 10px;
-            font-weight: 800;
-        }
+    font-size:13px;
+    font-weight:900;
 
-        /* ===== PROFILE ===== */
+    color:#68849b;
+}
 
-        .profile {
-            display: none;
-            padding: 10px 14px 100px;
-        }
+.chat{
+    width:100%;
 
-        .profile-card {
-            background: rgba(255,255,255,.85);
-            border-radius: 24px;
-            padding: 24px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(35, 121, 170, .1);
-        }
+    border:0;
 
-        .profile-avatar {
-            width: 82px;
-            height: 82px;
-            margin: auto;
-            border-radius: 27px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-            color: white;
-            background: linear-gradient(145deg,#1ca7ff,#0869df);
-        }
+    display:flex;
+    align-items:center;
 
-        .profile-name {
-            margin-top: 13px;
-            font-size: 21px;
-            font-weight: 900;
-        }
+    gap:12px;
 
-        .profile-text {
-            margin-top: 5px;
-            color: #7590a5;
-            font-size: 13px;
-        }
+    padding:13px;
 
-        /* ===== EMPTY ===== */
+    margin-bottom:9px;
 
-        .empty {
-            text-align: center;
-            padding: 45px 20px;
-            color: #7590a5;
-        }
+    border-radius:20px;
 
-        .empty-icon {
-            font-size: 45px;
-            margin-bottom: 12px;
-        }
+    background:rgba(255,255,255,.84);
 
-        .empty-title {
-            color: #24425e;
-            font-weight: 900;
-            font-size: 17px;
-        }
+    box-shadow:
+        0 8px 25px rgba(39,117,158,.09);
 
-        .empty-text {
-            margin-top: 7px;
-            font-size: 13px;
-            line-height: 1.5;
-        }
+    text-align:left;
 
-        @media (max-width: 430px) {
-            .brand-title {
-                font-size: 19px;
-            }
+    cursor:pointer;
+}
 
-            #installButton {
-                padding: 11px 10px;
-                font-size: 12px;
-            }
+.chat:active{
+    transform:scale(.985);
+}
 
-            .logo {
-                width: 49px;
-                height: 49px;
-                flex-basis: 49px;
-            }
-        }
-    </style>
+.chat-avatar{
+    width:55px;
+    height:55px;
+    flex:0 0 55px;
+
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:linear-gradient(145deg,#20a0ff,#0866d8);
+
+    box-shadow:0 7px 17px rgba(8,105,215,.23);
+}
+
+.mini-symbol{
+    position:relative;
+    width:25px;
+    height:25px;
+}
+
+.mini-symbol::before{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:13px;
+    border:4px solid white;
+    border-radius:14px 14px 4px 14px;
+    transform:rotate(-35deg);
+    top:4px;
+    left:1px;
+}
+
+.mini-symbol::after{
+    content:"";
+    position:absolute;
+    width:7px;
+    height:7px;
+    background:white;
+    border-radius:50%;
+    right:1px;
+    bottom:2px;
+}
+
+.chat-info{
+    min-width:0;
+    flex:1;
+}
+
+.chat-name{
+    font-size:16px;
+    font-weight:900;
+}
+
+.verify{
+    color:#168af5;
+}
+
+.chat-text{
+    margin-top:4px;
+
+    font-size:13px;
+    color:#718ba1;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.chat-time{
+    align-self:flex-start;
+    font-size:11px;
+    color:#7991a5;
+}
+
+/* EMPTY */
+
+.empty{
+    padding:45px 20px;
+    text-align:center;
+    color:#718ca2;
+}
+
+.empty-icon{
+    font-size:45px;
+    margin-bottom:12px;
+}
+
+.empty-title{
+    font-size:17px;
+    font-weight:900;
+    color:#28445e;
+}
+
+.empty-text{
+    margin-top:7px;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* PROFILE */
+
+.profile{
+    display:none;
+    padding:15px 14px 100px;
+}
+
+.profile-card{
+    background:rgba(255,255,255,.85);
+    border-radius:25px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(40,120,160,.1);
+}
+
+.profile-logo{
+    width:85px;
+    height:85px;
+    margin:auto;
+
+    border-radius:28px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:linear-gradient(145deg,#20a0ff,#0866d8);
+}
+
+.profile-name{
+    margin-top:14px;
+    font-size:21px;
+    font-weight:900;
+}
+
+.profile-info{
+    margin-top:5px;
+    color:#7791a6;
+    font-size:13px;
+}
+
+/* BOTTOM */
+
+.bottom{
+    position:fixed;
+
+    left:10px;
+    right:10px;
+    bottom:10px;
+
+    height:70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.9);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 12px 35px rgba(34,113,151,.16);
+}
+
+.nav{
+    border:0;
+    background:transparent;
+
+    min-width:70px;
+
+    padding:7px 10px;
+
+    border-radius:17px;
+
+    color:#7892a7;
+
+    cursor:pointer;
+}
+
+.nav.active{
+    background:#e0f2ff;
+    color:#087cf0;
+}
+
+.nav-icon{
+    display:block;
+    font-size:21px;
+}
+
+.nav-text{
+    display:block;
+    margin-top:3px;
+    font-size:10px;
+    font-weight:800;
+}
+
+@media(max-width:430px){
+
+    .brand-name{
+        font-size:19px;
+    }
+
+    #installBtn{
+        padding:11px 10px;
+        font-size:12px;
+    }
+
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-    <header class="top">
+    <header class="header">
+
+        <div class="logo">
+            <div class="nex-symbol"></div>
+        </div>
 
         <div class="brand">
 
-            <div class="logo">
-                <div class="bird">🪽</div>
+            <div class="brand-name">
+                Nexgram
             </div>
 
-            <div>
-                <div class="brand-title">
-                    WINGO
-                </div>
-
-                <div class="brand-subtitle">
-                    Messenger
-                </div>
+            <div class="brand-status">
+                Messenger
             </div>
 
         </div>
 
-        <button id="installButton">
+        <button id="installBtn">
             Установить
         </button>
 
     </header>
 
 
-    <main class="content" id="chatsScreen">
+    <main class="content" id="chats">
 
         <div class="search">
+
             <span class="search-icon">⌕</span>
 
             <input
-                id="searchInput"
+                id="search"
                 type="text"
-                placeholder="Поиск чатов"
+                placeholder="Поиск"
                 autocomplete="off"
             >
+
         </div>
 
 
-        <div class="section-title">
-            Мои чаты
+        <div class="section">
+            Чаты
         </div>
 
 
         <button class="chat">
 
             <div class="chat-avatar">
-                🪽
+                <div class="mini-symbol"></div>
             </div>
 
             <div class="chat-info">
 
                 <div class="chat-name">
-                    WINGO News
-                    <span class="verified">✓</span>
+                    Nexgram News
+                    <span class="verify">✓</span>
                 </div>
 
-                <div class="chat-message">
-                    Новости и обновления WINGO
+                <div class="chat-text">
+                    Новости и обновления Nexgram
                 </div>
 
             </div>
@@ -458,11 +542,11 @@
             </div>
 
             <div class="empty-title">
-                Здесь появятся ваши чаты
+                Начните общение
             </div>
 
             <div class="empty-text">
-                Найдите человека или создайте новый чат.
+                Ваши личные чаты и группы появятся здесь.
             </div>
 
         </div>
@@ -470,20 +554,20 @@
     </main>
 
 
-    <section class="profile" id="profileScreen">
+    <section class="profile" id="profile">
 
         <div class="profile-card">
 
-            <div class="profile-avatar">
-                🪽
+            <div class="profile-logo">
+                <div class="nex-symbol"></div>
             </div>
 
             <div class="profile-name">
-                WINGO User
+                Nexgram User
             </div>
 
-            <div class="profile-text">
-                Ваш профиль WINGO
+            <div class="profile-info">
+                Ваш профиль Nexgram
             </div>
 
         </div>
@@ -493,7 +577,7 @@
 
     <nav class="bottom">
 
-        <button class="nav active" id="chatsNav">
+        <button class="nav active" id="chatNav">
 
             <span class="nav-icon">💬</span>
             <span class="nav-text">Чаты</span>
@@ -514,162 +598,158 @@
 
 
 <script>
-    let deferredPrompt = null;
 
-    const installButton =
-        document.getElementById("installButton");
+/* =========================================
+   PWA INSTALL
+========================================= */
 
-    /*
-     * Chrome сообщает, что приложение можно установить.
-     */
+let deferredPrompt = null;
+
+const installBtn =
+    document.getElementById("installBtn");
+
+
+window.addEventListener(
+    "beforeinstallprompt",
+    event => {
+
+        event.preventDefault();
+
+        deferredPrompt = event;
+
+        installBtn.style.display = "block";
+    }
+);
+
+
+installBtn.addEventListener(
+    "click",
+    async () => {
+
+        if (!deferredPrompt) {
+
+            alert(
+                "Установка пока недоступна. Откройте Nexgram в Chrome через HTTPS."
+            );
+
+            return;
+        }
+
+        deferredPrompt.prompt();
+
+        const result =
+            await deferredPrompt.userChoice;
+
+        if(result.outcome === "accepted"){
+            installBtn.style.display = "none";
+        }
+
+        deferredPrompt = null;
+    }
+);
+
+
+window.addEventListener(
+    "appinstalled",
+    () => {
+        installBtn.style.display = "none";
+    }
+);
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+const chats =
+    document.getElementById("chats");
+
+const profile =
+    document.getElementById("profile");
+
+const chatNav =
+    document.getElementById("chatNav");
+
+const profileNav =
+    document.getElementById("profileNav");
+
+
+chatNav.onclick = () => {
+
+    chats.style.display = "block";
+    profile.style.display = "none";
+
+    chatNav.classList.add("active");
+    profileNav.classList.remove("active");
+};
+
+
+profileNav.onclick = () => {
+
+    chats.style.display = "none";
+    profile.style.display = "block";
+
+    profileNav.classList.add("active");
+    chatNav.classList.remove("active");
+};
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+const search =
+    document.getElementById("search");
+
+const mainChat =
+    document.querySelector(".chat");
+
+
+search.addEventListener(
+    "input",
+    () => {
+
+        const value =
+            search.value
+                .toLowerCase()
+                .trim();
+
+        const text =
+            mainChat.innerText.toLowerCase();
+
+        mainChat.style.display =
+            !value || text.includes(value)
+                ? "flex"
+                : "none";
+    }
+);
+
+
+/* =========================================
+   SERVICE WORKER
+========================================= */
+
+if("serviceWorker" in navigator){
 
     window.addEventListener(
-        "beforeinstallprompt",
-        event => {
+        "load",
+        () => {
 
-            event.preventDefault();
-
-            deferredPrompt = event;
-
-            installButton.style.display = "block";
-        }
-    );
-
-
-    /*
-     * Настоящая установка PWA.
-     */
-
-    installButton.addEventListener(
-        "click",
-        async () => {
-
-            if (!deferredPrompt) {
-
-                alert(
-                    "Если кнопка установки не появилась, откройте WINGO через Chrome и убедитесь, что сайт работает по HTTPS."
+            navigator.serviceWorker
+                .register("./sw.js")
+                .catch(
+                    error =>
+                        console.log(
+                            "Service Worker:",
+                            error
+                        )
                 );
 
-                return;
-            }
-
-            deferredPrompt.prompt();
-
-            const result =
-                await deferredPrompt.userChoice;
-
-            if (result.outcome === "accepted") {
-                installButton.style.display = "none";
-            }
-
-            deferredPrompt = null;
         }
     );
 
+}
 
-    /*
-     * После установки прячем кнопку.
-     */
-
-    window.addEventListener(
-        "appinstalled",
-        () => {
-            installButton.style.display = "none";
-        }
-    );
-
-
-    /*
-     * Навигация.
-     */
-
-    const chatsScreen =
-        document.getElementById("chatsScreen");
-
-    const profileScreen =
-        document.getElementById("profileScreen");
-
-    const chatsNav =
-        document.getElementById("chatsNav");
-
-    const profileNav =
-        document.getElementById("profileNav");
-
-
-    chatsNav.onclick = () => {
-
-        chatsScreen.style.display = "block";
-        profileScreen.style.display = "none";
-
-        chatsNav.classList.add("active");
-        profileNav.classList.remove("active");
-    };
-
-
-    profileNav.onclick = () => {
-
-        chatsScreen.style.display = "none";
-        profileScreen.style.display = "block";
-
-        profileNav.classList.add("active");
-        chatsNav.classList.remove("active");
-    };
-
-
-    /*
-     * Поиск.
-     */
-
-    const searchInput =
-        document.getElementById("searchInput");
-
-    const mainChat =
-        document.querySelector(".chat");
-
-
-    searchInput.addEventListener(
-        "input",
-        () => {
-
-            const value =
-                searchInput.value
-                    .toLowerCase()
-                    .trim();
-
-            const text =
-                mainChat.innerText.toLowerCase();
-
-            mainChat.style.display =
-                !value || text.includes(value)
-                    ? "flex"
-                    : "none";
-        }
-    );
-
-
-    /*
-     * Service Worker.
-     */
-
-    if ("serviceWorker" in navigator) {
-
-        window.addEventListener(
-            "load",
-            () => {
-
-                navigator.serviceWorker
-                    .register("./sw.js")
-                    .catch(error => {
-                        console.log(
-                            "SW error:",
-                            error
-                        );
-                    });
-
-            }
-        );
-
-    }
 </script>
 
 </body>
