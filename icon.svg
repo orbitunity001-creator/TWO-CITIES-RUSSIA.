@@ -1,475 +1,206 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 
 <defs>
-
-    <!-- Фон -->
-    <radialGradient id="bg" cx="35%" cy="25%">
-        <stop offset="0%" stop-color="#42baff"/>
-        <stop offset="45%" stop-color="#1689ee"/>
-        <stop offset="100%" stop-color="#034baf"/>
+    <radialGradient id="b" cx="35%" cy="25%">
+        <stop offset="0" stop-color="#45bdff"/>
+        <stop offset="0.5" stop-color="#1189ed"/>
+        <stop offset="1" stop-color="#034da8"/>
     </radialGradient>
 
-    <!-- Шерсть -->
-    <radialGradient id="fur" cx="35%" cy="25%">
-        <stop offset="0%" stop-color="#fff4dc"/>
-        <stop offset="35%" stop-color="#e9d3b2"/>
-        <stop offset="70%" stop-color="#a98f78"/>
-        <stop offset="100%" stop-color="#66584e"/>
+    <radialGradient id="f" cx="35%" cy="25%">
+        <stop offset="0" stop-color="#fff2d7"/>
+        <stop offset=".4" stop-color="#e7cba5"/>
+        <stop offset="1" stop-color="#806c5b"/>
     </radialGradient>
 
-    <!-- Светлая мордочка -->
-    <radialGradient id="face">
-        <stop offset="0%" stop-color="#fff9ee"/>
-        <stop offset="100%" stop-color="#dfc6a4"/>
-    </radialGradient>
-
-    <!-- Золото -->
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#fff4a3"/>
-        <stop offset="25%" stop-color="#ffd94d"/>
-        <stop offset="60%" stop-color="#eaa21c"/>
-        <stop offset="100%" stop-color="#9c5900"/>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff3a0"/>
+        <stop offset=".4" stop-color="#ffd33d"/>
+        <stop offset="1" stop-color="#d88300"/>
     </linearGradient>
-
-    <!-- Глаза -->
-    <radialGradient id="eye">
-        <stop offset="0%" stop-color="#baf2ff"/>
-        <stop offset="35%" stop-color="#28c0ff"/>
-        <stop offset="75%" stop-color="#087bdc"/>
-        <stop offset="100%" stop-color="#034c9b"/>
-    </radialGradient>
-
-    <filter id="shadow"
-            x="-30%"
-            y="-30%"
-            width="160%"
-            height="160%">
-
-        <feDropShadow
-            dx="0"
-            dy="12"
-            stdDeviation="10"
-            flood-color="#001b48"
-            flood-opacity=".45"/>
-
-    </filter>
-
-    <filter id="glow">
-
-        <feGaussianBlur
-            stdDeviation="16"/>
-
-    </filter>
-
-    <clipPath id="circle">
-        <circle
-            cx="256"
-            cy="256"
-            r="246"/>
-    </clipPath>
-
 </defs>
 
+<!-- КРУГ -->
+<circle cx="256" cy="256" r="250" fill="url(#b)"/>
 
-<!-- КРУГЛЫЙ ФОН -->
-
+<!-- СВЕЧЕНИЕ -->
 <circle
-    cx="256"
-    cy="256"
-    r="246"
-    fill="url(#bg)"/>
-
-
-<!-- МЯГКОЕ СВЕЧЕНИЕ -->
-
-<circle
-    cx="130"
+    cx="150"
     cy="100"
-    r="115"
-    fill="#ffffff"
-    opacity=".12"
-    filter="url(#glow)"/>
-
-
-<!-- ВСЁ ВНУТРИ КРУГА -->
-
-<g clip-path="url(#circle)"
-   filter="url(#shadow)">
-
-
-    <!-- ПЛАЩ -->
-
-    <path
-        d="
-        M75 525
-        Q95 390 155 350
-        Q205 320 256 322
-        Q307 320 357 350
-        Q417 390 437 525
-        Z"
-        fill="#071a45"/>
-
-
-    <path
-        d="
-        M105 525
-        Q135 405 190 367
-        Q225 344 256 345
-        Q287 344 322 367
-        Q377 405 407 525
-        Z"
-        fill="#0c2d6b"/>
-
-
-    <!-- ЛЕВОЕ УХО -->
-
-    <path
-        d="
-        M122 210
-        Q112 92 164 48
-        Q218 88 228 177
-        Z"
-        fill="url(#fur)"/>
-
-
-    <!-- ПРАВОЕ УХО -->
-
-    <path
-        d="
-        M390 210
-        Q400 92 348 48
-        Q294 88 284 177
-        Z"
-        fill="url(#fur)"/>
-
-
-    <!-- ВНУТРИ УШЕЙ -->
-
-    <path
-        d="
-        M139 155
-        Q138 103 164 78
-        Q193 108 201 156
-        Z"
-        fill="#d7959a"
-        opacity=".8"/>
-
-
-    <path
-        d="
-        M373 155
-        Q374 103 348 78
-        Q319 108 311 156
-        Z"
-        fill="#d7959a"
-        opacity=".8"/>
-
-
-    <!-- ГОЛОВА -->
-
-    <ellipse
-        cx="256"
-        cy="248"
-        rx="142"
-        ry="143"
-        fill="url(#fur)"/>
-
-
-    <!-- ПУШИСТЫЕ БОКОВЫЕ ЩЁКИ -->
-
-    <path
-        d="
-        M128 252
-        Q93 275 121 292
-        Q96 311 134 317
-        Q119 341 158 338
-        "
-        fill="none"
-        stroke="#b69c82"
-        stroke-width="23"
-        stroke-linecap="round"/>
-
-
-    <path
-        d="
-        M384 252
-        Q419 275 391 292
-        Q416 311 378 317
-        Q393 341 354 338
-        "
-        fill="none"
-        stroke="#b69c82"
-        stroke-width="23"
-        stroke-linecap="round"/>
-
-
-    <!-- ЛЕВЫЙ ГЛАЗ -->
-
-    <ellipse
-        cx="201"
-        cy="245"
-        rx="35"
-        ry="43"
-        fill="url(#eye)"
-        stroke="#162b43"
-        stroke-width="5"/>
-
-
-    <!-- ПРАВЫЙ ГЛАЗ -->
-
-    <ellipse
-        cx="311"
-        cy="245"
-        rx="35"
-        ry="43"
-        fill="url(#eye)"
-        stroke="#162b43"
-        stroke-width="5"/>
-
-
-    <!-- ЗРАЧКИ -->
-
-    <ellipse
-        cx="201"
-        cy="248"
-        rx="9"
-        ry="30"
-        fill="#06101e"/>
-
-
-    <ellipse
-        cx="311"
-        cy="248"
-        rx="9"
-        ry="30"
-        fill="#06101e"/>
-
-
-    <!-- БЛИКИ -->
-
-    <ellipse
-        cx="189"
-        cy="230"
-        rx="9"
-        ry="12"
-        fill="#ffffff"/>
-
-
-    <ellipse
-        cx="299"
-        cy="230"
-        rx="9"
-        ry="12"
-        fill="#ffffff"/>
-
-
-    <circle
-        cx="211"
-        cy="263"
-        r="4"
-        fill="#ffffff"
-        opacity=".7"/>
-
-
-    <circle
-        cx="321"
-        cy="263"
-        r="4"
-        fill="#ffffff"
-        opacity=".7"/>
-
-
-    <!-- МОРДОЧКА -->
-
-    <ellipse
-        cx="256"
-        cy="315"
-        rx="76"
-        ry="55"
-        fill="url(#face)"/>
-
-
-    <!-- НОС -->
-
-    <path
-        d="
-        M239 307
-        Q256 293 273 307
-        Q270 329 256 332
-        Q242 329 239 307
-        Z"
-        fill="#d98686"/>
-
-
-    <!-- РОТ -->
-
-    <path
-        d="
-        M256 329
-        Q248 343 235 342
-        M256 329
-        Q264 343 277 342"
-        fill="none"
-        stroke="#65402e"
-        stroke-width="6"
-        stroke-linecap="round"/>
-
-
-    <!-- УСЫ -->
-
-    <g
-        stroke="#fff"
-        stroke-width="3"
-        opacity=".85"
-        stroke-linecap="round">
-
-        <path d="M195 316 L78 294"/>
-        <path d="M194 329 L65 327"/>
-        <path d="M198 340 L88 362"/>
-
-        <path d="M317 316 L434 294"/>
-        <path d="M318 329 L447 327"/>
-        <path d="M314 340 L424 362"/>
-
-    </g>
-
-
-    <!-- ЛАПКИ -->
-
-    <ellipse
-        cx="195"
-        cy="410"
-        rx="72"
-        ry="45"
-        fill="url(#fur)"/>
-
-
-    <ellipse
-        cx="317"
-        cy="410"
-        rx="72"
-        ry="45"
-        fill="url(#fur)"/>
-
-
-    <!-- ЗОЛОТОЙ МЕДАЛЬОН -->
-
-    <circle
-        cx="256"
-        cy="397"
-        r="35"
-        fill="url(#gold)"
-        stroke="#fff0a0"
-        stroke-width="5"/>
-
-
-    <path
-        d="
-        M256 378
-        L263 389
-        L276 390
-        L266 399
-        L269 412
-        L256 405
-        L243 412
-        L246 399
-        L236 390
-        L249 389
-        Z"
-        fill="#fff1a0"/>
+    r="120"
+    fill="#fff"
+    opacity=".12"/>
+
+<!-- УШИ -->
+<path
+    d="M125 220 L145 70 Q190 90 230 175 Z"
+    fill="url(#f)"/>
+
+<path
+    d="M387 220 L367 70 Q322 90 282 175 Z"
+    fill="url(#f)"/>
+
+<!-- ВНУТРИ УШЕЙ -->
+<path
+    d="M147 160 L153 105 Q180 120 199 165 Z"
+    fill="#d98d94"/>
+
+<path
+    d="M365 160 L359 105 Q332 120 313 165 Z"
+    fill="#d98d94"/>
+
+<!-- ГОЛОВА -->
+<ellipse
+    cx="256"
+    cy="255"
+    rx="142"
+    ry="145"
+    fill="url(#f)"/>
+
+<!-- ГЛАЗА -->
+<ellipse
+    cx="202"
+    cy="248"
+    rx="34"
+    ry="45"
+    fill="#18b3ff"/>
+
+<ellipse
+    cx="310"
+    cy="248"
+    rx="34"
+    ry="45"
+    fill="#18b3ff"/>
+
+<!-- ЗРАЧКИ -->
+<ellipse
+    cx="202"
+    cy="252"
+    rx="9"
+    ry="31"
+    fill="#061524"/>
+
+<ellipse
+    cx="310"
+    cy="252"
+    rx="9"
+    ry="31"
+    fill="#061524"/>
+
+<!-- БЛИКИ -->
+<circle cx="190" cy="232" r="9" fill="#fff"/>
+<circle cx="298" cy="232" r="9" fill="#fff"/>
+
+<!-- МОРДОЧКА -->
+<ellipse
+    cx="256"
+    cy="325"
+    rx="67"
+    ry="50"
+    fill="#fff0d2"/>
+
+<!-- НОС -->
+<path
+    d="M240 315 Q256 301 272 315 Q268 331 256 335 Q244 331 240 315Z"
+    fill="#dc777b"/>
+
+<!-- РОТ -->
+<path
+    d="M256 333 Q248 347 236 345 M256 333 Q264 347 276 345"
+    fill="none"
+    stroke="#68432e"
+    stroke-width="6"
+    stroke-linecap="round"/>
+
+<!-- УСЫ -->
+<g
+    stroke="#fff"
+    stroke-width="3"
+    stroke-linecap="round"
+    opacity=".85">
+
+    <path d="M195 318 L75 295"/>
+    <path d="M195 331 L65 328"/>
+    <path d="M198 343 L85 365"/>
+
+    <path d="M317 318 L437 295"/>
+    <path d="M317 331 L447 328"/>
+    <path d="M314 343 L427 365"/>
 
 </g>
 
+<!-- ПЛАЩ -->
+<path
+    d="M60 530 Q90 390 170 365 Q256 330 342 365 Q422 390 452 530Z"
+    fill="#071b48"/>
 
-<!-- КОРОНА ПОВЕРХ КОТИКА -->
+<path
+    d="M120 530 Q145 410 205 380 Q256 355 307 380 Q367 410 392 530Z"
+    fill="#0d377c"/>
 
-<g filter="url(#shadow)">
+<!-- ЛАПКИ -->
+<ellipse
+    cx="194"
+    cy="420"
+    rx="70"
+    ry="42"
+    fill="url(#f)"/>
 
-    <path
-        d="
-        M139 157
-        L158 58
-        L217 112
-        L256 35
-        L295 112
-        L354 58
-        L373 157
-        L350 194
-        L162 194
-        Z"
-        fill="url(#gold)"
-        stroke="#ffe77b"
-        stroke-width="7"
-        stroke-linejoin="round"/>
+<ellipse
+    cx="318"
+    cy="420"
+    rx="70"
+    ry="42"
+    fill="url(#f)"/>
 
+<!-- КОРОНА -->
+<path
+    d="
+    M135 170
+    L157 62
+    L215 120
+    L256 38
+    L297 120
+    L355 62
+    L377 170
+    L350 205
+    L162 205
+    Z"
+    fill="url(#g)"
+    stroke="#ffe98a"
+    stroke-width="7"
+    stroke-linejoin="round"/>
 
-    <!-- ОСНОВАНИЕ -->
+<!-- ОСНОВАНИЕ КОРОНЫ -->
+<rect
+    x="150"
+    y="163"
+    width="212"
+    height="48"
+    rx="15"
+    fill="url(#g)"
+    stroke="#d68a08"
+    stroke-width="6"/>
 
-    <rect
-        x="150"
-        y="157"
-        width="212"
-        height="49"
-        rx="15"
-        fill="url(#gold)"
-        stroke="#d58a0a"
-        stroke-width="6"/>
+<!-- КАМЕНЬ -->
+<path
+    d="M256 90 L278 119 L256 151 L234 119 Z"
+    fill="#159df0"
+    stroke="#fff1a0"
+    stroke-width="5"/>
 
-
-    <!-- ЦЕНТРАЛЬНЫЙ КАМЕНЬ -->
-
-    <path
-        d="
-        M256 91
-        L279 118
-        L256 151
-        L233 118
-        Z"
-        fill="#0c8fe8"
-        stroke="#fff2a0"
-        stroke-width="5"/>
-
-
-    <!-- БОКОВЫЕ КАМНИ -->
-
-    <circle
-        cx="174"
-        cy="135"
-        r="9"
-        fill="#8deaff"/>
-
-    <circle
-        cx="338"
-        cy="135"
-        r="9"
-        fill="#8deaff"/>
-
-
-    <!-- БЛИК НА КОРОНЕ -->
-
-    <path
-        d="
-        M160 137
-        L174 82
-        L190 97"
-        fill="none"
-        stroke="#ffffff"
-        stroke-width="7"
-        stroke-linecap="round"
-        opacity=".7"/>
-
-</g>
-
+<!-- МАЛЕНЬКИЕ КАМНИ -->
+<circle cx="175" cy="140" r="8" fill="#8eeaff"/>
+<circle cx="337" cy="140" r="8" fill="#8eeaff"/>
 
 <!-- ОБОДОК -->
-
 <circle
     cx="256"
     cy="256"
-    r="246"
+    r="248"
     fill="none"
-    stroke="#ffffff"
-    stroke-opacity=".18"
-    stroke-width="7"/>
+    stroke="#fff"
+    stroke-width="7"
+    opacity=".2"/>
 
 </svg>
