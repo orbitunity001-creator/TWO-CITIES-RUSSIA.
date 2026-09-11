@@ -2,451 +2,675 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#eaf6ff">
-    <title>AVIA Messenger</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta name="theme-color" content="#1688ff">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="manifest" href="manifest.json">
+
+    <title>WINGO Messenger</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #dff3ff;
+            color: #10243e;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .app {
+            width: 100%;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            background:
+                radial-gradient(circle at 100% 0%, #b8e7ff 0, transparent 35%),
+                radial-gradient(circle at 0% 100%, #ccecff 0, transparent 40%),
+                linear-gradient(145deg, #eefaff, #d8f2ff);
+        }
+
+        /* ===== TOP ===== */
+
+        .top {
+            padding: 12px 14px 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .brand {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .logo {
+            width: 52px;
+            height: 52px;
+            flex: 0 0 52px;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+
+            background:
+                linear-gradient(145deg, #24a5ff, #0869df);
+
+            box-shadow:
+                0 9px 25px rgba(13, 115, 225, .28);
+        }
+
+        .logo::before {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.13);
+            top: -40px;
+            right: -30px;
+        }
+
+        .bird {
+            position: relative;
+            z-index: 2;
+            font-size: 30px;
+            filter:
+                drop-shadow(0 4px 5px rgba(0,0,0,.16));
+        }
+
+        .brand-title {
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: -.5px;
+        }
+
+        .brand-subtitle {
+            margin-top: 2px;
+            font-size: 12px;
+            color: #62819e;
+            font-weight: 600;
+        }
+
+        /* ===== INSTALL ===== */
+
+        #installButton {
+            display: none;
+            border: 0;
+            color: white;
+            background: linear-gradient(135deg, #178eff, #0869df);
+            border-radius: 15px;
+            padding: 12px 14px;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 7px 18px rgba(16, 119, 230, .25);
+            cursor: pointer;
+        }
+
+        #installButton:active {
+            transform: scale(.96);
+        }
+
+        /* ===== SEARCH ===== */
+
+        .search {
+            margin: 2px 14px 13px;
+            height: 48px;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 10px;
+
+            background: rgba(255,255,255,.76);
+            border: 1px solid rgba(255,255,255,.9);
+
+            box-shadow:
+                0 8px 24px rgba(35, 121, 170, .08);
+        }
+
+        .search-icon {
+            font-size: 18px;
+        }
+
+        .search input {
+            border: 0;
+            outline: 0;
+            background: transparent;
+            width: 100%;
+            font-size: 15px;
+            color: #163451;
+        }
+
+        .search input::placeholder {
+            color: #7892a8;
+        }
+
+        /* ===== CONTENT ===== */
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 14px 100px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: #66849e;
+            margin: 5px 4px 10px;
+        }
+
+        .chat {
+            width: 100%;
+            border: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            padding: 13px;
+            margin-bottom: 9px;
+            border-radius: 20px;
+            background: rgba(255,255,255,.82);
+            box-shadow: 0 8px 25px rgba(42, 119, 160, .09);
+            cursor: pointer;
+        }
+
+        .chat:active {
+            transform: scale(.985);
+        }
+
+        .chat-avatar {
+            width: 54px;
+            height: 54px;
+            flex: 0 0 54px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 26px;
+            background: linear-gradient(145deg, #18a3ff, #0768dc);
+            box-shadow: 0 6px 16px rgba(8, 111, 221, .22);
+        }
+
+        .chat-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .chat-name {
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        .chat-message {
+            margin-top: 4px;
+            font-size: 13px;
+            color: #718aa0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-time {
+            align-self: flex-start;
+            font-size: 11px;
+            color: #7b95a9;
+        }
+
+        .verified {
+            color: #1389f8;
+        }
+
+        /* ===== BOTTOM ===== */
+
+        .bottom {
+            position: fixed;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            height: 70px;
+            border-radius: 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            background: rgba(255,255,255,.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 12px 35px rgba(34, 113, 151, .16);
+        }
+
+        .nav {
+            border: 0;
+            background: transparent;
+            min-width: 70px;
+            padding: 7px 10px;
+            border-radius: 17px;
+            color: #7690a5;
+            cursor: pointer;
+        }
+
+        .nav.active {
+            background: #e0f2ff;
+            color: #087cf0;
+        }
+
+        .nav-icon {
+            display: block;
+            font-size: 21px;
+        }
+
+        .nav-text {
+            display: block;
+            margin-top: 3px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* ===== PROFILE ===== */
+
+        .profile {
+            display: none;
+            padding: 10px 14px 100px;
+        }
+
+        .profile-card {
+            background: rgba(255,255,255,.85);
+            border-radius: 24px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(35, 121, 170, .1);
+        }
+
+        .profile-avatar {
+            width: 82px;
+            height: 82px;
+            margin: auto;
+            border-radius: 27px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            color: white;
+            background: linear-gradient(145deg,#1ca7ff,#0869df);
+        }
+
+        .profile-name {
+            margin-top: 13px;
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .profile-text {
+            margin-top: 5px;
+            color: #7590a5;
+            font-size: 13px;
+        }
+
+        /* ===== EMPTY ===== */
+
+        .empty {
+            text-align: center;
+            padding: 45px 20px;
+            color: #7590a5;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .empty-title {
+            color: #24425e;
+            font-weight: 900;
+            font-size: 17px;
+        }
+
+        .empty-text {
+            margin-top: 7px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 430px) {
+            .brand-title {
+                font-size: 19px;
+            }
+
+            #installButton {
+                padding: 11px 10px;
+                font-size: 12px;
+            }
+
+            .logo {
+                width: 49px;
+                height: 49px;
+                flex-basis: 49px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div id="app">
+<div class="app">
 
-    <!-- AUTH -->
+    <header class="top">
 
-    <section id="authScreen" class="screen auth-screen">
-
-        <div class="background-circle circle-one"></div>
-        <div class="background-circle circle-two"></div>
-
-        <div class="auth-card">
+        <div class="brand">
 
             <div class="logo">
-                <div class="logo-icon">
-                    ◇
-                </div>
-
-                <div>
-                    <div class="logo-title">AVIA</div>
-                    <div class="logo-subtitle">Messenger</div>
-                </div>
+                <div class="bird">🪽</div>
             </div>
 
-            <!-- LOGIN -->
-
-            <div id="loginForm">
-
-                <div class="welcome">
-                    <h1>С возвращением</h1>
-                    <p>Войди в свой аккаунт AVIA</p>
+            <div>
+                <div class="brand-title">
+                    WINGO
                 </div>
 
-                <div class="field">
-                    <label>Email</label>
-                    <input
-                        id="loginEmail"
-                        type="email"
-                        placeholder="example@mail.com"
-                    >
+                <div class="brand-subtitle">
+                    Messenger
                 </div>
-
-                <div class="field">
-                    <label>Пароль</label>
-                    <input
-                        id="loginPassword"
-                        type="password"
-                        placeholder="Введите пароль"
-                    >
-                </div>
-
-                <button
-                    id="loginButton"
-                    class="main-button"
-                >
-                    Войти
-                </button>
-
-                <div id="loginError" class="error"></div>
-
-                <div class="switch">
-                    Нет аккаунта?
-                    <button id="goRegister">
-                        Зарегистрироваться
-                    </button>
-                </div>
-
-            </div>
-
-
-            <!-- REGISTER -->
-
-            <div id="registerForm" class="hidden">
-
-                <div class="welcome">
-                    <h1>Создать аккаунт</h1>
-                    <p>Добро пожаловать в AVIA</p>
-                </div>
-
-                <div class="field">
-                    <label>Имя</label>
-                    <input
-                        id="registerName"
-                        type="text"
-                        placeholder="Как тебя зовут?"
-                    >
-                </div>
-
-                <div class="field">
-                    <label>Username</label>
-                    <input
-                        id="registerUsername"
-                        type="text"
-                        placeholder="@username"
-                    >
-                </div>
-
-                <div class="field">
-                    <label>Email</label>
-                    <input
-                        id="registerEmail"
-                        type="email"
-                        placeholder="example@mail.com"
-                    >
-                </div>
-
-                <div class="field">
-                    <label>Пароль</label>
-                    <input
-                        id="registerPassword"
-                        type="password"
-                        placeholder="Минимум 6 символов"
-                    >
-                </div>
-
-                <button
-                    id="registerButton"
-                    class="main-button"
-                >
-                    Создать аккаунт
-                </button>
-
-                <div id="registerError" class="error"></div>
-
-                <div class="switch">
-                    Уже есть аккаунт?
-                    <button id="goLogin">
-                        Войти
-                    </button>
-                </div>
-
             </div>
 
         </div>
 
-    </section>
+        <button id="installButton">
+            Установить
+        </button>
+
+    </header>
 
 
-    <!-- MAIN -->
-
-    <section
-        id="mainScreen"
-        class="screen main-screen hidden"
-    >
-
-        <header class="header">
-
-            <div>
-                <div class="header-title">
-                    Мои чаты
-                </div>
-
-                <div
-                    id="headerUser"
-                    class="header-subtitle"
-                >
-                    AVIA Messenger
-                </div>
-            </div>
-
-            <button
-                id="headerProfile"
-                class="profile-button"
-            >
-                <span id="headerAvatar">
-                    A
-                </span>
-            </button>
-
-        </header>
-
+    <main class="content" id="chatsScreen">
 
         <div class="search">
-
-            <span>⌕</span>
+            <span class="search-icon">⌕</span>
 
             <input
                 id="searchInput"
                 type="text"
                 placeholder="Поиск чатов"
+                autocomplete="off"
             >
-
         </div>
 
 
-        <main class="chat-list">
+        <div class="section-title">
+            Мои чаты
+        </div>
 
-            <div class="section-label">
-                Важное
+
+        <button class="chat">
+
+            <div class="chat-avatar">
+                🪽
             </div>
 
-            <!-- OFFICIAL -->
+            <div class="chat-info">
 
-            <button
-                id="officialChat"
-                class="chat-item official"
-            >
-
-                <div class="chat-avatar">
-                    ✦
+                <div class="chat-name">
+                    WINGO News
+                    <span class="verified">✓</span>
                 </div>
 
-                <div class="chat-content">
-
-                    <div class="chat-top">
-
-                        <strong>
-                            Cats Developer Studio
-                        </strong>
-
-                        <span class="check">
-                            ✓
-                        </span>
-
-                    </div>
-
-                    <div class="chat-message">
-                        Новости и обновления AVIA
-                    </div>
-
-                </div>
-
-                <div class="chat-arrow">
-                    ›
-                </div>
-
-            </button>
-
-
-            <div class="section-label personal-label">
-                Чаты
-            </div>
-
-            <div
-                id="emptyChats"
-                class="empty"
-            >
-
-                <div class="empty-icon">
-                    +
-                </div>
-
-                <h2>
-                    Здесь пока пусто
-                </h2>
-
-                <p>
-                    Начни общение — личные чаты
-                    появятся здесь.
-                </p>
-
-            </div>
-
-        </main>
-
-
-        <!-- NAVIGATION -->
-
-        <nav class="bottom-nav">
-
-            <button
-                class="nav active"
-                id="chatsNav"
-            >
-                <span>▣</span>
-                <small>Чаты</small>
-            </button>
-
-            <button
-                class="nav"
-                id="peopleNav"
-            >
-                <span>◎</span>
-                <small>Люди</small>
-            </button>
-
-            <button
-                class="nav"
-                id="profileNav"
-            >
-                <span>◉</span>
-                <small>Профиль</small>
-            </button>
-
-        </nav>
-
-    </section>
-
-
-    <!-- CHANNEL -->
-
-    <section
-        id="channelScreen"
-        class="screen channel-screen hidden"
-    >
-
-        <header class="channel-header">
-
-            <button
-                id="backChannel"
-                class="back-button"
-            >
-                ‹
-            </button>
-
-            <div class="channel-logo">
-                ✦
-            </div>
-
-            <div class="channel-info">
-
-                <div class="channel-name">
-                    Cats Developer Studio
-                    <span class="check">✓</span>
-                </div>
-
-                <div class="channel-subtitle">
-                    Официальный канал разработчика
+                <div class="chat-message">
+                    Новости и обновления WINGO
                 </div>
 
             </div>
 
-        </header>
+            <div class="chat-time">
+                сегодня
+            </div>
+
+        </button>
 
 
-        <main
-            id="posts"
-            class="posts"
-        ></main>
+        <div class="empty">
+
+            <div class="empty-icon">
+                💬
+            </div>
+
+            <div class="empty-title">
+                Здесь появятся ваши чаты
+            </div>
+
+            <div class="empty-text">
+                Найдите человека или создайте новый чат.
+            </div>
+
+        </div>
+
+    </main>
 
 
-        <!-- ADMIN -->
+    <section class="profile" id="profileScreen">
 
-        <div
-            id="adminPanel"
-            class="admin-panel hidden"
-        >
+        <div class="profile-card">
 
-            <textarea
-                id="newsInput"
-                placeholder="Напиши новость или обновление..."
-            ></textarea>
+            <div class="profile-avatar">
+                🪽
+            </div>
 
-            <button
-                id="publishButton"
-                class="main-button"
-            >
-                Опубликовать
-            </button>
+            <div class="profile-name">
+                WINGO User
+            </div>
+
+            <div class="profile-text">
+                Ваш профиль WINGO
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- PROFILE -->
+    <nav class="bottom">
 
-    <section
-        id="profileScreen"
-        class="screen profile-screen hidden"
-    >
+        <button class="nav active" id="chatsNav">
 
-        <header class="simple-header">
+            <span class="nav-icon">💬</span>
+            <span class="nav-text">Чаты</span>
 
-            <button
-                id="backProfile"
-                class="back-button"
-            >
-                ‹
-            </button>
-
-            <h2>
-                Профиль
-            </h2>
-
-        </header>
+        </button>
 
 
-        <main class="profile-body">
+        <button class="nav" id="profileNav">
 
-            <div
-                id="profileAvatar"
-                class="large-avatar"
-            >
-                A
-            </div>
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">Профиль</span>
 
-            <h1 id="profileName">
-                Пользователь
-            </h1>
+        </button>
 
-            <p id="profileUsername">
-                @username
-            </p>
-
-
-            <div class="info-card">
-
-                <div class="info-row">
-
-                    <span>
-                        Email
-                    </span>
-
-                    <strong id="profileEmail">
-                        —
-                    </strong>
-
-                </div>
-
-                <div class="info-row">
-
-                    <span>
-                        Статус
-                    </span>
-
-                    <strong class="online">
-                        Активен
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <button
-                id="logoutButton"
-                class="logout"
-            >
-                Выйти из аккаунта
-            </button>
-
-        </main>
-
-    </section>
+    </nav>
 
 </div>
 
-<script src="app.js"></script>
+
+<script>
+    let deferredPrompt = null;
+
+    const installButton =
+        document.getElementById("installButton");
+
+    /*
+     * Chrome сообщает, что приложение можно установить.
+     */
+
+    window.addEventListener(
+        "beforeinstallprompt",
+        event => {
+
+            event.preventDefault();
+
+            deferredPrompt = event;
+
+            installButton.style.display = "block";
+        }
+    );
+
+
+    /*
+     * Настоящая установка PWA.
+     */
+
+    installButton.addEventListener(
+        "click",
+        async () => {
+
+            if (!deferredPrompt) {
+
+                alert(
+                    "Если кнопка установки не появилась, откройте WINGO через Chrome и убедитесь, что сайт работает по HTTPS."
+                );
+
+                return;
+            }
+
+            deferredPrompt.prompt();
+
+            const result =
+                await deferredPrompt.userChoice;
+
+            if (result.outcome === "accepted") {
+                installButton.style.display = "none";
+            }
+
+            deferredPrompt = null;
+        }
+    );
+
+
+    /*
+     * После установки прячем кнопку.
+     */
+
+    window.addEventListener(
+        "appinstalled",
+        () => {
+            installButton.style.display = "none";
+        }
+    );
+
+
+    /*
+     * Навигация.
+     */
+
+    const chatsScreen =
+        document.getElementById("chatsScreen");
+
+    const profileScreen =
+        document.getElementById("profileScreen");
+
+    const chatsNav =
+        document.getElementById("chatsNav");
+
+    const profileNav =
+        document.getElementById("profileNav");
+
+
+    chatsNav.onclick = () => {
+
+        chatsScreen.style.display = "block";
+        profileScreen.style.display = "none";
+
+        chatsNav.classList.add("active");
+        profileNav.classList.remove("active");
+    };
+
+
+    profileNav.onclick = () => {
+
+        chatsScreen.style.display = "none";
+        profileScreen.style.display = "block";
+
+        profileNav.classList.add("active");
+        chatsNav.classList.remove("active");
+    };
+
+
+    /*
+     * Поиск.
+     */
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const mainChat =
+        document.querySelector(".chat");
+
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            const value =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            const text =
+                mainChat.innerText.toLowerCase();
+
+            mainChat.style.display =
+                !value || text.includes(value)
+                    ? "flex"
+                    : "none";
+        }
+    );
+
+
+    /*
+     * Service Worker.
+     */
+
+    if ("serviceWorker" in navigator) {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker
+                    .register("./sw.js")
+                    .catch(error => {
+                        console.log(
+                            "SW error:",
+                            error
+                        );
+                    });
+
+            }
+        );
+
+    }
+</script>
 
 </body>
 </html>
