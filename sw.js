@@ -1,48 +1,70 @@
-const CACHE = "nexgram-v1";
+const CACHE_NAME = "nexgram-v1";
 
 const FILES = [
     "./",
     "./index.html",
-    "./manifest.json"
+    "./manifest.json",
+    "./icon.svg"
 ];
 
-self.addEventListener("install", event => {
 
-    event.waitUntil(
-        caches.open(CACHE)
-            .then(cache => cache.addAll(FILES))
-    );
+self.addEventListener(
+    "install",
+    event => {
 
-    self.skipWaiting();
-});
+        event.waitUntil(
+            caches
+                .open(CACHE_NAME)
+                .then(cache =>
+                    cache.addAll(FILES)
+                )
+        );
 
-
-self.addEventListener("activate", event => {
-
-    event.waitUntil(
-        caches.keys().then(keys =>
-            Promise.all(
-                keys
-                    .filter(key => key !== CACHE)
-                    .map(key => caches.delete(key))
-            )
-        )
-    );
-
-    self.clients.claim();
-});
+        self.skipWaiting();
+    }
+);
 
 
-self.addEventListener("fetch", event => {
+self.addEventListener(
+    "activate",
+    event => {
 
-    event.respondWith(
-        caches.match(event.request)
-            .then(cached => {
+        event.waitUntil(
+            caches
+                .keys()
+                .then(keys =>
+                    Promise.all(
+                        keys
+                            .filter(
+                                key =>
+                                    key !== CACHE_NAME
+                            )
+                            .map(
+                                key =>
+                                    caches.delete(key)
+                            )
+                    )
+                )
+        );
 
-                return cached ||
-                    fetch(event.request);
+        self.clients.claim();
+    }
+);
 
-            })
-    );
 
-});
+self.addEventListener(
+    "fetch",
+    event => {
+
+        event.respondWith(
+            caches
+                .match(event.request)
+                .then(cached => {
+
+                    return cached ||
+                        fetch(event.request);
+
+                })
+        );
+    }
+);
