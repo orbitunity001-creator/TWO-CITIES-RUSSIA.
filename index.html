@@ -1,630 +1,894 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
-<meta name="theme-color" content="#1677e8">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<link rel="manifest" href="manifest.json">
-
-<title>Nexgram</title>
-
-<style>
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#e8f4ff;
-    color:#142b44;
-}
-
-body{
-    overflow:hidden;
-}
-
-.app{
-    height:100dvh;
-    width:100%;
-    display:flex;
-    flex-direction:column;
-
-    background:
-        radial-gradient(circle at 100% 0%,#b9e3ff 0,transparent 35%),
-        radial-gradient(circle at 0% 100%,#d2edff 0,transparent 40%),
-        linear-gradient(145deg,#f1faff,#dcefff);
-}
-
-/* HEADER */
-
-.header{
-    padding:13px 14px 10px;
-    display:flex;
-    align-items:center;
-    gap:11px;
-}
-
-.logo{
-    width:53px;
-    height:53px;
-    flex:0 0 53px;
-    border-radius:17px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:linear-gradient(145deg,#20a0ff,#0866d8);
-
-    box-shadow:
-        0 9px 25px rgba(10,112,220,.28);
-
-    position:relative;
-    overflow:hidden;
-}
-
-.logo::after{
-    content:"";
-    position:absolute;
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    background:rgba(255,255,255,.13);
-    top:-34px;
-    right:-27px;
-}
-
-/* Оригинальный символ Nexgram */
-.nex-symbol{
-    position:relative;
-    width:29px;
-    height:29px;
-    z-index:2;
-}
-
-.nex-symbol::before{
-    content:"";
-    position:absolute;
-    width:23px;
-    height:15px;
-    border:5px solid white;
-    border-radius:15px 15px 5px 15px;
-    transform:rotate(-35deg);
-    top:4px;
-    left:1px;
-}
-
-.nex-symbol::after{
-    content:"";
-    position:absolute;
-    width:9px;
-    height:9px;
-    background:white;
-    border-radius:50%;
-    right:1px;
-    bottom:2px;
-}
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    >
+
+    <meta name="theme-color" content="#0878ed">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="manifest" href="manifest.json">
+
+    <title>Nexgram</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #061329;
+        }
+
+        .page {
+            width: 100%;
+            height: 100dvh;
 
-.brand{
-    flex:1;
-    min-width:0;
-}
+            position: relative;
 
-.brand-name{
-    font-size:21px;
-    font-weight:900;
-    letter-spacing:-.5px;
-}
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-.brand-status{
-    margin-top:3px;
-    font-size:12px;
-    font-weight:600;
-    color:#66839d;
-}
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 50% 30%,
+                    rgba(0, 137, 255, .30),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 15% 85%,
+                    rgba(0, 74, 190, .28),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(0, 190, 255, .18),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    145deg,
+                    #020a18,
+                    #071b3a 50%,
+                    #020914
+                );
+        }
 
-/* INSTALL */
+        /* =========================
+           ФОНОВЫЕ СВЕЧЕНИЯ
+        ========================= */
 
-#installBtn{
-    display:none;
+        .glow {
+            position: absolute;
 
-    border:0;
-    outline:0;
+            width: 280px;
+            height: 280px;
 
-    padding:12px 14px;
-    border-radius:15px;
+            border-radius: 50%;
 
-    color:white;
-    background:linear-gradient(135deg,#168eff,#0868da);
+            filter: blur(70px);
 
-    font-size:13px;
-    font-weight:900;
+            pointer-events: none;
 
-    box-shadow:0 7px 18px rgba(9,112,222,.25);
+            opacity: .45;
+        }
 
-    cursor:pointer;
-}
+        .glow.one {
+            background: #008cff;
 
-#installBtn:active{
-    transform:scale(.95);
-}
+            top: 15%;
+            left: -150px;
+        }
 
-/* SEARCH */
+        .glow.two {
+            background: #005de0;
 
-.search{
-    margin:2px 14px 12px;
-    height:48px;
+            bottom: -150px;
+            right: -100px;
+        }
 
-    display:flex;
-    align-items:center;
-    gap:10px;
+        /* =========================
+           INSTALL
+        ========================= */
 
-    padding:0 16px;
+        .top {
+            width: 100%;
 
-    border-radius:17px;
+            padding:
+                14px
+                15px
+                0;
 
-    background:rgba(255,255,255,.78);
+            display: flex;
+            justify-content: flex-end;
 
-    border:1px solid rgba(255,255,255,.9);
+            position: relative;
+            z-index: 20;
+        }
 
-    box-shadow:0 7px 24px rgba(35,120,170,.08);
-}
+        #installButton {
+            display: none;
 
-.search-icon{
-    font-size:20px;
-    color:#4e7a9d;
-}
+            border: 0;
+            outline: none;
 
-.search input{
-    width:100%;
-    border:0;
-    outline:0;
-    background:transparent;
+            padding:
+                12px
+                17px;
 
-    font-size:15px;
-    color:#17334e;
-}
+            border-radius: 16px;
 
-.search input::placeholder{
-    color:#7893a9;
-}
+            color: white;
 
-/* CONTENT */
+            font-size: 13px;
+            font-weight: 900;
 
-.content{
-    flex:1;
-    overflow-y:auto;
-    padding:0 14px 100px;
-}
+            background:
+                linear-gradient(
+                    135deg,
+                    #20a1ff,
+                    #0868df
+                );
 
-.section{
-    margin:5px 4px 10px;
+            box-shadow:
+                0 8px 25px
+                rgba(0, 126, 255, .35);
 
-    font-size:13px;
-    font-weight:900;
+            cursor: pointer;
 
-    color:#68849b;
-}
+            transition:
+                transform .15s ease,
+                box-shadow .15s ease;
+        }
 
-.chat{
-    width:100%;
+        #installButton:active {
+            transform: scale(.94);
 
-    border:0;
+            box-shadow:
+                0 4px 14px
+                rgba(0, 126, 255, .25);
+        }
 
-    display:flex;
-    align-items:center;
+        /* =========================
+           ЦЕНТР
+        ========================= */
 
-    gap:12px;
+        .center {
+            width: 100%;
 
-    padding:13px;
+            flex: 1;
 
-    margin-bottom:9px;
+            display: flex;
+            flex-direction: column;
 
-    border-radius:20px;
+            align-items: center;
+            justify-content: center;
 
-    background:rgba(255,255,255,.84);
+            position: relative;
+            z-index: 5;
 
-    box-shadow:
-        0 8px 25px rgba(39,117,158,.09);
+            padding-bottom: 30px;
+        }
 
-    text-align:left;
+        /* =========================
+           AVATAR
+        ========================= */
 
-    cursor:pointer;
-}
+        .avatar-wrap {
+            position: relative;
 
-.chat:active{
-    transform:scale(.985);
-}
+            width: min(72vw, 310px);
+            height: min(72vw, 310px);
 
-.chat-avatar{
-    width:55px;
-    height:55px;
-    flex:0 0 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    border-radius:18px;
+        .avatar-glow {
+            position: absolute;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+            width: 88%;
+            height: 88%;
 
-    background:linear-gradient(145deg,#20a0ff,#0866d8);
+            border-radius: 50%;
 
-    box-shadow:0 7px 17px rgba(8,105,215,.23);
-}
+            background:
+                rgba(0, 139, 255, .45);
 
-.mini-symbol{
-    position:relative;
-    width:25px;
-    height:25px;
-}
+            filter: blur(35px);
 
-.mini-symbol::before{
-    content:"";
-    position:absolute;
-    width:20px;
-    height:13px;
-    border:4px solid white;
-    border-radius:14px 14px 4px 14px;
-    transform:rotate(-35deg);
-    top:4px;
-    left:1px;
-}
+            animation:
+                glowPulse 3s ease-in-out infinite;
+        }
 
-.mini-symbol::after{
-    content:"";
-    position:absolute;
-    width:7px;
-    height:7px;
-    background:white;
-    border-radius:50%;
-    right:1px;
-    bottom:2px;
-}
+        @keyframes glowPulse {
 
-.chat-info{
-    min-width:0;
-    flex:1;
-}
+            0%,
+            100% {
+                transform: scale(.95);
+                opacity: .65;
+            }
 
-.chat-name{
-    font-size:16px;
-    font-weight:900;
-}
+            50% {
+                transform: scale(1.06);
+                opacity: .9;
+            }
+        }
 
-.verify{
-    color:#168af5;
-}
+        .avatar {
+            width: 100%;
+            height: 100%;
 
-.chat-text{
-    margin-top:4px;
+            position: relative;
 
-    font-size:13px;
-    color:#718ba1;
+            border-radius: 50%;
 
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
+            overflow: hidden;
 
-.chat-time{
-    align-self:flex-start;
-    font-size:11px;
-    color:#7991a5;
-}
+            background:
+                radial-gradient(
+                    circle at 35% 25%,
+                    #37b6ff,
+                    #087bea 45%,
+                    #03459f 100%
+                );
 
-/* EMPTY */
+            border:
+                3px solid
+                rgba(255,255,255,.16);
 
-.empty{
-    padding:45px 20px;
-    text-align:center;
-    color:#718ca2;
-}
+            box-shadow:
+                0 0 0 9px
+                rgba(12, 139, 255, .08),
 
-.empty-icon{
-    font-size:45px;
-    margin-bottom:12px;
-}
+                0 25px 70px
+                rgba(0, 0, 0, .55),
 
-.empty-title{
-    font-size:17px;
-    font-weight:900;
-    color:#28445e;
-}
+                inset 0 0 40px
+                rgba(0, 42, 120, .45);
+        }
 
-.empty-text{
-    margin-top:7px;
-    font-size:13px;
-    line-height:1.5;
-}
+        /* Свет внутри круга */
 
-/* PROFILE */
+        .avatar::before {
+            content: "";
 
-.profile{
-    display:none;
-    padding:15px 14px 100px;
-}
+            position: absolute;
 
-.profile-card{
-    background:rgba(255,255,255,.85);
-    border-radius:25px;
-    padding:25px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(40,120,160,.1);
-}
+            width: 65%;
+            height: 65%;
 
-.profile-logo{
-    width:85px;
-    height:85px;
-    margin:auto;
+            top: -25%;
+            left: -12%;
 
-    border-radius:28px;
+            border-radius: 50%;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+            background:
+                rgba(255,255,255,.17);
 
-    background:linear-gradient(145deg,#20a0ff,#0866d8);
-}
+            filter: blur(15px);
+        }
 
-.profile-name{
-    margin-top:14px;
-    font-size:21px;
-    font-weight:900;
-}
+        /* =========================
+           КОТИК
+        ========================= */
 
-.profile-info{
-    margin-top:5px;
-    color:#7791a6;
-    font-size:13px;
-}
+        .cat {
+            position: absolute;
 
-/* BOTTOM */
+            left: 50%;
+            bottom: -1%;
 
-.bottom{
-    position:fixed;
+            width: 76%;
+            height: 72%;
 
-    left:10px;
-    right:10px;
-    bottom:10px;
+            transform:
+                translateX(-50%);
 
-    height:70px;
+            filter:
+                drop-shadow(
+                    0 15px 15px
+                    rgba(0,0,0,.35)
+                );
+        }
 
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
+        /* голова */
 
-    border-radius:25px;
+        .head {
+            position: absolute;
 
-    background:rgba(255,255,255,.9);
+            left: 50%;
+            top: 18%;
 
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+            width: 70%;
+            height: 65%;
 
-    box-shadow:
-        0 12px 35px rgba(34,113,151,.16);
-}
+            transform:
+                translateX(-50%);
 
-.nav{
-    border:0;
-    background:transparent;
+            border-radius:
+                48%
+                48%
+                45%
+                45%;
 
-    min-width:70px;
+            background:
+                radial-gradient(
+                    circle at 36% 30%,
+                    #ffe0a0 0%,
+                    #ffc45b 28%,
+                    #ed941d 70%,
+                    #bd6810 100%
+                );
 
-    padding:7px 10px;
+            box-shadow:
+                inset
+                -14px -14px 25px
+                rgba(116,53,0,.22);
+        }
 
-    border-radius:17px;
+        /* левое ухо */
 
-    color:#7892a7;
+        .ear-left {
+            position: absolute;
 
-    cursor:pointer;
-}
+            left: 8%;
+            top: 2%;
 
-.nav.active{
-    background:#e0f2ff;
-    color:#087cf0;
-}
+            width: 36%;
+            height: 35%;
 
-.nav-icon{
-    display:block;
-    font-size:21px;
-}
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffc45b,
+                    #d87d16
+                );
 
-.nav-text{
-    display:block;
-    margin-top:3px;
-    font-size:10px;
-    font-weight:800;
-}
+            clip-path:
+                polygon(
+                    5% 100%,
+                    28% 5%,
+                    100% 88%
+                );
 
-@media(max-width:430px){
+            transform: rotate(-4deg);
+        }
 
-    .brand-name{
-        font-size:19px;
-    }
+        /* правое ухо */
 
-    #installBtn{
-        padding:11px 10px;
-        font-size:12px;
-    }
+        .ear-right {
+            position: absolute;
 
-}
-</style>
+            right: 8%;
+            top: 2%;
+
+            width: 36%;
+            height: 35%;
+
+            background:
+                linear-gradient(
+                    215deg,
+                    #ffc45b,
+                    #d87d16
+                );
+
+            clip-path:
+                polygon(
+                    0 88%,
+                    72% 5%,
+                    95% 100%
+                );
+
+            transform: rotate(4deg);
+        }
+
+        /* внутренняя часть ушей */
+
+        .ear-inner-left {
+            position: absolute;
+
+            left: 18%;
+            top: 9%;
+
+            width: 19%;
+            height: 20%;
+
+            background: #f08078;
+
+            clip-path:
+                polygon(
+                    8% 100%,
+                    30% 15%,
+                    100% 85%
+                );
+        }
+
+        .ear-inner-right {
+            position: absolute;
+
+            right: 18%;
+            top: 9%;
+
+            width: 19%;
+            height: 20%;
+
+            background: #f08078;
+
+            clip-path:
+                polygon(
+                    0 85%,
+                    70% 15%,
+                    92% 100%
+                );
+        }
+
+        /* глаза */
+
+        .eye {
+            position: absolute;
+
+            top: 43%;
+
+            width: 17%;
+            height: 20%;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    #8bdcff 0%,
+                    #18a7ff 38%,
+                    #0758a8 100%
+                );
+
+            border:
+                2px solid
+                rgba(30, 70, 100, .7);
+
+            box-shadow:
+                0 0 12px
+                rgba(0,190,255,.45);
+        }
+
+        .eye.left {
+            left: 22%;
+        }
+
+        .eye.right {
+            right: 22%;
+        }
+
+        .eye::before {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+            top: 14%;
+
+            transform:
+                translateX(-50%);
+
+            width: 40%;
+            height: 70%;
+
+            border-radius: 50%;
+
+            background: #061322;
+        }
+
+        .eye::after {
+            content: "";
+
+            position: absolute;
+
+            width: 25%;
+            height: 25%;
+
+            left: 23%;
+            top: 16%;
+
+            border-radius: 50%;
+
+            background: white;
+        }
+
+        /* мордочка */
+
+        .muzzle {
+            position: absolute;
+
+            left: 50%;
+            top: 63%;
+
+            transform:
+                translateX(-50%);
+
+            width: 45%;
+            height: 27%;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #ffe7bc,
+                    #f6bd68
+                );
+        }
+
+        .nose {
+            position: absolute;
+
+            left: 50%;
+            top: 70%;
+
+            transform:
+                translateX(-50%);
+
+            width: 9%;
+            height: 7%;
+
+            background: #ec7374;
+
+            border-radius:
+                50% 50%
+                45% 45%;
+        }
+
+        .mouth {
+            position: absolute;
+
+            left: 50%;
+            top: 75%;
+
+            width: 12%;
+            height: 7%;
+
+            transform:
+                translateX(-50%);
+
+            border-bottom:
+                2px solid
+                #75411f;
+
+            border-radius: 50%;
+        }
+
+        .whisker {
+            position: absolute;
+
+            width: 27%;
+            height: 1px;
+
+            background:
+                rgba(255,255,255,.75);
+
+            top: 73%;
+        }
+
+        .whisker.left1 {
+            left: 0;
+            transform: rotate(8deg);
+        }
+
+        .whisker.left2 {
+            left: 1%;
+            top: 78%;
+            transform: rotate(-3deg);
+        }
+
+        .whisker.right1 {
+            right: 0;
+            transform: rotate(-8deg);
+        }
+
+        .whisker.right2 {
+            right: 1%;
+            top: 78%;
+            transform: rotate(3deg);
+        }
+
+        /* =========================
+           КОРОНА
+        ========================= */
+
+        .crown {
+            position: absolute;
+
+            z-index: 10;
+
+            left: 50%;
+            top: -8%;
+
+            width: 52%;
+            height: 30%;
+
+            transform:
+                translateX(-50%)
+                rotate(-2deg);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fff09b 0%,
+                    #ffc52e 35%,
+                    #e99400 100%
+                );
+
+            clip-path:
+                polygon(
+                    0 20%,
+                    20% 48%,
+                    25% 0,
+                    50% 38%,
+                    75% 0,
+                    80% 48%,
+                    100% 20%,
+                    91% 100%,
+                    9% 100%
+                );
+
+            filter:
+                drop-shadow(
+                    0 7px 8px
+                    rgba(0,0,0,.35)
+                );
+        }
+
+        .crown-jewel {
+            position: absolute;
+
+            z-index: 11;
+
+            left: 50%;
+            top: 7%;
+
+            width: 12%;
+            height: 10%;
+
+            transform:
+                translateX(-50%)
+                rotate(45deg);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #9de8ff,
+                    #087fe8
+                );
+
+            border:
+                2px solid
+                #ffd94c;
+
+            box-shadow:
+                0 0 10px
+                rgba(0,180,255,.8);
+        }
+
+        /* =========================
+           НАЗВАНИЕ
+        ========================= */
+
+        .title {
+            margin-top: 18px;
+
+            color: white;
+
+            font-size:
+                clamp(
+                    30px,
+                    9vw,
+                    48px
+                );
+
+            font-weight: 900;
+
+            letter-spacing: -1.5px;
+
+            text-shadow:
+                0 4px 20px
+                rgba(0,128,255,.35);
+        }
+
+        .subtitle {
+            margin-top: 5px;
+
+            color:
+                rgba(210,233,255,.72);
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           НИЖНИЙ ТЕКСТ
+        ========================= */
+
+        .bottom-text {
+            position: absolute;
+
+            bottom: 22px;
+
+            color:
+                rgba(181,215,245,.42);
+
+            font-size: 11px;
+
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-height: 650px) {
+
+            .avatar-wrap {
+                width: 230px;
+                height: 230px;
+            }
+
+            .title {
+                margin-top: 8px;
+            }
+
+            .subtitle {
+                display: none;
+            }
+        }
+
+        @media (max-width: 360px) {
+
+            .avatar-wrap {
+                width: 245px;
+                height: 245px;
+            }
+
+            .title {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="page">
 
-    <header class="header">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
 
-        <div class="logo">
-            <div class="nex-symbol"></div>
-        </div>
 
-        <div class="brand">
+    <!-- КНОПКА УСТАНОВКИ -->
 
-            <div class="brand-name">
-                Nexgram
-            </div>
+    <div class="top">
 
-            <div class="brand-status">
-                Messenger
-            </div>
-
-        </div>
-
-        <button id="installBtn">
+        <button id="installButton">
             Установить
         </button>
 
-    </header>
+    </div>
 
 
-    <main class="content" id="chats">
+    <!-- ЦЕНТР -->
 
-        <div class="search">
+    <main class="center">
 
-            <span class="search-icon">⌕</span>
+        <div class="avatar-wrap">
 
-            <input
-                id="search"
-                type="text"
-                placeholder="Поиск"
-                autocomplete="off"
-            >
+            <div class="avatar-glow"></div>
+
+            <div class="avatar">
+
+                <div class="cat">
+
+                    <div class="crown"></div>
+                    <div class="crown-jewel"></div>
+
+                    <div class="ear-left"></div>
+                    <div class="ear-right"></div>
+
+                    <div class="ear-inner-left"></div>
+                    <div class="ear-inner-right"></div>
+
+                    <div class="head">
+
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+
+                        <div class="muzzle"></div>
+
+                        <div class="nose"></div>
+                        <div class="mouth"></div>
+
+                        <div class="whisker left1"></div>
+                        <div class="whisker left2"></div>
+
+                        <div class="whisker right1"></div>
+                        <div class="whisker right2"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
 
-        <div class="section">
-            Чаты
+        <div class="title">
+            Nexgram
         </div>
 
-
-        <button class="chat">
-
-            <div class="chat-avatar">
-                <div class="mini-symbol"></div>
-            </div>
-
-            <div class="chat-info">
-
-                <div class="chat-name">
-                    Nexgram News
-                    <span class="verify">✓</span>
-                </div>
-
-                <div class="chat-text">
-                    Новости и обновления Nexgram
-                </div>
-
-            </div>
-
-            <div class="chat-time">
-                сегодня
-            </div>
-
-        </button>
-
-
-        <div class="empty">
-
-            <div class="empty-icon">
-                💬
-            </div>
-
-            <div class="empty-title">
-                Начните общение
-            </div>
-
-            <div class="empty-text">
-                Ваши личные чаты и группы появятся здесь.
-            </div>
-
+        <div class="subtitle">
+            MESSENGER
         </div>
 
     </main>
 
 
-    <section class="profile" id="profile">
-
-        <div class="profile-card">
-
-            <div class="profile-logo">
-                <div class="nex-symbol"></div>
-            </div>
-
-            <div class="profile-name">
-                Nexgram User
-            </div>
-
-            <div class="profile-info">
-                Ваш профиль Nexgram
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <nav class="bottom">
-
-        <button class="nav active" id="chatNav">
-
-            <span class="nav-icon">💬</span>
-            <span class="nav-text">Чаты</span>
-
-        </button>
-
-
-        <button class="nav" id="profileNav">
-
-            <span class="nav-icon">👤</span>
-            <span class="nav-text">Профиль</span>
-
-        </button>
-
-    </nav>
+    <div class="bottom-text">
+        NEXGRAM
+    </div>
 
 </div>
 
 
 <script>
+"use strict";
 
-/* =========================================
-   PWA INSTALL
-========================================= */
+/* ==========================================
+   НАСТОЯЩАЯ PWA-УСТАНОВКА
+========================================== */
 
 let deferredPrompt = null;
 
-const installBtn =
-    document.getElementById("installBtn");
+const installButton =
+    document.getElementById("installButton");
 
 
 window.addEventListener(
     "beforeinstallprompt",
-    event => {
+    function(event) {
 
         event.preventDefault();
 
         deferredPrompt = event;
 
-        installBtn.style.display = "block";
+        installButton.style.display = "block";
     }
 );
 
 
-installBtn.addEventListener(
+installButton.addEventListener(
     "click",
-    async () => {
+    async function() {
 
         if (!deferredPrompt) {
 
@@ -640,8 +904,13 @@ installBtn.addEventListener(
         const result =
             await deferredPrompt.userChoice;
 
-        if(result.outcome === "accepted"){
-            installBtn.style.display = "none";
+        if (
+            result &&
+            result.outcome === "accepted"
+        ) {
+
+            installButton.style.display =
+                "none";
         }
 
         deferredPrompt = null;
@@ -651,105 +920,45 @@ installBtn.addEventListener(
 
 window.addEventListener(
     "appinstalled",
-    () => {
-        installBtn.style.display = "none";
+    function() {
+
+        installButton.style.display =
+            "none";
     }
 );
 
 
-/* =========================================
-   NAVIGATION
-========================================= */
-
-const chats =
-    document.getElementById("chats");
-
-const profile =
-    document.getElementById("profile");
-
-const chatNav =
-    document.getElementById("chatNav");
-
-const profileNav =
-    document.getElementById("profileNav");
-
-
-chatNav.onclick = () => {
-
-    chats.style.display = "block";
-    profile.style.display = "none";
-
-    chatNav.classList.add("active");
-    profileNav.classList.remove("active");
-};
-
-
-profileNav.onclick = () => {
-
-    chats.style.display = "none";
-    profile.style.display = "block";
-
-    profileNav.classList.add("active");
-    chatNav.classList.remove("active");
-};
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-const search =
-    document.getElementById("search");
-
-const mainChat =
-    document.querySelector(".chat");
-
-
-search.addEventListener(
-    "input",
-    () => {
-
-        const value =
-            search.value
-                .toLowerCase()
-                .trim();
-
-        const text =
-            mainChat.innerText.toLowerCase();
-
-        mainChat.style.display =
-            !value || text.includes(value)
-                ? "flex"
-                : "none";
-    }
-);
-
-
-/* =========================================
+/* ==========================================
    SERVICE WORKER
-========================================= */
+========================================== */
 
-if("serviceWorker" in navigator){
+if ("serviceWorker" in navigator) {
 
     window.addEventListener(
         "load",
-        () => {
+        function() {
 
             navigator.serviceWorker
                 .register("./sw.js")
-                .catch(
-                    error =>
-                        console.log(
-                            "Service Worker:",
-                            error
-                        )
-                );
+                .then(function() {
+
+                    console.log(
+                        "Nexgram PWA готов"
+                    );
+
+                })
+                .catch(function(error) {
+
+                    console.log(
+                        "SW:",
+                        error
+                    );
+
+                });
 
         }
     );
-
 }
-
 </script>
 
 </body>
